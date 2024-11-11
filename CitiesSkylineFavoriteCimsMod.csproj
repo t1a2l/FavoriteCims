@@ -1,0 +1,209 @@
+﻿<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CF584495-4D36-481F-95C3-E7C2A5D6CD31}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>FavoriteCims</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>FavoriteCims</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ColossalManaged">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ICities">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddToFavButton.cs" />
+    <Compile Include="CitizenRow.cs" />
+    <Compile Include="Debug.cs" />
+    <Compile Include="DriverPrivateVehiclePanelRow.cs" />
+    <Compile Include="FamilyPanelTemplate.cs" />
+    <Compile Include="FavCimsCore.cs" />
+    <Compile Include="FavCimsLang.cs" />
+    <Compile Include="FavCimsMainClass.cs" />
+    <Compile Include="FavCimsVechiclePanel.cs" />
+    <Compile Include="FavCimsVechiclePanelPT.cs" />
+    <Compile Include="FavoriteCimsMainPanel.cs" />
+    <Compile Include="FavoriteCimsModMain.cs" />
+    <Compile Include="GameTime.cs" />
+    <Compile Include="GuestsBuildingPanelRow.cs" />
+    <Compile Include="GuestsServiceBuildingPanelRow.cs" />
+    <Compile Include="GuiDebug.cs" />
+    <Compile Include="MyAtlas.cs" />
+    <Compile Include="MyStringExtensions.cs" />
+    <Compile Include="PassengersPrivateVehiclePanelRow.cs" />
+    <Compile Include="PassengersVehiclePanelRow.cs" />
+    <Compile Include="PeopleInsideBuildingsButton.cs" />
+    <Compile Include="PeopleInsideBuildingsPanel.cs" />
+    <Compile Include="PeopleInsideServiceBuildingsButton.cs" />
+    <Compile Include="PeopleInsideServiceBuildingsPanel.cs" />
+    <Compile Include="ResidentialBuildingPanelRow.cs" />
+    <Compile Include="ResourceLoader.cs" />
+    <Compile Include="TextureDB.cs" />
+    <Compile Include="VechiclePassengersButton.cs" />
+    <Compile Include="VechiclePassengersButtonPT.cs" />
+    <Compile Include="WindowController.cs" />
+    <Compile Include="WorkersBuildingPanelRow.cs" />
+    <Compile Include="WorkersServiceBuildingPanelRow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BuildingPanels\BapartmentIcon.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\BcommercialIcon.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\BuildingButtonIcon.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\BuildingButtonIconDisabled.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\BuildingButtonIconHovered.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\BworkingIcon.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\CommercialBuildingButtonIcon.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\CommercialBuildingButtonIconDisabled.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\CommercialBuildingButtonIconHovered.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\focusIcon.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\focusIconDisabled.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\focusIconFocused.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\greenArrowIcon.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\IndustrialBuildingButtonIcon.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\IndustrialBuildingButtonIconDisabled.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\IndustrialBuildingButtonIconHovered.png" />
+    <EmbeddedResource Include="Resources\BuildingPanels\redArrowIcon.png" />
+    <EmbeddedResource Include="Resources\FavoriteCimsButton.png" />
+    <EmbeddedResource Include="Resources\FavoriteCimsButtonDisabled.png" />
+    <EmbeddedResource Include="Resources\FavoriteCimsButtonFocused.png" />
+    <EmbeddedResource Include="Resources\FavoriteCimsButtonHovered.png" />
+    <EmbeddedResource Include="Resources\FavoriteCimsButtonPressed.png" />
+    <EmbeddedResource Include="Resources\icon_fav_subscribed.png" />
+    <EmbeddedResource Include="Resources\icon_fav_unsubscribed.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\bodybg.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\backgroundBack.jpg" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleBg1.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleBg1Big.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleBg1Small.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleBg1Special.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleBg1Special2.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleBg2.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleBg2Small.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleBgHeader.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleDetailsBgSprite.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\BubbleDetailsBgSpriteProblems.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\camBg.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\Car.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\CarDisabled.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\Dog.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\DogDisabled.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\Female.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\LittleStarGold.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\LittleStarGrey.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\BubblePanel\Male.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\buildingsbuttondisabled.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\buildingsbuttonenabled.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\citizenbuttondisabled.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\citizenbuttonenabled.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\favcimstitle.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\indexerbgbar.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\mainbg.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\panel_middle.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\bgrow_1.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\bgrow_2.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\bgrow_hover.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\col_separator.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\CommercialHigh.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\CommercialLow.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\FavCimsCrimeArrested.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\FavCimsIconScooter.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\FavCimsPoliceVehicle.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\homeIconHigh.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\homeIconLow.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\homelessIcon.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\houseofthedead.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\icon_citisenisgone.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\IndustrialIcon.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\CommercialLevel1.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\CommercialLevel2.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\CommercialLevel3.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\CommercialLevel4.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\CommercialLevel5.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\IndustrialLevel1.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\IndustrialLevel2.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\IndustrialLevel3.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\IndustrialLevel4.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\IndustrialLevel5.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\OfficeLevel1.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\OfficeLevel2.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\OfficeLevel3.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\OfficeLevel4.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\OfficeLevel5.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\ResidentialLevel1.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\ResidentialLevel2.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\ResidentialLevel3.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\ResidentialLevel4.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\levels\ResidentialLevel5.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\nojob.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\OfficeIcon.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\workretired.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\Rows\workstudy.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\statsbuttondisabled.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\statsbuttonenabled.png" />
+    <EmbeddedResource Include="Resources\UIMainPanel\submenubar.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\bg_row1.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\bg_row2.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\driverIcon.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\passengerIcon.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\scrollbarthumb.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\scrollbartrack.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\touristIcon.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\vehicleButton.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\vehicleButtonDisabled.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\vehicleButtonHovered.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\VehiclePanelBg.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\VehiclePanelBottomBg.png" />
+    <EmbeddedResource Include="Resources\VehiclePanel\VehiclePanelTitleBg.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
