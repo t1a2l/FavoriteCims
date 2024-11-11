@@ -1,6 +1,0 @@
-C:\Github\OtherCSMods\CitiesSkylineFavoriteCimsMod\bin\Debug\FavoriteCims.dll
-C:\Github\OtherCSMods\CitiesSkylineFavoriteCimsMod\bin\Debug\FavoriteCims.pdb
-C:\Github\OtherCSMods\CitiesSkylineFavoriteCimsMod\obj\Debug\CitiesSkylineFavoriteCimsMod.csproj.AssemblyReference.cache
-C:\Github\OtherCSMods\CitiesSkylineFavoriteCimsMod\obj\Debug\CitiesSkylineFavoriteCimsMod.csproj.CoreCompileInputs.cache
-C:\Github\OtherCSMods\CitiesSkylineFavoriteCimsMod\obj\Debug\FavoriteCims.dll
-C:\Github\OtherCSMods\CitiesSkylineFavoriteCimsMod\obj\Debug\FavoriteCims.pdb

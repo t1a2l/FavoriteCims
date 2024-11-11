@@ -1,28 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|c:\\github\\othercsmods\\citiesskylinefavoritecimsmod\\citizenrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|solutionrelative:citizenrow.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|c:\\github\\othercsmods\\citiesskylinefavoritecimsmod\\texturedb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|solutionrelative:texturedb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|c:\\github\\othercsmods\\citiesskylinefavoritecimsmod\\favoritecimsmainpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|solutionrelative:favoritecimsmainpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|c:\\github\\othercsmods\\citiesskylinefavoritecimsmod\\resourceloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|solutionrelative:resourceloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|c:\\github\\othercsmods\\citiesskylinefavoritecimsmod\\myatlas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{CF584495-4D36-481F-95C3-E7C2A5D6CD31}|CitiesSkylineFavoriteCimsMod.csproj|solutionrelative:myatlas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -30,60 +9,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CitizenRow.cs",
-              "DocumentMoniker": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\CitizenRow.cs",
-              "RelativeDocumentMoniker": "CitizenRow.cs",
-              "ToolTip": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\CitizenRow.cs",
-              "RelativeToolTip": "CitizenRow.cs",
-              "ViewState": "AgIAAL0BAAAAAAAAAIAwwMcBAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T21:55:43.297Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TextureDB.cs",
-              "DocumentMoniker": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\TextureDB.cs",
-              "RelativeDocumentMoniker": "TextureDB.cs",
-              "ToolTip": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\TextureDB.cs",
-              "RelativeToolTip": "TextureDB.cs",
-              "ViewState": "AgIAALgAAAAAAAAAAAAMwMgAAABfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T21:54:53.329Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FavoriteCimsMainPanel.cs",
-              "DocumentMoniker": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\FavoriteCimsMainPanel.cs",
-              "RelativeDocumentMoniker": "FavoriteCimsMainPanel.cs",
-              "ToolTip": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\FavoriteCimsMainPanel.cs",
-              "RelativeToolTip": "FavoriteCimsMainPanel.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAmwKIAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T21:53:46.48Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ResourceLoader.cs",
-              "DocumentMoniker": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\ResourceLoader.cs",
-              "RelativeDocumentMoniker": "ResourceLoader.cs",
-              "ToolTip": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\ResourceLoader.cs",
-              "RelativeToolTip": "ResourceLoader.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T19:39:31.517Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -95,19 +22,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MyAtlas.cs",
-              "DocumentMoniker": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\MyAtlas.cs",
-              "RelativeDocumentMoniker": "MyAtlas.cs",
-              "ToolTip": "C:\\Github\\OtherCSMods\\CitiesSkylineFavoriteCimsMod\\MyAtlas.cs",
-              "RelativeToolTip": "MyAtlas.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAgwCYAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-11T19:37:55.319Z",
-              "EditorCaption": ""
             }
           ]
         }
