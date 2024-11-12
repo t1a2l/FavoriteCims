@@ -340,7 +340,7 @@ namespace FavoriteCims.UI.Panels
 							if (execute)
 							{
 								firstRun = false;
-								VehicleUnits = MyVehicle.m_vehicles.m_buffer[(int)VehicleID.Vehicle].m_citizenUnits;
+								VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
 								int unitnum = 0;
 								int rownum = 0;
 								if (CimsOnPTVeh.Count == 0)
