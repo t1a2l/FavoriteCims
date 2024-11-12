@@ -59,38 +59,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddToFavButton.cs" />
-    <Compile Include="CitizenRow.cs" />
-    <Compile Include="Debug.cs" />
-    <Compile Include="DriverPrivateVehiclePanelRow.cs" />
-    <Compile Include="FamilyPanelTemplate.cs" />
+    <Compile Include="UI\Buttons\AddToFavButton.cs" />
+    <Compile Include="UI\Panels\CitizenRow.cs" />
+    <Compile Include="Utils\Debug.cs" />
+    <Compile Include="UI\PanelsRows\DriverPrivateVehiclePanelRow.cs" />
+    <Compile Include="UI\Panels\FamilyPanelTemplate.cs" />
     <Compile Include="FavCimsCore.cs" />
-    <Compile Include="FavCimsLang.cs" />
+    <Compile Include="Utils\FavCimsLang.cs" />
     <Compile Include="FavCimsMainClass.cs" />
-    <Compile Include="FavCimsVechiclePanel.cs" />
-    <Compile Include="FavCimsVechiclePanelPT.cs" />
-    <Compile Include="FavoriteCimsMainPanel.cs" />
+    <Compile Include="UI\Panels\FavCimsVechiclePanel.cs" />
+    <Compile Include="UI\Panels\FavCimsVechiclePanelPT.cs" />
+    <Compile Include="UI\Panels\FavoriteCimsMainPanel.cs" />
     <Compile Include="FavoriteCimsModMain.cs" />
-    <Compile Include="GameTime.cs" />
-    <Compile Include="GuestsBuildingPanelRow.cs" />
-    <Compile Include="GuestsServiceBuildingPanelRow.cs" />
-    <Compile Include="GuiDebug.cs" />
-    <Compile Include="MyAtlas.cs" />
-    <Compile Include="MyStringExtensions.cs" />
-    <Compile Include="PassengersPrivateVehiclePanelRow.cs" />
-    <Compile Include="PassengersVehiclePanelRow.cs" />
-    <Compile Include="PeopleInsideBuildingsButton.cs" />
-    <Compile Include="PeopleInsideBuildingsPanel.cs" />
-    <Compile Include="PeopleInsideServiceBuildingsButton.cs" />
-    <Compile Include="PeopleInsideServiceBuildingsPanel.cs" />
-    <Compile Include="ResidentialBuildingPanelRow.cs" />
-    <Compile Include="ResourceLoader.cs" />
-    <Compile Include="TextureDB.cs" />
-    <Compile Include="VechiclePassengersButton.cs" />
-    <Compile Include="VechiclePassengersButtonPT.cs" />
-    <Compile Include="WindowController.cs" />
-    <Compile Include="WorkersBuildingPanelRow.cs" />
-    <Compile Include="WorkersServiceBuildingPanelRow.cs" />
+    <Compile Include="Utils\GameTime.cs" />
+    <Compile Include="UI\PanelsRows\GuestsBuildingPanelRow.cs" />
+    <Compile Include="UI\PanelsRows\GuestsServiceBuildingPanelRow.cs" />
+    <Compile Include="Utils\GuiDebug.cs" />
+    <Compile Include="Utils\MyAtlas.cs" />
+    <Compile Include="Utils\MyStringExtensions.cs" />
+    <Compile Include="UI\PanelsRows\PassengersPrivateVehiclePanelRow.cs" />
+    <Compile Include="UI\PanelsRows\PassengersVehiclePanelRow.cs" />
+    <Compile Include="UI\Buttons\PeopleInsideBuildingsButton.cs" />
+    <Compile Include="UI\Panels\PeopleInsideBuildingsPanel.cs" />
+    <Compile Include="UI\Buttons\PeopleInsideServiceBuildingsButton.cs" />
+    <Compile Include="UI\Panels\PeopleInsideServiceBuildingsPanel.cs" />
+    <Compile Include="UI\PanelsRows\ResidentialBuildingPanelRow.cs" />
+    <Compile Include="Utils\ResourceLoader.cs" />
+    <Compile Include="Utils\TextureDB.cs" />
+    <Compile Include="UI\Buttons\VechiclePassengersButton.cs" />
+    <Compile Include="UI\Buttons\VechiclePassengersButtonPT.cs" />
+    <Compile Include="Utils\WindowController.cs" />
+    <Compile Include="UI\PanelsRows\WorkersBuildingPanelRow.cs" />
+    <Compile Include="UI\PanelsRows\WorkersServiceBuildingPanelRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\BuildingPanels\BapartmentIcon.png" />
