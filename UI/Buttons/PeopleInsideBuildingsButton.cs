@@ -28,14 +28,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            if (FavCimsMainClass.FullScreenContainer.GetComponentInChildren<PeopleInsideBuildingsPanel>() != null)
-            {
-                BuildingPanel = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<PeopleInsideBuildingsPanel>();
-            }
-            else
-            {
-                BuildingPanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideBuildingsPanel)) as PeopleInsideBuildingsPanel;
-            }
+            BuildingPanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideBuildingsPanel)) as PeopleInsideBuildingsPanel;
             BuildingPanel.BuildingID = InstanceID.Empty;
             BuildingPanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
