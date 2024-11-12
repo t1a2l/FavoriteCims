@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.UI;
+using FavoriteCims.UI.PanelsRows;
 using FavoriteCims.Utils;
 using UnityEngine;
 

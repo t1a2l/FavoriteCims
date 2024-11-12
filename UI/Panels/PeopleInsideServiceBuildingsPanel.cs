@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
+using FavoriteCims.UI.PanelsRows;
 using FavoriteCims.Utils;
 using UnityEngine;
 
@@ -306,7 +307,7 @@ namespace FavoriteCims.UI.Panels
 			}
 			catch (Exception ex)
 			{
-				Debug.Error(" Service Building Panel Start() : " + ex.ToString());
+                Utils.Debug.Error(" Service Building Panel Start() : " + ex.ToString());
 			}
 		}
 
