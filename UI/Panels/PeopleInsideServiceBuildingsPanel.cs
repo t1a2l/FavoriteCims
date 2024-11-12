@@ -37,6 +37,9 @@ namespace FavoriteCims.UI.Panels
 
         private BuildingInfo buildingInfo;
 
+        const int MaxWorkersUnit = 40; // **Important** *same of MaxGuestsUnit*
+        const int MaxGuestsUnit = 40;
+
         private UIPanel WorkersPanel;
 
         private UIPanel WorkersPanelSubRow;
@@ -45,7 +48,7 @@ namespace FavoriteCims.UI.Panels
 
         private UIButton WorkersPanelText;
 
-        private readonly WorkersServiceBuildingPanelRow[] WorkersBodyRow = new WorkersServiceBuildingPanelRow[200];
+        private readonly WorkersServiceBuildingPanelRow[] WorkersBodyRow = new WorkersServiceBuildingPanelRow[MaxWorkersUnit*5];
 
         private UIPanel GuestsPanel;
 
@@ -55,7 +58,7 @@ namespace FavoriteCims.UI.Panels
 
         private UIButton GuestsPanelText;
 
-        private readonly GuestsServiceBuildingPanelRow[] GuestsBodyRow = new GuestsServiceBuildingPanelRow[200];
+        private readonly GuestsServiceBuildingPanelRow[] GuestsBodyRow = new GuestsServiceBuildingPanelRow[MaxGuestsUnit*5];
 
         private uint BuildingUnits;
 
@@ -87,221 +90,219 @@ namespace FavoriteCims.UI.Panels
 		{
 			try
 			{
-				base.width = 250f;
-				base.height = 0f;
-				base.name = "FavCimsPeopleInsideServiceBuildingsPanel";
-				base.absolutePosition = new Vector3(0f, 0f);
-				base.Hide();
-				this.Title = base.AddUIComponent<UIPanel>();
-				this.Title.name = "PeopleInsideServiceBuildingsPanelTitle";
-				this.Title.width = base.width;
-				this.Title.height = 41f;
-				this.Title.relativePosition = Vector3.zero;
-				this.TitleSpriteBg = this.Title.AddUIComponent<UITextureSprite>();
-				this.TitleSpriteBg.name = "PeopleInsideServiceBuildingsPanelTitleBG";
-				this.TitleSpriteBg.width = this.Title.width;
-				this.TitleSpriteBg.height = this.Title.height;
-				this.TitleSpriteBg.texture = TextureDB.VehiclePanelTitleBackground;
-				this.TitleSpriteBg.relativePosition = Vector3.zero;
-				this.TitleBuildingName = this.Title.AddUIComponent<UIButton>();
-				this.TitleBuildingName.name = "PeopleInsideServiceBuildingsPanelName";
-				this.TitleBuildingName.width = this.Title.width;
-				this.TitleBuildingName.height = this.Title.height;
-				this.TitleBuildingName.textVerticalAlignment = UIVerticalAlignment.Middle;
-				this.TitleBuildingName.textHorizontalAlignment = UIHorizontalAlignment.Center;
-				this.TitleBuildingName.playAudioEvents = false;
-				this.TitleBuildingName.font = UIDynamicFont.FindByName("OpenSans-Regular");
-				this.TitleBuildingName.font.size = 15;
-				this.TitleBuildingName.textScale = 1f;
-				this.TitleBuildingName.wordWrap = true;
-				this.TitleBuildingName.textPadding.left = 5;
-				this.TitleBuildingName.textPadding.right = 5;
-				this.TitleBuildingName.textColor = new Color32(204, 204, 51, 40);
-				this.TitleBuildingName.hoveredTextColor = new Color32(204, 204, 51, 40);
-				this.TitleBuildingName.pressedTextColor = new Color32(204, 204, 51, 40);
-				this.TitleBuildingName.focusedTextColor = new Color32(204, 204, 51, 40);
-				this.TitleBuildingName.useDropShadow = true;
-				this.TitleBuildingName.dropShadowOffset = new Vector2(1f, -1f);
-				this.TitleBuildingName.dropShadowColor = new Color32(0, 0, 0, 0);
-				this.TitleBuildingName.relativePosition = Vector3.zero;
-				this.Body = base.AddUIComponent<UIPanel>();
-				this.Body.name = "PeopleInsideServiceBuildingsBody";
-				this.Body.width = base.width;
-				this.Body.autoLayoutDirection = LayoutDirection.Vertical;
-				this.Body.autoLayout = true;
-				this.Body.clipChildren = true;
-				this.Body.height = 0f;
-				this.Body.relativePosition = new Vector3(0f, this.Title.height);
-				this.BodySpriteBg = this.Body.AddUIComponent<UITextureSprite>();
-				this.BodySpriteBg.name = "PeopleInsideServiceBuildingsDataContainer";
-				this.BodySpriteBg.width = this.Body.width;
-				this.BodySpriteBg.height = this.Body.height;
-				this.BodySpriteBg.texture = TextureDB.VehiclePanelBackground;
-				this.BodySpriteBg.relativePosition = Vector3.zero;
-				this.BodyRows = this.BodySpriteBg.AddUIComponent<UIScrollablePanel>();
-				this.BodyRows.name = "BodyRows";
-				this.BodyRows.width = this.BodySpriteBg.width - 24f;
-				this.BodyRows.autoLayoutDirection = LayoutDirection.Vertical;
-				this.BodyRows.autoLayout = true;
-				this.BodyRows.relativePosition = new Vector3(12f, 0f);
-				string[] array = new string[] { "Workers", "Guests" };
+				width = 250f;
+				height = 0f;
+				name = "FavCimsPeopleInsideServiceBuildingsPanel";
+				absolutePosition = new Vector3(0f, 0f);
+				Hide();
+				Title = AddUIComponent<UIPanel>();
+				Title.name = "PeopleInsideServiceBuildingsPanelTitle";
+				Title.width = width;
+				Title.height = 41f;
+				Title.relativePosition = Vector3.zero;
+				TitleSpriteBg = Title.AddUIComponent<UITextureSprite>();
+				TitleSpriteBg.name = "PeopleInsideServiceBuildingsPanelTitleBG";
+				TitleSpriteBg.width = Title.width;
+				TitleSpriteBg.height = Title.height;
+				TitleSpriteBg.texture = TextureDB.VehiclePanelTitleBackground;
+				TitleSpriteBg.relativePosition = Vector3.zero;
+				TitleBuildingName = Title.AddUIComponent<UIButton>();
+				TitleBuildingName.name = "PeopleInsideServiceBuildingsPanelName";
+				TitleBuildingName.width = Title.width;
+				TitleBuildingName.height = Title.height;
+				TitleBuildingName.textVerticalAlignment = UIVerticalAlignment.Middle;
+				TitleBuildingName.textHorizontalAlignment = UIHorizontalAlignment.Center;
+				TitleBuildingName.playAudioEvents = false;
+				TitleBuildingName.font = UIDynamicFont.FindByName("OpenSans-Regular");
+				TitleBuildingName.font.size = 15;
+				TitleBuildingName.textScale = 1f;
+				TitleBuildingName.wordWrap = true;
+				TitleBuildingName.textPadding.left = 5;
+				TitleBuildingName.textPadding.right = 5;
+				TitleBuildingName.textColor = new Color32(204, 204, 51, 40);
+				TitleBuildingName.hoveredTextColor = new Color32(204, 204, 51, 40);
+				TitleBuildingName.pressedTextColor = new Color32(204, 204, 51, 40);
+				TitleBuildingName.focusedTextColor = new Color32(204, 204, 51, 40);
+				TitleBuildingName.useDropShadow = true;
+				TitleBuildingName.dropShadowOffset = new Vector2(1f, -1f);
+				TitleBuildingName.dropShadowColor = new Color32(0, 0, 0, 0);
+				TitleBuildingName.relativePosition = Vector3.zero;
+				Body = AddUIComponent<UIPanel>();
+				Body.name = "PeopleInsideServiceBuildingsBody";
+				Body.width = width;
+				Body.autoLayoutDirection = LayoutDirection.Vertical;
+				Body.autoLayout = true;
+				Body.clipChildren = true;
+				Body.height = 0f;
+				Body.relativePosition = new Vector3(0f, Title.height);
+				BodySpriteBg = Body.AddUIComponent<UITextureSprite>();
+				BodySpriteBg.name = "PeopleInsideServiceBuildingsDataContainer";
+				BodySpriteBg.width = Body.width;
+				BodySpriteBg.height = Body.height;
+				BodySpriteBg.texture = TextureDB.VehiclePanelBackground;
+				BodySpriteBg.relativePosition = Vector3.zero;
+				BodyRows = BodySpriteBg.AddUIComponent<UIScrollablePanel>();
+				BodyRows.name = "BodyRows";
+				BodyRows.width = BodySpriteBg.width - 24f;
+				BodyRows.autoLayoutDirection = LayoutDirection.Vertical;
+				BodyRows.autoLayout = true;
+				BodyRows.relativePosition = new Vector3(12f, 0f);
+				string[] array = ["Workers", "Guests"];
 				for (int i = 0; i < 2; i++)
 				{
-					bool flag = i == 0;
-					if (flag)
+					if (i == 0)
 					{
-						this.WorkersPanel = this.BodyRows.AddUIComponent<UIPanel>();
-						this.WorkersPanel.width = 226f;
-						this.WorkersPanel.height = 25f;
-						this.WorkersPanel.name = "LabelPanel_" + array[i] + "_0";
-						this.WorkersPanel.autoLayoutDirection = LayoutDirection.Vertical;
-						this.WorkersPanel.autoLayout = true;
-						this.WorkersPanel.Hide();
-						this.WorkersPanelSubRow = this.WorkersPanel.AddUIComponent<UIPanel>();
-						this.WorkersPanelSubRow.width = 226f;
-						this.WorkersPanelSubRow.height = 25f;
-						this.WorkersPanelSubRow.name = "TitlePanel_" + array[i] + "_0";
-						this.WorkersPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
-						this.WorkersPanelSubRow.backgroundSprite = "bg_row2";
-						this.WorkersPanelIcon = this.WorkersPanelSubRow.AddUIComponent<UIButton>();
-						this.WorkersPanelIcon.name = "LabelPanelIcon_" + array[i] + "_0";
-						this.WorkersPanelIcon.width = 17f;
-						this.WorkersPanelIcon.height = 17f;
-						this.WorkersPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-						this.WorkersPanelIcon.relativePosition = new Vector3(5f, 4f);
-						this.WorkersPanelText = this.WorkersPanelSubRow.AddUIComponent<UIButton>();
-						this.WorkersPanelText.name = "LabelPanelText_" + array[i] + "_0";
-						this.WorkersPanelText.width = 200f;
-						this.WorkersPanelText.height = 25f;
-						this.WorkersPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
-						this.WorkersPanelText.textHorizontalAlignment = 0;
-						this.WorkersPanelText.playAudioEvents = true;
-						this.WorkersPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-						this.WorkersPanelText.font.size = 15;
-						this.WorkersPanelText.textScale = 0.8f;
-						this.WorkersPanelText.useDropShadow = true;
-						this.WorkersPanelText.dropShadowOffset = new Vector2(1f, -1f);
-						this.WorkersPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
-						this.WorkersPanelText.textPadding.left = 5;
-						this.WorkersPanelText.textPadding.right = 5;
-						this.WorkersPanelText.textColor = new Color32(51, 51, 51, 160);
-						this.WorkersPanelText.isInteractive = false;
-						this.WorkersPanelText.relativePosition = new Vector3(this.WorkersPanelIcon.relativePosition.x + this.WorkersPanelIcon.width, 1f);
-						int num = 0;
+						WorkersPanel = BodyRows.AddUIComponent<UIPanel>();
+						WorkersPanel.width = 226f;
+						WorkersPanel.height = 25f;
+						WorkersPanel.name = "LabelPanel_" + array[i] + "_0";
+						WorkersPanel.autoLayoutDirection = LayoutDirection.Vertical;
+						WorkersPanel.autoLayout = true;
+						WorkersPanel.Hide();
+						WorkersPanelSubRow = WorkersPanel.AddUIComponent<UIPanel>();
+						WorkersPanelSubRow.width = 226f;
+						WorkersPanelSubRow.height = 25f;
+						WorkersPanelSubRow.name = "TitlePanel_" + array[i] + "_0";
+						WorkersPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
+						WorkersPanelSubRow.backgroundSprite = "bg_row2";
+						WorkersPanelIcon = WorkersPanelSubRow.AddUIComponent<UIButton>();
+						WorkersPanelIcon.name = "LabelPanelIcon_" + array[i] + "_0";
+						WorkersPanelIcon.width = 17f;
+						WorkersPanelIcon.height = 17f;
+						WorkersPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+						WorkersPanelIcon.relativePosition = new Vector3(5f, 4f);
+						WorkersPanelText = WorkersPanelSubRow.AddUIComponent<UIButton>();
+						WorkersPanelText.name = "LabelPanelText_" + array[i] + "_0";
+						WorkersPanelText.width = 200f;
+						WorkersPanelText.height = 25f;
+						WorkersPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
+						WorkersPanelText.textHorizontalAlignment = 0;
+						WorkersPanelText.playAudioEvents = true;
+						WorkersPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+						WorkersPanelText.font.size = 15;
+						WorkersPanelText.textScale = 0.8f;
+						WorkersPanelText.useDropShadow = true;
+						WorkersPanelText.dropShadowOffset = new Vector2(1f, -1f);
+						WorkersPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
+						WorkersPanelText.textPadding.left = 5;
+						WorkersPanelText.textPadding.right = 5;
+						WorkersPanelText.textColor = new Color32(51, 51, 51, 160);
+						WorkersPanelText.isInteractive = false;
+						WorkersPanelText.relativePosition = new Vector3(WorkersPanelIcon.relativePosition.x + WorkersPanelIcon.width, 1f);
+						int row = 0;
 						for (int j = 0; j < 200; j++)
 						{
-							this.WorkersBodyRow[num] = this.BodyRows.AddUIComponent(typeof(WorkersServiceBuildingPanelRow)) as WorkersServiceBuildingPanelRow;
-							this.WorkersBodyRow[num].name = "Row_" + array[i] + "_" + j.ToString();
-							this.WorkersBodyRow[num].OnBuilding = 0;
-							this.WorkersBodyRow[num].citizen = 0U;
-							this.WorkersBodyRow[num].Hide();
-							num++;
+							WorkersBodyRow[row] = BodyRows.AddUIComponent(typeof(WorkersServiceBuildingPanelRow)) as WorkersServiceBuildingPanelRow;
+							WorkersBodyRow[row].name = "Row_" + array[i] + "_" + j.ToString();
+							WorkersBodyRow[row].OnBuilding = 0;
+							WorkersBodyRow[row].citizen = 0U;
+							WorkersBodyRow[row].Hide();
+                            row++;
 						}
 					}
 					else
 					{
-						this.GuestsPanel = this.BodyRows.AddUIComponent<UIPanel>();
-						this.GuestsPanel.width = 226f;
-						this.GuestsPanel.height = 25f;
-						this.GuestsPanel.name = "LabelPanel_" + array[i] + "_0";
-						this.GuestsPanel.autoLayoutDirection = LayoutDirection.Vertical;
-						this.GuestsPanel.autoLayout = true;
-						this.GuestsPanel.Hide();
-						this.GuestsPanelSubRow = this.GuestsPanel.AddUIComponent<UIPanel>();
-						this.GuestsPanelSubRow.width = 226f;
-						this.GuestsPanelSubRow.height = 25f;
-						this.GuestsPanelSubRow.name = "TitlePanel_" + array[i] + "_0";
-						this.GuestsPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
-						this.GuestsPanelSubRow.backgroundSprite = "bg_row2";
-						this.GuestsPanelIcon = this.GuestsPanelSubRow.AddUIComponent<UIButton>();
-						this.GuestsPanelIcon.name = "LabelPanelIcon_" + array[i] + "_0";
-						this.GuestsPanelIcon.width = 17f;
-						this.GuestsPanelIcon.height = 17f;
-						this.GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-						this.GuestsPanelIcon.relativePosition = new Vector3(5f, 4f);
-						this.GuestsPanelText = this.GuestsPanelSubRow.AddUIComponent<UIButton>();
-						this.GuestsPanelText.name = "LabelPanelText_" + array[i] + "_0";
-						this.GuestsPanelText.width = 200f;
-						this.GuestsPanelText.height = 25f;
-						this.GuestsPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
-						this.GuestsPanelText.textHorizontalAlignment = 0;
-						this.GuestsPanelText.playAudioEvents = true;
-						this.GuestsPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-						this.GuestsPanelText.font.size = 15;
-						this.GuestsPanelText.textScale = 0.8f;
-						this.GuestsPanelText.useDropShadow = true;
-						this.GuestsPanelText.dropShadowOffset = new Vector2(1f, -1f);
-						this.GuestsPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
-						this.GuestsPanelText.textPadding.left = 5;
-						this.GuestsPanelText.textPadding.right = 5;
-						this.GuestsPanelText.textColor = new Color32(51, 51, 51, 160);
-						this.GuestsPanelText.isInteractive = false;
-						this.GuestsPanelText.relativePosition = new Vector3(this.GuestsPanelIcon.relativePosition.x + this.GuestsPanelIcon.width, 1f);
-						int num2 = 0;
+						GuestsPanel = BodyRows.AddUIComponent<UIPanel>();
+						GuestsPanel.width = 226f;
+						GuestsPanel.height = 25f;
+						GuestsPanel.name = "LabelPanel_" + array[i] + "_0";
+						GuestsPanel.autoLayoutDirection = LayoutDirection.Vertical;
+						GuestsPanel.autoLayout = true;
+						GuestsPanel.Hide();
+						GuestsPanelSubRow = GuestsPanel.AddUIComponent<UIPanel>();
+						GuestsPanelSubRow.width = 226f;
+						GuestsPanelSubRow.height = 25f;
+						GuestsPanelSubRow.name = "TitlePanel_" + array[i] + "_0";
+						GuestsPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
+						GuestsPanelSubRow.backgroundSprite = "bg_row2";
+						GuestsPanelIcon = GuestsPanelSubRow.AddUIComponent<UIButton>();
+						GuestsPanelIcon.name = "LabelPanelIcon_" + array[i] + "_0";
+						GuestsPanelIcon.width = 17f;
+						GuestsPanelIcon.height = 17f;
+						GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+						GuestsPanelIcon.relativePosition = new Vector3(5f, 4f);
+						GuestsPanelText = GuestsPanelSubRow.AddUIComponent<UIButton>();
+						GuestsPanelText.name = "LabelPanelText_" + array[i] + "_0";
+						GuestsPanelText.width = 200f;
+						GuestsPanelText.height = 25f;
+						GuestsPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
+						GuestsPanelText.textHorizontalAlignment = 0;
+						GuestsPanelText.playAudioEvents = true;
+						GuestsPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+						GuestsPanelText.font.size = 15;
+						GuestsPanelText.textScale = 0.8f;
+						GuestsPanelText.useDropShadow = true;
+						GuestsPanelText.dropShadowOffset = new Vector2(1f, -1f);
+						GuestsPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
+						GuestsPanelText.textPadding.left = 5;
+						GuestsPanelText.textPadding.right = 5;
+						GuestsPanelText.textColor = new Color32(51, 51, 51, 160);
+						GuestsPanelText.isInteractive = false;
+						GuestsPanelText.relativePosition = new Vector3(GuestsPanelIcon.relativePosition.x + GuestsPanelIcon.width, 1f);
+						int row = 0;
 						for (int k = 0; k < 200; k++)
 						{
-							this.GuestsBodyRow[num2] = this.BodyRows.AddUIComponent(typeof(GuestsServiceBuildingPanelRow)) as GuestsServiceBuildingPanelRow;
-							this.GuestsBodyRow[num2].name = "Row_" + array[i] + "_" + k.ToString();
-							this.GuestsBodyRow[num2].OnBuilding = 0;
-							this.GuestsBodyRow[num2].citizen = 0U;
-							this.GuestsBodyRow[num2].Hide();
-							num2++;
+							GuestsBodyRow[row] = BodyRows.AddUIComponent(typeof(GuestsServiceBuildingPanelRow)) as GuestsServiceBuildingPanelRow;
+							GuestsBodyRow[row].name = "Row_" + array[i] + "_" + k.ToString();
+							GuestsBodyRow[row].OnBuilding = 0;
+							GuestsBodyRow[row].citizen = 0U;
+							GuestsBodyRow[row].Hide();
+                            row++;
 						}
 					}
 				}
-				this.BodyPanelScrollBar = this.BodySpriteBg.AddUIComponent<UIScrollablePanel>();
-				this.BodyPanelScrollBar.name = "BodyPanelScrollBar";
-				this.BodyPanelScrollBar.width = 10f;
-				this.BodyPanelScrollBar.relativePosition = new Vector3(this.BodyRows.width + 12f, 0f);
-				this.BodyScrollBar = this.BodyPanelScrollBar.AddUIComponent<UIScrollbar>();
-				this.BodyScrollBar.width = 10f;
-				this.BodyScrollBar.name = "BodyScrollBar";
-				this.BodyScrollBar.orientation = UIOrientation.Vertical;
-				this.BodyScrollBar.pivot = UIPivotPoint.TopRight;
-				this.BodyScrollBar.AlignTo(this.BodyScrollBar.parent, 0);
-				this.BodyScrollBar.minValue = 0f;
-				this.BodyScrollBar.value = 0f;
-				this.BodyScrollBar.incrementAmount = 25f;
-				this.BodyPanelTrackSprite = this.BodyScrollBar.AddUIComponent<UISlicedSprite>();
-				this.BodyPanelTrackSprite.autoSize = true;
-				this.BodyPanelTrackSprite.name = "BodyScrollBarTrackSprite";
-				this.BodyPanelTrackSprite.fillDirection = UIFillDirection.Vertical;
-				this.BodyPanelTrackSprite.atlas = MyAtlas.FavCimsAtlas;
-				this.BodyPanelTrackSprite.spriteName = "scrollbartrack";
-				this.BodyPanelTrackSprite.relativePosition = this.BodyScrollBar.relativePosition;
-				this.BodyScrollBar.trackObject = this.BodyPanelTrackSprite;
-				this.thumbSprite = this.BodyScrollBar.AddUIComponent<UISlicedSprite>();
-				this.thumbSprite.name = "BodyScrollBarThumbSprite";
-				this.thumbSprite.autoSize = true;
-				this.thumbSprite.width = this.thumbSprite.parent.width;
-				this.thumbSprite.fillDirection = UIFillDirection.Vertical;
-				this.thumbSprite.atlas = MyAtlas.FavCimsAtlas;
-				this.thumbSprite.spriteName = "scrollbarthumb";
-				this.thumbSprite.relativePosition = this.BodyScrollBar.relativePosition;
-				this.BodyScrollBar.thumbObject = this.thumbSprite;
-				this.BodyRows.verticalScrollbar = this.BodyScrollBar;
-				this.BodyRows.eventMouseWheel += delegate(UIComponent component, UIMouseEventParameter eventParam)
+				BodyPanelScrollBar = BodySpriteBg.AddUIComponent<UIScrollablePanel>();
+				BodyPanelScrollBar.name = "BodyPanelScrollBar";
+				BodyPanelScrollBar.width = 10f;
+				BodyPanelScrollBar.relativePosition = new Vector3(BodyRows.width + 12f, 0f);
+				BodyScrollBar = BodyPanelScrollBar.AddUIComponent<UIScrollbar>();
+				BodyScrollBar.width = 10f;
+				BodyScrollBar.name = "BodyScrollBar";
+				BodyScrollBar.orientation = UIOrientation.Vertical;
+				BodyScrollBar.pivot = UIPivotPoint.TopRight;
+				BodyScrollBar.AlignTo(BodyScrollBar.parent, 0);
+				BodyScrollBar.minValue = 0f;
+				BodyScrollBar.value = 0f;
+				BodyScrollBar.incrementAmount = 25f;
+				BodyPanelTrackSprite = BodyScrollBar.AddUIComponent<UISlicedSprite>();
+				BodyPanelTrackSprite.autoSize = true;
+				BodyPanelTrackSprite.name = "BodyScrollBarTrackSprite";
+				BodyPanelTrackSprite.fillDirection = UIFillDirection.Vertical;
+				BodyPanelTrackSprite.atlas = MyAtlas.FavCimsAtlas;
+				BodyPanelTrackSprite.spriteName = "scrollbartrack";
+				BodyPanelTrackSprite.relativePosition = BodyScrollBar.relativePosition;
+				BodyScrollBar.trackObject = BodyPanelTrackSprite;
+				thumbSprite = BodyScrollBar.AddUIComponent<UISlicedSprite>();
+				thumbSprite.name = "BodyScrollBarThumbSprite";
+				thumbSprite.autoSize = true;
+				thumbSprite.width = thumbSprite.parent.width;
+				thumbSprite.fillDirection = UIFillDirection.Vertical;
+				thumbSprite.atlas = MyAtlas.FavCimsAtlas;
+				thumbSprite.spriteName = "scrollbarthumb";
+				thumbSprite.relativePosition = BodyScrollBar.relativePosition;
+				BodyScrollBar.thumbObject = thumbSprite;
+				BodyRows.verticalScrollbar = BodyScrollBar;
+				BodyRows.eventMouseWheel += delegate(UIComponent component, UIMouseEventParameter eventParam)
 				{
-					int num3 = Math.Sign(eventParam.wheelDelta);
-					this.BodyRows.scrollPosition += new Vector2(0f, (float)(num3 * -1) * this.BodyScrollBar.incrementAmount);
+					int sign = Math.Sign(eventParam.wheelDelta);
+					BodyRows.scrollPosition += new Vector2(0f, (sign * -1) * BodyScrollBar.incrementAmount);
 				};
-				this.Footer = base.AddUIComponent<UIPanel>();
-				this.Footer.name = "PeopleInsideServiceBuildingsFooter";
-				this.Footer.width = base.width;
-				this.Footer.height = 12f;
-				this.Footer.relativePosition = new Vector3(0f, this.Title.height + this.Body.height);
-				this.FooterSpriteBg = this.Footer.AddUIComponent<UITextureSprite>();
-				this.FooterSpriteBg.width = this.Footer.width;
-				this.FooterSpriteBg.height = this.Footer.height;
-				this.FooterSpriteBg.texture = TextureDB.VehiclePanelFooterBackground;
-				this.FooterSpriteBg.relativePosition = Vector3.zero;
+				Footer = AddUIComponent<UIPanel>();
+				Footer.name = "PeopleInsideServiceBuildingsFooter";
+				Footer.width = width;
+				Footer.height = 12f;
+				Footer.relativePosition = new Vector3(0f, Title.height + Body.height);
+				FooterSpriteBg = Footer.AddUIComponent<UITextureSprite>();
+				FooterSpriteBg.width = Footer.width;
+				FooterSpriteBg.height = Footer.height;
+				FooterSpriteBg.texture = TextureDB.VehiclePanelFooterBackground;
+				FooterSpriteBg.relativePosition = Vector3.zero;
 				UIComponent uicomponent = UIView.Find<UIButton>("Esc");
-				bool flag2 = uicomponent != null;
-				if (flag2)
+				if (uicomponent != null)
 				{
 					uicomponent.eventClick += delegate(UIComponent component, UIMouseEventParameter eventParam)
 					{
-						base.Hide();
+						Hide();
 					};
 				}
 			}
@@ -316,352 +317,292 @@ namespace FavoriteCims.UI.Panels
 			bool unLoading = FavCimsMainClass.UnLoading;
 			if (!unLoading)
 			{
-				bool isEmpty = this.BuildingID.IsEmpty;
+				bool isEmpty = BuildingID.IsEmpty;
 				if (isEmpty)
 				{
-					bool garbage = this.Garbage;
+					bool garbage = Garbage;
 					if (garbage)
 					{
-						PeopleInsideServiceBuildingsPanel.Wait = true;
-						PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Clear();
-						PeopleInsideServiceBuildingsPanel.WorkersCount = 0;
-						PeopleInsideServiceBuildingsPanel.GuestsCount = 0;
+						Wait = true;
+						CimsOnBuilding.Clear();
+						WorkersCount = 0;
+						GuestsCount = 0;
 						try
 						{
-							this.WorkersPanel.Hide();
-							for (int i = 0; i < 200; i++)
+							WorkersPanel.Hide();
+							for (int i = 0; i < MaxWorkersUnit*5; i++)
 							{
-								this.WorkersBodyRow[i].Hide();
-								this.WorkersBodyRow[i].citizen = 0U;
-								this.WorkersBodyRow[i].OnBuilding = 0;
-								this.WorkersBodyRow[i].firstRun = true;
+								WorkersBodyRow[i].Hide();
+								WorkersBodyRow[i].citizen = 0U;
+								WorkersBodyRow[i].OnBuilding = 0;
+								WorkersBodyRow[i].firstRun = true;
 							}
-							this.GuestsPanel.Hide();
-							for (int j = 0; j < 200; j++)
+							GuestsPanel.Hide();
+							for (int j = 0; j < MaxGuestsUnit*5; j++)
 							{
-								this.GuestsBodyRow[j].Hide();
-								this.GuestsBodyRow[j].citizen = 0U;
-								this.GuestsBodyRow[j].OnBuilding = 0;
-								this.GuestsBodyRow[j].firstRun = true;
+								GuestsBodyRow[j].Hide();
+								GuestsBodyRow[j].citizen = 0U;
+								GuestsBodyRow[j].OnBuilding = 0;
+								GuestsBodyRow[j].firstRun = true;
 							}
-							PeopleInsideServiceBuildingsPanel.Wait = false;
+							Wait = false;
 						}
 						catch
 						{
 						}
-						this.Garbage = false;
+						Garbage = false;
 					}
-					this.firstRun = true;
+					firstRun = true;
 				}
 				else
 				{
 					try
 					{
-						this.buildingInfo = this.MyBuilding.m_buildings.m_buffer[(int)this.BuildingID.Building].Info;
-						bool flag = !WorldInfoPanel.GetCurrentInstanceID().IsEmpty && WorldInfoPanel.GetCurrentInstanceID() != this.BuildingID;
-						if (flag)
+						buildingInfo = MyBuilding.m_buildings.m_buffer[(int)BuildingID.Building].Info;
+						if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty && WorldInfoPanel.GetCurrentInstanceID() != BuildingID)
 						{
-							PeopleInsideServiceBuildingsPanel.Wait = true;
-							PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Clear();
-							PeopleInsideServiceBuildingsPanel.WorkersCount = 0;
-							PeopleInsideServiceBuildingsPanel.GuestsCount = 0;
-							this.WorkersPanel.Hide();
-							for (int k = 0; k < 200; k++)
+							Wait = true;
+							CimsOnBuilding.Clear();
+							WorkersCount = 0;
+							GuestsCount = 0;
+							WorkersPanel.Hide();
+							for (int k = 0; k < MaxWorkersUnit*5; k++)
 							{
-								this.WorkersBodyRow[k].Hide();
-								this.WorkersBodyRow[k].citizen = 0U;
-								this.WorkersBodyRow[k].OnBuilding = 0;
-								this.WorkersBodyRow[k].firstRun = true;
+								WorkersBodyRow[k].Hide();
+								WorkersBodyRow[k].citizen = 0U;
+								WorkersBodyRow[k].OnBuilding = 0;
+								WorkersBodyRow[k].firstRun = true;
 							}
-							this.GuestsPanel.Hide();
-							for (int l = 0; l < 200; l++)
+							GuestsPanel.Hide();
+							for (int l = 0; l < MaxGuestsUnit*5; l++)
 							{
-								this.GuestsBodyRow[l].Hide();
-								this.GuestsBodyRow[l].citizen = 0U;
-								this.GuestsBodyRow[l].OnBuilding = 0;
-								this.GuestsBodyRow[l].firstRun = true;
+								GuestsBodyRow[l].Hide();
+								GuestsBodyRow[l].citizen = 0U;
+								GuestsBodyRow[l].OnBuilding = 0;
+								GuestsBodyRow[l].firstRun = true;
 							}
-							this.BuildingID = WorldInfoPanel.GetCurrentInstanceID();
-							bool isEmpty2 = this.BuildingID.IsEmpty;
+							BuildingID = WorldInfoPanel.GetCurrentInstanceID();
+							bool isEmpty2 = BuildingID.IsEmpty;
 							if (isEmpty2)
 							{
 								return;
 							}
-							PeopleInsideServiceBuildingsPanel.Wait = false;
+							Wait = false;
 						}
-						bool flag2 = base.isVisible && !this.BuildingID.IsEmpty;
-						if (flag2)
+						if (isVisible && !BuildingID.IsEmpty)
 						{
-							this.Garbage = true;
-							base.absolutePosition = new Vector3(this.RefPanel.absolutePosition.x + this.RefPanel.width + 5f, this.RefPanel.absolutePosition.y);
-							base.height = this.RefPanel.height - 15f;
-							bool flag3 = 25f + (float)PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Count * 25f < base.height - this.Title.height - this.Footer.height;
-							if (flag3)
+							Garbage = true;
+							absolutePosition = new Vector3(RefPanel.absolutePosition.x + RefPanel.width + 5f, RefPanel.absolutePosition.y);
+							height = RefPanel.height - 15f;
+							if (25f + (float)CimsOnBuilding.Count * 25f < height - Title.height - Footer.height)
 							{
-								this.Body.height = base.height - this.Title.height - this.Footer.height;
+								Body.height = height - Title.height - Footer.height;
 							}
 							else
 							{
-								bool flag4 = 25f + (float)PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Count * 25f > 400f;
-								if (flag4)
+								if (25f + (float)CimsOnBuilding.Count * 25f > 400f)
 								{
-									this.Body.height = 400f;
+									Body.height = 400f;
 								}
 								else
 								{
-									this.Body.height = 25f + (float)PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Count * 25f;
+									Body.height = 25f + (float)CimsOnBuilding.Count * 25f;
 								}
 							}
-							this.BodySpriteBg.height = this.Body.height;
-							this.Footer.relativePosition = new Vector3(0f, this.Title.height + this.Body.height);
-							this.BodyRows.height = this.Body.height;
-							this.BodyPanelScrollBar.height = this.Body.height;
-							this.BodyScrollBar.height = this.Body.height;
-							this.BodyPanelTrackSprite.size = this.BodyPanelTrackSprite.parent.size;
-							this.seconds -= 1f * Time.deltaTime;
-							bool flag5 = this.seconds <= 0f || this.firstRun;
-							if (flag5)
+							BodySpriteBg.height = Body.height;
+							Footer.relativePosition = new Vector3(0f, Title.height + Body.height);
+							BodyRows.height = Body.height;
+							BodyPanelScrollBar.height = Body.height;
+							BodyScrollBar.height = Body.height;
+							BodyPanelTrackSprite.size = BodyPanelTrackSprite.parent.size;
+							seconds -= 1f * Time.deltaTime;
+							if (seconds <= 0f || firstRun)
 							{
-								this.execute = true;
-								this.seconds = 0.5f;
+								execute = true;
+								seconds = 0.5f;
 							}
 							else
 							{
-								this.execute = false;
+								execute = false;
 							}
-							bool flag6 = this.execute;
-							if (flag6)
+							if (execute)
 							{
-								this.firstRun = false;
-								this.BuildingUnits = this.MyBuilding.m_buildings.m_buffer[(int)this.BuildingID.Building].m_citizenUnits;
-								int num = 0;
-								int num2 = 0;
-								int num3 = 0;
-								while (this.BuildingUnits != 0U && num < 40)
+								firstRun = false;
+								BuildingUnits = MyBuilding.m_buildings.m_buffer[(int)BuildingID.Building].m_citizenUnits;
+								int unitnum = 0;
+								int rownum = 0;
+								int total_workers = 0;
+								while (BuildingUnits != 0U && unitnum < MaxGuestsUnit)
 								{
-									uint nextUnit = this.MyCitizen.m_units.m_buffer[(int)this.BuildingUnits].m_nextUnit;
+									uint nextUnit = MyCitizen.m_units.m_buffer[(int)BuildingUnits].m_nextUnit;
 									for (int m = 0; m < 5; m++)
 									{
-										uint citizen = this.MyCitizen.m_units.m_buffer[(int)this.BuildingUnits].GetCitizen(m);
-										Citizen citizen2 = this.MyCitizen.m_citizens.m_buffer[(int)citizen];
-										bool flag7 = citizen > 0U;
-										if (flag7)
+										uint citizen = MyCitizen.m_units.m_buffer[(int)BuildingUnits].GetCitizen(m);
+										Citizen citizen2 = MyCitizen.m_citizens.m_buffer[(int)citizen];
+										if (citizen > 0U)
 										{
-											int num4 = 0;
-											CitizenInfo citizenInfo = this.MyCitizen.m_citizens.m_buffer[(int)citizen].GetCitizenInfo(citizen);
-											InstanceID instanceID;
-											string localizedStatus = citizenInfo.m_citizenAI.GetLocalizedStatus(citizen, ref this.MyCitizen.m_citizens.m_buffer[(int)citizen], out instanceID);
-											bool flag8 = citizen2.m_workBuilding == this.BuildingID.Building && this.buildingInfo.m_class.m_service == ItemClass.Service.Education;
-											if (flag8)
+											int forcedToGuest = 0;
+											CitizenInfo citizenInfo = MyCitizen.m_citizens.m_buffer[(int)citizen].GetCitizenInfo(citizen);
+                                            string localizedStatus = citizenInfo.m_citizenAI.GetLocalizedStatus(citizen, ref MyCitizen.m_citizens.m_buffer[(int)citizen], out InstanceID instanceID);
+											if (citizen2.m_workBuilding == BuildingID.Building && buildingInfo.m_class.m_service == ItemClass.Service.Education)
 											{
-												bool flag9 = Locale.Get("CITIZEN_STATUS_AT_SCHOOL") == localizedStatus;
-												if (flag9)
+												if (Locale.Get("CITIZEN_STATUS_AT_SCHOOL") == localizedStatus)
 												{
-													num4 = 1;
+                                                    forcedToGuest = 1;
 												}
 											}
-											bool flag10 = this.BuildingID.Building == citizen2.m_workBuilding && num4 == 0;
-											if (flag10)
+											if (BuildingID.Building == citizen2.m_workBuilding && forcedToGuest == 0)
 											{
-												num3++;
+                                                total_workers++;
 											}
-											bool flag11 = !PeopleInsideServiceBuildingsPanel.CimsOnBuilding.ContainsKey(citizen);
-											if (flag11)
+                                            if (!CimsOnBuilding.ContainsKey(citizen))
 											{
-												bool flag12 = this.buildingInfo.m_class.m_service == ItemClass.Service.PoliceDepartment;
-												if (flag12)
+                                                switch (buildingInfo.m_class.m_service)
 												{
-													this.TitleBuildingName.text = FavCimsLang.Text("OnPolice_Building_Service");
-												}
-												else
+													case ItemClass.Service.PoliceDepartment:
+														TitleBuildingName.text = FavCimsLang.Text("OnPolice_Building_Service");
+														break;
+                                                    case ItemClass.Service.Education:
+                                                        TitleBuildingName.text = FavCimsLang.Text("OnEducation_Building_Service");
+                                                        break;
+                                                    case ItemClass.Service.HealthCare:
+                                                        TitleBuildingName.text = FavCimsLang.Text("OnMedical_Building_Service");
+                                                        break;
+                                                    case ItemClass.Service.Beautification:
+                                                        TitleBuildingName.text = FavCimsLang.Text("OnBuilding_Guests");
+                                                        break;
+                                                    case ItemClass.Service.Monument:
+                                                        TitleBuildingName.text = FavCimsLang.Text("CitizenOnBuildingTitle");
+                                                        break;
+                                                    default:
+                                                        TitleBuildingName.text = FavCimsLang.Text("OnBuilding_Workers");
+                                                        break;
+                                                }
+
+												if (BuildingID.Building == citizen2.m_workBuilding && forcedToGuest == 0)
 												{
-													bool flag13 = this.buildingInfo.m_class.m_service == ItemClass.Service.Education;
-													if (flag13)
-													{
-														this.TitleBuildingName.text = FavCimsLang.Text("OnEducation_Building_Service");
-													}
-													else
-													{
-														bool flag14 = this.buildingInfo.m_class.m_service == ItemClass.Service.HealthCare;
-														if (flag14)
-														{
-															this.TitleBuildingName.text = FavCimsLang.Text("OnMedical_Building_Service");
-														}
-														else
-														{
-															bool flag15 = this.buildingInfo.m_class.m_service == ItemClass.Service.Beautification;
-															if (flag15)
-															{
-																this.TitleBuildingName.text = FavCimsLang.Text("OnBuilding_Guests");
-															}
-															else
-															{
-																bool flag16 = this.buildingInfo.m_class.m_service == ItemClass.Service.Monument;
-																if (flag16)
-																{
-																	this.TitleBuildingName.text = FavCimsLang.Text("CitizenOnBuildingTitle");
-																}
-																else
-																{
-																	this.TitleBuildingName.text = FavCimsLang.Text("OnBuilding_Workers");
-																}
-															}
-														}
-													}
-												}
-												bool flag17 = this.BuildingID.Building == citizen2.m_workBuilding && num4 == 0;
-												if (flag17)
-												{
-													this.WorkersPanel.Show();
-													this.WorkersPanelIcon.normalFgSprite = "BworkingIcon";
-													this.WorkersPanelText.text = string.Concat(new string[]
-													{
-														FavCimsLang.Text("OnBuilding_Workers"),
+													WorkersPanel.Show();
+													WorkersPanelIcon.normalFgSprite = "BworkingIcon";
+													WorkersPanelText.text = string.Concat(
+                                                    [
+                                                        FavCimsLang.Text("OnBuilding_Workers"),
 														" (",
 														FavCimsLang.Text("OnBuilding_TotalWorkers"),
 														" ",
-														num3.ToString(),
+                                                        total_workers.ToString(),
 														")"
-													});
-													bool flag18 = citizen2.GetBuildingByLocation() == this.BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving;
-													if (flag18)
+													]);
+													if (citizen2.GetBuildingByLocation() == BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving)
 													{
-														PeopleInsideServiceBuildingsPanel.WorkersCount++;
-														bool flag19 = this.WorkersPanel != null && this.WorkersBodyRow[num] != null;
-														if (flag19)
+														WorkersCount++;
+														if (WorkersPanel != null && WorkersBodyRow[unitnum] != null)
 														{
-															bool flag20 = this.WorkersBodyRow[num2].citizen != 0U && PeopleInsideServiceBuildingsPanel.CimsOnBuilding.ContainsKey(this.WorkersBodyRow[num2].citizen);
-															if (flag20)
+															if (WorkersBodyRow[rownum].citizen != 0U && CimsOnBuilding.ContainsKey(WorkersBodyRow[rownum].citizen))
 															{
-																PeopleInsideServiceBuildingsPanel.Wait = true;
-																PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Remove(this.WorkersBodyRow[num2].citizen);
+																Wait = true;
+																CimsOnBuilding.Remove(WorkersBodyRow[rownum].citizen);
 															}
-															PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Add(citizen, this.BuildingUnits);
-															this.WorkersBodyRow[num2].OnBuilding = this.BuildingID.Building;
-															this.WorkersBodyRow[num2].citizen = citizen;
-															this.WorkersBodyRow[num2].LocType = Citizen.Location.Work;
-															this.WorkersBodyRow[num2].firstRun = true;
-															this.WorkersBodyRow[num2].Show();
-															bool wait = PeopleInsideServiceBuildingsPanel.Wait;
+															CimsOnBuilding.Add(citizen, BuildingUnits);
+															WorkersBodyRow[rownum].OnBuilding = BuildingID.Building;
+															WorkersBodyRow[rownum].citizen = citizen;
+															WorkersBodyRow[rownum].LocType = Citizen.Location.Work;
+															WorkersBodyRow[rownum].firstRun = true;
+															WorkersBodyRow[rownum].Show();
+															bool wait = Wait;
 															if (wait)
 															{
-																PeopleInsideServiceBuildingsPanel.Wait = false;
+																Wait = false;
 															}
 														}
 													}
-													bool flag21 = PeopleInsideServiceBuildingsPanel.WorkersCount == 0;
-													if (flag21)
+													if (WorkersCount == 0)
 													{
-														this.WorkersPanelText.text = string.Concat(new string[]
-														{
-															FavCimsLang.Text("OnBuilding_NoWorkers"),
+														WorkersPanelText.text = string.Concat(
+                                                        [
+                                                            FavCimsLang.Text("OnBuilding_NoWorkers"),
 															" (",
 															FavCimsLang.Text("OnBuilding_TotalWorkers"),
 															" ",
-															num3.ToString(),
+                                                            total_workers.ToString(),
 															")"
-														});
+														]);
 													}
 												}
 												else
 												{
-													this.GuestsPanel.Show();
-													bool flag22 = this.buildingInfo.m_class.m_service == ItemClass.Service.PoliceDepartment;
-													if (flag22)
+													GuestsPanel.Show();
+                                                    switch (buildingInfo.m_class.m_service)
+                                                    {
+                                                        case ItemClass.Service.PoliceDepartment:
+                                                            GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+                                                            GuestsPanelIcon.normalFgSprite = "FavCimsCrimeArrested";
+                                                            GuestsPanelText.text = FavCimsLang.Text("Citizen_Under_Arrest");
+                                                            break;
+                                                        case ItemClass.Service.Education:
+                                                            GuestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
+                                                            GuestsPanelIcon.normalFgSprite = "IconPolicySchoolsOut";
+                                                            GuestsPanelText.text = FavCimsLang.Text("Citizen_at_School");
+                                                            break;
+                                                        case ItemClass.Service.HealthCare:
+                                                            GuestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
+                                                            GuestsPanelIcon.normalFgSprite = "SubBarHealthcareDefault";
+                                                            GuestsPanelText.text = FavCimsLang.Text("Citizen_on_Clinic");
+                                                            break;
+                                                        default:
+                                                            GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+                                                            GuestsPanelIcon.normalFgSprite = "BcommercialIcon";
+                                                            GuestsPanelText.text = FavCimsLang.Text("OnBuilding_Guests");
+                                                            break;
+                                                    }
+
+													if (citizen2.GetBuildingByLocation() == BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving)
 													{
-														this.GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-														this.GuestsPanelIcon.normalFgSprite = "FavCimsCrimeArrested";
-														this.GuestsPanelText.text = FavCimsLang.Text("Citizen_Under_Arrest");
-													}
-													else
-													{
-														bool flag23 = this.buildingInfo.m_class.m_service == ItemClass.Service.Education;
-														if (flag23)
+														GuestsCount++;
+														if (GuestsPanel != null && GuestsBodyRow[unitnum] != null)
 														{
-															this.GuestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
-															this.GuestsPanelIcon.normalFgSprite = "IconPolicySchoolsOut";
-															this.GuestsPanelText.text = FavCimsLang.Text("Citizen_at_School");
-														}
-														else
-														{
-															bool flag24 = this.buildingInfo.m_class.m_service == ItemClass.Service.HealthCare;
-															if (flag24)
+															if (GuestsBodyRow[rownum].citizen != 0U && CimsOnBuilding.ContainsKey(GuestsBodyRow[rownum].citizen))
 															{
-																this.GuestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
-																this.GuestsPanelIcon.normalFgSprite = "SubBarHealthcareDefault";
-																this.GuestsPanelText.text = FavCimsLang.Text("Citizen_on_Clinic");
+																Wait = true;
+																CimsOnBuilding.Remove(GuestsBodyRow[rownum].citizen);
 															}
-															else
-															{
-																this.GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-																this.GuestsPanelIcon.normalFgSprite = "BcommercialIcon";
-																this.GuestsPanelText.text = FavCimsLang.Text("OnBuilding_Guests");
-															}
-														}
-													}
-													bool flag25 = citizen2.GetBuildingByLocation() == this.BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving;
-													if (flag25)
-													{
-														PeopleInsideServiceBuildingsPanel.GuestsCount++;
-														bool flag26 = this.GuestsPanel != null && this.GuestsBodyRow[num] != null;
-														if (flag26)
-														{
-															bool flag27 = this.GuestsBodyRow[num2].citizen != 0U && PeopleInsideServiceBuildingsPanel.CimsOnBuilding.ContainsKey(this.GuestsBodyRow[num2].citizen);
-															if (flag27)
-															{
-																PeopleInsideServiceBuildingsPanel.Wait = true;
-																PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Remove(this.GuestsBodyRow[num2].citizen);
-															}
-															PeopleInsideServiceBuildingsPanel.CimsOnBuilding.Add(citizen, this.BuildingUnits);
-															this.GuestsBodyRow[num2].OnBuilding = this.BuildingID.Building;
-															this.GuestsBodyRow[num2].citizen = citizen;
-															this.GuestsBodyRow[num2].LocType = Citizen.Location.Visit;
-															this.GuestsBodyRow[num2].firstRun = true;
-															this.GuestsBodyRow[num2].Show();
-															bool wait2 = PeopleInsideServiceBuildingsPanel.Wait;
+															CimsOnBuilding.Add(citizen, BuildingUnits);
+															GuestsBodyRow[rownum].OnBuilding = BuildingID.Building;
+															GuestsBodyRow[rownum].citizen = citizen;
+															GuestsBodyRow[rownum].LocType = Citizen.Location.Visit;
+															GuestsBodyRow[rownum].firstRun = true;
+															GuestsBodyRow[rownum].Show();
+															bool wait2 = Wait;
 															if (wait2)
 															{
-																PeopleInsideServiceBuildingsPanel.Wait = false;
+																Wait = false;
 															}
 														}
 													}
-													bool flag28 = PeopleInsideServiceBuildingsPanel.GuestsCount == 0;
-													if (flag28)
+													if (GuestsCount == 0)
 													{
-														bool flag29 = this.buildingInfo.m_class.m_service == ItemClass.Service.PoliceDepartment;
-														if (flag29)
-														{
-															this.GuestsPanelText.text = FavCimsLang.Text("OnBuilding_noArrested");
-														}
-														else
-														{
-															bool flag30 = this.buildingInfo.m_class.m_service == ItemClass.Service.Education;
-															if (flag30)
-															{
-																this.GuestsPanelText.text = "Non ci sono studenti";
-															}
-															else
-															{
-																bool flag31 = this.buildingInfo.m_class.m_service == ItemClass.Service.HealthCare;
-																if (flag31)
-																{
-																	this.GuestsPanelText.text = "Nessun paziente";
-																}
-																else
-																{
-																	this.GuestsPanelText.text = FavCimsLang.Text("OnBuilding_NoGuests");
-																}
-															}
-														}
+                                                        switch (buildingInfo.m_class.m_service)
+                                                        {
+                                                            case ItemClass.Service.PoliceDepartment:
+                                                                GuestsPanelText.text = FavCimsLang.Text("OnBuilding_noArrested");
+                                                                break;
+                                                            case ItemClass.Service.Education:
+                                                                GuestsPanelText.text = FavCimsLang.Text("OnBuilding_noStudents");
+                                                                break;
+                                                            case ItemClass.Service.HealthCare:
+                                                                GuestsPanelText.text = FavCimsLang.Text("OnBuilding_noPatients");
+                                                                break;
+                                                            default:
+                                                                GuestsPanelText.text = FavCimsLang.Text("OnBuilding_NoGuests");
+                                                                break;
+                                                        }
 													}
 												}
 											}
 										}
-										num2++;
+                                        rownum++;
 									}
-									this.BuildingUnits = nextUnit;
-									bool flag32 = ++num > 524288;
-									if (flag32)
+									BuildingUnits = nextUnit;
+									if (++unitnum > 524288)
 									{
 										break;
 									}

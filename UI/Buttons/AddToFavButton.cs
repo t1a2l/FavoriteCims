@@ -44,19 +44,16 @@ namespace FavoriteCims.UI.Buttons
                 bool isVisible = base.isVisible;
                 if (isVisible)
                 {
-                    bool flag = !WorldInfoPanel.GetCurrentInstanceID().IsEmpty;
-                    if (flag)
+                    if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty)
                     {
                         ThisHuman = WorldInfoPanel.GetCurrentInstanceID();
                         int num = (int)(uint)(UIntPtr)ThisHuman.Citizen;
                         string name = MyInstance.GetName(ThisHuman);
-                        bool flag2 = name != null && name.Length > 0;
-                        if (flag2)
+                        if (name != null && name.Length > 0)
                         {
                             tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
                             normalBgSprite = "icon_fav_subscribed";
-                            bool flag3 = !FavCimsCore.RowID.ContainsKey(num) && !FavoriteCimsMainPanel.RowsAlreadyExist(ThisHuman);
-                            if (flag3)
+                            if (!FavCimsCore.RowID.ContainsKey(num) && !FavoriteCimsMainPanel.RowsAlreadyExist(ThisHuman))
                             {
                                 object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
                                 while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
@@ -65,8 +62,7 @@ namespace FavoriteCims.UI.Buttons
                                 try
                                 {
                                     CitizenRow citizenRow = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
-                                    bool flag4 = citizenRow != null;
-                                    if (flag4)
+                                    if (citizenRow != null)
                                     {
                                         citizenRow.MyInstanceID = ThisHuman;
                                         citizenRow.MyInstancedName = name;
@@ -80,8 +76,7 @@ namespace FavoriteCims.UI.Buttons
                         }
                         else
                         {
-                            bool flag5 = num != 0 && FavCimsCore.RowID.ContainsKey(num);
-                            if (flag5)
+                            if (num != 0 && FavCimsCore.RowID.ContainsKey(num))
                             {
                                 MyInstance.SetName(ThisHuman, MyCitizen.GetCitizenName(ThisHuman.Citizen));
                                 tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");

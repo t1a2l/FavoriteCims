@@ -28,8 +28,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            bool flag = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<PeopleInsideBuildingsPanel>() != null;
-            if (flag)
+            if (FavCimsMainClass.FullScreenContainer.GetComponentInChildren<PeopleInsideBuildingsPanel>() != null)
             {
                 BuildingPanel = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<PeopleInsideBuildingsPanel>();
             }
@@ -41,8 +40,7 @@ namespace FavoriteCims.UI.Buttons
             BuildingPanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                bool flag2 = !BuildingID.IsEmpty && !BuildingPanel.isVisible;
-                if (flag2)
+                if (!BuildingID.IsEmpty && !BuildingPanel.isVisible)
                 {
                     BuildingPanel.BuildingID = BuildingID;
                     BuildingPanel.RefPanel = RefPanel;
@@ -65,16 +63,13 @@ namespace FavoriteCims.UI.Buttons
                 if (isVisible)
                 {
                     tooltip = null;
-                    bool flag = WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty;
-                    if (flag)
+                    if (WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty)
                     {
                         BuildingID = WorldInfoPanel.GetCurrentInstanceID();
                     }
-                    bool flag2 = BuildingPanel != null;
-                    if (flag2)
+                    if (BuildingPanel != null)
                     {
-                        bool flag3 = !BuildingPanel.isVisible;
-                        if (flag3)
+                        if (!BuildingPanel.isVisible)
                         {
                             Unfocus();
                         }
@@ -83,57 +78,47 @@ namespace FavoriteCims.UI.Buttons
                             Focus();
                         }
                     }
-                    bool flag4 = !BuildingID.IsEmpty && BuildingID.Type == InstanceType.Building;
-                    if (flag4)
+                    if (!BuildingID.IsEmpty && BuildingID.Type == InstanceType.Building)
                     {
                         BuildingInfo info = MyBuilding.m_buildings.m_buffer[BuildingID.Building].Info;
-                        bool flag5 = info.m_class.m_service == ItemClass.Service.Residential;
-                        if (flag5)
+
+                        switch(info.m_class.m_service)
                         {
-                            tooltip = FavCimsLang.Text("Citizens_HouseHolds");
-                            normalBgSprite = "BuildingButtonIcon";
-                            hoveredBgSprite = "BuildingButtonIconHovered";
-                            focusedBgSprite = "BuildingButtonIconHovered";
-                            pressedBgSprite = "BuildingButtonIconHovered";
-                            disabledBgSprite = "BuildingButtonIconDisabled";
-                        }
-                        else
-                        {
-                            bool flag6 = info.m_class.m_service == ItemClass.Service.Commercial;
-                            if (flag6)
-                            {
+                            case ItemClass.Service.Residential:
+                                tooltip = FavCimsLang.Text("Citizens_HouseHolds");
+                                normalBgSprite = "BuildingButtonIcon";
+                                hoveredBgSprite = "BuildingButtonIconHovered";
+                                focusedBgSprite = "BuildingButtonIconHovered";
+                                pressedBgSprite = "BuildingButtonIconHovered";
+                                disabledBgSprite = "BuildingButtonIconDisabled";
+                                break;
+                            case ItemClass.Service.Commercial:
                                 tooltip = FavCimsLang.Text("CitizenOnBuilding");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
                                 hoveredBgSprite = "CommercialBuildingButtonIconHovered";
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
                                 pressedBgSprite = "CommercialBuildingButtonIconHovered";
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                            }
-                            else
-                            {
-                                bool flag7 = info.m_class.m_service == ItemClass.Service.Office;
-                                if (flag7)
-                                {
-                                    tooltip = FavCimsLang.Text("WorkersOnBuilding");
-                                    normalBgSprite = "CommercialBuildingButtonIcon";
-                                    hoveredBgSprite = "CommercialBuildingButtonIconHovered";
-                                    focusedBgSprite = "CommercialBuildingButtonIconHovered";
-                                    pressedBgSprite = "CommercialBuildingButtonIconHovered";
-                                    disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                                }
-                                else
-                                {
-                                    tooltip = FavCimsLang.Text("WorkersOnBuilding");
-                                    normalBgSprite = "IndustrialBuildingButtonIcon";
-                                    hoveredBgSprite = "IndustrialBuildingButtonIconHovered";
-                                    focusedBgSprite = "IndustrialBuildingButtonIconHovered";
-                                    pressedBgSprite = "IndustrialBuildingButtonIconHovered";
-                                    disabledBgSprite = "IndustrialBuildingButtonIconDisabled";
-                                }
-                            }
+                                break;
+                            case ItemClass.Service.Office:
+                                tooltip = FavCimsLang.Text("WorkersOnBuilding");
+                                normalBgSprite = "CommercialBuildingButtonIcon";
+                                hoveredBgSprite = "CommercialBuildingButtonIconHovered";
+                                focusedBgSprite = "CommercialBuildingButtonIconHovered";
+                                pressedBgSprite = "CommercialBuildingButtonIconHovered";
+                                disabledBgSprite = "CommercialBuildingButtonIconDisabled";
+                                break;
+                            default:
+                                tooltip = FavCimsLang.Text("WorkersOnBuilding");
+                                normalBgSprite = "IndustrialBuildingButtonIcon";
+                                hoveredBgSprite = "IndustrialBuildingButtonIconHovered";
+                                focusedBgSprite = "IndustrialBuildingButtonIconHovered";
+                                pressedBgSprite = "IndustrialBuildingButtonIconHovered";
+                                disabledBgSprite = "IndustrialBuildingButtonIconDisabled";
+                                break;
                         }
-                        bool flag8 = Convert.ToInt32(MyBuilding.m_buildings.m_buffer[BuildingID.Building].m_citizenCount) == 0;
-                        if (flag8)
+
+                        if (Convert.ToInt32(MyBuilding.m_buildings.m_buffer[BuildingID.Building].m_citizenCount) == 0)
                         {
                             BuildingPanel.Hide();
                             tooltip = FavCimsLang.Text("BuildingIsEmpty");

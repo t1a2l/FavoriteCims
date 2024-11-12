@@ -217,14 +217,11 @@ namespace FavoriteCims.UI.Panels
             {
                 try
                 {
-                    bool flag = MyInstance.SelectInstance(Target);
-                    if (flag)
+                    if (MyInstance.SelectInstance(Target))
                     {
-                        bool flag2 = eventParam.buttons == UIMouseButton.Middle;
-                        if (flag2)
+                        if (eventParam.buttons == UIMouseButton.Middle)
                         {
-                            bool flag3 = citizenInfo.m_class.m_service == ItemClass.Service.Tourism;
-                            if (flag3)
+                            if (citizenInfo.m_class.m_service == ItemClass.Service.Tourism)
                             {
                                 WorldInfoPanel.Show<TouristWorldInfoPanel>(position, Target);
                             }
@@ -235,13 +232,11 @@ namespace FavoriteCims.UI.Panels
                         }
                         else
                         {
-                            bool flag4 = eventParam.buttons == UIMouseButton.Right;
-                            if (flag4)
+                            if (eventParam.buttons == UIMouseButton.Right)
                             {
                                 FavCimsMainClass.FavCimsPanel.Hide();
                                 ToolsModifierControl.cameraController.SetTarget(Target, ToolsModifierControl.cameraController.transform.position, true);
-                                bool flag5 = citizenInfo.m_class.m_service == ItemClass.Service.Tourism;
-                                if (flag5)
+                                if (citizenInfo.m_class.m_service == ItemClass.Service.Tourism)
                                 {
                                     WorldInfoPanel.Show<TouristWorldInfoPanel>(position, Target);
                                 }
@@ -253,8 +248,7 @@ namespace FavoriteCims.UI.Panels
                             else
                             {
                                 ToolsModifierControl.cameraController.SetTarget(Target, ToolsModifierControl.cameraController.transform.position, true);
-                                bool flag6 = citizenInfo.m_class.m_service == ItemClass.Service.Tourism;
-                                if (flag6)
+                                if (citizenInfo.m_class.m_service == ItemClass.Service.Tourism)
                                 {
                                     WorldInfoPanel.Show<TouristWorldInfoPanel>(position, Target);
                                 }
@@ -280,15 +274,13 @@ namespace FavoriteCims.UI.Panels
             {
                 try
                 {
-                    bool flag = p.buttons == UIMouseButton.Middle;
-                    if (flag)
+                    if (p.buttons == UIMouseButton.Middle)
                     {
                         WorldInfoPanel.Show<ZonedBuildingWorldInfoPanel>(position, CitizenHomeID);
                     }
                     else
                     {
-                        bool flag2 = p.buttons == UIMouseButton.Right;
-                        if (flag2)
+                        if (p.buttons == UIMouseButton.Right)
                         {
                             FavCimsMainClass.FavCimsPanel.Hide();
                             ToolsModifierControl.cameraController.SetTarget(CitizenHomeID, ToolsModifierControl.cameraController.transform.position, true);
@@ -315,15 +307,13 @@ namespace FavoriteCims.UI.Panels
             {
                 try
                 {
-                    bool flag = p.buttons == UIMouseButton.Middle;
-                    if (flag)
+                    if (p.buttons == UIMouseButton.Middle)
                     {
                         DefaultTool.OpenWorldInfoPanel(WorkPlaceID, ToolsModifierControl.cameraController.transform.position);
                     }
                     else
                     {
-                        bool flag2 = p.buttons == UIMouseButton.Right;
-                        if (flag2)
+                        if (p.buttons == UIMouseButton.Right)
                         {
                             FavCimsMainClass.FavCimsPanel.Hide();
                             ToolsModifierControl.cameraController.SetTarget(WorkPlaceID, ToolsModifierControl.cameraController.transform.position, true);
@@ -350,15 +340,13 @@ namespace FavoriteCims.UI.Panels
             {
                 try
                 {
-                    bool flag = p.buttons == UIMouseButton.Middle;
-                    if (flag)
+                    if (p.buttons == UIMouseButton.Middle)
                     {
                         DefaultTool.OpenWorldInfoPanel(MyTargetID, ToolsModifierControl.cameraController.transform.position);
                     }
                     else
                     {
-                        bool flag2 = p.buttons == UIMouseButton.Right;
-                        if (flag2)
+                        if (p.buttons == UIMouseButton.Right)
                         {
                             FavCimsMainClass.FavCimsPanel.Hide();
                             ToolsModifierControl.cameraController.SetTarget(MyTargetID, ToolsModifierControl.cameraController.transform.position, true);
@@ -385,15 +373,13 @@ namespace FavoriteCims.UI.Panels
             {
                 try
                 {
-                    bool flag = p.buttons == UIMouseButton.Middle;
-                    if (flag)
+                    if (p.buttons == UIMouseButton.Middle)
                     {
                         DefaultTool.OpenWorldInfoPanel(MyVehicleID, ToolsModifierControl.cameraController.transform.position);
                     }
                     else
                     {
-                        bool flag2 = p.buttons == UIMouseButton.Right;
-                        if (flag2)
+                        if (p.buttons == UIMouseButton.Right)
                         {
                             FavCimsMainClass.FavCimsPanel.Hide();
                             ToolsModifierControl.cameraController.SetTarget(MyVehicleID, ToolsModifierControl.cameraController.transform.position, true);
@@ -425,13 +411,8 @@ namespace FavoriteCims.UI.Panels
                 uint citizen = MyInstanceID.Citizen;
                 citizenINT = (int)(uint)(UIntPtr)citizen;
                 CitizenName = MyInstance.GetName(MyInstanceID);
-                bool flag = MyInstancedName == null;
-                if (flag)
-                {
-                    MyInstancedName = CitizenName;
-                }
-                bool flag2 = citizenINT != 0 && !FavCimsCore.RowID.ContainsKey(citizenINT) && CitizenName != null && CitizenName.Length > 0;
-                if (flag2)
+                MyInstancedName ??= CitizenName;
+                if (citizenINT != 0 && !FavCimsCore.RowID.ContainsKey(citizenINT) && CitizenName != null && CitizenName.Length > 0)
                 {
                     FavCimsCore.InsertIdIntoArray(citizenINT);
                     width = 1134f;
@@ -447,8 +428,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsCitizenSingleRowBGSprite.width = FavCimsCitizenSingleRowPanel.width;
                     FavCimsCitizenSingleRowBGSprite.height = FavCimsCitizenSingleRowPanel.height;
                     FavCimsCitizenSingleRowBGSprite.AlignTo(FavCimsCitizenSingleRowPanel, UIAlignAnchor.TopLeft);
-                    bool flag3 = !FavoriteCimsMainPanel.RowAlternateBackground;
-                    if (flag3)
+                    if (!FavoriteCimsMainPanel.RowAlternateBackground)
                     {
                         FavDot = ResourceLoader.LoadTexture((int)width, 40, "UIMainPanel.Rows.bgrow_1.png");
                         FavDot.name = "FavDot_1";
@@ -530,8 +510,7 @@ namespace FavoriteCims.UI.Panels
                     }
                     FavoriteCimsMainPanel.FavCimsNameColText.eventClick += delegate
                     {
-                        bool flag4 = FavCimsNameColText_EmptySprite.texture == null;
-                        if (flag4)
+                        if (FavCimsNameColText_EmptySprite.texture == null)
                         {
                             FavCimsNameColText_EmptySprite.texture = TextureDB.FavCimsNameBgOverride_texture;
                             FavCimsNameColText_EmptySprite.opacity = 0.7f;
@@ -560,8 +539,7 @@ namespace FavoriteCims.UI.Panels
                     {
                         try
                         {
-                            bool flag5 = MyFamily == null && GetTemplate() >= 0;
-                            if (flag5)
+                            if (MyFamily == null && GetTemplate() >= 0)
                             {
                                 MyFamily = FavCimsMainClass.Templates[GetTemplate()];
                                 MyFamily.MyInstanceID = MyInstanceID;
@@ -571,8 +549,7 @@ namespace FavoriteCims.UI.Panels
                             }
                             else
                             {
-                                bool flag6 = MyFamily != null && !MyFamily.isVisible;
-                                if (flag6)
+                                if (MyFamily != null && !MyFamily.isVisible)
                                 {
                                     MyFamily.MyInstanceID = MyInstanceID;
                                     MyFamily.Show();
@@ -581,8 +558,7 @@ namespace FavoriteCims.UI.Panels
                                 }
                                 else
                                 {
-                                    bool flag7 = MyFamily != null;
-                                    if (flag7)
+                                    if (MyFamily != null)
                                     {
                                         MyFamily.Hide();
                                         MyFamily.MyInstanceID = InstanceID.Empty;
@@ -854,15 +830,13 @@ namespace FavoriteCims.UI.Panels
                         try
                         {
                             FavCimsCore.RemoveRowAndRemoveFav(MyInstanceID, citizenINT);
-                            bool flag8 = MyFamily != null;
-                            if (flag8)
+                            if (MyFamily != null)
                             {
                                 MyFamily.Hide();
                                 MyFamily.MyInstanceID = InstanceID.Empty;
                                 MyFamily = null;
                             }
-                            bool flag9 = UIView.Find<UILabel>("DefaultTooltip");
-                            if (flag9)
+                            if (UIView.Find<UILabel>("DefaultTooltip"))
                             {
                                 UIView.Find<UILabel>("DefaultTooltip").Hide();
                             }
@@ -895,8 +869,7 @@ namespace FavoriteCims.UI.Panels
                 if (firstRun)
                 {
                     secondsForceRun -= 1f * Time.deltaTime;
-                    bool flag = secondsForceRun > 0f;
-                    if (flag)
+                    if (secondsForceRun > 0f)
                     {
                         execute = true;
                     }
@@ -907,13 +880,11 @@ namespace FavoriteCims.UI.Panels
                 }
                 else
                 {
-                    bool flag2 = !FavCimsMainClass.FavCimsPanel.isVisible || IsClippedFromParent();
-                    if (flag2)
+                    if (!FavCimsMainClass.FavCimsPanel.isVisible || IsClippedFromParent())
                     {
                         FavCimsCitizenSingleRowPanel.Hide();
                         HiddenRowsSeconds -= 1f * Time.deltaTime;
-                        bool flag3 = HiddenRowsSeconds <= 0f;
-                        if (flag3)
+                        if (HiddenRowsSeconds <= 0f)
                         {
                             execute = true;
                             HiddenRowsSeconds = 30f;
@@ -927,8 +898,7 @@ namespace FavoriteCims.UI.Panels
                     {
                         FavCimsCitizenSingleRowPanel.Show();
                         seconds -= 1f * Time.deltaTime;
-                        bool flag4 = seconds <= 0f;
-                        if (flag4)
+                        if (seconds <= 0f)
                         {
                             execute = true;
                             seconds = 0.5f;
@@ -947,11 +917,9 @@ namespace FavoriteCims.UI.Panels
             bool unLoading = FavCimsMainClass.UnLoading;
             if (!unLoading)
             {
-                bool flag = MyInstanceID.IsEmpty || !FavCimsCore.RowID.ContainsKey(citizenINT);
-                if (flag)
+                if (MyInstanceID.IsEmpty || !FavCimsCore.RowID.ContainsKey(citizenINT))
                 {
-                    bool flag2 = MyFamily != null;
-                    if (flag2)
+                    if (MyFamily != null)
                     {
                         MyFamily.Hide();
                         MyFamily.MyInstanceID = InstanceID.Empty;
@@ -961,19 +929,16 @@ namespace FavoriteCims.UI.Panels
                 }
                 else
                 {
-                    bool flag3 = DeadOrGone || HomeLess;
-                    if (flag3)
+                    if (DeadOrGone || HomeLess)
                     {
                         OtherInfoButton.isEnabled = false;
                         OtherInfoButton.tooltip = FavCimsLang.Text("Citizen_Details_NoUnit");
                     }
                     else
                     {
-                        bool flag4 = GetTemplate() == -1 && (MyFamily == null || MyFamily.MyInstanceID != MyInstanceID);
-                        if (flag4)
+                        if (GetTemplate() == -1 && (MyFamily == null || MyFamily.MyInstanceID != MyInstanceID))
                         {
-                            bool flag5 = MyFamily != null && MyFamily.MyInstanceID != MyInstanceID;
-                            if (flag5)
+                            if (MyFamily != null && MyFamily.MyInstanceID != MyInstanceID)
                             {
                                 MyFamily = null;
                             }
@@ -982,8 +947,7 @@ namespace FavoriteCims.UI.Panels
                         }
                         else
                         {
-                            bool flag6 = MyFamily != null && MyFamily.MyInstanceID == MyInstanceID && MyFamily.isVisible;
-                            if (flag6)
+                            if (MyFamily != null && MyFamily.MyInstanceID == MyInstanceID && MyFamily.isVisible)
                             {
                                 OtherInfoButton.normalBgSprite = "CityInfoFocused";
                             }
@@ -996,40 +960,34 @@ namespace FavoriteCims.UI.Panels
                         }
                     }
                     uint citizen = MyInstanceID.Citizen;
-                    bool flag7 = citizen != 0U && MyCitizen.m_citizens.m_buffer[(int)citizen].Dead && !CitizenIsDead;
-                    if (flag7)
+                    if (citizen != 0U && MyCitizen.m_citizens.m_buffer[(int)citizen].Dead && !CitizenIsDead)
                     {
                         CitizenIsDead = true;
                         CitizenRowData["deathrealage"] = "0";
                     }
-                    bool flag8 = execute;
-                    if (flag8)
+                    if (execute)
                     {
                         try
                         {
                             CitizenName = MyInstance.GetName(MyInstanceID);
                             citizenINT = (int)(uint)(UIntPtr)citizen;
-                            bool flag9 = CitizenName != null && CitizenName.Length > 0 && CitizenName != MyInstancedName;
-                            if (flag9)
+                            if (CitizenName != null && CitizenName.Length > 0 && CitizenName != MyInstancedName)
                             {
                                 MyInstancedName = CitizenName;
                             }
                             citizenInfo = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].GetCitizenInfo(citizen);
-                            FavCimsRowCloseButton.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
-                            bool flag10 = FavCimsCitizenSingleRowPanel != null && citizen != 0U && CitizenName == MyInstancedName && FavCimsCore.RowID.ContainsKey(citizenINT);
-                            if (flag10)
+                            FavCimsRowCloseButton.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");  
+                            if (FavCimsCitizenSingleRowPanel != null && citizen != 0U && CitizenName == MyInstancedName && FavCimsCore.RowID.ContainsKey(citizenINT))
                             {
                                 Citizen.Gender gender = Citizen.GetGender(citizen);
                                 CitizenRowData["gender"] = gender.ToString();
                                 CitizenRowData["name"] = MyCitizen.GetCitizenName(citizen);
                                 FavCimsCitizenName.text = CitizenRowData["name"];
-                                bool flag11 = CitizenRowData["gender"] == "Female";
-                                if (flag11)
+                                if (CitizenRowData["gender"] == "Female")
                                 {
                                     FavCimsCitizenName.textColor = new Color32(byte.MaxValue, 102, 204, 213);
                                 }
-                                bool flag12 = CitizenDistrict == 0;
-                                if (flag12)
+                                if (CitizenDistrict == 0)
                                 {
                                     FavCimsCitizenName.tooltip = FavCimsLang.Text("NowInThisDistrict") + FavCimsLang.Text("DistrictNameNoDistrict");
                                 }
@@ -1042,31 +1000,23 @@ namespace FavoriteCims.UI.Panels
                                 Citizen.Education educationLevel = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].EducationLevel;
                                 CitizenRowData["education"] = educationLevel.ToString();
                                 FavCimsEducation.text = FavCimsLang.Text("Education_" + CitizenRowData["education"] + "_" + CitizenRowData["gender"]);
-                                bool flag13 = CitizenRowData["education"] == "ThreeSchools";
-                                if (flag13)
+                                
+                                switch(CitizenRowData["education"])
                                 {
-                                    FavCimsEducation.textColor = new Color32(102, 204, 0, 60);
-                                }
-                                else
-                                {
-                                    bool flag14 = CitizenRowData["education"] == "TwoSchools";
-                                    if (flag14)
-                                    {
+                                    case "ThreeSchools":
+                                        FavCimsEducation.textColor = new Color32(102, 204, 0, 60);
+                                        break;
+                                    case "TwoSchools":
                                         FavCimsEducation.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                    }
-                                    else
-                                    {
-                                        bool flag15 = CitizenRowData["education"] == "OneSchool";
-                                        if (flag15)
-                                        {
-                                            FavCimsEducation.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                        }
-                                        else
-                                        {
-                                            FavCimsEducation.textColor = new Color32(153, 0, 0, 0);
-                                        }
-                                    }
+                                        break;
+                                    case "OneSchool":
+                                        FavCimsEducation.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                        break;
+                                    default:
+                                        FavCimsEducation.textColor = new Color32(153, 0, 0, 0);
+                                        break;
                                 }
+                                
                                 tmp_wellbeing = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_wellbeing;
                                 CitizenRowData["wellbeing"] = Citizen.GetWellbeingLevel(educationLevel, tmp_wellbeing).ToString();
                                 tmp_happiness = Citizen.GetHappiness(tmp_health, tmp_wellbeing);
@@ -1077,62 +1027,37 @@ namespace FavoriteCims.UI.Panels
                                 CitizenRowData["agegroup"] = Citizen.GetAgeGroup(tmp_age).ToString();
                                 FavCimsAgePhase.text = FavCimsLang.Text("AgePhase_" + CitizenRowData["agegroup"] + "_" + CitizenRowData["gender"]);
                                 RealAge = FavCimsCore.CalculateCitizenAge(tmp_age);
-                                bool flag16 = RealAge <= 12;
-                                if (flag16)
+                                FavCimsRealAge.text = RealAge.ToString();
+                                switch (RealAge)
                                 {
-                                    FavCimsRealAge.text = RealAge.ToString();
-                                    FavCimsRealAge.textColor = new Color32(102, 204, 0, 60);
-                                    FavCimsAgePhase.textColor = new Color32(102, 204, 0, 60);
-                                }
-                                else
-                                {
-                                    bool flag17 = RealAge <= 19;
-                                    if (flag17)
-                                    {
-                                        FavCimsRealAge.text = RealAge.ToString();
+                                    case int n when n <= 12:
+                                        FavCimsRealAge.textColor = new Color32(102, 204, 0, 60);
+                                        FavCimsAgePhase.textColor = new Color32(102, 204, 0, 60);
+                                        break;
+                                    case int n when n <= 19:
                                         FavCimsRealAge.textColor = new Color32(0, 102, 51, 100);
                                         FavCimsAgePhase.textColor = new Color32(0, 102, 51, 100);
-                                    }
-                                    else
-                                    {
-                                        bool flag18 = RealAge <= 25;
-                                        if (flag18)
-                                        {
-                                            FavCimsRealAge.text = RealAge.ToString();
-                                            FavCimsRealAge.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                            FavCimsAgePhase.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                        }
-                                        else
-                                        {
-                                            bool flag19 = RealAge <= 65;
-                                            if (flag19)
-                                            {
-                                                FavCimsRealAge.text = RealAge.ToString();
-                                                FavCimsRealAge.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                                FavCimsAgePhase.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                            }
-                                            else
-                                            {
-                                                bool flag20 = RealAge <= 90;
-                                                if (flag20)
-                                                {
-                                                    FavCimsRealAge.text = RealAge.ToString();
-                                                    FavCimsRealAge.textColor = new Color32(153, 0, 0, 0);
-                                                    FavCimsAgePhase.textColor = new Color32(153, 0, 0, 0);
-                                                }
-                                                else
-                                                {
-                                                    FavCimsRealAge.text = RealAge.ToString();
-                                                    FavCimsRealAge.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                    FavCimsAgePhase.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                }
-                                            }
-                                        }
-                                    }
+                                        break;
+                                    case int n when n <= 25:
+                                        FavCimsRealAge.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                        FavCimsAgePhase.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                        break;
+                                    case int n when n <= 65:
+                                        FavCimsRealAge.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                        FavCimsAgePhase.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                        break;
+                                    case int n when n <= 90:
+                                        FavCimsRealAge.textColor = new Color32(153, 0, 0, 0);
+                                        FavCimsAgePhase.textColor = new Color32(153, 0, 0, 0);
+                                        break;
+                                    default:
+                                        FavCimsRealAge.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                        FavCimsAgePhase.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                        break;
                                 }
+
                                 CitizenHome = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_homeBuilding;
-                                bool flag21 = CitizenHome > 0;
-                                if (flag21)
+                                if (CitizenHome > 0)
                                 {
                                     HomeLess = false;
                                     CitizenHomeID.Building = CitizenHome;
@@ -1140,47 +1065,39 @@ namespace FavoriteCims.UI.Panels
                                     FavCimsCitizenHome.isEnabled = true;
                                     FavCimsCitizenHomeButton.normalBgSprite = "homeIconLow";
                                     HomeInfo = MyBuilding.m_buildings.m_buffer[(int)CitizenHomeID.Index].Info;
-                                    bool flag22 = HomeInfo.m_class.m_service == ItemClass.Service.Residential;
-                                    if (flag22)
+
+                                    
+
+
+
+                                    if (HomeInfo.m_class.m_service == ItemClass.Service.Residential)
                                     {
                                         FavCimsCitizenHome.tooltip = null;
-                                        bool flag23 = HomeInfo.m_class.m_subService == ItemClass.SubService.ResidentialHigh;
-                                        if (flag23)
+
+                                        switch (HomeInfo.m_class.m_subService)
                                         {
-                                            FavCimsCitizenHome.textColor = new Color32(0, 102, 51, 100);
-                                            FavCimsCitizenHomeButton.normalBgSprite = "homeIconHigh";
-                                            FavCimsCitizenHome.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 2.ToString());
-                                        }
-                                        else
-                                        {
-                                            bool flag24 = HomeInfo.m_class.m_subService == ItemClass.SubService.ResidentialHighEco;
-                                            if (flag24)
-                                            {
+                                            case ItemClass.SubService.ResidentialHigh:
+                                                FavCimsCitizenHome.textColor = new Color32(0, 102, 51, 100);
+                                                FavCimsCitizenHomeButton.normalBgSprite = "homeIconHigh";
+                                                FavCimsCitizenHome.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 2.ToString());
+                                                break;
+                                            case ItemClass.SubService.ResidentialHighEco:
                                                 FavCimsCitizenHome.textColor = new Color32(0, 102, 51, 100);
                                                 FavCimsCitizenHomeButton.normalBgSprite = "homeIconHigh";
                                                 FavCimsCitizenHome.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 2.ToString()) + " Eco";
-                                            }
-                                            else
-                                            {
-                                                bool flag25 = HomeInfo.m_class.m_subService == ItemClass.SubService.ResidentialLowEco;
-                                                if (flag25)
-                                                {
-                                                    FavCimsCitizenHome.textColor = new Color32(0, 153, 0, 80);
-                                                    FavCimsCitizenHomeButton.normalBgSprite = "homeIconLow";
-                                                    FavCimsCitizenHome.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 1.ToString()) + " Eco";
-                                                }
-                                                else
-                                                {
-                                                    bool flag26 = HomeInfo.m_class.m_subService == ItemClass.SubService.ResidentialLow;
-                                                    if (flag26)
-                                                    {
-                                                        FavCimsCitizenHome.textColor = new Color32(0, 153, 0, 80);
-                                                        FavCimsCitizenHomeButton.normalBgSprite = "homeIconLow";
-                                                        FavCimsCitizenHome.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 1.ToString());
-                                                    }
-                                                }
-                                            }
+                                                break;
+                                            case ItemClass.SubService.ResidentialLowEco:
+                                                FavCimsCitizenHome.textColor = new Color32(0, 153, 0, 80);
+                                                FavCimsCitizenHomeButton.normalBgSprite = "homeIconLow";
+                                                FavCimsCitizenHome.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 1.ToString()) + " Eco";
+                                                break;
+                                            case ItemClass.SubService.ResidentialLow:
+                                                FavCimsCitizenHome.textColor = new Color32(0, 153, 0, 80);
+                                                FavCimsCitizenHomeButton.normalBgSprite = "homeIconLow";
+                                                FavCimsCitizenHome.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 1.ToString());
+                                                break;
                                         }
+
                                         switch (HomeInfo.m_class.m_level)
                                         {
                                             case ItemClass.Level.Level2:
@@ -1199,9 +1116,9 @@ namespace FavoriteCims.UI.Panels
                                                 FavCimsCitizenResidentialLevelSprite.texture = TextureDB.FavCimsResidentialLevel[1];
                                                 break;
                                         }
+
                                         HomeDistrict = MyDistrict.GetDistrict(MyBuilding.m_buildings.m_buffer[(int)CitizenHomeID.Index].m_position);
-                                        bool flag27 = HomeDistrict == 0;
-                                        if (flag27)
+                                        if (HomeDistrict == 0)
                                         {
                                             FavCimsCitizenHomeButton.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                         }
@@ -1222,8 +1139,7 @@ namespace FavoriteCims.UI.Panels
                                     HomeLess = true;
                                 }
                                 WorkPlace = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_workBuilding;
-                                bool flag28 = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].GetCurrentSchoolLevel(citizen) != ItemClass.Level.None;
-                                if (flag28)
+                                if (MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].GetCurrentSchoolLevel(citizen) != ItemClass.Level.None)
                                 {
                                     isStudent = true;
                                     FavCimsWorkingPlaceButton.normalBgSprite = null;
@@ -1233,16 +1149,13 @@ namespace FavoriteCims.UI.Panels
                                 }
                                 else
                                 {
-                                    bool flag29 = WorkPlace == 0;
-                                    if (flag29)
+                                    if (WorkPlace == 0)
                                     {
                                         FavCimsWorkingPlaceButton.normalBgSprite = null;
-                                        bool flag30 = (MyCitizen.m_citizens.m_buffer[(int)citizen].m_flags & Citizen.Flags.Tourist) > 0;
-                                        if (flag30)
+                                        if ((MyCitizen.m_citizens.m_buffer[(int)citizen].m_flags & Citizen.Flags.Tourist) > 0)
                                         {
                                             string text = string.Empty;
-                                            bool flag31 = SteamHelper.IsDLCOwned(SteamHelper.DLC.CampusDLC);
-                                            if (flag31)
+                                            if (SteamHelper.IsDLCOwned(SteamHelper.DLC.CampusDLC))
                                             {
                                                 float num = Singleton<ImmaterialResourceManager>.instance.CheckExchangeStudentAttractivenessBonus() * 100f;
                                                 Randomizer m_randomizer = new(citizen);
@@ -1262,8 +1175,7 @@ namespace FavoriteCims.UI.Panels
                                         }
                                         else
                                         {
-                                            bool flag32 = tmp_age >= 180;
-                                            if (flag32)
+                                            if (tmp_age >= 180)
                                             {
                                                 FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTextureRetired;
                                                 FavCimsWorkingPlace.text = FavCimsLang.Text("Citizen_Retired");
@@ -1286,21 +1198,17 @@ namespace FavoriteCims.UI.Panels
                                         }
                                     }
                                 }
-                                bool flag33 = WorkPlace > 0;
-                                if (flag33)
+                                if (WorkPlace > 0)
                                 {
                                     string text2 = string.Empty;
-                                    bool flag34 = !isStudent;
-                                    if (flag34)
+                                    if (!isStudent)
                                     {
                                         CommonBuildingAI commonBuildingAI = MyBuilding.m_buildings.m_buffer[WorkPlace].Info.m_buildingAI as CommonBuildingAI;
-                                        bool flag35 = commonBuildingAI != null;
-                                        if (flag35)
+                                        if (commonBuildingAI != null)
                                         {
                                             text2 = commonBuildingAI.GetTitle(gender, educationLevel, WorkPlace, citizen);
                                         }
-                                        bool flag36 = text2 == string.Empty;
-                                        if (flag36)
+                                        if (text2 == string.Empty)
                                         {
                                             int num2 = new Randomizer(WorkPlace + citizen).Int32(1, 5);
                                             switch (educationLevel)
@@ -1325,72 +1233,52 @@ namespace FavoriteCims.UI.Panels
                                     FavCimsWorkingPlace.isEnabled = true;
                                     WorkInfo = MyBuilding.m_buildings.m_buffer[(int)WorkPlaceID.Index].Info;
                                     FavCimsWorkingPlaceSprite.texture = null;
-                                    bool flag37 = WorkInfo.m_class.m_service == ItemClass.Service.Commercial;
-                                    if (flag37)
+                                    if (WorkInfo.m_class.m_service == ItemClass.Service.Commercial)
                                     {
                                         FavCimsWorkingPlaceButton.normalBgSprite = null;
-                                        bool flag38 = WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialHigh;
-                                        if (flag38)
+
+                                        switch (WorkInfo.m_class.m_subService)
                                         {
-                                            FavCimsWorkingPlace.textColor = new Color32(0, 51, 153, 147);
-                                            FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                            FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 4.ToString());
-                                        }
-                                        else
-                                        {
-                                            bool flag39 = WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialEco;
-                                            if (flag39)
-                                            {
+                                            case ItemClass.SubService.CommercialHigh:
+                                                FavCimsWorkingPlace.textColor = new Color32(0, 51, 153, 147);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
+                                                FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 4.ToString());
+                                                break;
+                                            case ItemClass.SubService.CommercialEco:
                                                 FavCimsWorkingPlace.textColor = new Color32(0, 150, 136, 116);
                                                 FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
                                                 FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialEco");
-                                            }
-                                            else
-                                            {
-                                                bool flag40 = WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialLeisure;
-                                                if (flag40)
-                                                {
-                                                    FavCimsWorkingPlace.textColor = new Color32(219, 68, 55, 3);
-                                                    FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                    FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialLeisure");
-                                                }
-                                                else
-                                                {
-                                                    bool flag41 = WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialTourist;
-                                                    if (flag41)
-                                                    {
-                                                        FavCimsWorkingPlace.textColor = new Color32(156, 39, 176, 194);
-                                                        FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialTourist");
-                                                    }
-                                                    else
-                                                    {
-                                                        FavCimsWorkingPlace.textColor = new Color32(0, 153, 204, 130);
-                                                        FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialLowTexture;
-                                                        FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 3.ToString());
-                                                    }
-                                                }
-                                            }
+                                                break;
+                                            case ItemClass.SubService.CommercialLeisure:
+                                                FavCimsWorkingPlace.textColor = new Color32(219, 68, 55, 3);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
+                                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialLeisure");
+                                                break;
+                                            case ItemClass.SubService.CommercialTourist:
+                                                FavCimsWorkingPlace.textColor = new Color32(156, 39, 176, 194);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
+                                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialTourist");
+                                                break;
+                                            default:
+                                                FavCimsWorkingPlace.textColor = new Color32(0, 153, 204, 130);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialLowTexture;
+                                                FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 3.ToString());
+                                                break;
                                         }
-                                        bool flag42 = WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialHigh || WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialLow;
-                                        if (flag42)
+
+                                        if (WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialHigh || WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialLow)
                                         {
-                                            ItemClass.Level level = WorkInfo.m_class.m_level;
-                                            ItemClass.Level level2 = level;
-                                            if (level2 != ItemClass.Level.Level2)
+                                            switch (WorkInfo.m_class.m_level)
                                             {
-                                                if (level2 != ItemClass.Level.Level3)
-                                                {
-                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsCommercialLevel[1];
-                                                }
-                                                else
-                                                {
-                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsCommercialLevel[3];
-                                                }
-                                            }
-                                            else
-                                            {
-                                                FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsCommercialLevel[2];
+                                                case ItemClass.Level.Level2:
+                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsCommercialLevel[2];
+                                                    break;
+                                                case ItemClass.Level.Level3:
+                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsResidentialLevel[3];
+                                                    break;
+                                                default:
+                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsResidentialLevel[1];
+                                                    break;
                                             }
                                         }
                                         else
@@ -1400,8 +1288,7 @@ namespace FavoriteCims.UI.Panels
                                     }
                                     else
                                     {
-                                        bool flag43 = WorkInfo.m_class.m_service == ItemClass.Service.Industrial;
-                                        if (flag43)
+                                        if (WorkInfo.m_class.m_service == ItemClass.Service.Industrial)
                                         {
                                             FavCimsWorkingPlace.textColor = new Color32(byte.MaxValue, 204, 0, 32);
                                             FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", "Industrial");
@@ -1451,25 +1338,19 @@ namespace FavoriteCims.UI.Panels
                                                     }
                                                     break;
                                             }
-                                            bool flag44 = WorkInfo.m_class.m_subService == ItemClass.SubService.IndustrialGeneric;
-                                            if (flag44)
+                                            if (WorkInfo.m_class.m_subService == ItemClass.SubService.IndustrialGeneric)
                                             {
-                                                ItemClass.Level level3 = WorkInfo.m_class.m_level;
-                                                ItemClass.Level level4 = level3;
-                                                if (level4 != ItemClass.Level.Level2)
+                                                switch (WorkInfo.m_class.m_level)
                                                 {
-                                                    if (level4 != ItemClass.Level.Level3)
-                                                    {
-                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[1];
-                                                    }
-                                                    else
-                                                    {
+                                                    case ItemClass.Level.Level2:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[2];
+                                                        break;
+                                                    case ItemClass.Level.Level3:
                                                         FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[3];
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[2];
+                                                        break;
+                                                    default:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[1];
+                                                        break;
                                                 }
                                             }
                                             else
@@ -1479,8 +1360,7 @@ namespace FavoriteCims.UI.Panels
                                         }
                                         else
                                         {
-                                            bool flag45 = WorkInfo.m_class.m_service == ItemClass.Service.Office;
-                                            if (flag45)
+                                            if (WorkInfo.m_class.m_service == ItemClass.Service.Office)
                                             {
                                                 FavCimsWorkingPlaceButton.normalBgSprite = null;
                                                 FavCimsWorkingPlace.textColor = new Color32(0, 204, byte.MaxValue, 128);
@@ -1495,22 +1375,18 @@ namespace FavoriteCims.UI.Panels
                                                 {
                                                     FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", "Office") + " Eco";
                                                 }
-                                                ItemClass.Level level5 = WorkInfo.m_class.m_level;
-                                                ItemClass.Level level6 = level5;
-                                                if (level6 != ItemClass.Level.Level2)
+
+                                                switch (WorkInfo.m_class.m_level)
                                                 {
-                                                    if (level6 != ItemClass.Level.Level3)
-                                                    {
-                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[1];
-                                                    }
-                                                    else
-                                                    {
+                                                    case ItemClass.Level.Level2:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[2];
+                                                        break;
+                                                    case ItemClass.Level.Level3:
                                                         FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[3];
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[2];
+                                                        break;
+                                                    default:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[1];
+                                                        break;
                                                 }
                                             }
                                             else
@@ -1597,8 +1473,7 @@ namespace FavoriteCims.UI.Panels
                                         }
                                     }
                                     WorkDistrict = MyDistrict.GetDistrict(MyBuilding.m_buildings.m_buffer[(int)WorkPlaceID.Index].m_position);
-                                    bool flag46 = WorkDistrict == 0;
-                                    if (flag46)
+                                    if (WorkDistrict == 0)
                                     {
                                         FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                     }
@@ -1616,21 +1491,18 @@ namespace FavoriteCims.UI.Panels
                                 }
                                 InstanceCitizenID = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_instance;
                                 citizenInstance = MyCitizen.m_instances.m_buffer[InstanceCitizenID];
-                                bool flag47 = citizenInstance.m_targetBuilding > 0;
-                                if (flag47)
+                                if (citizenInstance.m_targetBuilding > 0)
                                 {
                                     CitizenVehicle = MyCitizen.m_citizens.m_buffer[(int)citizen].m_vehicle;
                                     MyVehicleID = InstanceID.Empty;
                                     GoingOutside = (MyBuilding.m_buildings.m_buffer[citizenInstance.m_targetBuilding].m_flags & (Building.Flags)192) > 0;
-                                    bool flag48 = CitizenVehicle > 0;
-                                    if (flag48)
+                                    if (CitizenVehicle > 0)
                                     {
                                         MyVehicleID.Vehicle = CitizenVehicle;
                                         FavCimsLastActivityVehicleButton.isEnabled = true;
                                         VehInfo = MyVehicle.m_vehicles.m_buffer[CitizenVehicle].Info;
                                         string text3 = PrefabCollection<VehicleInfo>.PrefabName((uint)VehInfo.m_prefabDataIndex);
-                                        bool flag49 = text3 == "Train Passenger";
-                                        if (flag49)
+                                        if (text3 == "Train Passenger")
                                         {
                                             CitizenVehicleName = Locale.Get("VEHICLE_TITLE", "Train Engine");
                                         }
@@ -1638,11 +1510,10 @@ namespace FavoriteCims.UI.Panels
                                         {
                                             CitizenVehicleName = MyVehicle.GetVehicleName(CitizenVehicle);
                                         }
-                                        bool flag50 = VehInfo.m_class.m_service == ItemClass.Service.Residential;
-                                        if (flag50)
+
+                                        if (VehInfo.m_class.m_service == ItemClass.Service.Residential)
                                         {
-                                            bool flag51 = CitizenVehicleName.Like("Bicycle");
-                                            if (flag51)
+                                            if (CitizenVehicleName.Like("Bicycle"))
                                             {
                                                 FavCimsLastActivityVehicleButton.atlas = UIView.GetAView().defaultAtlas;
                                                 FavCimsLastActivityVehicleButton.normalBgSprite = "IconTouristBicycleVehicle";
@@ -1651,8 +1522,7 @@ namespace FavoriteCims.UI.Panels
                                             }
                                             else
                                             {
-                                                bool flag52 = CitizenVehicleName.Like("Scooter");
-                                                if (flag52)
+                                                if (CitizenVehicleName.Like("Scooter"))
                                                 {
                                                     FavCimsLastActivityVehicleButton.atlas = MyAtlas.FavCimsAtlas;
                                                     FavCimsLastActivityVehicleButton.normalBgSprite = "FavCimsIconScooter";
@@ -1667,8 +1537,7 @@ namespace FavoriteCims.UI.Panels
                                                     FavCimsLastActivityVehicleButton.tooltip = CitizenVehicleName;
                                                 }
                                             }
-                                            bool flag53 = VehInfo.m_vehicleAI.GetOwnerID(CitizenVehicle, ref MyVehicle.m_vehicles.m_buffer[CitizenVehicle]).Citizen == citizen;
-                                            if (flag53)
+                                            if (VehInfo.m_vehicleAI.GetOwnerID(CitizenVehicle, ref MyVehicle.m_vehicles.m_buffer[CitizenVehicle]).Citizen == citizen)
                                             {
                                                 bool goingOutside = GoingOutside;
                                                 if (goingOutside)
@@ -1679,8 +1548,7 @@ namespace FavoriteCims.UI.Panels
                                         }
                                         else
                                         {
-                                            bool flag54 = VehInfo.m_class.m_service == ItemClass.Service.PublicTransport;
-                                            if (flag54)
+                                            if (VehInfo.m_class.m_service == ItemClass.Service.PublicTransport)
                                             {
                                                 FavCimsLastActivityVehicleButton.atlas = UIView.GetAView().defaultAtlas;
                                                 bool goingOutside2 = GoingOutside;
@@ -1715,8 +1583,7 @@ namespace FavoriteCims.UI.Panels
                                                         break;
                                                     case ItemClass.SubService.PublicTransportShip:
                                                         {
-                                                            bool flag55 = CitizenVehicleName.Like("Ferry");
-                                                            if (flag55)
+                                                            if (CitizenVehicleName.Like("Ferry"))
                                                             {
                                                                 FavCimsLastActivityVehicleButton.normalBgSprite = "SubBarPublicTransportShip";
                                                                 FavCimsLastActivityVehicleButton.hoveredBgSprite = "SubBarPublicTransportShipHovered";
@@ -1736,8 +1603,7 @@ namespace FavoriteCims.UI.Panels
                                                         }
                                                     case ItemClass.SubService.PublicTransportPlane:
                                                         {
-                                                            bool flag56 = CitizenVehicleName.Like("Blimp");
-                                                            if (flag56)
+                                                            if (CitizenVehicleName.Like("Blimp"))
                                                             {
                                                                 FavCimsLastActivityVehicleButton.normalBgSprite = "IconPolicyEducationalBlimps";
                                                                 FavCimsLastActivityVehicleButton.hoveredBgSprite = "IconPolicyEducationalBlimpsHovered";
@@ -1843,12 +1709,10 @@ namespace FavoriteCims.UI.Panels
                                 CitizenStatus = citizenInfo.m_citizenAI.GetLocalizedStatus(citizen, ref MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index], out MyTargetID);
                                 CitizenTarget = MyBuilding.GetBuildingName(MyTargetID.Building, MyInstanceID);
                                 FavCimsLastActivity.text = CitizenStatus + " " + CitizenTarget;
-                                bool flag57 = !MyTargetID.IsEmpty;
-                                if (flag57)
+                                if (!MyTargetID.IsEmpty)
                                 {
                                     TargetDistrict = MyDistrict.GetDistrict(MyBuilding.m_buildings.m_buffer[(int)MyTargetID.Index].m_position);
-                                    bool flag58 = TargetDistrict == 0;
-                                    if (flag58)
+                                    if (TargetDistrict == 0)
                                     {
                                         FavCimsLastActivity.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                     }
@@ -1858,18 +1722,15 @@ namespace FavoriteCims.UI.Panels
                                     }
                                 }
                                 CitizenDistrict = MyDistrict.GetDistrict(citizenInstance.GetSmoothPosition(InstanceCitizenID));
-                                bool flag59 = MyCitizen.m_citizens.m_buffer[(int)(IntPtr)(long)(ulong)citizen].Arrested && MyCitizen.m_citizens.m_buffer[(int)(IntPtr)(long)(ulong)citizen].Criminal;
-                                if (flag59)
+                                if (MyCitizen.m_citizens.m_buffer[(int)(IntPtr)(long)(ulong)citizen].Arrested && MyCitizen.m_citizens.m_buffer[(int)(IntPtr)(long)(ulong)citizen].Criminal)
                                 {
                                     FavCimsHappyIcon.atlas = MyAtlas.FavCimsAtlas;
                                     FavCimsHappyIcon.normalBgSprite = "FavCimsCrimeArrested";
                                     FavCimsHappyIcon.tooltip = FavCimsLang.Text("Citizen_Arrested");
-                                    bool flag60 = MyCitizen.m_citizens.m_buffer[(int)citizen].CurrentLocation == Citizen.Location.Moving;
-                                    if (flag60)
+                                    if (MyCitizen.m_citizens.m_buffer[(int)citizen].CurrentLocation == Citizen.Location.Moving)
                                     {
                                         policeveh = MyCitizen.m_citizens.m_buffer[(int)citizen].m_vehicle;
-                                        bool flag61 = policeveh > 0;
-                                        if (flag61)
+                                        if (policeveh > 0)
                                         {
                                             MyVehicleID.Vehicle = policeveh;
                                             FavCimsLastActivityVehicleButton.atlas = MyAtlas.FavCimsAtlas;
@@ -1899,14 +1760,12 @@ namespace FavoriteCims.UI.Panels
                                 {
                                     FavCimsHappyIcon.normalBgSprite = "NotificationIconDead";
                                     FavCimsHappyIcon.tooltip = FavCimsLang.Text("People_Life_Status_Dead");
-                                    bool flag62 = CitizenRowData["deathrealage"] == "0";
-                                    if (flag62)
+                                    if (CitizenRowData["deathrealage"] == "0")
                                     {
                                         CitizenRowData["deathrealage"] = RealAge.ToString();
                                     }
                                     FavCimsRealAge.text = CitizenRowData["deathrealage"];
-                                    bool flag63 = DeathDate == null;
-                                    if (flag63)
+                                    if (DeathDate == null)
                                     {
                                         DeathDate = GameTime.FavCimsDate(FavCimsLang.Text("time_format"), "n/a");
                                         DeathTime = GameTime.FavCimsTime();
@@ -1923,12 +1782,10 @@ namespace FavoriteCims.UI.Panels
                                         " ",
                                         DeathTime
                                     });
-                                    bool flag64 = MyCitizen.m_citizens.m_buffer[(int)citizen].CurrentLocation == Citizen.Location.Moving;
-                                    if (flag64)
+                                    if (MyCitizen.m_citizens.m_buffer[(int)citizen].CurrentLocation == Citizen.Location.Moving)
                                     {
                                         hearse = MyCitizen.m_citizens.m_buffer[(int)citizen].m_vehicle;
-                                        bool flag65 = hearse > 0;
-                                        if (flag65)
+                                        if (hearse > 0)
                                         {
                                             CitizenDead.Citizen = citizen;
                                             MyVehicleID.Vehicle = hearse;
@@ -1941,8 +1798,7 @@ namespace FavoriteCims.UI.Panels
                                     }
                                     else
                                     {
-                                        bool flag66 = MyCitizen.m_citizens.m_buffer[(int)citizen].CurrentLocation != Citizen.Location.Moving && hearse == 0;
-                                        if (flag66)
+                                        if (MyCitizen.m_citizens.m_buffer[(int)citizen].CurrentLocation != Citizen.Location.Moving)
                                         {
                                             FavCimsLastActivity.text = FavCimsLang.Text("Citizen_wait_hearse");
                                             FavCimsLastActivityVehicleButton.disabledBgSprite = "NotificationIconVerySick";
@@ -1959,26 +1815,21 @@ namespace FavoriteCims.UI.Panels
                             }
                             else
                             {
-                                bool flag67 = rowLang == null || rowLang != FavCimsLang.GameLanguage;
-                                if (flag67)
+                                if (rowLang == null || rowLang != FavCimsLang.GameLanguage)
                                 {
                                     DeadOrGone = false;
                                 }
-                                bool flag68 = !DeadOrGone;
-                                if (flag68)
+                                if (!DeadOrGone)
                                 {
                                     rowLang = FavCimsLang.GameLanguage;
                                     DeadOrGone = true;
-                                    bool flag69 = FavCimsCitizenSingleRowPanel != null && FavCimsCore.RowID.ContainsKey(citizenINT) && MyInstancedName.Length > 0;
-                                    if (flag69)
+                                    if (FavCimsCitizenSingleRowPanel != null && FavCimsCore.RowID.ContainsKey(citizenINT) && MyInstancedName.Length > 0)
                                     {
-                                        bool flag70 = DeathDate != null;
-                                        if (flag70)
+                                        if (DeathDate != null)
                                         {
                                             DeathDate = GameTime.FavCimsDate(FavCimsLang.Text("time_format"), DeathDate);
                                         }
-                                        bool flag71 = DeathDate == null;
-                                        if (flag71)
+                                        if (DeathDate == null)
                                         {
                                             DeathDate = GameTime.FavCimsDate(FavCimsLang.Text("time_format"), "n/a");
                                             DeathTime = GameTime.FavCimsTime();
@@ -1990,12 +1841,10 @@ namespace FavoriteCims.UI.Panels
                                         FavCimsAgePhase.textColor = new Color32(51, 51, 51, 160);
                                         System.Random random = new System.Random();
                                         int num3 = random.Next(0, 100);
-                                        bool flag72 = RealAge >= 85;
                                         string text4;
-                                        if (flag72)
+                                        if (RealAge >= 85)
                                         {
-                                            bool flag73 = num3 >= 99;
-                                            if (flag73)
+                                            if (num3 >= 99)
                                             {
                                                 text4 = "goneaway";
                                             }
@@ -2006,11 +1855,9 @@ namespace FavoriteCims.UI.Panels
                                         }
                                         else
                                         {
-                                            bool flag74 = RealAge >= 65;
-                                            if (flag74)
+                                            if (RealAge >= 65)
                                             {
-                                                bool flag75 = num3 >= 70;
-                                                if (flag75)
+                                                if (num3 >= 70)
                                                 {
                                                     text4 = "goneaway";
                                                 }
@@ -2021,11 +1868,9 @@ namespace FavoriteCims.UI.Panels
                                             }
                                             else
                                             {
-                                                bool flag76 = RealAge >= 45;
-                                                if (flag76)
+                                                if (RealAge >= 45)
                                                 {
-                                                    bool flag77 = num3 >= 50;
-                                                    if (flag77)
+                                                    if (num3 >= 50)
                                                     {
                                                         text4 = "goneaway";
                                                     }
@@ -2036,11 +1881,9 @@ namespace FavoriteCims.UI.Panels
                                                 }
                                                 else
                                                 {
-                                                    bool flag78 = RealAge >= 20;
-                                                    if (flag78)
+                                                    if (RealAge >= 20)
                                                     {
-                                                        bool flag79 = num3 >= 30;
-                                                        if (flag79)
+                                                        if (num3 >= 30)
                                                         {
                                                             text4 = "goneaway";
                                                         }
@@ -2051,8 +1894,7 @@ namespace FavoriteCims.UI.Panels
                                                     }
                                                     else
                                                     {
-                                                        bool flag80 = num3 >= 2;
-                                                        if (flag80)
+                                                        if (num3 >= 2)
                                                         {
                                                             text4 = "goneaway";
                                                         }
@@ -2064,16 +1906,15 @@ namespace FavoriteCims.UI.Panels
                                                 }
                                             }
                                         }
-                                        bool flag81 = !LeaveCity && (CitizenIsDead || text4 == "dead");
-                                        if (flag81)
+                                        if (!LeaveCity && (CitizenIsDead || text4 == "dead"))
                                         {
                                             try
                                             {
                                                 FavCimsHappyIcon.normalBgSprite = "NotificationIconDead";
                                                 FavCimsHappyIcon.tooltip = FavCimsLang.Text("People_Life_Status_Dead");
                                                 FavCimsCitizenName.text = MyInstancedName;
-                                                FavCimsCitizenName.tooltip = string.Concat(new string[]
-                                                {
+                                                FavCimsCitizenName.tooltip = string.Concat(
+                                                [
                                                     FavCimsLang.Text("People_Life_Status_Dead"),
                                                     " ",
                                                     FavCimsLang.Text("People_Life_Status_Dead_date"),
@@ -2083,7 +1924,7 @@ namespace FavoriteCims.UI.Panels
                                                     FavCimsLang.Text("People_Life_Status_Dead_time"),
                                                     " ",
                                                     DeathTime
-                                                });
+                                                ]);
                                                 OtherInfoButton.isEnabled = false;
                                                 FavCimsAgePhase.text = FavCimsLang.Text("AgePhaseDead_" + CitizenRowData["gender"]);
                                                 FavCimsCitizenHome.text = FavCimsLang.Text("Home_Location_Dead");
@@ -2118,8 +1959,8 @@ namespace FavoriteCims.UI.Panels
                                             FavCimsHappyOverride.relativePosition = new Vector3(0f, 0f);
                                             FavCimsHappyOverride.tooltip = FavCimsLang.Text("People_Life_Status_IsGone");
                                             FavCimsCitizenName.text = MyInstancedName;
-                                            FavCimsCitizenName.tooltip = string.Concat(new string[]
-                                            {
+                                            FavCimsCitizenName.tooltip = string.Concat(
+                                            [
                                                 FavCimsLang.Text("People_Life_Status_IsGone"),
                                                 " ",
                                                 FavCimsLang.Text("People_Life_Status_Dead_date"),
@@ -2129,7 +1970,7 @@ namespace FavoriteCims.UI.Panels
                                                 FavCimsLang.Text("People_Life_Status_Dead_time"),
                                                 " ",
                                                 DeathTime
-                                            });
+                                            ]);
                                             OtherInfoButton.isEnabled = false;
                                             FavCimsCitizenHome.text = FavCimsLang.Text("HomeOutsideTheCity");
                                             FavCimsCitizenHomeButton.normalBgSprite = "homelessIcon";
@@ -2151,8 +1992,7 @@ namespace FavoriteCims.UI.Panels
                                     {
                                         try
                                         {
-                                            bool flag82 = MyFamily != null;
-                                            if (flag82)
+                                            if (MyFamily != null)
                                             {
                                                 MyFamily.Hide();
                                                 MyFamily.MyInstanceID = InstanceID.Empty;

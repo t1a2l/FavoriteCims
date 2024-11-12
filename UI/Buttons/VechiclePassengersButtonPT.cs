@@ -1,3 +1,4 @@
+using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
@@ -15,6 +16,8 @@ namespace FavoriteCims.UI.Buttons
 
         private FavCimsVehiclePanelPT VehiclePanel;
 
+        private readonly VehicleManager VehicleManager = Singleton<VehicleManager>.instance;
+
         public override void Start()
         {
             UIView aview = UIView.GetAView();
@@ -29,8 +32,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            bool flag = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVehiclePanelPT>() != null;
-            if (flag)
+            if (FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVehiclePanelPT>() != null)
             {
                 VehiclePanel = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVehiclePanelPT>();
             }
@@ -42,8 +44,7 @@ namespace FavoriteCims.UI.Buttons
             VehiclePanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                bool flag2 = !VehicleID.IsEmpty && !VehiclePanel.isVisible;
-                if (flag2)
+                if (!VehicleID.IsEmpty && !VehiclePanel.isVisible)
                 {
                     VehiclePanel.VehicleID = VehicleID;
                     VehiclePanel.RefPanel = RefPanel;
@@ -66,16 +67,13 @@ namespace FavoriteCims.UI.Buttons
                 if (isVisible)
                 {
                     tooltip = FavCimsLang.Text("View_NoPassengers");
-                    bool flag = WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty;
-                    if (flag)
+                    if (WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty)
                     {
                         VehicleID = WorldInfoPanel.GetCurrentInstanceID();
                     }
-                    bool flag2 = VehiclePanel != null;
-                    if (flag2)
+                    if (VehiclePanel != null)
                     {
-                        bool flag3 = !VehiclePanel.isVisible;
-                        if (flag3)
+                        if (!VehiclePanel.isVisible)
                         {
                             Unfocus();
                         }
@@ -84,8 +82,14 @@ namespace FavoriteCims.UI.Buttons
                             Focus();
                         }
                     }
-                    bool flag4 = !VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle;
-                    if (flag4)
+                    var service = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.m_class.m_service;
+                    var sub_service = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.m_class.m_subService;
+                    if (service != ItemClass.Service.PublicTransport || (service == ItemClass.Service.PublicTransport && sub_service == ItemClass.SubService.PublicTransportPost))
+                    {
+                        isEnabled = false;
+                        VehiclePanel.Hide();
+                    }
+                    else if (!VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle)
                     {
                         isEnabled = true;
                         tooltip = FavCimsLang.Text("View_PassengersList");

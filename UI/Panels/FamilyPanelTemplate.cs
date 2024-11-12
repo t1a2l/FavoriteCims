@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.CompilerServices;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.Math;
@@ -396,27 +395,24 @@ namespace FavoriteCims.UI.Panels
             {
                 try
                 {
-                    bool flag = MyInstance.SelectInstance(Target);
-                    if (flag)
+                    if (MyInstance.SelectInstance(Target))
                     {
-                        bool flag2 = eventParam.buttons == UIMouseButton.Middle;
-                        if (flag2)
+                        if (MyInstance.SelectInstance(Target))
                         {
-                            WorldInfoPanel.Show<CitizenWorldInfoPanel>(base.position, Target);
+                            WorldInfoPanel.Show<CitizenWorldInfoPanel>(position, Target);
                         }
                         else
                         {
-                            bool flag3 = eventParam.buttons == UIMouseButton.Right;
-                            if (flag3)
+                            if (MyInstance.SelectInstance(Target))
                             {
-                                this.MyInstanceID = Target;
-                                this.execute = true;
-                                this.LateUpdate();
+                                MyInstanceID = Target;
+                                execute = true;
+                                LateUpdate();
                             }
                             else
                             {
                                 ToolsModifierControl.cameraController.SetTarget(Target, ToolsModifierControl.cameraController.transform.position, true);
-                                WorldInfoPanel.Show<CitizenWorldInfoPanel>(base.position, Target);
+                                WorldInfoPanel.Show<CitizenWorldInfoPanel>(position, Target);
                             }
                         }
                     }
@@ -435,11 +431,9 @@ namespace FavoriteCims.UI.Panels
             {
                 try
                 {
-                    bool flag = this.MyInstance.SelectInstance(Target);
-                    if (flag)
+                    if (MyInstance.SelectInstance(Target))
                     {
-                        bool flag2 = eventParam.buttons == UIMouseButton.Middle;
-                        if (flag2)
+                        if (eventParam.buttons == UIMouseButton.Middle)
                         {
                             DefaultTool.OpenWorldInfoPanel(Target, ToolsModifierControl.cameraController.transform.position);
                         }
@@ -459,55 +453,50 @@ namespace FavoriteCims.UI.Panels
         internal void FamilyVehicle(uint m_citizen, UITextureSprite sPrite, out InstanceID MyCitVeh)
         {
             MyCitVeh = InstanceID.Empty;
-            bool flag = m_citizen == 0U;
-            if (!flag)
+            if (m_citizen != 0U)
             {
                 try
                 {
-                    ushort vehicle = this.MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_vehicle;
-                    ushort parkedVehicle = this.MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_parkedVehicle;
-                    bool flag2 = vehicle > 0;
-                    if (flag2)
+                    ushort vehicle = MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_vehicle;
+                    ushort parkedVehicle = MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_parkedVehicle;
+                    if (vehicle > 0)
                     {
                         MyCitVeh.Vehicle = vehicle;
-                        VehicleInfo info = this.MyVehicle.m_vehicles.m_buffer[(int)vehicle].Info;
-                        bool flag3 = info.m_vehicleAI.GetOwnerID(vehicle, ref this.MyVehicle.m_vehicles.m_buffer[(int)vehicle]).Citizen == m_citizen;
-                        if (flag3)
+                        VehicleInfo info = MyVehicle.m_vehicles.m_buffer[(int)vehicle].Info;
+                        if (info.m_vehicleAI.GetOwnerID(vehicle, ref MyVehicle.m_vehicles.m_buffer[(int)vehicle]).Citizen == m_citizen)
                         {
                             sPrite.texture = TextureDB.BubbleCar;
                             sPrite.playAudioEvents = true;
-                            sPrite.tooltip = string.Concat(new string[]
-                            {
-                                this.MyVehicle.GetVehicleName(vehicle),
+                            sPrite.tooltip = string.Concat(
+                            [
+                                MyVehicle.GetVehicleName(vehicle),
                                 " - ",
                                 Locale.Get("VEHICLE_OWNER"),
                                 " ",
-                                this.MyCitizen.GetCitizenName(m_citizen)
-                            });
+                                MyCitizen.GetCitizenName(m_citizen)
+                            ]);
                         }
                     }
                     else
                     {
-                        bool flag4 = parkedVehicle > 0;
-                        if (flag4)
+                        if (parkedVehicle > 0)
                         {
                             MyCitVeh.ParkedVehicle = parkedVehicle;
-                            VehicleParked vehicleParked = this.MyVehicle.m_parkedVehicles.m_buffer[(int)parkedVehicle];
-                            bool flag5 = vehicleParked.m_ownerCitizen == m_citizen;
-                            if (flag5)
+                            VehicleParked vehicleParked = MyVehicle.m_parkedVehicles.m_buffer[(int)parkedVehicle];
+                            if (vehicleParked.m_ownerCitizen == m_citizen)
                             {
                                 sPrite.texture = TextureDB.BubbleCar;
                                 sPrite.playAudioEvents = true;
-                                sPrite.tooltip = string.Concat(new string[]
-                                {
-                                    this.MyVehicle.GetParkedVehicleName(parkedVehicle),
+                                sPrite.tooltip = string.Concat(
+                                [
+                                    MyVehicle.GetParkedVehicleName(parkedVehicle),
                                     " (",
                                     Locale.Get("VEHICLE_STATUS_PARKED"),
                                     ") - ",
                                     Locale.Get("VEHICLE_OWNER"),
                                     " ",
-                                    this.MyCitizen.GetCitizenName(m_citizen)
-                                });
+                                    MyCitizen.GetCitizenName(m_citizen)
+                                ]);
                             }
                         }
                         else
@@ -528,27 +517,22 @@ namespace FavoriteCims.UI.Panels
         {
             VehID = InstanceID.Empty;
             MyTargetID = InstanceID.Empty;
-            bool flag = m_citizen == 0U;
-            if (!flag)
+            if (m_citizen != 0U)
             {
-                ushort instance = this.MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_instance;
-                CitizenInstance citizenInstance = this.MyCitizen.m_instances.m_buffer[(int)instance];
-                bool flag2 = citizenInstance.m_targetBuilding > 0;
-                if (flag2)
+                ushort instance = MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_instance;
+                CitizenInstance citizenInstance = MyCitizen.m_instances.m_buffer[instance];
+                if (citizenInstance.m_targetBuilding > 0)
                 {
-                    ushort vehicle = this.MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_vehicle;
-                    bool flag3 = vehicle > 0;
-                    if (flag3)
+                    ushort vehicle = MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_vehicle;
+                    if (vehicle > 0)
                     {
                         VehID.Vehicle = vehicle;
                         ButtVehicle.isEnabled = true;
-                        VehicleInfo info = this.MyVehicle.m_vehicles.m_buffer[(int)vehicle].Info;
-                        string text = this.MyVehicle.GetVehicleName(vehicle);
-                        bool flag4 = info.m_class.m_service == ItemClass.Service.Residential;
-                        if (flag4)
+                        VehicleInfo info = MyVehicle.m_vehicles.m_buffer[(int)vehicle].Info;
+                        string text = MyVehicle.GetVehicleName(vehicle);
+                        if (info.m_class.m_service == ItemClass.Service.Residential)
                         {
-                            bool flag5 = text.Like("Bicycle");
-                            if (flag5)
+                            if (text.Like("Bicycle"))
                             {
                                 ButtVehicle.normalBgSprite = "IconTouristBicycleVehicle";
                                 ButtVehicle.hoveredBgSprite = "IconTouristBicycleVehicle";
@@ -563,8 +547,7 @@ namespace FavoriteCims.UI.Panels
                         }
                         else
                         {
-                            bool flag6 = info.m_class.m_service == ItemClass.Service.PublicTransport;
-                            if (flag6)
+                            if (info.m_class.m_service == ItemClass.Service.PublicTransport)
                             {
                                 switch (info.m_class.m_subService)
                                 {
@@ -588,18 +571,19 @@ namespace FavoriteCims.UI.Panels
                                             ButtVehicle.hoveredBgSprite = "SubBarPublicTransportTrainHovered";
                                             ButtVehicle.focusedBgSprite = "SubBarPublicTransportTrainFocused";
                                             ButtVehicle.pressedBgSprite = "SubBarPublicTransportTrainPressed";
-                                            bool flag7 = text == "VEHICLE_TITLE[Train Passenger]:0";
-                                            if (flag7)
+                                            if (text == "VEHICLE_TITLE[Train Passenger]:0")
                                             {
-                                                text = Locale.Get("VEHICLE_TITLE", "Train Engine");
+                                                ButtVehicle.tooltip = Locale.Get("VEHICLE_TITLE", "Train Engine");
                                             }
-                                            ButtVehicle.tooltip = Locale.Get("VEHICLE_TITLE", "Train Engine") + " - " + Locale.Get("SUBSERVICE_DESC", "Train");
+                                            else
+                                            {
+                                                ButtVehicle.tooltip = Locale.Get("VEHICLE_TITLE", "Train Engine") + " - " + Locale.Get("SUBSERVICE_DESC", "Train");
+                                            }
                                             break;
                                         }
                                     case ItemClass.SubService.PublicTransportShip:
                                         {
-                                            bool flag8 = text.Like("Ferry");
-                                            if (flag8)
+                                            if (text.Like("Ferry"))
                                             {
                                                 ButtVehicle.normalBgSprite = "SubBarPublicTransportShip";
                                                 ButtVehicle.hoveredBgSprite = "SubBarPublicTransportShipHovered";
@@ -619,8 +603,7 @@ namespace FavoriteCims.UI.Panels
                                         }
                                     case ItemClass.SubService.PublicTransportPlane:
                                         {
-                                            bool flag9 = text.Like("Blimp");
-                                            if (flag9)
+                                            if (text.Like("Blimp"))
                                             {
                                                 ButtVehicle.normalBgSprite = "IconPolicyEducationalBlimps";
                                                 ButtVehicle.hoveredBgSprite = "IconPolicyEducationalBlimpsHovered";
@@ -683,41 +666,36 @@ namespace FavoriteCims.UI.Panels
                     ButtVehicle.isEnabled = false;
                     ButtVehicle.tooltip = null;
                 }
-                this.CitizenInstanceID.Citizen = m_citizen;
-                CitizenInfo citizenInfo = this.MyCitizen.m_citizens.m_buffer[(int)m_citizen].GetCitizenInfo(m_citizen);
-                string localizedStatus = citizenInfo.m_citizenAI.GetLocalizedStatus(m_citizen, ref this.MyCitizen.m_citizens.m_buffer[(int)m_citizen], out MyTargetID);
-                string buildingName = this.MyBuilding.GetBuildingName(MyTargetID.Building, this.CitizenInstanceID);
+                CitizenInstanceID.Citizen = m_citizen;
+                CitizenInfo citizenInfo = MyCitizen.m_citizens.m_buffer[(int)m_citizen].GetCitizenInfo(m_citizen);
+                string localizedStatus = citizenInfo.m_citizenAI.GetLocalizedStatus(m_citizen, ref MyCitizen.m_citizens.m_buffer[(int)m_citizen], out MyTargetID);
+                string buildingName = MyBuilding.GetBuildingName(MyTargetID.Building, CitizenInstanceID);
                 ButtDestination.text = localizedStatus + " " + buildingName;
-                bool flag10 = !MyTargetID.IsEmpty;
-                if (flag10)
+                if (!MyTargetID.IsEmpty)
                 {
-                    int district = (int)this.MyDistrict.GetDistrict(this.MyBuilding.m_buildings.m_buffer[(int)MyTargetID.Index].m_position);
-                    bool flag11 = district == 0;
-                    if (flag11)
+                    int district = MyDistrict.GetDistrict(MyBuilding.m_buildings.m_buffer[(int)MyTargetID.Index].m_position);
+                    if (district == 0)
                     {
                         ButtDestination.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                     }
                     else
                     {
-                        ButtDestination.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(district);
+                        ButtDestination.tooltip = FavCimsLang.Text("DistrictLabel") + MyDistrict.GetDistrictName(district);
                     }
                 }
-                bool flag12 = this.MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)m_citizen)))].Arrested && this.MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)m_citizen)))].Criminal;
-                if (flag12)
+                if (MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)m_citizen)))].Arrested && MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)m_citizen)))].Criminal)
                 {
-                    bool flag13 = this.MyCitizen.m_citizens.m_buffer[(int)m_citizen].CurrentLocation == Citizen.Location.Moving;
-                    if (flag13)
+                    if (MyCitizen.m_citizens.m_buffer[(int)m_citizen].CurrentLocation == Citizen.Location.Moving)
                     {
-                        this.policeveh = this.MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_vehicle;
-                        bool flag14 = this.policeveh > 0;
-                        if (flag14)
+                        policeveh = MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_vehicle;
+                        if (policeveh > 0)
                         {
-                            VehID.Vehicle = this.policeveh;
+                            VehID.Vehicle = policeveh;
                             ButtVehicle.atlas = MyAtlas.FavCimsAtlas;
                             ButtVehicle.normalBgSprite = "FavCimsPoliceVehicle";
                             ButtVehicle.isEnabled = true;
                             ButtVehicle.playAudioEvents = true;
-                            ButtVehicle.tooltip = this.MyVehicle.GetVehicleName(this.policeveh) + " - " + Locale.Get("VEHICLE_STATUS_PRISON_RETURN");
+                            ButtVehicle.tooltip = MyVehicle.GetVehicleName(policeveh) + " - " + Locale.Get("VEHICLE_STATUS_PRISON_RETURN");
                             ButtDestination.isEnabled = false;
                             ButtDestination.text = FavCimsLang.Text("Transported_to_Prison");
                         }
@@ -734,45 +712,41 @@ namespace FavoriteCims.UI.Panels
 
         internal void FamilyPet(uint m_citizen)
         {
-            bool flag = m_citizen == 0U;
-            if (!flag)
+            if (m_citizen != 0U)
             {
                 try
                 {
-                    this.CitizenInstance = this.MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_instance;
-                    this.Pet = (ushort)Array.FindIndex<CitizenInstance>(this.MyCitizen.m_instances.m_buffer, (CitizenInstance element) => element.m_targetBuilding == this.CitizenInstance);
-                    this.PetInstance = this.MyCitizen.m_instances.m_buffer[(int)this.Pet];
-                    bool flag2 = this.PetInstance.Info.m_citizenAI.IsAnimal();
-                    if (flag2)
+                    CitizenInstance = MyCitizen.m_citizens.m_buffer[(int)m_citizen].m_instance;
+                    Pet = (ushort)Array.FindIndex(MyCitizen.m_instances.m_buffer, (CitizenInstance element) => element.m_targetBuilding == CitizenInstance);
+                    PetInstance = MyCitizen.m_instances.m_buffer[(int)Pet];
+                    if (PetInstance.Info.m_citizenAI.IsAnimal())
                     {
-                        this.DogOwner = m_citizen;
-                        this.MyPetID.CitizenInstance = this.Pet;
-                        bool flag3 = !this.MyPetID.IsEmpty;
-                        if (flag3)
+                        DogOwner = m_citizen;
+                        MyPetID.CitizenInstance = Pet;
+                        if (!MyPetID.IsEmpty)
                         {
-                            string instanceName = this.MyCitizen.GetInstanceName(this.Pet);
-                            CitizenInfo info = this.PetInstance.Info;
-                            InstanceID instanceID;
-                            string localizedStatus = info.m_citizenAI.GetLocalizedStatus(this.Pet, ref this.PetInstance, out instanceID);
-                            this.BubbleFamilyBarDogButton.texture = TextureDB.BubbleDog;
-                            this.BubbleFamilyBarDogButton.tooltip = string.Concat(new string[]
-                            {
+                            string instanceName = MyCitizen.GetInstanceName(Pet);
+                            CitizenInfo info = PetInstance.Info;
+                            string localizedStatus = info.m_citizenAI.GetLocalizedStatus(Pet, ref PetInstance, out InstanceID instanceID);
+                            BubbleFamilyBarDogButton.texture = TextureDB.BubbleDog;
+                            BubbleFamilyBarDogButton.tooltip = string.Concat(
+                            [
                                 instanceName,
                                 " - ",
                                 localizedStatus,
                                 " ",
-                                this.MyCitizen.GetCitizenName(m_citizen)
-                            });
-                            this.BubbleFamilyBarDogButton.playAudioEvents = true;
+                                MyCitizen.GetCitizenName(m_citizen)
+                            ]);
+                            BubbleFamilyBarDogButton.playAudioEvents = true;
                         }
                     }
                     else
                     {
-                        this.DogOwner = 0U;
-                        this.BubbleFamilyBarDogButton.texture = TextureDB.BubbleDogDisabled;
-                        this.BubbleFamilyBarDogButton.tooltip = null;
-                        this.BubbleFamilyBarDogButton.playAudioEvents = false;
-                        this.MyPetID = InstanceID.Empty;
+                        DogOwner = 0U;
+                        BubbleFamilyBarDogButton.texture = TextureDB.BubbleDogDisabled;
+                        BubbleFamilyBarDogButton.tooltip = null;
+                        BubbleFamilyBarDogButton.playAudioEvents = false;
+                        MyPetID = InstanceID.Empty;
                     }
                 }
                 catch
@@ -783,1381 +757,1379 @@ namespace FavoriteCims.UI.Panels
 
         internal static string GetHappinessString(Citizen.Happiness happinessLevel)
         {
-            return "NotificationIcon" + FamilyPanelTemplate.sHappinessLevels[(int)happinessLevel];
+            return "NotificationIcon" + sHappinessLevels[(int)happinessLevel];
         }
 
         internal static string GetHealthString(Citizen.Health healthLevel)
         {
-            return "NotificationIcon" + FamilyPanelTemplate.sHealthLevels[(int)healthLevel];
+            return "NotificationIcon" + sHealthLevels[(int)healthLevel];
         }
 
         public override void Start()
         {
             UITextureAtlas favCimsAtlas = MyAtlas.FavCimsAtlas;
-            base.width = 250f;
-            base.height = 500f;
-            base.clipChildren = true;
+            width = 250f;
+            height = 500f;
+            clipChildren = true;
             int num = 30;
             int num2 = Screen.width / 4;
             int num3 = 100;
-            int num4 = Screen.height - (int)base.height * 2 - num3;
-            System.Random random = new System.Random();
-            this.FavCimsOtherInfoSprite = base.AddUIComponent<UITextureSprite>();
-            this.FavCimsOtherInfoSprite.name = "FavCimsOtherInfoSprite";
-            this.FavCimsOtherInfoSprite.texture = TextureDB.FavCimsOtherInfoTexture;
-            this.FavCimsOtherInfoSprite.width = base.width;
-            this.FavCimsOtherInfoSprite.height = base.height;
-            this.FavCimsOtherInfoSprite.relativePosition = Vector3.zero;
-            this.BubbleHeaderPanel = base.AddUIComponent<UIPanel>();
-            this.BubbleHeaderPanel.name = "BubbleHeaderPanel";
-            this.BubbleHeaderPanel.width = 250f;
-            this.BubbleHeaderPanel.height = 41f;
-            this.BubbleHeaderPanel.relativePosition = new Vector3(0f, 0f);
-            this.BubbleHeaderIconSprite = this.BubbleHeaderPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleHeaderIconSprite.name = "BubbleHeaderIconSprite";
-            this.BubbleHeaderIconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
-            this.BubbleHeaderIconSprite.relativePosition = new Vector3(9f, this.BubbleHeaderPanel.relativePosition.y + 9f);
-            this.BubbleHeaderCitizenName = this.BubbleHeaderPanel.AddUIComponent<UIButton>();
-            this.BubbleHeaderCitizenName.name = "BubbleHeaderCitizenName";
-            this.BubbleHeaderCitizenName.width = this.BubbleHeaderPanel.width;
-            this.BubbleHeaderCitizenName.height = this.BubbleHeaderPanel.height;
-            this.BubbleHeaderCitizenName.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleHeaderCitizenName.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleHeaderCitizenName.playAudioEvents = false;
-            this.BubbleHeaderCitizenName.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleHeaderCitizenName.font.size = 15;
-            this.BubbleHeaderCitizenName.textScale = 1f;
-            this.BubbleHeaderCitizenName.wordWrap = true;
-            this.BubbleHeaderCitizenName.textPadding.left = 5;
-            this.BubbleHeaderCitizenName.textPadding.right = 5;
-            this.BubbleHeaderCitizenName.textColor = new Color32(204, 204, 51, 40);
-            this.BubbleHeaderCitizenName.hoveredTextColor = new Color32(204, 204, 51, 40);
-            this.BubbleHeaderCitizenName.pressedTextColor = new Color32(204, 204, 51, 40);
-            this.BubbleHeaderCitizenName.focusedTextColor = new Color32(204, 204, 51, 40);
-            this.BubbleHeaderCitizenName.useDropShadow = true;
-            this.BubbleHeaderCitizenName.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleHeaderCitizenName.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleHeaderCitizenName.relativePosition = Vector3.zero;
-            this.BubbleHeaderCitizenName.eventMouseDown += delegate
+            int num4 = Screen.height - (int)height * 2 - num3;
+            System.Random random = new();
+            FavCimsOtherInfoSprite = AddUIComponent<UITextureSprite>();
+            FavCimsOtherInfoSprite.name = "FavCimsOtherInfoSprite";
+            FavCimsOtherInfoSprite.texture = TextureDB.FavCimsOtherInfoTexture;
+            FavCimsOtherInfoSprite.width = width;
+            FavCimsOtherInfoSprite.height = height;
+            FavCimsOtherInfoSprite.relativePosition = Vector3.zero;
+            BubbleHeaderPanel = AddUIComponent<UIPanel>();
+            BubbleHeaderPanel.name = "BubbleHeaderPanel";
+            BubbleHeaderPanel.width = 250f;
+            BubbleHeaderPanel.height = 41f;
+            BubbleHeaderPanel.relativePosition = new Vector3(0f, 0f);
+            BubbleHeaderIconSprite = BubbleHeaderPanel.AddUIComponent<UITextureSprite>();
+            BubbleHeaderIconSprite.name = "BubbleHeaderIconSprite";
+            BubbleHeaderIconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
+            BubbleHeaderIconSprite.relativePosition = new Vector3(9f, BubbleHeaderPanel.relativePosition.y + 9f);
+            BubbleHeaderCitizenName = BubbleHeaderPanel.AddUIComponent<UIButton>();
+            BubbleHeaderCitizenName.name = "BubbleHeaderCitizenName";
+            BubbleHeaderCitizenName.width = BubbleHeaderPanel.width;
+            BubbleHeaderCitizenName.height = BubbleHeaderPanel.height;
+            BubbleHeaderCitizenName.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleHeaderCitizenName.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleHeaderCitizenName.playAudioEvents = false;
+            BubbleHeaderCitizenName.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleHeaderCitizenName.font.size = 15;
+            BubbleHeaderCitizenName.textScale = 1f;
+            BubbleHeaderCitizenName.wordWrap = true;
+            BubbleHeaderCitizenName.textPadding.left = 5;
+            BubbleHeaderCitizenName.textPadding.right = 5;
+            BubbleHeaderCitizenName.textColor = new Color32(204, 204, 51, 40);
+            BubbleHeaderCitizenName.hoveredTextColor = new Color32(204, 204, 51, 40);
+            BubbleHeaderCitizenName.pressedTextColor = new Color32(204, 204, 51, 40);
+            BubbleHeaderCitizenName.focusedTextColor = new Color32(204, 204, 51, 40);
+            BubbleHeaderCitizenName.useDropShadow = true;
+            BubbleHeaderCitizenName.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleHeaderCitizenName.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleHeaderCitizenName.relativePosition = Vector3.zero;
+            BubbleHeaderCitizenName.eventMouseDown += delegate
             {
                 bool mouseButton = Input.GetMouseButton(0);
                 if (mouseButton)
                 {
-                    bool flag = base.GetComponentInChildren<WindowController>() != null;
-                    if (flag)
+                    if (GetComponentInChildren<WindowController>() != null)
                     {
-                        this.PanelMover = base.GetComponentInChildren<WindowController>();
-                        this.PanelMover.ComponentToMove = this;
-                        this.PanelMover.Stop = false;
-                        this.PanelMover.Start();
+                        PanelMover = GetComponentInChildren<WindowController>();
+                        PanelMover.ComponentToMove = this;
+                        PanelMover.Stop = false;
+                        PanelMover.Start();
                     }
                     else
                     {
-                        this.PanelMover = base.AddUIComponent(typeof(WindowController)) as WindowController;
-                        this.PanelMover.ComponentToMove = this;
+                        PanelMover = AddUIComponent(typeof(WindowController)) as WindowController;
+                        PanelMover.ComponentToMove = this;
                     }
-                    base.opacity = 0.5f;
+                    opacity = 0.5f;
                 }
             };
-            this.BubbleHeaderCitizenName.eventMouseUp += delegate
+            BubbleHeaderCitizenName.eventMouseUp += delegate
             {
-                bool flag2 = this.PanelMover != null;
-                if (flag2)
+                if (PanelMover != null)
                 {
-                    this.PanelMover.Stop = true;
-                    this.PanelMover.ComponentToMove = null;
-                    this.PanelMover = null;
+                    PanelMover.Stop = true;
+                    PanelMover.ComponentToMove = null;
+                    PanelMover = null;
                 }
-                base.opacity = 1f;
+                opacity = 1f;
             };
-            this.BubbleCloseButton = base.AddUIComponent<UIButton>();
-            this.BubbleCloseButton.name = "BubbleCloseButton";
-            this.BubbleCloseButton.width = 26f;
-            this.BubbleCloseButton.height = 26f;
-            this.BubbleCloseButton.normalBgSprite = "buttonclose";
-            this.BubbleCloseButton.hoveredBgSprite = "buttonclosehover";
-            this.BubbleCloseButton.pressedBgSprite = "buttonclosepressed";
-            this.BubbleCloseButton.opacity = 0.9f;
-            this.BubbleCloseButton.playAudioEvents = true;
-            this.BubbleCloseButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleCloseButton.eventClick += delegate
+            BubbleCloseButton = AddUIComponent<UIButton>();
+            BubbleCloseButton.name = "BubbleCloseButton";
+            BubbleCloseButton.width = 26f;
+            BubbleCloseButton.height = 26f;
+            BubbleCloseButton.normalBgSprite = "buttonclose";
+            BubbleCloseButton.hoveredBgSprite = "buttonclosehover";
+            BubbleCloseButton.pressedBgSprite = "buttonclosepressed";
+            BubbleCloseButton.opacity = 0.9f;
+            BubbleCloseButton.playAudioEvents = true;
+            BubbleCloseButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleCloseButton.eventClick += delegate
             {
                 try
                 {
-                    base.Hide();
-                    this.MyInstanceID = InstanceID.Empty;
+                    Hide();
+                    MyInstanceID = InstanceID.Empty;
                 }
                 catch (Exception ex)
                 {
                     Utils.Debug.Error("Can't remove family panel " + ex.ToString());
                 }
             };
-            this.BubbleCloseButton.relativePosition = new Vector3(this.BubbleHeaderPanel.width - 36f, 7f);
-            this.BubbleFamilyPortraitPanel = base.AddUIComponent<UIPanel>();
-            this.BubbleFamilyPortraitPanel.name = "BubbleFamilyPortraitPanel";
-            this.BubbleFamilyPortraitPanel.width = 242f;
-            this.BubbleFamilyPortraitPanel.height = 156f;
-            this.BubbleFamilyPortraitPanel.relativePosition = new Vector3(4f, this.BubbleHeaderPanel.relativePosition.y + this.BubbleHeaderPanel.height);
-            this.BubbleFamPortBgSpriteBack = this.BubbleFamilyPortraitPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamPortBgSpriteBack.name = "BubbleFamPortBgSpriteBack";
-            this.BubbleFamPortBgSpriteBack.texture = TextureDB.BubbleFamPortBgSpriteBackTexture;
-            this.BubbleFamPortBgSpriteBack.relativePosition = new Vector3(4f, 4f);
-            this.BubbleFamPortBgSprite = this.BubbleFamilyPortraitPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamPortBgSprite.name = "BubbleFamPortBgSprite";
-            this.BubbleFamPortBgSprite.texture = TextureDB.BubbleFamPortBgSpriteTexture;
-            this.BubbleFamPortBgSprite.relativePosition = Vector3.zero;
-            this.BubbleRow1Panel = this.BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
-            this.BubbleRow1Panel.name = "BubbleRow1Panel";
-            this.BubbleRow1Panel.width = 234f;
-            this.BubbleRow1Panel.height = 36f;
-            this.BubbleRow1Panel.relativePosition = new Vector3(4f, 4f);
-            this.BubbleRow1HappyPanel = this.BubbleRow1Panel.AddUIComponent<UIPanel>();
-            this.BubbleRow1HappyPanel.name = "BubbleRow1Panel";
-            this.BubbleRow1HappyPanel.width = 36f;
-            this.BubbleRow1HappyPanel.height = 36f;
-            this.BubbleRow1HappyPanel.relativePosition = Vector3.zero;
-            this.BubbleRow1HappyIcon = this.BubbleRow1HappyPanel.AddUIComponent<UIButton>();
-            this.BubbleRow1HappyIcon.width = 26f;
-            this.BubbleRow1HappyIcon.height = 26f;
-            this.BubbleRow1HappyIcon.isEnabled = false;
-            this.BubbleRow1HappyIcon.playAudioEvents = false;
-            this.BubbleRow1HappyIcon.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleRow1HappyIcon.relativePosition = new Vector3(4f, 5f);
-            this.BubbleRow2WellbeingIcon = this.BubbleRow1HappyPanel.AddUIComponent<UIButton>();
-            this.BubbleRow2WellbeingIcon.width = 11f;
-            this.BubbleRow2WellbeingIcon.height = 11f;
-            this.BubbleRow2WellbeingIcon.isEnabled = false;
-            this.BubbleRow2WellbeingIcon.playAudioEvents = false;
-            this.BubbleRow2WellbeingIcon.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleRow2WellbeingIcon.relativePosition = new Vector3(24f, 5f);
-            this.BubbleRow1TextPanel = this.BubbleRow1Panel.AddUIComponent<UIPanel>();
-            this.BubbleRow1TextPanel.name = "BubbleRow1TextPanel";
-            this.BubbleRow1TextPanel.width = 198f;
-            this.BubbleRow1TextPanel.height = 37f;
-            this.BubbleRow1TextPanel.relativePosition = new Vector3(36f, 0f);
-            this.BubbleRow1LabelsSprite = this.BubbleRow1TextPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleRow1LabelsSprite.name = "BubbleRow1LabelsSprite";
-            this.BubbleRow1LabelsSprite.width = 198f;
-            this.BubbleRow1LabelsSprite.height = 34f;
-            this.BubbleRow1LabelsSprite.texture = TextureDB.BubbleBgBar1Big;
-            this.BubbleRow1LabelsSprite.relativePosition = new Vector3(0f, 3f);
-            this.BubbleRow1AgeLabelPanel = this.BubbleRow1LabelsSprite.AddUIComponent<UIPanel>();
-            this.BubbleRow1AgeLabelPanel.name = "BubbleRow1AgeLabelPanel";
-            this.BubbleRow1AgeLabelPanel.width = 32f;
-            this.BubbleRow1AgeLabelPanel.height = 17f;
-            this.BubbleRow1AgeLabelPanel.relativePosition = Vector3.zero;
-            this.BubbleCitizenAge = this.BubbleRow1AgeLabelPanel.AddUIComponent<UIButton>();
-            this.BubbleCitizenAge.name = "BubbleCitizenAge";
-            this.BubbleCitizenAge.width = this.BubbleRow1AgeLabelPanel.width;
-            this.BubbleCitizenAge.height = this.BubbleRow1AgeLabelPanel.height;
-            this.BubbleCitizenAge.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleCitizenAge.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleCitizenAge.font.size = 15;
-            this.BubbleCitizenAge.textScale = 0.8f;
-            this.BubbleCitizenAge.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenAge.outlineSize = 1;
-            this.BubbleCitizenAge.textColor = new Color32(0, 51, 102, 140);
-            this.BubbleCitizenAge.isInteractive = false;
-            this.BubbleCitizenAge.useDropShadow = true;
-            this.BubbleCitizenAge.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleCitizenAge.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenAge.relativePosition = new Vector3(0f, 1f);
-            this.BubbleRow1AgePhaseLabelPanel = this.BubbleRow1LabelsSprite.AddUIComponent<UIPanel>();
-            this.BubbleRow1AgePhaseLabelPanel.name = "BubbleRow1AgePhaseLabelPanel";
-            this.BubbleRow1AgePhaseLabelPanel.width = 100f;
-            this.BubbleRow1AgePhaseLabelPanel.height = 17f;
-            this.BubbleRow1AgePhaseLabelPanel.relativePosition = new Vector3(32f, 0f);
-            this.BubbleCitizenAgePhase = this.BubbleRow1AgePhaseLabelPanel.AddUIComponent<UIButton>();
-            this.BubbleCitizenAgePhase.name = "BubbleCitizenAgePhase";
-            this.BubbleCitizenAgePhase.width = this.BubbleRow1AgePhaseLabelPanel.width;
-            this.BubbleCitizenAgePhase.height = this.BubbleRow1AgePhaseLabelPanel.height;
-            this.BubbleCitizenAgePhase.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleCitizenAgePhase.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleCitizenAgePhase.font.size = 15;
-            this.BubbleCitizenAgePhase.textScale = 0.8f;
-            this.BubbleCitizenAgePhase.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenAgePhase.outlineSize = 1;
-            this.BubbleCitizenAgePhase.textColor = new Color32(0, 51, 102, 140);
-            this.BubbleCitizenAgePhase.isInteractive = false;
-            this.BubbleCitizenAgePhase.useDropShadow = true;
-            this.BubbleCitizenAgePhase.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleCitizenAgePhase.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenAgePhase.relativePosition = new Vector3(0f, 1f);
-            this.BubbleRow1EducationLabelPanel = this.BubbleRow1LabelsSprite.AddUIComponent<UIPanel>();
-            this.BubbleRow1EducationLabelPanel.name = "BubbleRow1LabelsPanel";
-            this.BubbleRow1EducationLabelPanel.width = 66f;
-            this.BubbleRow1EducationLabelPanel.height = 17f;
-            this.BubbleRow1EducationLabelPanel.relativePosition = new Vector3(132f, 0f);
-            this.BubbleCitizenEducation = this.BubbleRow1EducationLabelPanel.AddUIComponent<UIButton>();
-            this.BubbleCitizenEducation.name = "BubbleCitizenEducation";
-            this.BubbleCitizenEducation.width = this.BubbleRow1EducationLabelPanel.width;
-            this.BubbleCitizenEducation.height = this.BubbleRow1EducationLabelPanel.height;
-            this.BubbleCitizenEducation.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleCitizenEducation.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleCitizenEducation.font.size = 15;
-            this.BubbleCitizenEducation.textScale = 0.8f;
-            this.BubbleCitizenEducation.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenEducation.outlineSize = 1;
-            this.BubbleCitizenEducation.textColor = new Color32(0, 51, 102, 140);
-            this.BubbleCitizenEducation.isInteractive = false;
-            this.BubbleCitizenEducation.useDropShadow = true;
-            this.BubbleCitizenEducation.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleCitizenEducation.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenEducation.relativePosition = new Vector3(0f, 1f);
-            this.BubbleRow1ValuesPanel = this.BubbleRow1LabelsSprite.AddUIComponent<UIPanel>();
-            this.BubbleRow1ValuesPanel.name = "BubbleRow1ValuesPanel";
-            this.BubbleRow1ValuesPanel.width = 198f;
-            this.BubbleRow1ValuesPanel.height = 17f;
-            this.BubbleRow1ValuesPanel.relativePosition = new Vector3(0f, 17f);
-            this.BubbleRow1AgeValuePanel = this.BubbleRow1ValuesPanel.AddUIComponent<UIPanel>();
-            this.BubbleRow1AgeValuePanel.name = "BubbleRow1AgeValuePanel";
-            this.BubbleRow1AgeValuePanel.width = 32f;
-            this.BubbleRow1AgeValuePanel.height = 17f;
-            this.BubbleRow1AgeValuePanel.relativePosition = Vector3.zero;
-            this.BubbleCitizenAgeVal = this.BubbleRow1AgeValuePanel.AddUIComponent<UIButton>();
-            this.BubbleCitizenAgeVal.name = "BubbleCitizenAgeVal";
-            this.BubbleCitizenAgeVal.width = this.BubbleRow1AgeValuePanel.width;
-            this.BubbleCitizenAgeVal.height = this.BubbleRow1AgeValuePanel.height;
-            this.BubbleCitizenAgeVal.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleCitizenAgeVal.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleCitizenAgeVal.font.size = 15;
-            this.BubbleCitizenAgeVal.textScale = 0.85f;
-            this.BubbleCitizenAgeVal.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenAgeVal.outlineSize = 1;
-            this.BubbleCitizenAgeVal.textColor = new Color32(0, 51, 102, 140);
-            this.BubbleCitizenAgeVal.isInteractive = false;
-            this.BubbleCitizenAgeVal.useDropShadow = true;
-            this.BubbleCitizenAgeVal.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleCitizenAgeVal.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenAgeVal.relativePosition = new Vector3(0f, 0f);
-            this.BubbleRow1AgePhaseValuePanel = this.BubbleRow1ValuesPanel.AddUIComponent<UIPanel>();
-            this.BubbleRow1AgePhaseValuePanel.name = "BubbleRow1AgePhaseValuePanel";
-            this.BubbleRow1AgePhaseValuePanel.width = 100f;
-            this.BubbleRow1AgePhaseValuePanel.height = 17f;
-            this.BubbleRow1AgePhaseValuePanel.relativePosition = new Vector3(32f, 0f);
-            this.BubbleCitizenAgePhaseVal = this.BubbleRow1AgePhaseValuePanel.AddUIComponent<UIButton>();
-            this.BubbleCitizenAgePhaseVal.name = "BubbleCitizenAgePhaseVal";
-            this.BubbleCitizenAgePhaseVal.width = this.BubbleRow1AgePhaseValuePanel.width;
-            this.BubbleCitizenAgePhaseVal.height = this.BubbleRow1AgePhaseValuePanel.height;
-            this.BubbleCitizenAgePhaseVal.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleCitizenAgePhaseVal.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleCitizenAgePhaseVal.font.size = 15;
-            this.BubbleCitizenAgePhaseVal.textScale = 0.85f;
-            this.BubbleCitizenAgePhaseVal.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenAgePhaseVal.outlineSize = 1;
-            this.BubbleCitizenAgePhaseVal.textColor = new Color32(0, 51, 102, 140);
-            this.BubbleCitizenAgePhaseVal.isInteractive = false;
-            this.BubbleCitizenAgePhaseVal.useDropShadow = true;
-            this.BubbleCitizenAgePhaseVal.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleCitizenAgePhaseVal.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleCitizenAgePhaseVal.relativePosition = new Vector3(0f, 0f);
-            this.BubbleRow1EducationValuePanel = this.BubbleRow1ValuesPanel.AddUIComponent<UIPanel>();
-            this.BubbleRow1EducationValuePanel.name = "BubbleRow1LabelsPanel";
-            this.BubbleRow1EducationValuePanel.width = 66f;
-            this.BubbleRow1EducationValuePanel.height = 17f;
-            this.BubbleRow1EducationValuePanel.relativePosition = new Vector3(132f, 0f);
-            this.BubbleEduLevel1 = this.BubbleRow1EducationValuePanel.AddUIComponent<UIButton>();
-            this.BubbleEduLevel1.width = 18f;
-            this.BubbleEduLevel1.height = 17f;
-            this.BubbleEduLevel1.normalBgSprite = "InfoIconEducation";
-            this.BubbleEduLevel1.disabledBgSprite = "InfoIconEducationDisabled";
-            this.BubbleEduLevel1.isEnabled = false;
-            this.BubbleEduLevel1.playAudioEvents = false;
-            this.BubbleEduLevel1.relativePosition = new Vector3(2f, 0f);
-            this.BubbleEduLevel2 = this.BubbleRow1EducationValuePanel.AddUIComponent<UIButton>();
-            this.BubbleEduLevel2.width = this.BubbleEduLevel1.width;
-            this.BubbleEduLevel2.height = this.BubbleEduLevel1.height;
-            this.BubbleEduLevel2.normalBgSprite = "InfoIconEducation";
-            this.BubbleEduLevel2.disabledBgSprite = "InfoIconEducationDisabled";
-            this.BubbleEduLevel2.isEnabled = false;
-            this.BubbleEduLevel2.playAudioEvents = false;
-            this.BubbleEduLevel2.relativePosition = new Vector3(24f, 0f);
-            this.BubbleEduLevel3 = this.BubbleRow1EducationValuePanel.AddUIComponent<UIButton>();
-            this.BubbleEduLevel3.width = this.BubbleEduLevel1.width;
-            this.BubbleEduLevel3.height = this.BubbleEduLevel1.height;
-            this.BubbleEduLevel3.normalBgSprite = "InfoIconEducation";
-            this.BubbleEduLevel3.disabledBgSprite = "InfoIconEducationDisabled";
-            this.BubbleEduLevel3.isEnabled = false;
-            this.BubbleEduLevel3.playAudioEvents = false;
-            this.BubbleEduLevel3.relativePosition = new Vector3(46f, 0f);
-            this.BubbleRow1EducationTooltipArea = this.BubbleRow1ValuesPanel.AddUIComponent<UIPanel>();
-            this.BubbleRow1EducationTooltipArea.name = "BubbleRow1EducationTooltipArea";
-            this.BubbleRow1EducationTooltipArea.width = this.BubbleRow1EducationValuePanel.width;
-            this.BubbleRow1EducationTooltipArea.height = this.BubbleRow1EducationValuePanel.height;
-            this.BubbleRow1EducationTooltipArea.absolutePosition = this.BubbleRow1EducationValuePanel.absolutePosition;
-            this.BubbleRow1EducationTooltipArea.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleTargetPanel = this.BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
-            this.BubbleTargetPanel.name = "BubbleTargetPanel";
-            this.BubbleTargetPanel.width = 58f;
-            this.BubbleTargetPanel.height = 36f;
-            this.BubbleTargetPanel.relativePosition = new Vector3(4f, 35f);
-            this.BubbleTargetIcon = this.BubbleTargetPanel.AddUIComponent<UIButton>();
-            this.BubbleTargetIcon.width = 28f;
-            this.BubbleTargetIcon.height = 28f;
-            this.BubbleTargetIcon.normalBgSprite = "LocationMarkerNormal";
-            this.BubbleTargetIcon.hoveredBgSprite = "LocationMarkerHovered";
-            this.BubbleTargetIcon.focusedBgSprite = "LocationMarkerFocused";
-            this.BubbleTargetIcon.pressedBgSprite = "LocationMarkerPressed";
-            this.BubbleTargetIcon.disabledBgSprite = "LocationMarkerDisabled";
-            this.BubbleTargetIcon.playAudioEvents = true;
-            this.BubbleTargetIcon.relativePosition = new Vector3(4f, 0f);
-            this.BubbleTargetIcon.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleCloseButton.relativePosition = new Vector3(BubbleHeaderPanel.width - 36f, 7f);
+            BubbleFamilyPortraitPanel = AddUIComponent<UIPanel>();
+            BubbleFamilyPortraitPanel.name = "BubbleFamilyPortraitPanel";
+            BubbleFamilyPortraitPanel.width = 242f;
+            BubbleFamilyPortraitPanel.height = 156f;
+            BubbleFamilyPortraitPanel.relativePosition = new Vector3(4f, BubbleHeaderPanel.relativePosition.y + BubbleHeaderPanel.height);
+            BubbleFamPortBgSpriteBack = BubbleFamilyPortraitPanel.AddUIComponent<UITextureSprite>();
+            BubbleFamPortBgSpriteBack.name = "BubbleFamPortBgSpriteBack";
+            BubbleFamPortBgSpriteBack.texture = TextureDB.BubbleFamPortBgSpriteBackTexture;
+            BubbleFamPortBgSpriteBack.relativePosition = new Vector3(4f, 4f);
+            BubbleFamPortBgSprite = BubbleFamilyPortraitPanel.AddUIComponent<UITextureSprite>();
+            BubbleFamPortBgSprite.name = "BubbleFamPortBgSprite";
+            BubbleFamPortBgSprite.texture = TextureDB.BubbleFamPortBgSpriteTexture;
+            BubbleFamPortBgSprite.relativePosition = Vector3.zero;
+            BubbleRow1Panel = BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
+            BubbleRow1Panel.name = "BubbleRow1Panel";
+            BubbleRow1Panel.width = 234f;
+            BubbleRow1Panel.height = 36f;
+            BubbleRow1Panel.relativePosition = new Vector3(4f, 4f);
+            BubbleRow1HappyPanel = BubbleRow1Panel.AddUIComponent<UIPanel>();
+            BubbleRow1HappyPanel.name = "BubbleRow1Panel";
+            BubbleRow1HappyPanel.width = 36f;
+            BubbleRow1HappyPanel.height = 36f;
+            BubbleRow1HappyPanel.relativePosition = Vector3.zero;
+            BubbleRow1HappyIcon = BubbleRow1HappyPanel.AddUIComponent<UIButton>();
+            BubbleRow1HappyIcon.width = 26f;
+            BubbleRow1HappyIcon.height = 26f;
+            BubbleRow1HappyIcon.isEnabled = false;
+            BubbleRow1HappyIcon.playAudioEvents = false;
+            BubbleRow1HappyIcon.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleRow1HappyIcon.relativePosition = new Vector3(4f, 5f);
+            BubbleRow2WellbeingIcon = BubbleRow1HappyPanel.AddUIComponent<UIButton>();
+            BubbleRow2WellbeingIcon.width = 11f;
+            BubbleRow2WellbeingIcon.height = 11f;
+            BubbleRow2WellbeingIcon.isEnabled = false;
+            BubbleRow2WellbeingIcon.playAudioEvents = false;
+            BubbleRow2WellbeingIcon.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleRow2WellbeingIcon.relativePosition = new Vector3(24f, 5f);
+            BubbleRow1TextPanel = BubbleRow1Panel.AddUIComponent<UIPanel>();
+            BubbleRow1TextPanel.name = "BubbleRow1TextPanel";
+            BubbleRow1TextPanel.width = 198f;
+            BubbleRow1TextPanel.height = 37f;
+            BubbleRow1TextPanel.relativePosition = new Vector3(36f, 0f);
+            BubbleRow1LabelsSprite = BubbleRow1TextPanel.AddUIComponent<UITextureSprite>();
+            BubbleRow1LabelsSprite.name = "BubbleRow1LabelsSprite";
+            BubbleRow1LabelsSprite.width = 198f;
+            BubbleRow1LabelsSprite.height = 34f;
+            BubbleRow1LabelsSprite.texture = TextureDB.BubbleBgBar1Big;
+            BubbleRow1LabelsSprite.relativePosition = new Vector3(0f, 3f);
+            BubbleRow1AgeLabelPanel = BubbleRow1LabelsSprite.AddUIComponent<UIPanel>();
+            BubbleRow1AgeLabelPanel.name = "BubbleRow1AgeLabelPanel";
+            BubbleRow1AgeLabelPanel.width = 32f;
+            BubbleRow1AgeLabelPanel.height = 17f;
+            BubbleRow1AgeLabelPanel.relativePosition = Vector3.zero;
+            BubbleCitizenAge = BubbleRow1AgeLabelPanel.AddUIComponent<UIButton>();
+            BubbleCitizenAge.name = "BubbleCitizenAge";
+            BubbleCitizenAge.width = BubbleRow1AgeLabelPanel.width;
+            BubbleCitizenAge.height = BubbleRow1AgeLabelPanel.height;
+            BubbleCitizenAge.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleCitizenAge.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleCitizenAge.font.size = 15;
+            BubbleCitizenAge.textScale = 0.8f;
+            BubbleCitizenAge.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenAge.outlineSize = 1;
+            BubbleCitizenAge.textColor = new Color32(0, 51, 102, 140);
+            BubbleCitizenAge.isInteractive = false;
+            BubbleCitizenAge.useDropShadow = true;
+            BubbleCitizenAge.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleCitizenAge.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenAge.relativePosition = new Vector3(0f, 1f);
+            BubbleRow1AgePhaseLabelPanel = BubbleRow1LabelsSprite.AddUIComponent<UIPanel>();
+            BubbleRow1AgePhaseLabelPanel.name = "BubbleRow1AgePhaseLabelPanel";
+            BubbleRow1AgePhaseLabelPanel.width = 100f;
+            BubbleRow1AgePhaseLabelPanel.height = 17f;
+            BubbleRow1AgePhaseLabelPanel.relativePosition = new Vector3(32f, 0f);
+            BubbleCitizenAgePhase = BubbleRow1AgePhaseLabelPanel.AddUIComponent<UIButton>();
+            BubbleCitizenAgePhase.name = "BubbleCitizenAgePhase";
+            BubbleCitizenAgePhase.width = BubbleRow1AgePhaseLabelPanel.width;
+            BubbleCitizenAgePhase.height = BubbleRow1AgePhaseLabelPanel.height;
+            BubbleCitizenAgePhase.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleCitizenAgePhase.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleCitizenAgePhase.font.size = 15;
+            BubbleCitizenAgePhase.textScale = 0.8f;
+            BubbleCitizenAgePhase.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenAgePhase.outlineSize = 1;
+            BubbleCitizenAgePhase.textColor = new Color32(0, 51, 102, 140);
+            BubbleCitizenAgePhase.isInteractive = false;
+            BubbleCitizenAgePhase.useDropShadow = true;
+            BubbleCitizenAgePhase.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleCitizenAgePhase.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenAgePhase.relativePosition = new Vector3(0f, 1f);
+            BubbleRow1EducationLabelPanel = BubbleRow1LabelsSprite.AddUIComponent<UIPanel>();
+            BubbleRow1EducationLabelPanel.name = "BubbleRow1LabelsPanel";
+            BubbleRow1EducationLabelPanel.width = 66f;
+            BubbleRow1EducationLabelPanel.height = 17f;
+            BubbleRow1EducationLabelPanel.relativePosition = new Vector3(132f, 0f);
+            BubbleCitizenEducation = BubbleRow1EducationLabelPanel.AddUIComponent<UIButton>();
+            BubbleCitizenEducation.name = "BubbleCitizenEducation";
+            BubbleCitizenEducation.width = BubbleRow1EducationLabelPanel.width;
+            BubbleCitizenEducation.height = BubbleRow1EducationLabelPanel.height;
+            BubbleCitizenEducation.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleCitizenEducation.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleCitizenEducation.font.size = 15;
+            BubbleCitizenEducation.textScale = 0.8f;
+            BubbleCitizenEducation.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenEducation.outlineSize = 1;
+            BubbleCitizenEducation.textColor = new Color32(0, 51, 102, 140);
+            BubbleCitizenEducation.isInteractive = false;
+            BubbleCitizenEducation.useDropShadow = true;
+            BubbleCitizenEducation.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleCitizenEducation.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenEducation.relativePosition = new Vector3(0f, 1f);
+            BubbleRow1ValuesPanel = BubbleRow1LabelsSprite.AddUIComponent<UIPanel>();
+            BubbleRow1ValuesPanel.name = "BubbleRow1ValuesPanel";
+            BubbleRow1ValuesPanel.width = 198f;
+            BubbleRow1ValuesPanel.height = 17f;
+            BubbleRow1ValuesPanel.relativePosition = new Vector3(0f, 17f);
+            BubbleRow1AgeValuePanel = BubbleRow1ValuesPanel.AddUIComponent<UIPanel>();
+            BubbleRow1AgeValuePanel.name = "BubbleRow1AgeValuePanel";
+            BubbleRow1AgeValuePanel.width = 32f;
+            BubbleRow1AgeValuePanel.height = 17f;
+            BubbleRow1AgeValuePanel.relativePosition = Vector3.zero;
+            BubbleCitizenAgeVal = BubbleRow1AgeValuePanel.AddUIComponent<UIButton>();
+            BubbleCitizenAgeVal.name = "BubbleCitizenAgeVal";
+            BubbleCitizenAgeVal.width = BubbleRow1AgeValuePanel.width;
+            BubbleCitizenAgeVal.height = BubbleRow1AgeValuePanel.height;
+            BubbleCitizenAgeVal.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleCitizenAgeVal.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleCitizenAgeVal.font.size = 15;
+            BubbleCitizenAgeVal.textScale = 0.85f;
+            BubbleCitizenAgeVal.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenAgeVal.outlineSize = 1;
+            BubbleCitizenAgeVal.textColor = new Color32(0, 51, 102, 140);
+            BubbleCitizenAgeVal.isInteractive = false;
+            BubbleCitizenAgeVal.useDropShadow = true;
+            BubbleCitizenAgeVal.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleCitizenAgeVal.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenAgeVal.relativePosition = new Vector3(0f, 0f);
+            BubbleRow1AgePhaseValuePanel = BubbleRow1ValuesPanel.AddUIComponent<UIPanel>();
+            BubbleRow1AgePhaseValuePanel.name = "BubbleRow1AgePhaseValuePanel";
+            BubbleRow1AgePhaseValuePanel.width = 100f;
+            BubbleRow1AgePhaseValuePanel.height = 17f;
+            BubbleRow1AgePhaseValuePanel.relativePosition = new Vector3(32f, 0f);
+            BubbleCitizenAgePhaseVal = BubbleRow1AgePhaseValuePanel.AddUIComponent<UIButton>();
+            BubbleCitizenAgePhaseVal.name = "BubbleCitizenAgePhaseVal";
+            BubbleCitizenAgePhaseVal.width = BubbleRow1AgePhaseValuePanel.width;
+            BubbleCitizenAgePhaseVal.height = BubbleRow1AgePhaseValuePanel.height;
+            BubbleCitizenAgePhaseVal.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleCitizenAgePhaseVal.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleCitizenAgePhaseVal.font.size = 15;
+            BubbleCitizenAgePhaseVal.textScale = 0.85f;
+            BubbleCitizenAgePhaseVal.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenAgePhaseVal.outlineSize = 1;
+            BubbleCitizenAgePhaseVal.textColor = new Color32(0, 51, 102, 140);
+            BubbleCitizenAgePhaseVal.isInteractive = false;
+            BubbleCitizenAgePhaseVal.useDropShadow = true;
+            BubbleCitizenAgePhaseVal.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleCitizenAgePhaseVal.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleCitizenAgePhaseVal.relativePosition = new Vector3(0f, 0f);
+            BubbleRow1EducationValuePanel = BubbleRow1ValuesPanel.AddUIComponent<UIPanel>();
+            BubbleRow1EducationValuePanel.name = "BubbleRow1LabelsPanel";
+            BubbleRow1EducationValuePanel.width = 66f;
+            BubbleRow1EducationValuePanel.height = 17f;
+            BubbleRow1EducationValuePanel.relativePosition = new Vector3(132f, 0f);
+            BubbleEduLevel1 = BubbleRow1EducationValuePanel.AddUIComponent<UIButton>();
+            BubbleEduLevel1.width = 18f;
+            BubbleEduLevel1.height = 17f;
+            BubbleEduLevel1.normalBgSprite = "InfoIconEducation";
+            BubbleEduLevel1.disabledBgSprite = "InfoIconEducationDisabled";
+            BubbleEduLevel1.isEnabled = false;
+            BubbleEduLevel1.playAudioEvents = false;
+            BubbleEduLevel1.relativePosition = new Vector3(2f, 0f);
+            BubbleEduLevel2 = BubbleRow1EducationValuePanel.AddUIComponent<UIButton>();
+            BubbleEduLevel2.width = BubbleEduLevel1.width;
+            BubbleEduLevel2.height = BubbleEduLevel1.height;
+            BubbleEduLevel2.normalBgSprite = "InfoIconEducation";
+            BubbleEduLevel2.disabledBgSprite = "InfoIconEducationDisabled";
+            BubbleEduLevel2.isEnabled = false;
+            BubbleEduLevel2.playAudioEvents = false;
+            BubbleEduLevel2.relativePosition = new Vector3(24f, 0f);
+            BubbleEduLevel3 = BubbleRow1EducationValuePanel.AddUIComponent<UIButton>();
+            BubbleEduLevel3.width = BubbleEduLevel1.width;
+            BubbleEduLevel3.height = BubbleEduLevel1.height;
+            BubbleEduLevel3.normalBgSprite = "InfoIconEducation";
+            BubbleEduLevel3.disabledBgSprite = "InfoIconEducationDisabled";
+            BubbleEduLevel3.isEnabled = false;
+            BubbleEduLevel3.playAudioEvents = false;
+            BubbleEduLevel3.relativePosition = new Vector3(46f, 0f);
+            BubbleRow1EducationTooltipArea = BubbleRow1ValuesPanel.AddUIComponent<UIPanel>();
+            BubbleRow1EducationTooltipArea.name = "BubbleRow1EducationTooltipArea";
+            BubbleRow1EducationTooltipArea.width = BubbleRow1EducationValuePanel.width;
+            BubbleRow1EducationTooltipArea.height = BubbleRow1EducationValuePanel.height;
+            BubbleRow1EducationTooltipArea.absolutePosition = BubbleRow1EducationValuePanel.absolutePosition;
+            BubbleRow1EducationTooltipArea.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleTargetPanel = BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
+            BubbleTargetPanel.name = "BubbleTargetPanel";
+            BubbleTargetPanel.width = 58f;
+            BubbleTargetPanel.height = 36f;
+            BubbleTargetPanel.relativePosition = new Vector3(4f, 35f);
+            BubbleTargetIcon = BubbleTargetPanel.AddUIComponent<UIButton>();
+            BubbleTargetIcon.width = 28f;
+            BubbleTargetIcon.height = 28f;
+            BubbleTargetIcon.normalBgSprite = "LocationMarkerNormal";
+            BubbleTargetIcon.hoveredBgSprite = "LocationMarkerHovered";
+            BubbleTargetIcon.focusedBgSprite = "LocationMarkerFocused";
+            BubbleTargetIcon.pressedBgSprite = "LocationMarkerPressed";
+            BubbleTargetIcon.disabledBgSprite = "LocationMarkerDisabled";
+            BubbleTargetIcon.playAudioEvents = true;
+            BubbleTargetIcon.relativePosition = new Vector3(4f, 0f);
+            BubbleTargetIcon.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToCitizen(this.MyInstanceID, eventParam);
+                GoToCitizen(MyInstanceID, eventParam);
             };
-            this.BubbleRow2Panel = this.BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
-            this.BubbleRow2Panel.name = "BubbleRow2Panel";
-            this.BubbleRow2Panel.width = 198f;
-            this.BubbleRow2Panel.height = 34f;
-            this.BubbleRow2Panel.relativePosition = new Vector3(40f, 44f);
-            this.BubbleWealthHealthSprite = this.BubbleRow2Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleWealthHealthSprite.name = "BubbleWealthHealthSprite";
-            this.BubbleWealthHealthSprite.width = 198f;
-            this.BubbleWealthHealthSprite.height = 34f;
-            this.BubbleWealthHealthSprite.texture = TextureDB.BubbleBgBar1Big;
-            this.BubbleWealthHealthSprite.relativePosition = Vector3.zero;
-            this.BubbleWealthSpritePanel = this.BubbleWealthHealthSprite.AddUIComponent<UIPanel>();
-            this.BubbleWealthSpritePanel.name = "BubbleWealthSpritePanel";
-            this.BubbleWealthSpritePanel.width = 37f;
-            this.BubbleWealthSpritePanel.height = 34f;
-            this.BubbleWealthSpritePanel.relativePosition = new Vector3(0f, 0f);
-            this.BubbleWealthSprite = this.BubbleWealthSpritePanel.AddUIComponent<UIButton>();
-            this.BubbleWealthSprite.name = "BubbleWealthSprite";
-            this.BubbleWealthSprite.width = 25f;
-            this.BubbleWealthSprite.height = 25f;
-            this.BubbleWealthSprite.normalBgSprite = "MoneyThumb";
-            this.BubbleWealthSprite.playAudioEvents = false;
-            this.BubbleWealthSprite.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleWealthSprite.relativePosition = new Vector3(10f, 5f);
-            this.BubbleRow2WealthValueVal = this.BubbleWealthHealthSprite.AddUIComponent<UIButton>();
-            this.BubbleRow2WealthValueVal.name = "BubbleRow2WealthValueVal";
-            this.BubbleRow2WealthValueVal.width = 70f;
-            this.BubbleRow2WealthValueVal.height = 34f;
-            this.BubbleRow2WealthValueVal.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleRow2WealthValueVal.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleRow2WealthValueVal.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleRow2WealthValueVal.textPadding.top = 1;
-            this.BubbleRow2WealthValueVal.font.size = 15;
-            this.BubbleRow2WealthValueVal.textScale = 0.8f;
-            this.BubbleRow2WealthValueVal.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleRow2WealthValueVal.outlineSize = 1;
-            this.BubbleRow2WealthValueVal.textColor = new Color32(0, 51, 102, 140);
-            this.BubbleRow2WealthValueVal.isInteractive = false;
-            this.BubbleRow2WealthValueVal.useDropShadow = true;
-            this.BubbleRow2WealthValueVal.wordWrap = true;
-            this.BubbleRow2WealthValueVal.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleRow2WealthValueVal.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleRow2WealthValueVal.relativePosition = new Vector3(37f, 0f);
-            this.BubbleHealthSpritePanel = this.BubbleWealthHealthSprite.AddUIComponent<UIPanel>();
-            this.BubbleHealthSpritePanel.name = "BubbleHealthSpritePanel";
-            this.BubbleHealthSpritePanel.width = 26f;
-            this.BubbleHealthSpritePanel.height = 34f;
-            this.BubbleHealthSpritePanel.relativePosition = new Vector3(107f, 0f);
-            this.BubbleHealthSprite = this.BubbleHealthSpritePanel.AddUIComponent<UIButton>();
-            this.BubbleHealthSprite.name = "BubbleWealthSprite";
-            this.BubbleHealthSprite.width = 26f;
-            this.BubbleHealthSprite.height = 26f;
-            this.BubbleHealthSprite.playAudioEvents = false;
-            this.BubbleHealthSprite.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleHealthSprite.relativePosition = new Vector3(0f, 4f);
-            this.BubbleHealthValue = this.BubbleWealthHealthSprite.AddUIComponent<UIButton>();
-            this.BubbleHealthValue.name = "BubbleHealthValue";
-            this.BubbleHealthValue.width = 65f;
-            this.BubbleHealthValue.height = 34f;
-            this.BubbleHealthValue.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleHealthValue.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleHealthValue.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleHealthValue.textPadding.left = 5;
-            this.BubbleHealthValue.textPadding.right = 5;
-            this.BubbleHealthValue.textPadding.top = 1;
-            this.BubbleHealthValue.font.size = 15;
-            this.BubbleHealthValue.textScale = 0.85f;
-            this.BubbleHealthValue.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleHealthValue.outlineSize = 1;
-            this.BubbleHealthValue.textColor = new Color32(0, 51, 102, 140);
-            this.BubbleHealthValue.isInteractive = false;
-            this.BubbleHealthValue.useDropShadow = true;
-            this.BubbleHealthValue.wordWrap = true;
-            this.BubbleHealthValue.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleHealthValue.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleHealthValue.relativePosition = new Vector3(133f, 0f);
-            this.WorkBuildingPanel = this.BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
-            this.WorkBuildingPanel.name = "WorkBuildingPanel";
-            this.WorkBuildingPanel.width = 234f;
-            this.WorkBuildingPanel.height = 25f;
-            this.WorkBuildingPanel.relativePosition = new Vector3(4f, 82f);
-            this.BubbleWorkBuildingSprite = this.WorkBuildingPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleWorkBuildingSprite.name = "BubbleWorkBuildingSprite";
-            this.BubbleWorkBuildingSprite.width = this.WorkBuildingPanel.width;
-            this.BubbleWorkBuildingSprite.height = this.WorkBuildingPanel.height;
-            this.BubbleWorkBuildingSprite.texture = TextureDB.BubbleBg1Special;
-            this.BubbleWorkBuildingSprite.relativePosition = Vector3.zero;
-            this.BubbleWorkBuildingSprite.clipChildren = true;
-            this.FavCimsWorkingPlace = this.BubbleWorkBuildingSprite.AddUIComponent<UIButton>();
-            this.FavCimsWorkingPlace.name = "FavCimsWorkingPlace";
-            this.FavCimsWorkingPlace.width = this.BubbleWorkBuildingSprite.width;
-            this.FavCimsWorkingPlace.height = this.BubbleWorkBuildingSprite.height;
-            this.FavCimsWorkingPlace.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.FavCimsWorkingPlace.textHorizontalAlignment = 0;
-            this.FavCimsWorkingPlace.playAudioEvents = true;
-            this.FavCimsWorkingPlace.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.FavCimsWorkingPlace.font.size = 15;
-            this.FavCimsWorkingPlace.textScale = 0.85f;
-            this.FavCimsWorkingPlace.textPadding.left = 40;
-            this.FavCimsWorkingPlace.textPadding.right = 5;
-            this.FavCimsWorkingPlace.outlineColor = new Color32(0, 0, 0, 0);
-            this.FavCimsWorkingPlace.outlineSize = 1;
-            this.FavCimsWorkingPlace.textColor = new Color32(21, 59, 96, 140);
-            this.FavCimsWorkingPlace.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.FavCimsWorkingPlace.pressedTextColor = new Color32(153, 0, 0, 0);
-            this.FavCimsWorkingPlace.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.FavCimsWorkingPlace.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.FavCimsWorkingPlace.useDropShadow = true;
-            this.FavCimsWorkingPlace.dropShadowOffset = new Vector2(1f, -1f);
-            this.FavCimsWorkingPlace.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.FavCimsWorkingPlace.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.FavCimsWorkingPlace.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleRow2Panel = BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
+            BubbleRow2Panel.name = "BubbleRow2Panel";
+            BubbleRow2Panel.width = 198f;
+            BubbleRow2Panel.height = 34f;
+            BubbleRow2Panel.relativePosition = new Vector3(40f, 44f);
+            BubbleWealthHealthSprite = BubbleRow2Panel.AddUIComponent<UITextureSprite>();
+            BubbleWealthHealthSprite.name = "BubbleWealthHealthSprite";
+            BubbleWealthHealthSprite.width = 198f;
+            BubbleWealthHealthSprite.height = 34f;
+            BubbleWealthHealthSprite.texture = TextureDB.BubbleBgBar1Big;
+            BubbleWealthHealthSprite.relativePosition = Vector3.zero;
+            BubbleWealthSpritePanel = BubbleWealthHealthSprite.AddUIComponent<UIPanel>();
+            BubbleWealthSpritePanel.name = "BubbleWealthSpritePanel";
+            BubbleWealthSpritePanel.width = 37f;
+            BubbleWealthSpritePanel.height = 34f;
+            BubbleWealthSpritePanel.relativePosition = new Vector3(0f, 0f);
+            BubbleWealthSprite = BubbleWealthSpritePanel.AddUIComponent<UIButton>();
+            BubbleWealthSprite.name = "BubbleWealthSprite";
+            BubbleWealthSprite.width = 25f;
+            BubbleWealthSprite.height = 25f;
+            BubbleWealthSprite.normalBgSprite = "MoneyThumb";
+            BubbleWealthSprite.playAudioEvents = false;
+            BubbleWealthSprite.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleWealthSprite.relativePosition = new Vector3(10f, 5f);
+            BubbleRow2WealthValueVal = BubbleWealthHealthSprite.AddUIComponent<UIButton>();
+            BubbleRow2WealthValueVal.name = "BubbleRow2WealthValueVal";
+            BubbleRow2WealthValueVal.width = 70f;
+            BubbleRow2WealthValueVal.height = 34f;
+            BubbleRow2WealthValueVal.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleRow2WealthValueVal.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleRow2WealthValueVal.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleRow2WealthValueVal.textPadding.top = 1;
+            BubbleRow2WealthValueVal.font.size = 15;
+            BubbleRow2WealthValueVal.textScale = 0.8f;
+            BubbleRow2WealthValueVal.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleRow2WealthValueVal.outlineSize = 1;
+            BubbleRow2WealthValueVal.textColor = new Color32(0, 51, 102, 140);
+            BubbleRow2WealthValueVal.isInteractive = false;
+            BubbleRow2WealthValueVal.useDropShadow = true;
+            BubbleRow2WealthValueVal.wordWrap = true;
+            BubbleRow2WealthValueVal.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleRow2WealthValueVal.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleRow2WealthValueVal.relativePosition = new Vector3(37f, 0f);
+            BubbleHealthSpritePanel = BubbleWealthHealthSprite.AddUIComponent<UIPanel>();
+            BubbleHealthSpritePanel.name = "BubbleHealthSpritePanel";
+            BubbleHealthSpritePanel.width = 26f;
+            BubbleHealthSpritePanel.height = 34f;
+            BubbleHealthSpritePanel.relativePosition = new Vector3(107f, 0f);
+            BubbleHealthSprite = BubbleHealthSpritePanel.AddUIComponent<UIButton>();
+            BubbleHealthSprite.name = "BubbleWealthSprite";
+            BubbleHealthSprite.width = 26f;
+            BubbleHealthSprite.height = 26f;
+            BubbleHealthSprite.playAudioEvents = false;
+            BubbleHealthSprite.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleHealthSprite.relativePosition = new Vector3(0f, 4f);
+            BubbleHealthValue = BubbleWealthHealthSprite.AddUIComponent<UIButton>();
+            BubbleHealthValue.name = "BubbleHealthValue";
+            BubbleHealthValue.width = 65f;
+            BubbleHealthValue.height = 34f;
+            BubbleHealthValue.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleHealthValue.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleHealthValue.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleHealthValue.textPadding.left = 5;
+            BubbleHealthValue.textPadding.right = 5;
+            BubbleHealthValue.textPadding.top = 1;
+            BubbleHealthValue.font.size = 15;
+            BubbleHealthValue.textScale = 0.85f;
+            BubbleHealthValue.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleHealthValue.outlineSize = 1;
+            BubbleHealthValue.textColor = new Color32(0, 51, 102, 140);
+            BubbleHealthValue.isInteractive = false;
+            BubbleHealthValue.useDropShadow = true;
+            BubbleHealthValue.wordWrap = true;
+            BubbleHealthValue.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleHealthValue.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleHealthValue.relativePosition = new Vector3(133f, 0f);
+            WorkBuildingPanel = BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
+            WorkBuildingPanel.name = "WorkBuildingPanel";
+            WorkBuildingPanel.width = 234f;
+            WorkBuildingPanel.height = 25f;
+            WorkBuildingPanel.relativePosition = new Vector3(4f, 82f);
+            BubbleWorkBuildingSprite = WorkBuildingPanel.AddUIComponent<UITextureSprite>();
+            BubbleWorkBuildingSprite.name = "BubbleWorkBuildingSprite";
+            BubbleWorkBuildingSprite.width = WorkBuildingPanel.width;
+            BubbleWorkBuildingSprite.height = WorkBuildingPanel.height;
+            BubbleWorkBuildingSprite.texture = TextureDB.BubbleBg1Special;
+            BubbleWorkBuildingSprite.relativePosition = Vector3.zero;
+            BubbleWorkBuildingSprite.clipChildren = true;
+            FavCimsWorkingPlace = BubbleWorkBuildingSprite.AddUIComponent<UIButton>();
+            FavCimsWorkingPlace.name = "FavCimsWorkingPlace";
+            FavCimsWorkingPlace.width = BubbleWorkBuildingSprite.width;
+            FavCimsWorkingPlace.height = BubbleWorkBuildingSprite.height;
+            FavCimsWorkingPlace.textVerticalAlignment = UIVerticalAlignment.Middle;
+            FavCimsWorkingPlace.textHorizontalAlignment = 0;
+            FavCimsWorkingPlace.playAudioEvents = true;
+            FavCimsWorkingPlace.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            FavCimsWorkingPlace.font.size = 15;
+            FavCimsWorkingPlace.textScale = 0.85f;
+            FavCimsWorkingPlace.textPadding.left = 40;
+            FavCimsWorkingPlace.textPadding.right = 5;
+            FavCimsWorkingPlace.outlineColor = new Color32(0, 0, 0, 0);
+            FavCimsWorkingPlace.outlineSize = 1;
+            FavCimsWorkingPlace.textColor = new Color32(21, 59, 96, 140);
+            FavCimsWorkingPlace.hoveredTextColor = new Color32(204, 102, 0, 20);
+            FavCimsWorkingPlace.pressedTextColor = new Color32(153, 0, 0, 0);
+            FavCimsWorkingPlace.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            FavCimsWorkingPlace.disabledTextColor = new Color32(51, 51, 51, 160);
+            FavCimsWorkingPlace.useDropShadow = true;
+            FavCimsWorkingPlace.dropShadowOffset = new Vector2(1f, -1f);
+            FavCimsWorkingPlace.dropShadowColor = new Color32(0, 0, 0, 0);
+            FavCimsWorkingPlace.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            FavCimsWorkingPlace.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.WorkPlaceID, eventParam);
+                GoToInstance(WorkPlaceID, eventParam);
             };
-            this.FavCimsWorkingPlace.relativePosition = new Vector3(0f, 1f);
-            this.BubbleWorkIconPanel = this.BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
-            this.BubbleWorkIconPanel.name = "BubbleRow2Panel";
-            this.BubbleWorkIconPanel.width = 36f;
-            this.BubbleWorkIconPanel.height = 40f;
-            this.BubbleWorkIconPanel.absolutePosition = new Vector3(this.BubbleFamPortBgSprite.absolutePosition.x + 4f, this.BubbleFamPortBgSprite.absolutePosition.y + 71f);
-            this.FavCimsWorkingPlaceSprite = this.BubbleWorkIconPanel.AddUIComponent<UITextureSprite>();
-            this.FavCimsWorkingPlaceSprite.name = "FavCimsWorkingPlaceSprite";
-            this.FavCimsWorkingPlaceSprite.width = 20f;
-            this.FavCimsWorkingPlaceSprite.height = 40f;
-            this.FavCimsWorkingPlaceSprite.relativePosition = new Vector3(9f, 3f);
-            this.FavCimsWorkingPlaceSprite.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.FavCimsWorkingPlaceButtonGamDefImg = this.FavCimsWorkingPlaceSprite.AddUIComponent<UIButton>();
-            this.FavCimsWorkingPlaceButtonGamDefImg.name = "FavCimsWorkingPlaceButtonGamDefImg";
-            this.FavCimsWorkingPlaceButtonGamDefImg.width = 20f;
-            this.FavCimsWorkingPlaceButtonGamDefImg.height = 20f;
-            this.FavCimsWorkingPlaceButtonGamDefImg.relativePosition = new Vector3(0f, 10f);
-            this.FavCimsWorkingPlaceButtonGamDefImg.isInteractive = false;
-            this.FavCimsWorkingPlaceButtonGamDefImg.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.FavCimsCitizenWorkPlaceLevelSprite = this.FavCimsWorkingPlaceSprite.AddUIComponent<UITextureSprite>();
-            this.FavCimsCitizenWorkPlaceLevelSprite.name = "FavCimsCitizenWorkPlaceLevelSprite";
-            this.FavCimsCitizenWorkPlaceLevelSprite.relativePosition = new Vector3(0f, 0f);
-            this.BubblePersonalCarButton = this.BubbleFamPortBgSprite.AddUIComponent<UITextureSprite>();
-            this.BubblePersonalCarButton.name = "BubblePersonalCarButton";
-            this.BubblePersonalCarButton.width = 30f;
-            this.BubblePersonalCarButton.height = 20f;
-            this.BubblePersonalCarButton.texture = TextureDB.BubbleCarDisabled;
-            this.BubblePersonalCarButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubblePersonalCarButton.absolutePosition = new Vector3(this.BubbleTargetIcon.absolutePosition.x, this.BubbleTargetIcon.absolutePosition.y + this.BubbleTargetIcon.height);
-            this.BubblePersonalCarButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            FavCimsWorkingPlace.relativePosition = new Vector3(0f, 1f);
+            BubbleWorkIconPanel = BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
+            BubbleWorkIconPanel.name = "BubbleRow2Panel";
+            BubbleWorkIconPanel.width = 36f;
+            BubbleWorkIconPanel.height = 40f;
+            BubbleWorkIconPanel.absolutePosition = new Vector3(BubbleFamPortBgSprite.absolutePosition.x + 4f, BubbleFamPortBgSprite.absolutePosition.y + 71f);
+            FavCimsWorkingPlaceSprite = BubbleWorkIconPanel.AddUIComponent<UITextureSprite>();
+            FavCimsWorkingPlaceSprite.name = "FavCimsWorkingPlaceSprite";
+            FavCimsWorkingPlaceSprite.width = 20f;
+            FavCimsWorkingPlaceSprite.height = 40f;
+            FavCimsWorkingPlaceSprite.relativePosition = new Vector3(9f, 3f);
+            FavCimsWorkingPlaceSprite.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            FavCimsWorkingPlaceButtonGamDefImg = FavCimsWorkingPlaceSprite.AddUIComponent<UIButton>();
+            FavCimsWorkingPlaceButtonGamDefImg.name = "FavCimsWorkingPlaceButtonGamDefImg";
+            FavCimsWorkingPlaceButtonGamDefImg.width = 20f;
+            FavCimsWorkingPlaceButtonGamDefImg.height = 20f;
+            FavCimsWorkingPlaceButtonGamDefImg.relativePosition = new Vector3(0f, 10f);
+            FavCimsWorkingPlaceButtonGamDefImg.isInteractive = false;
+            FavCimsWorkingPlaceButtonGamDefImg.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            FavCimsCitizenWorkPlaceLevelSprite = FavCimsWorkingPlaceSprite.AddUIComponent<UITextureSprite>();
+            FavCimsCitizenWorkPlaceLevelSprite.name = "FavCimsCitizenWorkPlaceLevelSprite";
+            FavCimsCitizenWorkPlaceLevelSprite.relativePosition = new Vector3(0f, 0f);
+            BubblePersonalCarButton = BubbleFamPortBgSprite.AddUIComponent<UITextureSprite>();
+            BubblePersonalCarButton.name = "BubblePersonalCarButton";
+            BubblePersonalCarButton.width = 30f;
+            BubblePersonalCarButton.height = 20f;
+            BubblePersonalCarButton.texture = TextureDB.BubbleCarDisabled;
+            BubblePersonalCarButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubblePersonalCarButton.absolutePosition = new Vector3(BubbleTargetIcon.absolutePosition.x, BubbleTargetIcon.absolutePosition.y + BubbleTargetIcon.height);
+            BubblePersonalCarButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.PersonalVehicleID, eventParam);
+                GoToInstance(PersonalVehicleID, eventParam);
             };
-            this.BubblePersonalCarButton.BringToFront();
-            this.BubbleActivityPanel = this.BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
-            this.BubbleActivityPanel.name = "BubbleActivityPanel";
-            this.BubbleActivityPanel.width = 234f;
-            this.BubbleActivityPanel.height = 18f;
-            this.BubbleActivityPanel.relativePosition = new Vector3(4f, this.WorkBuildingPanel.relativePosition.y + 31f);
-            this.BubbleActivitySprite = this.BubbleActivityPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleActivitySprite.name = "BubbleActivitySprite";
-            this.BubbleActivitySprite.width = this.BubbleActivityPanel.width;
-            this.BubbleActivitySprite.height = this.BubbleActivityPanel.height;
-            this.BubbleActivitySprite.texture = TextureDB.BubbleBg1Special2;
-            this.BubbleActivitySprite.relativePosition = Vector3.zero;
-            this.BubbleActivityVehiclePanel = this.BubbleActivitySprite.AddUIComponent<UIPanel>();
-            this.BubbleActivityVehiclePanel.name = "BubbleActivityVehiclePanel";
-            this.BubbleActivityVehiclePanel.width = 234f;
-            this.BubbleActivityVehiclePanel.height = 18f;
-            this.BubbleActivityVehiclePanel.relativePosition = new Vector3(4f, 0f);
-            this.FavCimsLastActivityVehicleButton = this.BubbleActivityVehiclePanel.AddUIComponent<UIButton>();
-            this.FavCimsLastActivityVehicleButton.name = "FavCimsLastActivityVehicleButton";
-            this.FavCimsLastActivityVehicleButton.width = 18f;
-            this.FavCimsLastActivityVehicleButton.height = 17f;
-            this.FavCimsLastActivityVehicleButton.relativePosition = new Vector3(0f, 0f);
-            this.FavCimsLastActivityVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubblePersonalCarButton.BringToFront();
+            BubbleActivityPanel = BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
+            BubbleActivityPanel.name = "BubbleActivityPanel";
+            BubbleActivityPanel.width = 234f;
+            BubbleActivityPanel.height = 18f;
+            BubbleActivityPanel.relativePosition = new Vector3(4f, WorkBuildingPanel.relativePosition.y + 31f);
+            BubbleActivitySprite = BubbleActivityPanel.AddUIComponent<UITextureSprite>();
+            BubbleActivitySprite.name = "BubbleActivitySprite";
+            BubbleActivitySprite.width = BubbleActivityPanel.width;
+            BubbleActivitySprite.height = BubbleActivityPanel.height;
+            BubbleActivitySprite.texture = TextureDB.BubbleBg1Special2;
+            BubbleActivitySprite.relativePosition = Vector3.zero;
+            BubbleActivityVehiclePanel = BubbleActivitySprite.AddUIComponent<UIPanel>();
+            BubbleActivityVehiclePanel.name = "BubbleActivityVehiclePanel";
+            BubbleActivityVehiclePanel.width = 234f;
+            BubbleActivityVehiclePanel.height = 18f;
+            BubbleActivityVehiclePanel.relativePosition = new Vector3(4f, 0f);
+            FavCimsLastActivityVehicleButton = BubbleActivityVehiclePanel.AddUIComponent<UIButton>();
+            FavCimsLastActivityVehicleButton.name = "FavCimsLastActivityVehicleButton";
+            FavCimsLastActivityVehicleButton.width = 18f;
+            FavCimsLastActivityVehicleButton.height = 17f;
+            FavCimsLastActivityVehicleButton.relativePosition = new Vector3(0f, 0f);
+            FavCimsLastActivityVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.MyVehicleID, eventParam);
+                GoToInstance(MyVehicleID, eventParam);
             };
-            this.FavCimsLastActivity = this.BubbleActivitySprite.AddUIComponent<UIButton>();
-            this.FavCimsLastActivity.name = "FavCimsLastActivity";
-            this.FavCimsLastActivity.width = this.BubbleActivitySprite.width - 27f;
-            this.FavCimsLastActivity.height = this.BubbleActivitySprite.height;
-            this.FavCimsLastActivity.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.FavCimsLastActivity.textHorizontalAlignment = 0;
-            this.FavCimsLastActivity.playAudioEvents = true;
-            this.FavCimsLastActivity.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.FavCimsLastActivity.font.size = 15;
-            this.FavCimsLastActivity.textScale = 0.75f;
-            this.FavCimsLastActivity.textPadding.left = 0;
-            this.FavCimsLastActivity.textPadding.right = 5;
-            this.FavCimsLastActivity.outlineColor = new Color32(0, 0, 0, 0);
-            this.FavCimsLastActivity.outlineSize = 1;
-            this.FavCimsLastActivity.textColor = new Color32(21, 59, 96, 140);
-            this.FavCimsLastActivity.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.FavCimsLastActivity.pressedTextColor = new Color32(153, 0, 0, 0);
-            this.FavCimsLastActivity.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.FavCimsLastActivity.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.FavCimsLastActivity.useDropShadow = true;
-            this.FavCimsLastActivity.dropShadowOffset = new Vector2(1f, -1f);
-            this.FavCimsLastActivity.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.FavCimsLastActivity.maximumSize = new Vector2(this.BubbleActivitySprite.width - 40f, this.BubbleActivitySprite.height);
-            this.FavCimsLastActivity.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.FavCimsLastActivity.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            FavCimsLastActivity = BubbleActivitySprite.AddUIComponent<UIButton>();
+            FavCimsLastActivity.name = "FavCimsLastActivity";
+            FavCimsLastActivity.width = BubbleActivitySprite.width - 27f;
+            FavCimsLastActivity.height = BubbleActivitySprite.height;
+            FavCimsLastActivity.textVerticalAlignment = UIVerticalAlignment.Middle;
+            FavCimsLastActivity.textHorizontalAlignment = 0;
+            FavCimsLastActivity.playAudioEvents = true;
+            FavCimsLastActivity.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            FavCimsLastActivity.font.size = 15;
+            FavCimsLastActivity.textScale = 0.75f;
+            FavCimsLastActivity.textPadding.left = 0;
+            FavCimsLastActivity.textPadding.right = 5;
+            FavCimsLastActivity.outlineColor = new Color32(0, 0, 0, 0);
+            FavCimsLastActivity.outlineSize = 1;
+            FavCimsLastActivity.textColor = new Color32(21, 59, 96, 140);
+            FavCimsLastActivity.hoveredTextColor = new Color32(204, 102, 0, 20);
+            FavCimsLastActivity.pressedTextColor = new Color32(153, 0, 0, 0);
+            FavCimsLastActivity.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            FavCimsLastActivity.disabledTextColor = new Color32(51, 51, 51, 160);
+            FavCimsLastActivity.useDropShadow = true;
+            FavCimsLastActivity.dropShadowOffset = new Vector2(1f, -1f);
+            FavCimsLastActivity.dropShadowColor = new Color32(0, 0, 0, 0);
+            FavCimsLastActivity.maximumSize = new Vector2(BubbleActivitySprite.width - 40f, BubbleActivitySprite.height);
+            FavCimsLastActivity.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            FavCimsLastActivity.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.MyTargetID, eventParam);
+                GoToInstance(MyTargetID, eventParam);
             };
-            this.FavCimsLastActivity.relativePosition = new Vector3(27f, 1f);
-            this.BubbleDistrictPanel = this.BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
-            this.BubbleDistrictPanel.name = "BubbleDistrictPanel";
-            this.BubbleDistrictPanel.width = 234f;
-            this.BubbleDistrictPanel.height = 15f;
-            this.BubbleDistrictPanel.relativePosition = new Vector3(4f, this.BubbleActivityPanel.relativePosition.y + 21f);
-            this.BubbleDistrictSprite = this.BubbleDistrictPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleDistrictSprite.name = "BubbleDistrictSprite";
-            this.BubbleDistrictSprite.width = this.BubbleDistrictPanel.width;
-            this.BubbleDistrictSprite.height = this.BubbleDistrictPanel.height;
-            this.BubbleDistrictSprite.texture = TextureDB.BubbleBg1Special2;
-            this.BubbleDistrictSprite.relativePosition = Vector3.zero;
-            this.FavCimsDistrictLabel = this.BubbleDistrictSprite.AddUIComponent<UIButton>();
-            this.FavCimsDistrictLabel.name = "FavCimsDistrictLabel";
-            this.FavCimsDistrictLabel.width = 60f;
-            this.FavCimsDistrictLabel.height = 15f;
-            this.FavCimsDistrictLabel.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.FavCimsDistrictLabel.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.FavCimsDistrictLabel.playAudioEvents = true;
-            this.FavCimsDistrictLabel.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.FavCimsDistrictLabel.font.size = 15;
-            this.FavCimsDistrictLabel.textScale = 0.7f;
-            this.FavCimsDistrictLabel.textPadding.left = 0;
-            this.FavCimsDistrictLabel.textPadding.right = 5;
-            this.FavCimsDistrictLabel.outlineColor = new Color32(0, 0, 0, 0);
-            this.FavCimsDistrictLabel.outlineSize = 1;
-            this.FavCimsDistrictLabel.textColor = new Color32(153, 0, 0, 0);
-            this.FavCimsDistrictLabel.isInteractive = false;
-            this.FavCimsDistrictLabel.useDropShadow = true;
-            this.FavCimsDistrictLabel.dropShadowOffset = new Vector2(1f, -1f);
-            this.FavCimsDistrictLabel.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.FavCimsDistrictLabel.relativePosition = new Vector3(4f, 1f);
-            this.FavCimsDistrictValue = this.BubbleDistrictSprite.AddUIComponent<UIButton>();
-            this.FavCimsDistrictValue.name = "FavCimsDistrictValue";
-            this.FavCimsDistrictValue.width = this.BubbleDistrictPanel.width - 74f;
-            this.FavCimsDistrictValue.height = 15f;
-            this.FavCimsDistrictValue.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.FavCimsDistrictValue.textHorizontalAlignment = 0;
-            this.FavCimsDistrictValue.playAudioEvents = true;
-            this.FavCimsDistrictValue.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.FavCimsDistrictValue.font.size = 15;
-            this.FavCimsDistrictValue.textScale = 0.7f;
-            this.FavCimsDistrictValue.textPadding.left = 0;
-            this.FavCimsDistrictValue.textPadding.right = 5;
-            this.FavCimsDistrictValue.outlineColor = new Color32(0, 0, 0, 0);
-            this.FavCimsDistrictValue.outlineSize = 1;
-            this.FavCimsDistrictValue.textColor = new Color32(21, 59, 96, 140);
-            this.FavCimsDistrictValue.disabledTextColor = new Color32(21, 59, 96, 140);
-            this.FavCimsDistrictValue.isEnabled = false;
-            this.FavCimsDistrictValue.useDropShadow = true;
-            this.FavCimsDistrictValue.dropShadowOffset = new Vector2(1f, -1f);
-            this.FavCimsDistrictValue.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.FavCimsDistrictValue.relativePosition = new Vector3(64f, 1f);
-            this.BubbleDetailsPanel = base.AddUIComponent<UIPanel>();
-            this.BubbleDetailsPanel.name = "BubbleDetailsPanel";
-            this.BubbleDetailsPanel.width = 235f;
-            this.BubbleDetailsPanel.height = 60f;
-            this.BubbleDetailsPanel.relativePosition = new Vector3(7f, this.BubbleFamilyPortraitPanel.relativePosition.y + this.BubbleFamilyPortraitPanel.height + 1f);
-            this.BubbleDetailsBgSprite = this.BubbleDetailsPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleDetailsBgSprite.name = "BubbleFamPortBgSprite";
-            this.BubbleDetailsBgSprite.texture = TextureDB.BubbleDetailsBgSprite;
-            this.BubbleDetailsBgSprite.relativePosition = Vector3.zero;
-            this.BubbleHomeIcon = this.BubbleDetailsPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleHomeIcon.name = "FavCimsCitizenHomeSprite";
-            this.BubbleHomeIcon.relativePosition = new Vector3(10f, 10f);
-            this.BubbleHomeIcon.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleHomeLevel = this.BubbleHomeIcon.AddUIComponent<UITextureSprite>();
-            this.BubbleHomeLevel.name = "FavCimsCitizenResidentialLevelSprite";
-            this.BubbleHomeLevel.relativePosition = Vector3.zero;
-            this.BubbleHomePanel = this.BubbleDetailsPanel.AddUIComponent<UIPanel>();
-            this.BubbleHomePanel.name = "BubbleHomePanel";
-            this.BubbleHomePanel.width = 181f;
-            this.BubbleHomePanel.height = 30f;
-            this.BubbleHomePanel.maximumSize = new Vector2(181f, 40f);
-            this.BubbleHomePanel.autoLayoutDirection = 0;
-            this.BubbleHomePanel.autoLayout = true;
-            this.BubbleHomePanel.relativePosition = new Vector3(40f, 4f);
-            this.BubbleHomeName = this.BubbleHomePanel.AddUIComponent<UIButton>();
-            this.BubbleHomeName.name = "BubbleHomeName";
-            this.BubbleHomeName.width = this.BubbleHomePanel.width;
-            this.BubbleHomeName.height = this.BubbleHomePanel.height;
-            this.BubbleHomeName.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleHomeName.textHorizontalAlignment = 0;
-            this.BubbleHomeName.playAudioEvents = true;
-            this.BubbleHomeName.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleHomeName.font.size = 15;
-            this.BubbleHomeName.textScale = 0.9f;
-            this.BubbleHomeName.wordWrap = true;
-            this.BubbleHomeName.textPadding.left = 2;
-            this.BubbleHomeName.textPadding.right = 5;
-            this.BubbleHomeName.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleHomeName.outlineSize = 1;
-            this.BubbleHomeName.textColor = new Color32(21, 59, 96, 140);
-            this.BubbleHomeName.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleHomeName.pressedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleHomeName.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleHomeName.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleHomeName.useDropShadow = true;
-            this.BubbleHomeName.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleHomeName.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleHomeName.maximumSize = new Vector2(this.BubbleHomePanel.width, this.BubbleHomePanel.height);
-            this.BubbleHomeName.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleHomeName.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            FavCimsLastActivity.relativePosition = new Vector3(27f, 1f);
+            BubbleDistrictPanel = BubbleFamPortBgSprite.AddUIComponent<UIPanel>();
+            BubbleDistrictPanel.name = "BubbleDistrictPanel";
+            BubbleDistrictPanel.width = 234f;
+            BubbleDistrictPanel.height = 15f;
+            BubbleDistrictPanel.relativePosition = new Vector3(4f, BubbleActivityPanel.relativePosition.y + 21f);
+            BubbleDistrictSprite = BubbleDistrictPanel.AddUIComponent<UITextureSprite>();
+            BubbleDistrictSprite.name = "BubbleDistrictSprite";
+            BubbleDistrictSprite.width = BubbleDistrictPanel.width;
+            BubbleDistrictSprite.height = BubbleDistrictPanel.height;
+            BubbleDistrictSprite.texture = TextureDB.BubbleBg1Special2;
+            BubbleDistrictSprite.relativePosition = Vector3.zero;
+            FavCimsDistrictLabel = BubbleDistrictSprite.AddUIComponent<UIButton>();
+            FavCimsDistrictLabel.name = "FavCimsDistrictLabel";
+            FavCimsDistrictLabel.width = 60f;
+            FavCimsDistrictLabel.height = 15f;
+            FavCimsDistrictLabel.textVerticalAlignment = UIVerticalAlignment.Middle;
+            FavCimsDistrictLabel.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            FavCimsDistrictLabel.playAudioEvents = true;
+            FavCimsDistrictLabel.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            FavCimsDistrictLabel.font.size = 15;
+            FavCimsDistrictLabel.textScale = 0.7f;
+            FavCimsDistrictLabel.textPadding.left = 0;
+            FavCimsDistrictLabel.textPadding.right = 5;
+            FavCimsDistrictLabel.outlineColor = new Color32(0, 0, 0, 0);
+            FavCimsDistrictLabel.outlineSize = 1;
+            FavCimsDistrictLabel.textColor = new Color32(153, 0, 0, 0);
+            FavCimsDistrictLabel.isInteractive = false;
+            FavCimsDistrictLabel.useDropShadow = true;
+            FavCimsDistrictLabel.dropShadowOffset = new Vector2(1f, -1f);
+            FavCimsDistrictLabel.dropShadowColor = new Color32(0, 0, 0, 0);
+            FavCimsDistrictLabel.relativePosition = new Vector3(4f, 1f);
+            FavCimsDistrictValue = BubbleDistrictSprite.AddUIComponent<UIButton>();
+            FavCimsDistrictValue.name = "FavCimsDistrictValue";
+            FavCimsDistrictValue.width = BubbleDistrictPanel.width - 74f;
+            FavCimsDistrictValue.height = 15f;
+            FavCimsDistrictValue.textVerticalAlignment = UIVerticalAlignment.Middle;
+            FavCimsDistrictValue.textHorizontalAlignment = 0;
+            FavCimsDistrictValue.playAudioEvents = true;
+            FavCimsDistrictValue.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            FavCimsDistrictValue.font.size = 15;
+            FavCimsDistrictValue.textScale = 0.7f;
+            FavCimsDistrictValue.textPadding.left = 0;
+            FavCimsDistrictValue.textPadding.right = 5;
+            FavCimsDistrictValue.outlineColor = new Color32(0, 0, 0, 0);
+            FavCimsDistrictValue.outlineSize = 1;
+            FavCimsDistrictValue.textColor = new Color32(21, 59, 96, 140);
+            FavCimsDistrictValue.disabledTextColor = new Color32(21, 59, 96, 140);
+            FavCimsDistrictValue.isEnabled = false;
+            FavCimsDistrictValue.useDropShadow = true;
+            FavCimsDistrictValue.dropShadowOffset = new Vector2(1f, -1f);
+            FavCimsDistrictValue.dropShadowColor = new Color32(0, 0, 0, 0);
+            FavCimsDistrictValue.relativePosition = new Vector3(64f, 1f);
+            BubbleDetailsPanel = AddUIComponent<UIPanel>();
+            BubbleDetailsPanel.name = "BubbleDetailsPanel";
+            BubbleDetailsPanel.width = 235f;
+            BubbleDetailsPanel.height = 60f;
+            BubbleDetailsPanel.relativePosition = new Vector3(7f, BubbleFamilyPortraitPanel.relativePosition.y + BubbleFamilyPortraitPanel.height + 1f);
+            BubbleDetailsBgSprite = BubbleDetailsPanel.AddUIComponent<UITextureSprite>();
+            BubbleDetailsBgSprite.name = "BubbleFamPortBgSprite";
+            BubbleDetailsBgSprite.texture = TextureDB.BubbleDetailsBgSprite;
+            BubbleDetailsBgSprite.relativePosition = Vector3.zero;
+            BubbleHomeIcon = BubbleDetailsPanel.AddUIComponent<UITextureSprite>();
+            BubbleHomeIcon.name = "FavCimsCitizenHomeSprite";
+            BubbleHomeIcon.relativePosition = new Vector3(10f, 10f);
+            BubbleHomeIcon.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleHomeLevel = BubbleHomeIcon.AddUIComponent<UITextureSprite>();
+            BubbleHomeLevel.name = "FavCimsCitizenResidentialLevelSprite";
+            BubbleHomeLevel.relativePosition = Vector3.zero;
+            BubbleHomePanel = BubbleDetailsPanel.AddUIComponent<UIPanel>();
+            BubbleHomePanel.name = "BubbleHomePanel";
+            BubbleHomePanel.width = 181f;
+            BubbleHomePanel.height = 30f;
+            BubbleHomePanel.maximumSize = new Vector2(181f, 40f);
+            BubbleHomePanel.autoLayoutDirection = 0;
+            BubbleHomePanel.autoLayout = true;
+            BubbleHomePanel.relativePosition = new Vector3(40f, 4f);
+            BubbleHomeName = BubbleHomePanel.AddUIComponent<UIButton>();
+            BubbleHomeName.name = "BubbleHomeName";
+            BubbleHomeName.width = BubbleHomePanel.width;
+            BubbleHomeName.height = BubbleHomePanel.height;
+            BubbleHomeName.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleHomeName.textHorizontalAlignment = 0;
+            BubbleHomeName.playAudioEvents = true;
+            BubbleHomeName.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleHomeName.font.size = 15;
+            BubbleHomeName.textScale = 0.9f;
+            BubbleHomeName.wordWrap = true;
+            BubbleHomeName.textPadding.left = 2;
+            BubbleHomeName.textPadding.right = 5;
+            BubbleHomeName.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleHomeName.outlineSize = 1;
+            BubbleHomeName.textColor = new Color32(21, 59, 96, 140);
+            BubbleHomeName.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleHomeName.pressedTextColor = new Color32(153, 0, 0, 0);
+            BubbleHomeName.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleHomeName.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleHomeName.useDropShadow = true;
+            BubbleHomeName.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleHomeName.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleHomeName.maximumSize = new Vector2(BubbleHomePanel.width, BubbleHomePanel.height);
+            BubbleHomeName.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleHomeName.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.CitizenHomeID, eventParam);
+                GoToInstance(CitizenHomeID, eventParam);
             };
-            this.BubbleHomeName.relativePosition = Vector3.zero;
-            this.BubbleDetailsIconsPanel = this.BubbleDetailsPanel.AddUIComponent<UIPanel>();
-            this.BubbleDetailsIconsPanel.name = "BubbleDetailsIconsPanel";
-            this.BubbleDetailsIconsPanel.width = 181f;
-            this.BubbleDetailsIconsPanel.height = 20f;
-            this.BubbleDetailsIconsPanel.maximumSize = new Vector2(181f, 30f);
-            this.BubbleDetailsIconsPanel.autoLayoutDirection = 0;
-            this.BubbleDetailsIconsPanel.autoLayout = true;
-            this.BubbleDetailsIconsPanel.relativePosition = new Vector3(this.BubbleHomePanel.relativePosition.x, 30f);
-            this.BubbleDetailsElettricity = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsElettricity.name = "BubbleDetailsElettricity";
-            this.BubbleDetailsElettricity.normalBgSprite = "ToolbarIconElectricity";
-            this.BubbleDetailsElettricity.width = 20f;
-            this.BubbleDetailsElettricity.height = 20f;
-            this.BubbleDetailsElettricity.playAudioEvents = false;
-            this.BubbleDetailsElettricity.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleDetailsWater = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsWater.name = "BubbleDetailsWater";
-            this.BubbleDetailsWater.normalBgSprite = "IconPolicyWaterSaving";
-            this.BubbleDetailsWater.width = this.BubbleDetailsElettricity.width;
-            this.BubbleDetailsWater.height = this.BubbleDetailsElettricity.height;
-            this.BubbleDetailsWater.playAudioEvents = false;
-            this.BubbleDetailsWater.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleDetailsLandValue = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsLandValue.name = "BubbleDetailsLandValue";
-            this.BubbleDetailsLandValue.normalBgSprite = "InfoIconLandValue";
-            this.BubbleDetailsLandValue.width = this.BubbleDetailsElettricity.width;
-            this.BubbleDetailsLandValue.height = this.BubbleDetailsElettricity.height;
-            this.BubbleDetailsLandValue.playAudioEvents = false;
-            this.BubbleDetailsLandValue.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleDetailsCrime = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsCrime.name = "BubbleDetailsCrime";
-            this.BubbleDetailsCrime.normalBgSprite = "InfoIconCrime";
-            this.BubbleDetailsCrime.width = this.BubbleDetailsElettricity.width;
-            this.BubbleDetailsCrime.height = this.BubbleDetailsElettricity.height;
-            this.BubbleDetailsCrime.playAudioEvents = false;
-            this.BubbleDetailsCrime.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleDetailsNoise = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsNoise.name = "BubbleDetailsNoise";
-            this.BubbleDetailsNoise.normalBgSprite = "InfoIconNoisePollution";
-            this.BubbleDetailsNoise.width = this.BubbleDetailsElettricity.width;
-            this.BubbleDetailsNoise.height = this.BubbleDetailsElettricity.height;
-            this.BubbleDetailsNoise.playAudioEvents = false;
-            this.BubbleDetailsNoise.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleDetailsGarbage = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsGarbage.name = "BubbleDetailsGarbage";
-            this.BubbleDetailsGarbage.normalBgSprite = "InfoIconGarbage";
-            this.BubbleDetailsGarbage.width = this.BubbleDetailsElettricity.width;
-            this.BubbleDetailsGarbage.height = this.BubbleDetailsElettricity.height;
-            this.BubbleDetailsGarbage.playAudioEvents = false;
-            this.BubbleDetailsGarbage.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleDetailsDeath = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsDeath.name = "BubbleDetailsDeath";
-            this.BubbleDetailsDeath.normalBgSprite = "NotificationIconVerySick";
-            this.BubbleDetailsDeath.width = this.BubbleDetailsElettricity.width;
-            this.BubbleDetailsDeath.height = this.BubbleDetailsElettricity.height;
-            this.BubbleDetailsDeath.playAudioEvents = false;
-            this.BubbleDetailsDeath.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleDetailsFire = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsFire.name = "BubbleDetailsFire";
-            this.BubbleDetailsFire.normalBgSprite = "ToolbarIconFireDepartment";
-            this.BubbleDetailsFire.width = this.BubbleDetailsElettricity.width;
-            this.BubbleDetailsFire.height = this.BubbleDetailsElettricity.height;
-            this.BubbleDetailsFire.playAudioEvents = false;
-            this.BubbleDetailsFire.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleDetailsPollution = this.BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
-            this.BubbleDetailsPollution.name = "BubbleDetailsPollution";
-            this.BubbleDetailsPollution.normalBgSprite = "InfoIconPollution";
-            this.BubbleDetailsPollution.width = this.BubbleDetailsElettricity.width;
-            this.BubbleDetailsPollution.height = this.BubbleDetailsElettricity.height;
-            this.BubbleDetailsPollution.playAudioEvents = false;
-            this.BubbleDetailsPollution.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleFamilyBarPanel = base.AddUIComponent<UIPanel>();
-            this.BubbleFamilyBarPanel.name = "BubbleFamilyBarPanel";
-            this.BubbleFamilyBarPanel.width = 236f;
-            this.BubbleFamilyBarPanel.height = 20f;
-            this.BubbleFamilyBarPanel.relativePosition = new Vector3(7f, this.BubbleDetailsPanel.relativePosition.y + this.BubbleDetailsPanel.height + 2f);
-            this.BubbleFamilyBarPanelBg = this.BubbleFamilyBarPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyBarPanelBg.name = "BubbleFamilyBarPanelBg";
-            this.BubbleFamilyBarPanelBg.width = this.BubbleFamilyBarPanel.width;
-            this.BubbleFamilyBarPanelBg.height = this.BubbleFamilyBarPanel.height;
-            this.BubbleFamilyBarPanelBg.texture = TextureDB.BubbleBgBarHover;
-            this.BubbleFamilyBarPanelBg.relativePosition = Vector3.zero;
-            this.BubbleFamilyBarLabel = this.BubbleFamilyBarPanel.AddUIComponent<UILabel>();
-            this.BubbleFamilyBarLabel.name = "BubbleFamilyBarLabel";
-            this.BubbleFamilyBarLabel.height = this.BubbleFamilyBarPanel.height;
-            this.BubbleFamilyBarLabel.width = 221f;
-            this.BubbleFamilyBarLabel.font.size = 11;
-            this.BubbleFamilyBarLabel.textScale = 1f;
-            this.BubbleFamilyBarLabel.textColor = new Color32(102, 0, 51, 220);
-            this.BubbleFamilyBarLabel.relativePosition = new Vector3(7f, 2f);
-            this.BubbleFamilyBarDogButton = this.BubbleFamilyBarPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyBarDogButton.name = "BubbleFamilyBarDogButton";
-            this.BubbleFamilyBarDogButton.texture = TextureDB.BubbleDogDisabled;
-            this.BubbleFamilyBarDogButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleFamilyBarDogButton.relativePosition = new Vector3(175f, 0f);
-            this.BubbleFamilyBarDogButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleHomeName.relativePosition = Vector3.zero;
+            BubbleDetailsIconsPanel = BubbleDetailsPanel.AddUIComponent<UIPanel>();
+            BubbleDetailsIconsPanel.name = "BubbleDetailsIconsPanel";
+            BubbleDetailsIconsPanel.width = 181f;
+            BubbleDetailsIconsPanel.height = 20f;
+            BubbleDetailsIconsPanel.maximumSize = new Vector2(181f, 30f);
+            BubbleDetailsIconsPanel.autoLayoutDirection = 0;
+            BubbleDetailsIconsPanel.autoLayout = true;
+            BubbleDetailsIconsPanel.relativePosition = new Vector3(BubbleHomePanel.relativePosition.x, 30f);
+            BubbleDetailsElettricity = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsElettricity.name = "BubbleDetailsElettricity";
+            BubbleDetailsElettricity.normalBgSprite = "ToolbarIconElectricity";
+            BubbleDetailsElettricity.width = 20f;
+            BubbleDetailsElettricity.height = 20f;
+            BubbleDetailsElettricity.playAudioEvents = false;
+            BubbleDetailsElettricity.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleDetailsWater = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsWater.name = "BubbleDetailsWater";
+            BubbleDetailsWater.normalBgSprite = "IconPolicyWaterSaving";
+            BubbleDetailsWater.width = BubbleDetailsElettricity.width;
+            BubbleDetailsWater.height = BubbleDetailsElettricity.height;
+            BubbleDetailsWater.playAudioEvents = false;
+            BubbleDetailsWater.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleDetailsLandValue = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsLandValue.name = "BubbleDetailsLandValue";
+            BubbleDetailsLandValue.normalBgSprite = "InfoIconLandValue";
+            BubbleDetailsLandValue.width = BubbleDetailsElettricity.width;
+            BubbleDetailsLandValue.height = BubbleDetailsElettricity.height;
+            BubbleDetailsLandValue.playAudioEvents = false;
+            BubbleDetailsLandValue.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleDetailsCrime = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsCrime.name = "BubbleDetailsCrime";
+            BubbleDetailsCrime.normalBgSprite = "InfoIconCrime";
+            BubbleDetailsCrime.width = BubbleDetailsElettricity.width;
+            BubbleDetailsCrime.height = BubbleDetailsElettricity.height;
+            BubbleDetailsCrime.playAudioEvents = false;
+            BubbleDetailsCrime.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleDetailsNoise = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsNoise.name = "BubbleDetailsNoise";
+            BubbleDetailsNoise.normalBgSprite = "InfoIconNoisePollution";
+            BubbleDetailsNoise.width = BubbleDetailsElettricity.width;
+            BubbleDetailsNoise.height = BubbleDetailsElettricity.height;
+            BubbleDetailsNoise.playAudioEvents = false;
+            BubbleDetailsNoise.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleDetailsGarbage = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsGarbage.name = "BubbleDetailsGarbage";
+            BubbleDetailsGarbage.normalBgSprite = "InfoIconGarbage";
+            BubbleDetailsGarbage.width = BubbleDetailsElettricity.width;
+            BubbleDetailsGarbage.height = BubbleDetailsElettricity.height;
+            BubbleDetailsGarbage.playAudioEvents = false;
+            BubbleDetailsGarbage.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleDetailsDeath = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsDeath.name = "BubbleDetailsDeath";
+            BubbleDetailsDeath.normalBgSprite = "NotificationIconVerySick";
+            BubbleDetailsDeath.width = BubbleDetailsElettricity.width;
+            BubbleDetailsDeath.height = BubbleDetailsElettricity.height;
+            BubbleDetailsDeath.playAudioEvents = false;
+            BubbleDetailsDeath.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleDetailsFire = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsFire.name = "BubbleDetailsFire";
+            BubbleDetailsFire.normalBgSprite = "ToolbarIconFireDepartment";
+            BubbleDetailsFire.width = BubbleDetailsElettricity.width;
+            BubbleDetailsFire.height = BubbleDetailsElettricity.height;
+            BubbleDetailsFire.playAudioEvents = false;
+            BubbleDetailsFire.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleDetailsPollution = BubbleDetailsIconsPanel.AddUIComponent<UIButton>();
+            BubbleDetailsPollution.name = "BubbleDetailsPollution";
+            BubbleDetailsPollution.normalBgSprite = "InfoIconPollution";
+            BubbleDetailsPollution.width = BubbleDetailsElettricity.width;
+            BubbleDetailsPollution.height = BubbleDetailsElettricity.height;
+            BubbleDetailsPollution.playAudioEvents = false;
+            BubbleDetailsPollution.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleFamilyBarPanel = AddUIComponent<UIPanel>();
+            BubbleFamilyBarPanel.name = "BubbleFamilyBarPanel";
+            BubbleFamilyBarPanel.width = 236f;
+            BubbleFamilyBarPanel.height = 20f;
+            BubbleFamilyBarPanel.relativePosition = new Vector3(7f, BubbleDetailsPanel.relativePosition.y + BubbleDetailsPanel.height + 2f);
+            BubbleFamilyBarPanelBg = BubbleFamilyBarPanel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyBarPanelBg.name = "BubbleFamilyBarPanelBg";
+            BubbleFamilyBarPanelBg.width = BubbleFamilyBarPanel.width;
+            BubbleFamilyBarPanelBg.height = BubbleFamilyBarPanel.height;
+            BubbleFamilyBarPanelBg.texture = TextureDB.BubbleBgBarHover;
+            BubbleFamilyBarPanelBg.relativePosition = Vector3.zero;
+            BubbleFamilyBarLabel = BubbleFamilyBarPanel.AddUIComponent<UILabel>();
+            BubbleFamilyBarLabel.name = "BubbleFamilyBarLabel";
+            BubbleFamilyBarLabel.height = BubbleFamilyBarPanel.height;
+            BubbleFamilyBarLabel.width = 221f;
+            BubbleFamilyBarLabel.font.size = 11;
+            BubbleFamilyBarLabel.textScale = 1f;
+            BubbleFamilyBarLabel.textColor = new Color32(102, 0, 51, 220);
+            BubbleFamilyBarLabel.relativePosition = new Vector3(7f, 2f);
+            BubbleFamilyBarDogButton = BubbleFamilyBarPanel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyBarDogButton.name = "BubbleFamilyBarDogButton";
+            BubbleFamilyBarDogButton.texture = TextureDB.BubbleDogDisabled;
+            BubbleFamilyBarDogButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleFamilyBarDogButton.relativePosition = new Vector3(175f, 0f);
+            BubbleFamilyBarDogButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.MyPetID, eventParam);
+                GoToInstance(MyPetID, eventParam);
             };
-            this.BubbleFamilyBarCarButton = this.BubbleFamilyBarPanel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyBarCarButton.name = "BubbleFamilyBarCarButton";
-            this.BubbleFamilyBarCarButton.texture = TextureDB.BubbleCarDisabled;
-            this.BubbleFamilyBarCarButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            this.BubbleFamilyBarCarButton.relativePosition = new Vector3(this.BubbleFamilyBarDogButton.relativePosition.x + this.BubbleFamilyBarDogButton.width + 10f, 0f);
-            this.BubbleFamilyBarCarButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyBarCarButton = BubbleFamilyBarPanel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyBarCarButton.name = "BubbleFamilyBarCarButton";
+            BubbleFamilyBarCarButton.texture = TextureDB.BubbleCarDisabled;
+            BubbleFamilyBarCarButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
+            BubbleFamilyBarCarButton.relativePosition = new Vector3(BubbleFamilyBarDogButton.relativePosition.x + BubbleFamilyBarDogButton.width + 10f, 0f);
+            BubbleFamilyBarCarButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.FamilyVehicleID, eventParam);
+                GoToInstance(FamilyVehicleID, eventParam);
             };
-            this.BubbleFamilyPanel = base.AddUIComponent<UIPanel>();
-            this.BubbleFamilyPanel.name = "BubbleFamilyPanel";
-            this.BubbleFamilyPanel.width = 236f;
-            this.BubbleFamilyPanel.height = 212f;
-            this.BubbleFamilyPanel.clipChildren = true;
-            this.BubbleFamilyPanel.padding = new RectOffset(0, 0, 0, 0);
-            this.BubbleFamilyPanel.autoLayout = true;
-            this.BubbleFamilyPanel.autoLayoutDirection = LayoutDirection.Vertical;
-            this.BubbleFamilyPanel.relativePosition = new Vector3(7f, this.BubbleFamilyBarPanel.relativePosition.y + this.BubbleFamilyBarPanel.height);
-            this.NoPartnerPanel = this.BubbleFamilyPanel.AddUIComponent<UIPanel>();
-            this.NoPartnerPanel.name = "NoPartnerPanel";
-            this.NoPartnerPanel.width = this.BubbleFamilyPanel.width;
-            this.NoPartnerPanel.height = 52f;
-            this.NoPartnerPanel.Hide();
-            this.NoPartnerBSprite = this.NoPartnerPanel.AddUIComponent<UIButton>();
-            this.NoPartnerBSprite.name = "NoPartnerBSprite";
-            this.NoPartnerBSprite.normalBgSprite = "InfoIconHealthDisabled";
-            this.NoPartnerBSprite.width = 36f;
-            this.NoPartnerBSprite.height = 36f;
-            this.NoPartnerBSprite.relativePosition = new Vector3(7f, 5f);
-            this.NoPartnerFButton = this.NoPartnerPanel.AddUIComponent<UIButton>();
-            this.NoPartnerFButton.name = "NoPartnerFButton";
-            this.NoPartnerFButton.width = 155f;
-            this.NoPartnerFButton.height = this.NoPartnerBSprite.height;
-            this.NoPartnerFButton.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.NoPartnerFButton.textHorizontalAlignment = 0;
-            this.NoPartnerFButton.playAudioEvents = false;
-            this.NoPartnerFButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.NoPartnerFButton.font.size = 16;
-            this.NoPartnerFButton.textScale = 0.9f;
-            this.NoPartnerFButton.wordWrap = true;
-            this.NoPartnerFButton.useDropShadow = true;
-            this.NoPartnerFButton.dropShadowOffset = new Vector2(1f, -1f);
-            this.NoPartnerFButton.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.NoPartnerFButton.textPadding.left = 5;
-            this.NoPartnerFButton.textPadding.right = 5;
-            this.NoPartnerFButton.isEnabled = false;
-            this.NoPartnerFButton.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.NoPartnerFButton.relativePosition = new Vector3(this.NoPartnerBSprite.relativePosition.x + this.NoPartnerBSprite.width, this.NoPartnerBSprite.relativePosition.y);
-            this.PartnerPanel = this.BubbleFamilyPanel.AddUIComponent<UIPanel>();
-            this.PartnerPanel.name = "PartnerPanel";
-            this.PartnerPanel.width = this.BubbleFamilyPanel.width;
-            this.PartnerPanel.height = 52f;
-            this.PartnerPanel.clipChildren = true;
-            this.PartnerPanel.padding = new RectOffset(0, 0, 0, 0);
-            this.PartnerPanel.autoLayout = true;
-            this.PartnerPanel.autoLayoutDirection = LayoutDirection.Vertical;
-            this.BubblePartnerBgBar = this.PartnerPanel.AddUIComponent<UITextureSprite>();
-            this.BubblePartnerBgBar.name = "BubblePartnerBgBar";
-            this.BubblePartnerBgBar.width = this.PartnerPanel.width;
-            this.BubblePartnerBgBar.height = 26f;
-            this.BubblePartnerBgBar.texture = TextureDB.BubbleBgBar1;
-            this.BubblePartnerLove = this.BubblePartnerBgBar.AddUIComponent<UIButton>();
-            this.BubblePartnerLove.name = "BubblePartnerLove";
-            this.BubblePartnerLove.normalBgSprite = "InfoIconHealth";
-            this.BubblePartnerLove.width = 22f;
-            this.BubblePartnerLove.height = 22f;
-            this.BubblePartnerLove.isInteractive = false;
-            this.BubblePartnerLove.relativePosition = new Vector3(7f, 2f);
-            this.BubblePartnerName = this.BubblePartnerBgBar.AddUIComponent<UIButton>();
-            this.BubblePartnerName.name = "BubblePartnerName";
-            this.BubblePartnerName.width = 135f;
-            this.BubblePartnerName.height = this.BubblePartnerBgBar.height;
-            this.BubblePartnerName.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubblePartnerName.textHorizontalAlignment = 0;
-            this.BubblePartnerName.playAudioEvents = true;
-            this.BubblePartnerName.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubblePartnerName.font.size = 15;
-            this.BubblePartnerName.textScale = 0.8f;
-            this.BubblePartnerName.wordWrap = true;
-            this.BubblePartnerName.useDropShadow = true;
-            this.BubblePartnerName.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubblePartnerName.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubblePartnerName.textPadding.left = 5;
-            this.BubblePartnerName.textPadding.right = 5;
-            this.BubblePartnerName.textColor = new Color32(204, 204, 51, 40);
-            this.BubblePartnerName.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubblePartnerName.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubblePartnerName.focusedTextColor = new Color32(153, 0, 0, 0);
-            this.BubblePartnerName.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubblePartnerName.relativePosition = new Vector3(this.BubblePartnerLove.relativePosition.x + this.BubblePartnerLove.width, 2f);
-            this.BubblePartnerName.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyPanel = AddUIComponent<UIPanel>();
+            BubbleFamilyPanel.name = "BubbleFamilyPanel";
+            BubbleFamilyPanel.width = 236f;
+            BubbleFamilyPanel.height = 212f;
+            BubbleFamilyPanel.clipChildren = true;
+            BubbleFamilyPanel.padding = new RectOffset(0, 0, 0, 0);
+            BubbleFamilyPanel.autoLayout = true;
+            BubbleFamilyPanel.autoLayoutDirection = LayoutDirection.Vertical;
+            BubbleFamilyPanel.relativePosition = new Vector3(7f, BubbleFamilyBarPanel.relativePosition.y + BubbleFamilyBarPanel.height);
+            NoPartnerPanel = BubbleFamilyPanel.AddUIComponent<UIPanel>();
+            NoPartnerPanel.name = "NoPartnerPanel";
+            NoPartnerPanel.width = BubbleFamilyPanel.width;
+            NoPartnerPanel.height = 52f;
+            NoPartnerPanel.Hide();
+            NoPartnerBSprite = NoPartnerPanel.AddUIComponent<UIButton>();
+            NoPartnerBSprite.name = "NoPartnerBSprite";
+            NoPartnerBSprite.normalBgSprite = "InfoIconHealthDisabled";
+            NoPartnerBSprite.width = 36f;
+            NoPartnerBSprite.height = 36f;
+            NoPartnerBSprite.relativePosition = new Vector3(7f, 5f);
+            NoPartnerFButton = NoPartnerPanel.AddUIComponent<UIButton>();
+            NoPartnerFButton.name = "NoPartnerFButton";
+            NoPartnerFButton.width = 155f;
+            NoPartnerFButton.height = NoPartnerBSprite.height;
+            NoPartnerFButton.textVerticalAlignment = UIVerticalAlignment.Middle;
+            NoPartnerFButton.textHorizontalAlignment = 0;
+            NoPartnerFButton.playAudioEvents = false;
+            NoPartnerFButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            NoPartnerFButton.font.size = 16;
+            NoPartnerFButton.textScale = 0.9f;
+            NoPartnerFButton.wordWrap = true;
+            NoPartnerFButton.useDropShadow = true;
+            NoPartnerFButton.dropShadowOffset = new Vector2(1f, -1f);
+            NoPartnerFButton.dropShadowColor = new Color32(0, 0, 0, 0);
+            NoPartnerFButton.textPadding.left = 5;
+            NoPartnerFButton.textPadding.right = 5;
+            NoPartnerFButton.isEnabled = false;
+            NoPartnerFButton.disabledTextColor = new Color32(51, 51, 51, 160);
+            NoPartnerFButton.relativePosition = new Vector3(NoPartnerBSprite.relativePosition.x + NoPartnerBSprite.width, NoPartnerBSprite.relativePosition.y);
+            PartnerPanel = BubbleFamilyPanel.AddUIComponent<UIPanel>();
+            PartnerPanel.name = "PartnerPanel";
+            PartnerPanel.width = BubbleFamilyPanel.width;
+            PartnerPanel.height = 52f;
+            PartnerPanel.clipChildren = true;
+            PartnerPanel.padding = new RectOffset(0, 0, 0, 0);
+            PartnerPanel.autoLayout = true;
+            PartnerPanel.autoLayoutDirection = LayoutDirection.Vertical;
+            BubblePartnerBgBar = PartnerPanel.AddUIComponent<UITextureSprite>();
+            BubblePartnerBgBar.name = "BubblePartnerBgBar";
+            BubblePartnerBgBar.width = PartnerPanel.width;
+            BubblePartnerBgBar.height = 26f;
+            BubblePartnerBgBar.texture = TextureDB.BubbleBgBar1;
+            BubblePartnerLove = BubblePartnerBgBar.AddUIComponent<UIButton>();
+            BubblePartnerLove.name = "BubblePartnerLove";
+            BubblePartnerLove.normalBgSprite = "InfoIconHealth";
+            BubblePartnerLove.width = 22f;
+            BubblePartnerLove.height = 22f;
+            BubblePartnerLove.isInteractive = false;
+            BubblePartnerLove.relativePosition = new Vector3(7f, 2f);
+            BubblePartnerName = BubblePartnerBgBar.AddUIComponent<UIButton>();
+            BubblePartnerName.name = "BubblePartnerName";
+            BubblePartnerName.width = 135f;
+            BubblePartnerName.height = BubblePartnerBgBar.height;
+            BubblePartnerName.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubblePartnerName.textHorizontalAlignment = 0;
+            BubblePartnerName.playAudioEvents = true;
+            BubblePartnerName.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubblePartnerName.font.size = 15;
+            BubblePartnerName.textScale = 0.8f;
+            BubblePartnerName.wordWrap = true;
+            BubblePartnerName.useDropShadow = true;
+            BubblePartnerName.dropShadowOffset = new Vector2(1f, -1f);
+            BubblePartnerName.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubblePartnerName.textPadding.left = 5;
+            BubblePartnerName.textPadding.right = 5;
+            BubblePartnerName.textColor = new Color32(204, 204, 51, 40);
+            BubblePartnerName.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubblePartnerName.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubblePartnerName.focusedTextColor = new Color32(153, 0, 0, 0);
+            BubblePartnerName.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubblePartnerName.relativePosition = new Vector3(BubblePartnerLove.relativePosition.x + BubblePartnerLove.width, 2f);
+            BubblePartnerName.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToCitizen(this.PartnerID, eventParam);
+                GoToCitizen(PartnerID, eventParam);
             };
-            this.BubbleParnerAgeButton = this.BubblePartnerBgBar.AddUIComponent<UIButton>();
-            this.BubbleParnerAgeButton.name = "BubbleParnerAgeButton";
-            this.BubbleParnerAgeButton.width = 23f;
-            this.BubbleParnerAgeButton.height = 18f;
-            this.BubbleParnerAgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleParnerAgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleParnerAgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleParnerAgeButton.textScale = 0.9f;
-            this.BubbleParnerAgeButton.font.size = 15;
-            this.BubbleParnerAgeButton.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleParnerAgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleParnerAgeButton.isInteractive = false;
-            this.BubbleParnerAgeButton.relativePosition = new Vector3(this.BubblePartnerName.relativePosition.x + this.BubblePartnerName.width + 6f, 6f);
-            this.BubblePartnerFollowToggler = this.BubblePartnerBgBar.AddUIComponent<UIButton>();
-            this.BubblePartnerFollowToggler.name = "BubblePartnerFollowToggler";
-            this.BubblePartnerFollowToggler.atlas = favCimsAtlas;
-            this.BubblePartnerFollowToggler.size = new Vector2(18f, 18f);
-            this.BubblePartnerFollowToggler.playAudioEvents = true;
-            this.BubblePartnerFollowToggler.relativePosition = new Vector3(this.BubbleParnerAgeButton.relativePosition.x + this.BubbleParnerAgeButton.width + 12f, 4f);
-            this.BubblePartnerFollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleParnerAgeButton = BubblePartnerBgBar.AddUIComponent<UIButton>();
+            BubbleParnerAgeButton.name = "BubbleParnerAgeButton";
+            BubbleParnerAgeButton.width = 23f;
+            BubbleParnerAgeButton.height = 18f;
+            BubbleParnerAgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleParnerAgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleParnerAgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleParnerAgeButton.textScale = 0.9f;
+            BubbleParnerAgeButton.font.size = 15;
+            BubbleParnerAgeButton.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleParnerAgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleParnerAgeButton.isInteractive = false;
+            BubbleParnerAgeButton.relativePosition = new Vector3(BubblePartnerName.relativePosition.x + BubblePartnerName.width + 6f, 6f);
+            BubblePartnerFollowToggler = BubblePartnerBgBar.AddUIComponent<UIButton>();
+            BubblePartnerFollowToggler.name = "BubblePartnerFollowToggler";
+            BubblePartnerFollowToggler.atlas = favCimsAtlas;
+            BubblePartnerFollowToggler.size = new Vector2(18f, 18f);
+            BubblePartnerFollowToggler.playAudioEvents = true;
+            BubblePartnerFollowToggler.relativePosition = new Vector3(BubbleParnerAgeButton.relativePosition.x + BubbleParnerAgeButton.width + 12f, 4f);
+            BubblePartnerFollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                FavCimsCore.AddToFavorites(this.PartnerID);
+                FavCimsCore.AddToFavorites(PartnerID);
             };
-            this.BubblePartnerActivityBar = this.PartnerPanel.AddUIComponent<UITextureSprite>();
-            this.BubblePartnerActivityBar.name = "BubblePartnerActivityBar";
-            this.BubblePartnerActivityBar.width = this.PartnerPanel.width;
-            this.BubblePartnerActivityBar.height = 26f;
-            this.BubblePartnerActivityBar.texture = TextureDB.BubbleBgBar2;
-            this.BubblePartnerVehicleButton = this.BubblePartnerActivityBar.AddUIComponent<UIButton>();
-            this.BubblePartnerVehicleButton.name = "BubblePartnerVehicleButton";
-            this.BubblePartnerVehicleButton.width = 22f;
-            this.BubblePartnerVehicleButton.height = 22f;
-            this.BubblePartnerVehicleButton.relativePosition = new Vector3(7f, 2f);
-            this.BubblePartnerVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubblePartnerActivityBar = PartnerPanel.AddUIComponent<UITextureSprite>();
+            BubblePartnerActivityBar.name = "BubblePartnerActivityBar";
+            BubblePartnerActivityBar.width = PartnerPanel.width;
+            BubblePartnerActivityBar.height = 26f;
+            BubblePartnerActivityBar.texture = TextureDB.BubbleBgBar2;
+            BubblePartnerVehicleButton = BubblePartnerActivityBar.AddUIComponent<UIButton>();
+            BubblePartnerVehicleButton.name = "BubblePartnerVehicleButton";
+            BubblePartnerVehicleButton.width = 22f;
+            BubblePartnerVehicleButton.height = 22f;
+            BubblePartnerVehicleButton.relativePosition = new Vector3(7f, 2f);
+            BubblePartnerVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.PartnerVehID, eventParam);
+                GoToInstance(PartnerVehID, eventParam);
             };
-            this.BubblePartnerDestination = this.BubblePartnerActivityBar.AddUIComponent<UIButton>();
-            this.BubblePartnerDestination.name = "BubblePartnerDestination";
-            this.BubblePartnerDestination.width = this.BubblePartnerActivityBar.width - this.BubblePartnerVehicleButton.width;
-            this.BubblePartnerDestination.height = this.BubblePartnerActivityBar.height;
-            this.BubblePartnerDestination.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubblePartnerDestination.textHorizontalAlignment = 0;
-            this.BubblePartnerDestination.playAudioEvents = true;
-            this.BubblePartnerDestination.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubblePartnerDestination.font.size = 15;
-            this.BubblePartnerDestination.textScale = 0.75f;
-            this.BubblePartnerDestination.wordWrap = true;
-            this.BubblePartnerDestination.textPadding.left = 0;
-            this.BubblePartnerDestination.textPadding.right = 5;
-            this.BubblePartnerDestination.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubblePartnerDestination.outlineSize = 1;
-            this.BubblePartnerDestination.textColor = new Color32(21, 59, 96, 140);
-            this.BubblePartnerDestination.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubblePartnerDestination.pressedTextColor = new Color32(153, 0, 0, 0);
-            this.BubblePartnerDestination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubblePartnerDestination.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubblePartnerDestination.useDropShadow = true;
-            this.BubblePartnerDestination.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubblePartnerDestination.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubblePartnerDestination.maximumSize = new Vector2(this.BubblePartnerDestination.width, this.BubblePartnerActivityBar.height);
-            this.BubblePartnerDestination.relativePosition = new Vector3(this.BubblePartnerVehicleButton.relativePosition.x + this.BubblePartnerVehicleButton.width + 5f, 2f);
-            this.BubblePartnerDestination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubblePartnerDestination = BubblePartnerActivityBar.AddUIComponent<UIButton>();
+            BubblePartnerDestination.name = "BubblePartnerDestination";
+            BubblePartnerDestination.width = BubblePartnerActivityBar.width - BubblePartnerVehicleButton.width;
+            BubblePartnerDestination.height = BubblePartnerActivityBar.height;
+            BubblePartnerDestination.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubblePartnerDestination.textHorizontalAlignment = 0;
+            BubblePartnerDestination.playAudioEvents = true;
+            BubblePartnerDestination.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubblePartnerDestination.font.size = 15;
+            BubblePartnerDestination.textScale = 0.75f;
+            BubblePartnerDestination.wordWrap = true;
+            BubblePartnerDestination.textPadding.left = 0;
+            BubblePartnerDestination.textPadding.right = 5;
+            BubblePartnerDestination.outlineColor = new Color32(0, 0, 0, 0);
+            BubblePartnerDestination.outlineSize = 1;
+            BubblePartnerDestination.textColor = new Color32(21, 59, 96, 140);
+            BubblePartnerDestination.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubblePartnerDestination.pressedTextColor = new Color32(153, 0, 0, 0);
+            BubblePartnerDestination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubblePartnerDestination.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubblePartnerDestination.useDropShadow = true;
+            BubblePartnerDestination.dropShadowOffset = new Vector2(1f, -1f);
+            BubblePartnerDestination.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubblePartnerDestination.maximumSize = new Vector2(BubblePartnerDestination.width, BubblePartnerActivityBar.height);
+            BubblePartnerDestination.relativePosition = new Vector3(BubblePartnerVehicleButton.relativePosition.x + BubblePartnerVehicleButton.width + 5f, 2f);
+            BubblePartnerDestination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.PartnerTarget, eventParam);
+                GoToInstance(PartnerTarget, eventParam);
             };
-            this.Parent1Panel = this.BubbleFamilyPanel.AddUIComponent<UIPanel>();
-            this.Parent1Panel.name = "PartnerPanel";
-            this.Parent1Panel.width = this.BubbleFamilyPanel.width;
-            this.Parent1Panel.height = 52f;
-            this.Parent1Panel.clipChildren = true;
-            this.Parent1Panel.padding = new RectOffset(0, 0, 0, 0);
-            this.Parent1Panel.autoLayout = true;
-            this.Parent1Panel.autoLayoutDirection = LayoutDirection.Vertical;
-            this.Parent1Panel.relativePosition = new Vector3(0f, 0f);
-            this.Parent1Panel.Hide();
-            this.BubbleParent1BgBar = this.Parent1Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleParent1BgBar.name = "BubbleParent1BgBar";
-            this.BubbleParent1BgBar.width = this.Parent1Panel.width;
-            this.BubbleParent1BgBar.height = 26f;
-            this.BubbleParent1BgBar.texture = TextureDB.BubbleBgBar1;
-            this.BubbleParent1Love = this.BubbleParent1BgBar.AddUIComponent<UIButton>();
-            this.BubbleParent1Love.name = "BubbleParent1Love";
-            this.BubbleParent1Love.normalBgSprite = "InfoIconAge";
-            this.BubbleParent1Love.width = 22f;
-            this.BubbleParent1Love.height = 22f;
-            this.BubbleParent1Love.isInteractive = false;
-            this.BubbleParent1Love.relativePosition = new Vector3(7f, 2f);
-            this.BubbleParent1Name = this.BubbleParent1BgBar.AddUIComponent<UIButton>();
-            this.BubbleParent1Name.name = "BubbleParent1Name";
-            this.BubbleParent1Name.width = 135f;
-            this.BubbleParent1Name.height = this.BubbleParent1BgBar.height;
-            this.BubbleParent1Name.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleParent1Name.textHorizontalAlignment = 0;
-            this.BubbleParent1Name.playAudioEvents = true;
-            this.BubbleParent1Name.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleParent1Name.font.size = 15;
-            this.BubbleParent1Name.textScale = 0.8f;
-            this.BubbleParent1Name.wordWrap = true;
-            this.BubbleParent1Name.useDropShadow = true;
-            this.BubbleParent1Name.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleParent1Name.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleParent1Name.textPadding.left = 5;
-            this.BubbleParent1Name.textPadding.right = 5;
-            this.BubbleParent1Name.textColor = new Color32(204, 204, 51, 40);
-            this.BubbleParent1Name.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleParent1Name.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleParent1Name.focusedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleParent1Name.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleParent1Name.relativePosition = new Vector3(this.BubbleParent1Love.relativePosition.x + this.BubbleParent1Love.width, 2f);
-            this.BubbleParent1Name.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            Parent1Panel = BubbleFamilyPanel.AddUIComponent<UIPanel>();
+            Parent1Panel.name = "PartnerPanel";
+            Parent1Panel.width = BubbleFamilyPanel.width;
+            Parent1Panel.height = 52f;
+            Parent1Panel.clipChildren = true;
+            Parent1Panel.padding = new RectOffset(0, 0, 0, 0);
+            Parent1Panel.autoLayout = true;
+            Parent1Panel.autoLayoutDirection = LayoutDirection.Vertical;
+            Parent1Panel.relativePosition = new Vector3(0f, 0f);
+            Parent1Panel.Hide();
+            BubbleParent1BgBar = Parent1Panel.AddUIComponent<UITextureSprite>();
+            BubbleParent1BgBar.name = "BubbleParent1BgBar";
+            BubbleParent1BgBar.width = Parent1Panel.width;
+            BubbleParent1BgBar.height = 26f;
+            BubbleParent1BgBar.texture = TextureDB.BubbleBgBar1;
+            BubbleParent1Love = BubbleParent1BgBar.AddUIComponent<UIButton>();
+            BubbleParent1Love.name = "BubbleParent1Love";
+            BubbleParent1Love.normalBgSprite = "InfoIconAge";
+            BubbleParent1Love.width = 22f;
+            BubbleParent1Love.height = 22f;
+            BubbleParent1Love.isInteractive = false;
+            BubbleParent1Love.relativePosition = new Vector3(7f, 2f);
+            BubbleParent1Name = BubbleParent1BgBar.AddUIComponent<UIButton>();
+            BubbleParent1Name.name = "BubbleParent1Name";
+            BubbleParent1Name.width = 135f;
+            BubbleParent1Name.height = BubbleParent1BgBar.height;
+            BubbleParent1Name.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleParent1Name.textHorizontalAlignment = 0;
+            BubbleParent1Name.playAudioEvents = true;
+            BubbleParent1Name.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleParent1Name.font.size = 15;
+            BubbleParent1Name.textScale = 0.8f;
+            BubbleParent1Name.wordWrap = true;
+            BubbleParent1Name.useDropShadow = true;
+            BubbleParent1Name.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleParent1Name.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleParent1Name.textPadding.left = 5;
+            BubbleParent1Name.textPadding.right = 5;
+            BubbleParent1Name.textColor = new Color32(204, 204, 51, 40);
+            BubbleParent1Name.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleParent1Name.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleParent1Name.focusedTextColor = new Color32(153, 0, 0, 0);
+            BubbleParent1Name.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleParent1Name.relativePosition = new Vector3(BubbleParent1Love.relativePosition.x + BubbleParent1Love.width, 2f);
+            BubbleParent1Name.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToCitizen(this.Parent1ID, eventParam);
+                GoToCitizen(Parent1ID, eventParam);
             };
-            this.BubbleParent1AgeButton = this.BubbleParent1BgBar.AddUIComponent<UIButton>();
-            this.BubbleParent1AgeButton.name = "BubbleParent1AgeButton";
-            this.BubbleParent1AgeButton.width = 23f;
-            this.BubbleParent1AgeButton.height = 18f;
-            this.BubbleParent1AgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleParent1AgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleParent1AgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleParent1AgeButton.textScale = 0.9f;
-            this.BubbleParent1AgeButton.font.size = 15;
-            this.BubbleParent1AgeButton.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleParent1AgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleParent1AgeButton.isInteractive = false;
-            this.BubbleParent1AgeButton.relativePosition = new Vector3(this.BubbleParent1Name.relativePosition.x + this.BubbleParent1Name.width + 6f, 6f);
-            this.BubbleParent1FollowToggler = this.BubbleParent1BgBar.AddUIComponent<UIButton>();
-            this.BubbleParent1FollowToggler.name = "BubbleParent1FollowToggler";
-            this.BubbleParent1FollowToggler.atlas = favCimsAtlas;
-            this.BubbleParent1FollowToggler.size = new Vector2(18f, 18f);
-            this.BubbleParent1FollowToggler.playAudioEvents = true;
-            this.BubbleParent1FollowToggler.relativePosition = new Vector3(this.BubbleParent1AgeButton.relativePosition.x + this.BubbleParent1AgeButton.width + 12f, 4f);
-            this.BubbleParent1FollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleParent1AgeButton = BubbleParent1BgBar.AddUIComponent<UIButton>();
+            BubbleParent1AgeButton.name = "BubbleParent1AgeButton";
+            BubbleParent1AgeButton.width = 23f;
+            BubbleParent1AgeButton.height = 18f;
+            BubbleParent1AgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleParent1AgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleParent1AgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleParent1AgeButton.textScale = 0.9f;
+            BubbleParent1AgeButton.font.size = 15;
+            BubbleParent1AgeButton.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleParent1AgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleParent1AgeButton.isInteractive = false;
+            BubbleParent1AgeButton.relativePosition = new Vector3(BubbleParent1Name.relativePosition.x + BubbleParent1Name.width + 6f, 6f);
+            BubbleParent1FollowToggler = BubbleParent1BgBar.AddUIComponent<UIButton>();
+            BubbleParent1FollowToggler.name = "BubbleParent1FollowToggler";
+            BubbleParent1FollowToggler.atlas = favCimsAtlas;
+            BubbleParent1FollowToggler.size = new Vector2(18f, 18f);
+            BubbleParent1FollowToggler.playAudioEvents = true;
+            BubbleParent1FollowToggler.relativePosition = new Vector3(BubbleParent1AgeButton.relativePosition.x + BubbleParent1AgeButton.width + 12f, 4f);
+            BubbleParent1FollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                FavCimsCore.AddToFavorites(this.Parent1ID);
+                FavCimsCore.AddToFavorites(Parent1ID);
             };
-            this.BubbleParent1ActivityBar = this.Parent1Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleParent1ActivityBar.name = "BubbleParent1ActivityBar";
-            this.BubbleParent1ActivityBar.width = this.Parent1Panel.width;
-            this.BubbleParent1ActivityBar.height = 26f;
-            this.BubbleParent1ActivityBar.texture = TextureDB.BubbleBgBar2;
-            this.BubbleParent1VehicleButton = this.BubbleParent1ActivityBar.AddUIComponent<UIButton>();
-            this.BubbleParent1VehicleButton.name = "BubbleParent1VehicleButton";
-            this.BubbleParent1VehicleButton.width = 22f;
-            this.BubbleParent1VehicleButton.height = 22f;
-            this.BubbleParent1VehicleButton.relativePosition = new Vector3(7f, 2f);
-            this.BubbleParent1VehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleParent1ActivityBar = Parent1Panel.AddUIComponent<UITextureSprite>();
+            BubbleParent1ActivityBar.name = "BubbleParent1ActivityBar";
+            BubbleParent1ActivityBar.width = Parent1Panel.width;
+            BubbleParent1ActivityBar.height = 26f;
+            BubbleParent1ActivityBar.texture = TextureDB.BubbleBgBar2;
+            BubbleParent1VehicleButton = BubbleParent1ActivityBar.AddUIComponent<UIButton>();
+            BubbleParent1VehicleButton.name = "BubbleParent1VehicleButton";
+            BubbleParent1VehicleButton.width = 22f;
+            BubbleParent1VehicleButton.height = 22f;
+            BubbleParent1VehicleButton.relativePosition = new Vector3(7f, 2f);
+            BubbleParent1VehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.Parent1VehID, eventParam);
+                GoToInstance(Parent1VehID, eventParam);
             };
-            this.BubbleParent1Destination = this.BubbleParent1ActivityBar.AddUIComponent<UIButton>();
-            this.BubbleParent1Destination.name = "BubbleParent1Destination";
-            this.BubbleParent1Destination.width = this.BubbleParent1ActivityBar.width - this.BubbleParent1VehicleButton.width;
-            this.BubbleParent1Destination.height = this.BubbleParent1ActivityBar.height;
-            this.BubbleParent1Destination.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleParent1Destination.textHorizontalAlignment = 0;
-            this.BubbleParent1Destination.playAudioEvents = true;
-            this.BubbleParent1Destination.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleParent1Destination.font.size = 15;
-            this.BubbleParent1Destination.textScale = 0.75f;
-            this.BubbleParent1Destination.wordWrap = true;
-            this.BubbleParent1Destination.textPadding.left = 0;
-            this.BubbleParent1Destination.textPadding.right = 5;
-            this.BubbleParent1Destination.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleParent1Destination.outlineSize = 1;
-            this.BubbleParent1Destination.textColor = new Color32(21, 59, 96, 140);
-            this.BubbleParent1Destination.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleParent1Destination.pressedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleParent1Destination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleParent1Destination.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleParent1Destination.useDropShadow = true;
-            this.BubbleParent1Destination.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleParent1Destination.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleParent1Destination.maximumSize = new Vector2(this.BubbleParent1Destination.width, this.BubbleParent1ActivityBar.height);
-            this.BubbleParent1Destination.relativePosition = new Vector3(this.BubblePartnerDestination.relativePosition.x, 2f);
-            this.BubbleParent1Destination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleParent1Destination = BubbleParent1ActivityBar.AddUIComponent<UIButton>();
+            BubbleParent1Destination.name = "BubbleParent1Destination";
+            BubbleParent1Destination.width = BubbleParent1ActivityBar.width - BubbleParent1VehicleButton.width;
+            BubbleParent1Destination.height = BubbleParent1ActivityBar.height;
+            BubbleParent1Destination.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleParent1Destination.textHorizontalAlignment = 0;
+            BubbleParent1Destination.playAudioEvents = true;
+            BubbleParent1Destination.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleParent1Destination.font.size = 15;
+            BubbleParent1Destination.textScale = 0.75f;
+            BubbleParent1Destination.wordWrap = true;
+            BubbleParent1Destination.textPadding.left = 0;
+            BubbleParent1Destination.textPadding.right = 5;
+            BubbleParent1Destination.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleParent1Destination.outlineSize = 1;
+            BubbleParent1Destination.textColor = new Color32(21, 59, 96, 140);
+            BubbleParent1Destination.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleParent1Destination.pressedTextColor = new Color32(153, 0, 0, 0);
+            BubbleParent1Destination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleParent1Destination.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleParent1Destination.useDropShadow = true;
+            BubbleParent1Destination.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleParent1Destination.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleParent1Destination.maximumSize = new Vector2(BubbleParent1Destination.width, BubbleParent1ActivityBar.height);
+            BubbleParent1Destination.relativePosition = new Vector3(BubblePartnerDestination.relativePosition.x, 2f);
+            BubbleParent1Destination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.Parent1Target, eventParam);
+                GoToInstance(Parent1Target, eventParam);
             };
-            this.NoChildsPanel = this.BubbleFamilyPanel.AddUIComponent<UIPanel>();
-            this.NoChildsPanel.name = "NoChildsPanel";
-            this.NoChildsPanel.width = this.BubbleFamilyPanel.width;
-            this.NoChildsPanel.height = 52f;
-            this.NoChildsPanel.Hide();
-            this.NoChildsBSprite = this.NoChildsPanel.AddUIComponent<UIButton>();
-            this.NoChildsBSprite.name = "NoChildsBSprite";
-            this.NoChildsBSprite.normalBgSprite = "InfoIconHappinessDisabled";
-            this.NoChildsBSprite.width = 36f;
-            this.NoChildsBSprite.height = 36f;
-            this.NoChildsBSprite.relativePosition = new Vector3(7f, 5f);
-            this.NoChildsFButton = this.NoChildsPanel.AddUIComponent<UIButton>();
-            this.NoChildsFButton.name = "NoChildsFButton";
-            this.NoChildsFButton.width = 155f;
-            this.NoChildsFButton.height = this.NoChildsBSprite.height;
-            this.NoChildsFButton.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.NoChildsFButton.textHorizontalAlignment = 0;
-            this.NoChildsFButton.playAudioEvents = false;
-            this.NoChildsFButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.NoChildsFButton.font.size = 16;
-            this.NoChildsFButton.textScale = 0.9f;
-            this.NoChildsFButton.wordWrap = true;
-            this.NoChildsFButton.useDropShadow = true;
-            this.NoChildsFButton.dropShadowOffset = new Vector2(1f, -1f);
-            this.NoChildsFButton.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.NoChildsFButton.textPadding.left = 5;
-            this.NoChildsFButton.textPadding.right = 5;
-            this.NoChildsFButton.isEnabled = false;
-            this.NoChildsFButton.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.NoChildsFButton.relativePosition = new Vector3(this.NoChildsBSprite.relativePosition.x + this.NoChildsBSprite.width, this.NoChildsBSprite.relativePosition.y);
-            this.FamilyMember2Panel = this.BubbleFamilyPanel.AddUIComponent<UIPanel>();
-            this.FamilyMember2Panel.name = "FamilyMember2Panel";
-            this.FamilyMember2Panel.width = this.BubbleFamilyPanel.width;
-            this.FamilyMember2Panel.height = 52f;
-            this.FamilyMember2Panel.clipChildren = true;
-            this.FamilyMember2Panel.padding = new RectOffset(0, 0, 0, 0);
-            this.FamilyMember2Panel.autoLayout = true;
-            this.FamilyMember2Panel.autoLayoutDirection = LayoutDirection.Vertical;
-            this.FamilyMember2Panel.relativePosition = new Vector3(0f, 0f);
-            this.FamilyMember2Panel.Hide();
-            this.BubbleFamilyMember2BgBar = this.FamilyMember2Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember2BgBar.name = "BubbleFamilyMember2BgBar";
-            this.BubbleFamilyMember2BgBar.width = this.BubbleFamilyPanel.width;
-            this.BubbleFamilyMember2BgBar.height = 26f;
-            this.BubbleFamilyMember2BgBar.texture = TextureDB.BubbleBgBar1;
-            this.BubbleFamilyMember2IconSprite = this.BubbleFamilyMember2BgBar.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember2IconSprite.name = "BubbleFamilyMember2IconSprite";
-            this.BubbleFamilyMember2IconSprite.width = 18f;
-            this.BubbleFamilyMember2IconSprite.height = 18f;
-            this.BubbleFamilyMember2IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
-            this.BubbleFamilyMember2IconSprite.relativePosition = new Vector3(7f, 4f);
-            this.BubbleFamilyMember2Name = this.BubbleFamilyMember2BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember2Name.name = "BubbleFamilyMember2Name";
-            this.BubbleFamilyMember2Name.width = 135f;
-            this.BubbleFamilyMember2Name.height = this.BubbleFamilyMember2BgBar.height;
-            this.BubbleFamilyMember2Name.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember2Name.textHorizontalAlignment = 0;
-            this.BubbleFamilyMember2Name.playAudioEvents = true;
-            this.BubbleFamilyMember2Name.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember2Name.font.size = 15;
-            this.BubbleFamilyMember2Name.textScale = 0.8f;
-            this.BubbleFamilyMember2Name.wordWrap = true;
-            this.BubbleFamilyMember2Name.useDropShadow = true;
-            this.BubbleFamilyMember2Name.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember2Name.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember2Name.textPadding.left = 5;
-            this.BubbleFamilyMember2Name.textPadding.right = 5;
-            this.BubbleFamilyMember2Name.textColor = new Color32(204, 204, 51, 40);
-            this.BubbleFamilyMember2Name.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleFamilyMember2Name.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleFamilyMember2Name.focusedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleFamilyMember2Name.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleFamilyMember2Name.relativePosition = new Vector3(this.BubbleFamilyMember2IconSprite.relativePosition.x + this.BubbleFamilyMember2IconSprite.width + 2f, 2f);
-            this.BubbleFamilyMember2Name.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            NoChildsPanel = BubbleFamilyPanel.AddUIComponent<UIPanel>();
+            NoChildsPanel.name = "NoChildsPanel";
+            NoChildsPanel.width = BubbleFamilyPanel.width;
+            NoChildsPanel.height = 52f;
+            NoChildsPanel.Hide();
+            NoChildsBSprite = NoChildsPanel.AddUIComponent<UIButton>();
+            NoChildsBSprite.name = "NoChildsBSprite";
+            NoChildsBSprite.normalBgSprite = "InfoIconHappinessDisabled";
+            NoChildsBSprite.width = 36f;
+            NoChildsBSprite.height = 36f;
+            NoChildsBSprite.relativePosition = new Vector3(7f, 5f);
+            NoChildsFButton = NoChildsPanel.AddUIComponent<UIButton>();
+            NoChildsFButton.name = "NoChildsFButton";
+            NoChildsFButton.width = 155f;
+            NoChildsFButton.height = NoChildsBSprite.height;
+            NoChildsFButton.textVerticalAlignment = UIVerticalAlignment.Middle;
+            NoChildsFButton.textHorizontalAlignment = 0;
+            NoChildsFButton.playAudioEvents = false;
+            NoChildsFButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            NoChildsFButton.font.size = 16;
+            NoChildsFButton.textScale = 0.9f;
+            NoChildsFButton.wordWrap = true;
+            NoChildsFButton.useDropShadow = true;
+            NoChildsFButton.dropShadowOffset = new Vector2(1f, -1f);
+            NoChildsFButton.dropShadowColor = new Color32(0, 0, 0, 0);
+            NoChildsFButton.textPadding.left = 5;
+            NoChildsFButton.textPadding.right = 5;
+            NoChildsFButton.isEnabled = false;
+            NoChildsFButton.disabledTextColor = new Color32(51, 51, 51, 160);
+            NoChildsFButton.relativePosition = new Vector3(NoChildsBSprite.relativePosition.x + NoChildsBSprite.width, NoChildsBSprite.relativePosition.y);
+            FamilyMember2Panel = BubbleFamilyPanel.AddUIComponent<UIPanel>();
+            FamilyMember2Panel.name = "FamilyMember2Panel";
+            FamilyMember2Panel.width = BubbleFamilyPanel.width;
+            FamilyMember2Panel.height = 52f;
+            FamilyMember2Panel.clipChildren = true;
+            FamilyMember2Panel.padding = new RectOffset(0, 0, 0, 0);
+            FamilyMember2Panel.autoLayout = true;
+            FamilyMember2Panel.autoLayoutDirection = LayoutDirection.Vertical;
+            FamilyMember2Panel.relativePosition = new Vector3(0f, 0f);
+            FamilyMember2Panel.Hide();
+            BubbleFamilyMember2BgBar = FamilyMember2Panel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember2BgBar.name = "BubbleFamilyMember2BgBar";
+            BubbleFamilyMember2BgBar.width = BubbleFamilyPanel.width;
+            BubbleFamilyMember2BgBar.height = 26f;
+            BubbleFamilyMember2BgBar.texture = TextureDB.BubbleBgBar1;
+            BubbleFamilyMember2IconSprite = BubbleFamilyMember2BgBar.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember2IconSprite.name = "BubbleFamilyMember2IconSprite";
+            BubbleFamilyMember2IconSprite.width = 18f;
+            BubbleFamilyMember2IconSprite.height = 18f;
+            BubbleFamilyMember2IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
+            BubbleFamilyMember2IconSprite.relativePosition = new Vector3(7f, 4f);
+            BubbleFamilyMember2Name = BubbleFamilyMember2BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember2Name.name = "BubbleFamilyMember2Name";
+            BubbleFamilyMember2Name.width = 135f;
+            BubbleFamilyMember2Name.height = BubbleFamilyMember2BgBar.height;
+            BubbleFamilyMember2Name.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember2Name.textHorizontalAlignment = 0;
+            BubbleFamilyMember2Name.playAudioEvents = true;
+            BubbleFamilyMember2Name.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember2Name.font.size = 15;
+            BubbleFamilyMember2Name.textScale = 0.8f;
+            BubbleFamilyMember2Name.wordWrap = true;
+            BubbleFamilyMember2Name.useDropShadow = true;
+            BubbleFamilyMember2Name.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember2Name.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember2Name.textPadding.left = 5;
+            BubbleFamilyMember2Name.textPadding.right = 5;
+            BubbleFamilyMember2Name.textColor = new Color32(204, 204, 51, 40);
+            BubbleFamilyMember2Name.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleFamilyMember2Name.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleFamilyMember2Name.focusedTextColor = new Color32(153, 0, 0, 0);
+            BubbleFamilyMember2Name.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleFamilyMember2Name.relativePosition = new Vector3(BubbleFamilyMember2IconSprite.relativePosition.x + BubbleFamilyMember2IconSprite.width + 2f, 2f);
+            BubbleFamilyMember2Name.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToCitizen(this.Parent2ID, eventParam);
+                GoToCitizen(Parent2ID, eventParam);
             };
-            this.BubbleFamilyMember2AgeButton = this.BubbleFamilyMember2BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember2AgeButton.name = "BubbleFamilyMember2AgeButton";
-            this.BubbleFamilyMember2AgeButton.width = 23f;
-            this.BubbleFamilyMember2AgeButton.height = 18f;
-            this.BubbleFamilyMember2AgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleFamilyMember2AgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember2AgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember2AgeButton.textScale = 0.9f;
-            this.BubbleFamilyMember2AgeButton.font.size = 15;
-            this.BubbleFamilyMember2AgeButton.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember2AgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember2AgeButton.isInteractive = false;
-            this.BubbleFamilyMember2AgeButton.relativePosition = new Vector3(this.BubbleFamilyMember2Name.relativePosition.x + this.BubbleFamilyMember2Name.width + 6f, 6f);
-            this.BubbleFamilyMember2FollowToggler = this.BubbleFamilyMember2BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember2FollowToggler.name = "BubbleFamilyMember2FollowToggler";
-            this.BubbleFamilyMember2FollowToggler.atlas = favCimsAtlas;
-            this.BubbleFamilyMember2FollowToggler.size = new Vector2(18f, 18f);
-            this.BubbleFamilyMember2FollowToggler.playAudioEvents = true;
-            this.BubbleFamilyMember2FollowToggler.relativePosition = new Vector3(this.BubbleFamilyMember2AgeButton.relativePosition.x + this.BubbleFamilyMember2AgeButton.width + 12f, 4f);
-            this.BubbleFamilyMember2FollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember2AgeButton = BubbleFamilyMember2BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember2AgeButton.name = "BubbleFamilyMember2AgeButton";
+            BubbleFamilyMember2AgeButton.width = 23f;
+            BubbleFamilyMember2AgeButton.height = 18f;
+            BubbleFamilyMember2AgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleFamilyMember2AgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember2AgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember2AgeButton.textScale = 0.9f;
+            BubbleFamilyMember2AgeButton.font.size = 15;
+            BubbleFamilyMember2AgeButton.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember2AgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember2AgeButton.isInteractive = false;
+            BubbleFamilyMember2AgeButton.relativePosition = new Vector3(BubbleFamilyMember2Name.relativePosition.x + BubbleFamilyMember2Name.width + 6f, 6f);
+            BubbleFamilyMember2FollowToggler = BubbleFamilyMember2BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember2FollowToggler.name = "BubbleFamilyMember2FollowToggler";
+            BubbleFamilyMember2FollowToggler.atlas = favCimsAtlas;
+            BubbleFamilyMember2FollowToggler.size = new Vector2(18f, 18f);
+            BubbleFamilyMember2FollowToggler.playAudioEvents = true;
+            BubbleFamilyMember2FollowToggler.relativePosition = new Vector3(BubbleFamilyMember2AgeButton.relativePosition.x + BubbleFamilyMember2AgeButton.width + 12f, 4f);
+            BubbleFamilyMember2FollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                FavCimsCore.AddToFavorites(this.Parent2ID);
+                FavCimsCore.AddToFavorites(Parent2ID);
             };
-            this.BubbleFamilyMember2ActivityBgBar = this.FamilyMember2Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember2ActivityBgBar.name = "BubbleFamilyMember2ActivityBgBar";
-            this.BubbleFamilyMember2ActivityBgBar.width = this.BubbleFamilyPanel.width;
-            this.BubbleFamilyMember2ActivityBgBar.height = 26f;
-            this.BubbleFamilyMember2ActivityBgBar.texture = TextureDB.BubbleBgBar2;
-            this.BubbleFamilyMember2ActivityVehicleButton = this.BubbleFamilyMember2ActivityBgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember2ActivityVehicleButton.name = "BubbleFamilyMember2ActivityVehicleButton";
-            this.BubbleFamilyMember2ActivityVehicleButton.width = 22f;
-            this.BubbleFamilyMember2ActivityVehicleButton.height = 22f;
-            this.BubbleFamilyMember2ActivityVehicleButton.relativePosition = new Vector3(7f, 2f);
-            this.BubbleFamilyMember2ActivityVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember2ActivityBgBar = FamilyMember2Panel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember2ActivityBgBar.name = "BubbleFamilyMember2ActivityBgBar";
+            BubbleFamilyMember2ActivityBgBar.width = BubbleFamilyPanel.width;
+            BubbleFamilyMember2ActivityBgBar.height = 26f;
+            BubbleFamilyMember2ActivityBgBar.texture = TextureDB.BubbleBgBar2;
+            BubbleFamilyMember2ActivityVehicleButton = BubbleFamilyMember2ActivityBgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember2ActivityVehicleButton.name = "BubbleFamilyMember2ActivityVehicleButton";
+            BubbleFamilyMember2ActivityVehicleButton.width = 22f;
+            BubbleFamilyMember2ActivityVehicleButton.height = 22f;
+            BubbleFamilyMember2ActivityVehicleButton.relativePosition = new Vector3(7f, 2f);
+            BubbleFamilyMember2ActivityVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.Parent2VehID, eventParam);
+                GoToInstance(Parent2VehID, eventParam);
             };
-            this.BubbleFamilyMember2ActivityDestination = this.BubbleFamilyMember2ActivityBgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember2ActivityDestination.name = "BubbleFamilyMember2ActivityDestination";
-            this.BubbleFamilyMember2ActivityDestination.width = this.BubbleFamilyMember2ActivityBgBar.width - this.BubbleFamilyMember2ActivityVehicleButton.width;
-            this.BubbleFamilyMember2ActivityDestination.height = this.BubbleFamilyMember2ActivityBgBar.height;
-            this.BubbleFamilyMember2ActivityDestination.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember2ActivityDestination.textHorizontalAlignment = 0;
-            this.BubbleFamilyMember2ActivityDestination.playAudioEvents = true;
-            this.BubbleFamilyMember2ActivityDestination.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember2ActivityDestination.font.size = 15;
-            this.BubbleFamilyMember2ActivityDestination.textScale = 0.75f;
-            this.BubbleFamilyMember2ActivityDestination.wordWrap = true;
-            this.BubbleFamilyMember2ActivityDestination.textPadding.left = 0;
-            this.BubbleFamilyMember2ActivityDestination.textPadding.right = 5;
-            this.BubbleFamilyMember2ActivityDestination.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember2ActivityDestination.outlineSize = 1;
-            this.BubbleFamilyMember2ActivityDestination.textColor = new Color32(21, 59, 96, 140);
-            this.BubbleFamilyMember2ActivityDestination.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleFamilyMember2ActivityDestination.pressedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleFamilyMember2ActivityDestination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleFamilyMember2ActivityDestination.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleFamilyMember2ActivityDestination.useDropShadow = true;
-            this.BubbleFamilyMember2ActivityDestination.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember2ActivityDestination.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember2ActivityDestination.maximumSize = new Vector2(this.BubbleFamilyMember2ActivityDestination.width, this.BubbleFamilyMember2ActivityBgBar.height);
-            this.BubbleFamilyMember2ActivityDestination.relativePosition = new Vector3(this.BubblePartnerDestination.relativePosition.x, 2f);
-            this.BubbleFamilyMember2ActivityDestination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember2ActivityDestination = BubbleFamilyMember2ActivityBgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember2ActivityDestination.name = "BubbleFamilyMember2ActivityDestination";
+            BubbleFamilyMember2ActivityDestination.width = BubbleFamilyMember2ActivityBgBar.width - BubbleFamilyMember2ActivityVehicleButton.width;
+            BubbleFamilyMember2ActivityDestination.height = BubbleFamilyMember2ActivityBgBar.height;
+            BubbleFamilyMember2ActivityDestination.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember2ActivityDestination.textHorizontalAlignment = 0;
+            BubbleFamilyMember2ActivityDestination.playAudioEvents = true;
+            BubbleFamilyMember2ActivityDestination.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember2ActivityDestination.font.size = 15;
+            BubbleFamilyMember2ActivityDestination.textScale = 0.75f;
+            BubbleFamilyMember2ActivityDestination.wordWrap = true;
+            BubbleFamilyMember2ActivityDestination.textPadding.left = 0;
+            BubbleFamilyMember2ActivityDestination.textPadding.right = 5;
+            BubbleFamilyMember2ActivityDestination.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember2ActivityDestination.outlineSize = 1;
+            BubbleFamilyMember2ActivityDestination.textColor = new Color32(21, 59, 96, 140);
+            BubbleFamilyMember2ActivityDestination.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleFamilyMember2ActivityDestination.pressedTextColor = new Color32(153, 0, 0, 0);
+            BubbleFamilyMember2ActivityDestination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleFamilyMember2ActivityDestination.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleFamilyMember2ActivityDestination.useDropShadow = true;
+            BubbleFamilyMember2ActivityDestination.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember2ActivityDestination.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember2ActivityDestination.maximumSize = new Vector2(BubbleFamilyMember2ActivityDestination.width, BubbleFamilyMember2ActivityBgBar.height);
+            BubbleFamilyMember2ActivityDestination.relativePosition = new Vector3(BubblePartnerDestination.relativePosition.x, 2f);
+            BubbleFamilyMember2ActivityDestination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.Parent2Target, eventParam);
+                GoToInstance(Parent2Target, eventParam);
             };
-            this.FamilyMember3Panel = this.BubbleFamilyPanel.AddUIComponent<UIPanel>();
-            this.FamilyMember3Panel.name = "FamilyMember3Panel";
-            this.FamilyMember3Panel.width = this.BubbleFamilyPanel.width;
-            this.FamilyMember3Panel.height = 52f;
-            this.FamilyMember3Panel.clipChildren = true;
-            this.FamilyMember3Panel.padding = new RectOffset(0, 0, 0, 0);
-            this.FamilyMember3Panel.autoLayout = true;
-            this.FamilyMember3Panel.autoLayoutDirection = LayoutDirection.Vertical;
-            this.FamilyMember3Panel.relativePosition = new Vector3(0f, 0f);
-            this.FamilyMember3Panel.Hide();
-            this.BubbleFamilyMember3BgBar = this.FamilyMember3Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember3BgBar.name = "BubbleFamilyMember3BgBar";
-            this.BubbleFamilyMember3BgBar.width = this.BubbleFamilyPanel.width;
-            this.BubbleFamilyMember3BgBar.height = 26f;
-            this.BubbleFamilyMember3BgBar.texture = TextureDB.BubbleBgBar1;
-            this.BubbleFamilyMember3IconSprite = this.BubbleFamilyMember3BgBar.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember3IconSprite.name = "BubbleFamilyMember3IconSprite";
-            this.BubbleFamilyMember3IconSprite.width = 18f;
-            this.BubbleFamilyMember3IconSprite.height = 18f;
-            this.BubbleFamilyMember3IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
-            this.BubbleFamilyMember3IconSprite.relativePosition = new Vector3(7f, 4f);
-            this.BubbleFamilyMember3Name = this.BubbleFamilyMember3BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember3Name.name = "BubbleFamilyMember3Name";
-            this.BubbleFamilyMember3Name.width = 135f;
-            this.BubbleFamilyMember3Name.height = this.BubbleFamilyMember3BgBar.height;
-            this.BubbleFamilyMember3Name.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember3Name.textHorizontalAlignment = 0;
-            this.BubbleFamilyMember3Name.playAudioEvents = true;
-            this.BubbleFamilyMember3Name.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember3Name.font.size = 15;
-            this.BubbleFamilyMember3Name.textScale = 0.8f;
-            this.BubbleFamilyMember3Name.wordWrap = true;
-            this.BubbleFamilyMember3Name.useDropShadow = true;
-            this.BubbleFamilyMember3Name.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember3Name.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember3Name.textPadding.left = 5;
-            this.BubbleFamilyMember3Name.textPadding.right = 5;
-            this.BubbleFamilyMember3Name.textColor = new Color32(204, 204, 51, 40);
-            this.BubbleFamilyMember3Name.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleFamilyMember3Name.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleFamilyMember3Name.focusedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleFamilyMember3Name.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleFamilyMember3Name.relativePosition = new Vector3(this.BubbleFamilyMember3IconSprite.relativePosition.x + this.BubbleFamilyMember3IconSprite.width + 2f, 2f);
-            this.BubbleFamilyMember3Name.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            FamilyMember3Panel = BubbleFamilyPanel.AddUIComponent<UIPanel>();
+            FamilyMember3Panel.name = "FamilyMember3Panel";
+            FamilyMember3Panel.width = BubbleFamilyPanel.width;
+            FamilyMember3Panel.height = 52f;
+            FamilyMember3Panel.clipChildren = true;
+            FamilyMember3Panel.padding = new RectOffset(0, 0, 0, 0);
+            FamilyMember3Panel.autoLayout = true;
+            FamilyMember3Panel.autoLayoutDirection = LayoutDirection.Vertical;
+            FamilyMember3Panel.relativePosition = new Vector3(0f, 0f);
+            FamilyMember3Panel.Hide();
+            BubbleFamilyMember3BgBar = FamilyMember3Panel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember3BgBar.name = "BubbleFamilyMember3BgBar";
+            BubbleFamilyMember3BgBar.width = BubbleFamilyPanel.width;
+            BubbleFamilyMember3BgBar.height = 26f;
+            BubbleFamilyMember3BgBar.texture = TextureDB.BubbleBgBar1;
+            BubbleFamilyMember3IconSprite = BubbleFamilyMember3BgBar.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember3IconSprite.name = "BubbleFamilyMember3IconSprite";
+            BubbleFamilyMember3IconSprite.width = 18f;
+            BubbleFamilyMember3IconSprite.height = 18f;
+            BubbleFamilyMember3IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
+            BubbleFamilyMember3IconSprite.relativePosition = new Vector3(7f, 4f);
+            BubbleFamilyMember3Name = BubbleFamilyMember3BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember3Name.name = "BubbleFamilyMember3Name";
+            BubbleFamilyMember3Name.width = 135f;
+            BubbleFamilyMember3Name.height = BubbleFamilyMember3BgBar.height;
+            BubbleFamilyMember3Name.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember3Name.textHorizontalAlignment = 0;
+            BubbleFamilyMember3Name.playAudioEvents = true;
+            BubbleFamilyMember3Name.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember3Name.font.size = 15;
+            BubbleFamilyMember3Name.textScale = 0.8f;
+            BubbleFamilyMember3Name.wordWrap = true;
+            BubbleFamilyMember3Name.useDropShadow = true;
+            BubbleFamilyMember3Name.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember3Name.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember3Name.textPadding.left = 5;
+            BubbleFamilyMember3Name.textPadding.right = 5;
+            BubbleFamilyMember3Name.textColor = new Color32(204, 204, 51, 40);
+            BubbleFamilyMember3Name.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleFamilyMember3Name.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleFamilyMember3Name.focusedTextColor = new Color32(153, 0, 0, 0);
+            BubbleFamilyMember3Name.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleFamilyMember3Name.relativePosition = new Vector3(BubbleFamilyMember3IconSprite.relativePosition.x + BubbleFamilyMember3IconSprite.width + 2f, 2f);
+            BubbleFamilyMember3Name.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToCitizen(this.Parent3ID, eventParam);
+                GoToCitizen(Parent3ID, eventParam);
             };
-            this.BubbleFamilyMember3AgeButton = this.BubbleFamilyMember3BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember3AgeButton.name = "BubbleFamilyMember3AgeButton";
-            this.BubbleFamilyMember3AgeButton.width = 23f;
-            this.BubbleFamilyMember3AgeButton.height = 18f;
-            this.BubbleFamilyMember3AgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleFamilyMember3AgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember3AgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember3AgeButton.textScale = 0.9f;
-            this.BubbleFamilyMember3AgeButton.font.size = 15;
-            this.BubbleFamilyMember3AgeButton.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember3AgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember3AgeButton.isInteractive = false;
-            this.BubbleFamilyMember3AgeButton.relativePosition = new Vector3(this.BubbleFamilyMember3Name.relativePosition.x + this.BubbleFamilyMember3Name.width + 6f, 6f);
-            this.BubbleFamilyMember3FollowToggler = this.BubbleFamilyMember3BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember3FollowToggler.name = "BubbleFamilyMember3FollowToggler";
-            this.BubbleFamilyMember3FollowToggler.atlas = favCimsAtlas;
-            this.BubbleFamilyMember3FollowToggler.size = new Vector2(18f, 18f);
-            this.BubbleFamilyMember3FollowToggler.playAudioEvents = true;
-            this.BubbleFamilyMember3FollowToggler.relativePosition = new Vector3(this.BubbleFamilyMember3AgeButton.relativePosition.x + this.BubbleFamilyMember3AgeButton.width + 12f, 4f);
-            this.BubbleFamilyMember3FollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember3AgeButton = BubbleFamilyMember3BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember3AgeButton.name = "BubbleFamilyMember3AgeButton";
+            BubbleFamilyMember3AgeButton.width = 23f;
+            BubbleFamilyMember3AgeButton.height = 18f;
+            BubbleFamilyMember3AgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleFamilyMember3AgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember3AgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember3AgeButton.textScale = 0.9f;
+            BubbleFamilyMember3AgeButton.font.size = 15;
+            BubbleFamilyMember3AgeButton.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember3AgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember3AgeButton.isInteractive = false;
+            BubbleFamilyMember3AgeButton.relativePosition = new Vector3(BubbleFamilyMember3Name.relativePosition.x + BubbleFamilyMember3Name.width + 6f, 6f);
+            BubbleFamilyMember3FollowToggler = BubbleFamilyMember3BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember3FollowToggler.name = "BubbleFamilyMember3FollowToggler";
+            BubbleFamilyMember3FollowToggler.atlas = favCimsAtlas;
+            BubbleFamilyMember3FollowToggler.size = new Vector2(18f, 18f);
+            BubbleFamilyMember3FollowToggler.playAudioEvents = true;
+            BubbleFamilyMember3FollowToggler.relativePosition = new Vector3(BubbleFamilyMember3AgeButton.relativePosition.x + BubbleFamilyMember3AgeButton.width + 12f, 4f);
+            BubbleFamilyMember3FollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                FavCimsCore.AddToFavorites(this.Parent3ID);
+                FavCimsCore.AddToFavorites(Parent3ID);
             };
-            this.BubbleFamilyMember3ActivityBgBar = this.FamilyMember3Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember3ActivityBgBar.name = "BubbleFamilyMember3ActivityBgBar";
-            this.BubbleFamilyMember3ActivityBgBar.width = this.BubbleFamilyPanel.width;
-            this.BubbleFamilyMember3ActivityBgBar.height = 26f;
-            this.BubbleFamilyMember3ActivityBgBar.texture = TextureDB.BubbleBgBar2;
-            this.BubbleFamilyMember3ActivityVehicleButton = this.BubbleFamilyMember3ActivityBgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember3ActivityVehicleButton.name = "BubbleFamilyMember3ActivityVehicleButton";
-            this.BubbleFamilyMember3ActivityVehicleButton.width = 22f;
-            this.BubbleFamilyMember3ActivityVehicleButton.height = 22f;
-            this.BubbleFamilyMember3ActivityVehicleButton.relativePosition = new Vector3(7f, 2f);
-            this.BubbleFamilyMember3ActivityVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember3ActivityBgBar = FamilyMember3Panel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember3ActivityBgBar.name = "BubbleFamilyMember3ActivityBgBar";
+            BubbleFamilyMember3ActivityBgBar.width = BubbleFamilyPanel.width;
+            BubbleFamilyMember3ActivityBgBar.height = 26f;
+            BubbleFamilyMember3ActivityBgBar.texture = TextureDB.BubbleBgBar2;
+            BubbleFamilyMember3ActivityVehicleButton = BubbleFamilyMember3ActivityBgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember3ActivityVehicleButton.name = "BubbleFamilyMember3ActivityVehicleButton";
+            BubbleFamilyMember3ActivityVehicleButton.width = 22f;
+            BubbleFamilyMember3ActivityVehicleButton.height = 22f;
+            BubbleFamilyMember3ActivityVehicleButton.relativePosition = new Vector3(7f, 2f);
+            BubbleFamilyMember3ActivityVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.Parent3VehID, eventParam);
+                GoToInstance(Parent3VehID, eventParam);
             };
-            this.BubbleFamilyMember3ActivityDestination = this.BubbleFamilyMember3ActivityBgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember3ActivityDestination.name = "BubbleFamilyMember3ActivityDestination";
-            this.BubbleFamilyMember3ActivityDestination.width = this.BubbleFamilyMember3ActivityBgBar.width - this.BubbleFamilyMember3ActivityVehicleButton.width;
-            this.BubbleFamilyMember3ActivityDestination.height = this.BubbleFamilyMember3ActivityBgBar.height;
-            this.BubbleFamilyMember3ActivityDestination.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember3ActivityDestination.textHorizontalAlignment = 0;
-            this.BubbleFamilyMember3ActivityDestination.playAudioEvents = true;
-            this.BubbleFamilyMember3ActivityDestination.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember3ActivityDestination.font.size = 15;
-            this.BubbleFamilyMember3ActivityDestination.textScale = 0.75f;
-            this.BubbleFamilyMember3ActivityDestination.wordWrap = true;
-            this.BubbleFamilyMember3ActivityDestination.textPadding.left = 0;
-            this.BubbleFamilyMember3ActivityDestination.textPadding.right = 5;
-            this.BubbleFamilyMember3ActivityDestination.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember3ActivityDestination.outlineSize = 1;
-            this.BubbleFamilyMember3ActivityDestination.textColor = new Color32(21, 59, 96, 140);
-            this.BubbleFamilyMember3ActivityDestination.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleFamilyMember3ActivityDestination.pressedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleFamilyMember3ActivityDestination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleFamilyMember3ActivityDestination.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleFamilyMember3ActivityDestination.useDropShadow = true;
-            this.BubbleFamilyMember3ActivityDestination.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember3ActivityDestination.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember3ActivityDestination.maximumSize = new Vector2(this.BubbleFamilyMember3ActivityDestination.width, this.BubbleFamilyMember3ActivityBgBar.height);
-            this.BubbleFamilyMember3ActivityDestination.relativePosition = new Vector3(this.BubblePartnerDestination.relativePosition.x, 2f);
-            this.BubbleFamilyMember3ActivityDestination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember3ActivityDestination = BubbleFamilyMember3ActivityBgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember3ActivityDestination.name = "BubbleFamilyMember3ActivityDestination";
+            BubbleFamilyMember3ActivityDestination.width = BubbleFamilyMember3ActivityBgBar.width - BubbleFamilyMember3ActivityVehicleButton.width;
+            BubbleFamilyMember3ActivityDestination.height = BubbleFamilyMember3ActivityBgBar.height;
+            BubbleFamilyMember3ActivityDestination.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember3ActivityDestination.textHorizontalAlignment = 0;
+            BubbleFamilyMember3ActivityDestination.playAudioEvents = true;
+            BubbleFamilyMember3ActivityDestination.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember3ActivityDestination.font.size = 15;
+            BubbleFamilyMember3ActivityDestination.textScale = 0.75f;
+            BubbleFamilyMember3ActivityDestination.wordWrap = true;
+            BubbleFamilyMember3ActivityDestination.textPadding.left = 0;
+            BubbleFamilyMember3ActivityDestination.textPadding.right = 5;
+            BubbleFamilyMember3ActivityDestination.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember3ActivityDestination.outlineSize = 1;
+            BubbleFamilyMember3ActivityDestination.textColor = new Color32(21, 59, 96, 140);
+            BubbleFamilyMember3ActivityDestination.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleFamilyMember3ActivityDestination.pressedTextColor = new Color32(153, 0, 0, 0);
+            BubbleFamilyMember3ActivityDestination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleFamilyMember3ActivityDestination.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleFamilyMember3ActivityDestination.useDropShadow = true;
+            BubbleFamilyMember3ActivityDestination.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember3ActivityDestination.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember3ActivityDestination.maximumSize = new Vector2(BubbleFamilyMember3ActivityDestination.width, BubbleFamilyMember3ActivityBgBar.height);
+            BubbleFamilyMember3ActivityDestination.relativePosition = new Vector3(BubblePartnerDestination.relativePosition.x, 2f);
+            BubbleFamilyMember3ActivityDestination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.Parent3Target, eventParam);
+                GoToInstance(Parent3Target, eventParam);
             };
-            this.FamilyMember4Panel = this.BubbleFamilyPanel.AddUIComponent<UIPanel>();
-            this.FamilyMember4Panel.name = "FamilyMember4Panel";
-            this.FamilyMember4Panel.width = this.BubbleFamilyPanel.width;
-            this.FamilyMember4Panel.height = 52f;
-            this.FamilyMember4Panel.clipChildren = true;
-            this.FamilyMember4Panel.padding = new RectOffset(0, 0, 0, 0);
-            this.FamilyMember4Panel.autoLayout = true;
-            this.FamilyMember4Panel.autoLayoutDirection = LayoutDirection.Vertical;
-            this.FamilyMember4Panel.relativePosition = new Vector3(0f, 0f);
-            this.FamilyMember4Panel.Hide();
-            this.BubbleFamilyMember4BgBar = this.FamilyMember4Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember4BgBar.name = "BubbleFamilyMember4BgBar";
-            this.BubbleFamilyMember4BgBar.width = this.BubbleFamilyPanel.width;
-            this.BubbleFamilyMember4BgBar.height = 26f;
-            this.BubbleFamilyMember4BgBar.texture = TextureDB.BubbleBgBar1;
-            this.BubbleFamilyMember4IconSprite = this.BubbleFamilyMember4BgBar.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember4IconSprite.name = "BubbleFamilyMember4IconSprite";
-            this.BubbleFamilyMember4IconSprite.width = 18f;
-            this.BubbleFamilyMember4IconSprite.height = 18f;
-            this.BubbleFamilyMember4IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
-            this.BubbleFamilyMember4IconSprite.relativePosition = new Vector3(7f, 4f);
-            this.BubbleFamilyMember4Name = this.BubbleFamilyMember4BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember4Name.name = "BubbleFamilyMember4Name";
-            this.BubbleFamilyMember4Name.width = 135f;
-            this.BubbleFamilyMember4Name.height = this.BubbleFamilyMember4BgBar.height;
-            this.BubbleFamilyMember4Name.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember4Name.textHorizontalAlignment = 0;
-            this.BubbleFamilyMember4Name.playAudioEvents = true;
-            this.BubbleFamilyMember4Name.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember4Name.font.size = 15;
-            this.BubbleFamilyMember4Name.textScale = 0.8f;
-            this.BubbleFamilyMember4Name.wordWrap = true;
-            this.BubbleFamilyMember4Name.useDropShadow = true;
-            this.BubbleFamilyMember4Name.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember4Name.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember4Name.textPadding.left = 5;
-            this.BubbleFamilyMember4Name.textPadding.right = 5;
-            this.BubbleFamilyMember4Name.textColor = new Color32(204, 204, 51, 40);
-            this.BubbleFamilyMember4Name.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleFamilyMember4Name.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleFamilyMember4Name.focusedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleFamilyMember4Name.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleFamilyMember4Name.relativePosition = new Vector3(this.BubbleFamilyMember4IconSprite.relativePosition.x + this.BubbleFamilyMember4IconSprite.width + 2f, 2f);
-            this.BubbleFamilyMember4Name.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            FamilyMember4Panel = BubbleFamilyPanel.AddUIComponent<UIPanel>();
+            FamilyMember4Panel.name = "FamilyMember4Panel";
+            FamilyMember4Panel.width = BubbleFamilyPanel.width;
+            FamilyMember4Panel.height = 52f;
+            FamilyMember4Panel.clipChildren = true;
+            FamilyMember4Panel.padding = new RectOffset(0, 0, 0, 0);
+            FamilyMember4Panel.autoLayout = true;
+            FamilyMember4Panel.autoLayoutDirection = LayoutDirection.Vertical;
+            FamilyMember4Panel.relativePosition = new Vector3(0f, 0f);
+            FamilyMember4Panel.Hide();
+            BubbleFamilyMember4BgBar = FamilyMember4Panel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember4BgBar.name = "BubbleFamilyMember4BgBar";
+            BubbleFamilyMember4BgBar.width = BubbleFamilyPanel.width;
+            BubbleFamilyMember4BgBar.height = 26f;
+            BubbleFamilyMember4BgBar.texture = TextureDB.BubbleBgBar1;
+            BubbleFamilyMember4IconSprite = BubbleFamilyMember4BgBar.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember4IconSprite.name = "BubbleFamilyMember4IconSprite";
+            BubbleFamilyMember4IconSprite.width = 18f;
+            BubbleFamilyMember4IconSprite.height = 18f;
+            BubbleFamilyMember4IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
+            BubbleFamilyMember4IconSprite.relativePosition = new Vector3(7f, 4f);
+            BubbleFamilyMember4Name = BubbleFamilyMember4BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember4Name.name = "BubbleFamilyMember4Name";
+            BubbleFamilyMember4Name.width = 135f;
+            BubbleFamilyMember4Name.height = BubbleFamilyMember4BgBar.height;
+            BubbleFamilyMember4Name.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember4Name.textHorizontalAlignment = 0;
+            BubbleFamilyMember4Name.playAudioEvents = true;
+            BubbleFamilyMember4Name.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember4Name.font.size = 15;
+            BubbleFamilyMember4Name.textScale = 0.8f;
+            BubbleFamilyMember4Name.wordWrap = true;
+            BubbleFamilyMember4Name.useDropShadow = true;
+            BubbleFamilyMember4Name.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember4Name.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember4Name.textPadding.left = 5;
+            BubbleFamilyMember4Name.textPadding.right = 5;
+            BubbleFamilyMember4Name.textColor = new Color32(204, 204, 51, 40);
+            BubbleFamilyMember4Name.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleFamilyMember4Name.pressedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleFamilyMember4Name.focusedTextColor = new Color32(153, 0, 0, 0);
+            BubbleFamilyMember4Name.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleFamilyMember4Name.relativePosition = new Vector3(BubbleFamilyMember4IconSprite.relativePosition.x + BubbleFamilyMember4IconSprite.width + 2f, 2f);
+            BubbleFamilyMember4Name.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToCitizen(this.Parent4ID, eventParam);
+                GoToCitizen(Parent4ID, eventParam);
             };
-            this.BubbleFamilyMember4AgeButton = this.BubbleFamilyMember4BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember4AgeButton.name = "BubbleFamilyMember4AgeButton";
-            this.BubbleFamilyMember4AgeButton.width = 23f;
-            this.BubbleFamilyMember4AgeButton.height = 18f;
-            this.BubbleFamilyMember4AgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
-            this.BubbleFamilyMember4AgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember4AgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember4AgeButton.textScale = 0.9f;
-            this.BubbleFamilyMember4AgeButton.font.size = 15;
-            this.BubbleFamilyMember4AgeButton.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember4AgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember4AgeButton.isInteractive = false;
-            this.BubbleFamilyMember4AgeButton.relativePosition = new Vector3(this.BubbleFamilyMember4Name.relativePosition.x + this.BubbleFamilyMember4Name.width + 6f, 6f);
-            this.BubbleFamilyMember4FollowToggler = this.BubbleFamilyMember4BgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember4FollowToggler.name = "BubbleFamilyMember4FollowToggler";
-            this.BubbleFamilyMember4FollowToggler.atlas = favCimsAtlas;
-            this.BubbleFamilyMember4FollowToggler.width = 18f;
-            this.BubbleFamilyMember4FollowToggler.height = 18f;
-            this.BubbleFamilyMember4FollowToggler.playAudioEvents = true;
-            this.BubbleFamilyMember4FollowToggler.relativePosition = new Vector3(this.BubbleFamilyMember4AgeButton.relativePosition.x + this.BubbleFamilyMember4AgeButton.width + 12f, 4f);
-            this.BubbleFamilyMember4FollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember4AgeButton = BubbleFamilyMember4BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember4AgeButton.name = "BubbleFamilyMember4AgeButton";
+            BubbleFamilyMember4AgeButton.width = 23f;
+            BubbleFamilyMember4AgeButton.height = 18f;
+            BubbleFamilyMember4AgeButton.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            BubbleFamilyMember4AgeButton.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember4AgeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember4AgeButton.textScale = 0.9f;
+            BubbleFamilyMember4AgeButton.font.size = 15;
+            BubbleFamilyMember4AgeButton.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember4AgeButton.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember4AgeButton.isInteractive = false;
+            BubbleFamilyMember4AgeButton.relativePosition = new Vector3(BubbleFamilyMember4Name.relativePosition.x + BubbleFamilyMember4Name.width + 6f, 6f);
+            BubbleFamilyMember4FollowToggler = BubbleFamilyMember4BgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember4FollowToggler.name = "BubbleFamilyMember4FollowToggler";
+            BubbleFamilyMember4FollowToggler.atlas = favCimsAtlas;
+            BubbleFamilyMember4FollowToggler.width = 18f;
+            BubbleFamilyMember4FollowToggler.height = 18f;
+            BubbleFamilyMember4FollowToggler.playAudioEvents = true;
+            BubbleFamilyMember4FollowToggler.relativePosition = new Vector3(BubbleFamilyMember4AgeButton.relativePosition.x + BubbleFamilyMember4AgeButton.width + 12f, 4f);
+            BubbleFamilyMember4FollowToggler.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                FavCimsCore.AddToFavorites(this.Parent4ID);
+                FavCimsCore.AddToFavorites(Parent4ID);
             };
-            this.BubbleFamilyMember4ActivityBgBar = this.FamilyMember4Panel.AddUIComponent<UITextureSprite>();
-            this.BubbleFamilyMember4ActivityBgBar.name = "BubbleFamilyMember4ActivityBgBar";
-            this.BubbleFamilyMember4ActivityBgBar.width = this.BubbleFamilyPanel.width;
-            this.BubbleFamilyMember4ActivityBgBar.height = 26f;
-            this.BubbleFamilyMember4ActivityBgBar.texture = TextureDB.BubbleBgBar2;
-            this.BubbleFamilyMember4ActivityVehicleButton = this.BubbleFamilyMember4ActivityBgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember4ActivityVehicleButton.name = "BubbleFamilyMember4ActivityVehicleButton";
-            this.BubbleFamilyMember4ActivityVehicleButton.width = 22f;
-            this.BubbleFamilyMember4ActivityVehicleButton.height = 22f;
-            this.BubbleFamilyMember4ActivityVehicleButton.relativePosition = new Vector3(7f, 2f);
-            this.BubbleFamilyMember4ActivityVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember4ActivityBgBar = FamilyMember4Panel.AddUIComponent<UITextureSprite>();
+            BubbleFamilyMember4ActivityBgBar.name = "BubbleFamilyMember4ActivityBgBar";
+            BubbleFamilyMember4ActivityBgBar.width = BubbleFamilyPanel.width;
+            BubbleFamilyMember4ActivityBgBar.height = 26f;
+            BubbleFamilyMember4ActivityBgBar.texture = TextureDB.BubbleBgBar2;
+            BubbleFamilyMember4ActivityVehicleButton = BubbleFamilyMember4ActivityBgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember4ActivityVehicleButton.name = "BubbleFamilyMember4ActivityVehicleButton";
+            BubbleFamilyMember4ActivityVehicleButton.width = 22f;
+            BubbleFamilyMember4ActivityVehicleButton.height = 22f;
+            BubbleFamilyMember4ActivityVehicleButton.relativePosition = new Vector3(7f, 2f);
+            BubbleFamilyMember4ActivityVehicleButton.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.Parent4VehID, eventParam);
+                GoToInstance(Parent4VehID, eventParam);
             };
-            this.BubbleFamilyMember4ActivityDestination = this.BubbleFamilyMember4ActivityBgBar.AddUIComponent<UIButton>();
-            this.BubbleFamilyMember4ActivityDestination.name = "BubbleFamilyMember4ActivityDestination";
-            this.BubbleFamilyMember4ActivityDestination.width = this.BubbleFamilyMember4ActivityBgBar.width - this.BubbleFamilyMember4ActivityVehicleButton.width;
-            this.BubbleFamilyMember4ActivityDestination.height = this.BubbleFamilyMember4ActivityBgBar.height;
-            this.BubbleFamilyMember4ActivityDestination.textVerticalAlignment = UIVerticalAlignment.Middle;
-            this.BubbleFamilyMember4ActivityDestination.textHorizontalAlignment = 0;
-            this.BubbleFamilyMember4ActivityDestination.playAudioEvents = true;
-            this.BubbleFamilyMember4ActivityDestination.font = UIDynamicFont.FindByName("OpenSans-Regular");
-            this.BubbleFamilyMember4ActivityDestination.font.size = 15;
-            this.BubbleFamilyMember4ActivityDestination.textScale = 0.75f;
-            this.BubbleFamilyMember4ActivityDestination.wordWrap = true;
-            this.BubbleFamilyMember4ActivityDestination.textPadding.left = 0;
-            this.BubbleFamilyMember4ActivityDestination.textPadding.right = 5;
-            this.BubbleFamilyMember4ActivityDestination.outlineColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember4ActivityDestination.outlineSize = 1;
-            this.BubbleFamilyMember4ActivityDestination.textColor = new Color32(21, 59, 96, 140);
-            this.BubbleFamilyMember4ActivityDestination.hoveredTextColor = new Color32(204, 102, 0, 20);
-            this.BubbleFamilyMember4ActivityDestination.pressedTextColor = new Color32(153, 0, 0, 0);
-            this.BubbleFamilyMember4ActivityDestination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-            this.BubbleFamilyMember4ActivityDestination.disabledTextColor = new Color32(51, 51, 51, 160);
-            this.BubbleFamilyMember4ActivityDestination.useDropShadow = true;
-            this.BubbleFamilyMember4ActivityDestination.dropShadowOffset = new Vector2(1f, -1f);
-            this.BubbleFamilyMember4ActivityDestination.dropShadowColor = new Color32(0, 0, 0, 0);
-            this.BubbleFamilyMember4ActivityDestination.maximumSize = new Vector2(this.BubbleFamilyMember4ActivityDestination.width, this.BubbleFamilyMember4ActivityBgBar.height);
-            this.BubbleFamilyMember4ActivityDestination.relativePosition = new Vector3(this.BubblePartnerDestination.relativePosition.x, 2f);
-            this.BubbleFamilyMember4ActivityDestination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            BubbleFamilyMember4ActivityDestination = BubbleFamilyMember4ActivityBgBar.AddUIComponent<UIButton>();
+            BubbleFamilyMember4ActivityDestination.name = "BubbleFamilyMember4ActivityDestination";
+            BubbleFamilyMember4ActivityDestination.width = BubbleFamilyMember4ActivityBgBar.width - BubbleFamilyMember4ActivityVehicleButton.width;
+            BubbleFamilyMember4ActivityDestination.height = BubbleFamilyMember4ActivityBgBar.height;
+            BubbleFamilyMember4ActivityDestination.textVerticalAlignment = UIVerticalAlignment.Middle;
+            BubbleFamilyMember4ActivityDestination.textHorizontalAlignment = 0;
+            BubbleFamilyMember4ActivityDestination.playAudioEvents = true;
+            BubbleFamilyMember4ActivityDestination.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            BubbleFamilyMember4ActivityDestination.font.size = 15;
+            BubbleFamilyMember4ActivityDestination.textScale = 0.75f;
+            BubbleFamilyMember4ActivityDestination.wordWrap = true;
+            BubbleFamilyMember4ActivityDestination.textPadding.left = 0;
+            BubbleFamilyMember4ActivityDestination.textPadding.right = 5;
+            BubbleFamilyMember4ActivityDestination.outlineColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember4ActivityDestination.outlineSize = 1;
+            BubbleFamilyMember4ActivityDestination.textColor = new Color32(21, 59, 96, 140);
+            BubbleFamilyMember4ActivityDestination.hoveredTextColor = new Color32(204, 102, 0, 20);
+            BubbleFamilyMember4ActivityDestination.pressedTextColor = new Color32(153, 0, 0, 0);
+            BubbleFamilyMember4ActivityDestination.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+            BubbleFamilyMember4ActivityDestination.disabledTextColor = new Color32(51, 51, 51, 160);
+            BubbleFamilyMember4ActivityDestination.useDropShadow = true;
+            BubbleFamilyMember4ActivityDestination.dropShadowOffset = new Vector2(1f, -1f);
+            BubbleFamilyMember4ActivityDestination.dropShadowColor = new Color32(0, 0, 0, 0);
+            BubbleFamilyMember4ActivityDestination.maximumSize = new Vector2(BubbleFamilyMember4ActivityDestination.width, BubbleFamilyMember4ActivityBgBar.height);
+            BubbleFamilyMember4ActivityDestination.relativePosition = new Vector3(BubblePartnerDestination.relativePosition.x, 2f);
+            BubbleFamilyMember4ActivityDestination.eventMouseUp += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                this.GoToInstance(this.Parent4Target, eventParam);
+                GoToInstance(Parent4Target, eventParam);
             };
-            base.absolutePosition = new Vector3((float)random.Next(num, num2), 200f);
+            absolutePosition = new Vector3((float)random.Next(num, num2), 200f);
         }
 
         public override void Update()
@@ -2165,26 +2137,24 @@ namespace FavoriteCims.UI.Panels
             bool unLoading = FavCimsMainClass.UnLoading;
             if (!unLoading)
             {
-                bool isEmpty = this.MyInstanceID.IsEmpty;
+                bool isEmpty = MyInstanceID.IsEmpty;
                 if (!isEmpty)
                 {
-                    bool flag = this.MyInstanceID != this.PrevMyInstanceID;
-                    if (flag)
+                    if (MyInstanceID != PrevMyInstanceID)
                     {
-                        this.DogOwner = 0U;
-                        this.FirstRun = true;
-                        this.PrevMyInstanceID = this.MyInstanceID;
+                        DogOwner = 0U;
+                        FirstRun = true;
+                        PrevMyInstanceID = MyInstanceID;
                     }
-                    this.seconds -= 1f * Time.deltaTime;
-                    bool flag2 = this.seconds <= 0f || this.FirstRun;
-                    if (flag2)
+                    seconds -= 1f * Time.deltaTime;
+                    if (seconds <= 0f || FirstRun)
                     {
-                        this.execute = true;
-                        this.seconds = 0.3f;
+                        execute = true;
+                        seconds = 0.3f;
                     }
                     else
                     {
-                        this.execute = false;
+                        execute = false;
                     }
                 }
             }
@@ -2195,264 +2165,225 @@ namespace FavoriteCims.UI.Panels
             bool unLoading = FavCimsMainClass.UnLoading;
             if (!unLoading)
             {
-                bool flag = this.execute || this.FirstRun;
-                if (flag)
+                if (execute || FirstRun)
                 {
                     bool isVisible = base.isVisible;
                     if (isVisible)
                     {
                         try
                         {
-                            this.citizen = this.MyInstanceID.Citizen;
-                            this.CitizenData = this.MyCitizen.m_citizens.m_buffer[(int)this.citizen];
-                            this.BubbleCitizenAge.text = FavCimsLang.Text("FavCimsAgeColText_text");
-                            this.BubbleCitizenAgePhase.text = FavCimsLang.Text("FavCimsAgePhaseColText_text");
-                            this.BubbleCitizenEducation.text = FavCimsLang.Text("FavCimsEduColText_text");
-                            this.BubbleWealthSprite.tooltip = FavCimsLang.Text("Wealth_Label");
-                            this.FavCimsDistrictLabel.text = FavCimsLang.Text("District_Label");
-                            this.BubbleFamilyBarLabel.text = FavCimsLang.Text("Citizen_Family_unit");
-                            this.NoChildsFButton.text = FavCimsLang.Text("Citizen_Details_No_Childs");
-                            this.NoPartnerFButton.text = FavCimsLang.Text("Citizen_Details_No_Partner");
-                            this.MyCitizenUnit = this.CitizenData.GetContainingUnit(this.citizen, this.MyBuilding.m_buildings.m_buffer[(int)this.CitizenData.m_homeBuilding].m_citizenUnits, CitizenUnit.Flags.Home);
-                            bool flag2 = this.MyCitizenUnit > 0U;
-                            if (flag2)
+                            citizen = MyInstanceID.Citizen;
+                            CitizenData = MyCitizen.m_citizens.m_buffer[(int)citizen];
+                            BubbleCitizenAge.text = FavCimsLang.Text("FavCimsAgeColText_text");
+                            BubbleCitizenAgePhase.text = FavCimsLang.Text("FavCimsAgePhaseColText_text");
+                            BubbleCitizenEducation.text = FavCimsLang.Text("FavCimsEduColText_text");
+                            BubbleWealthSprite.tooltip = FavCimsLang.Text("Wealth_Label");
+                            FavCimsDistrictLabel.text = FavCimsLang.Text("District_Label");
+                            BubbleFamilyBarLabel.text = FavCimsLang.Text("Citizen_Family_unit");
+                            NoChildsFButton.text = FavCimsLang.Text("Citizen_Details_No_Childs");
+                            NoPartnerFButton.text = FavCimsLang.Text("Citizen_Details_No_Partner");
+                            MyCitizenUnit = CitizenData.GetContainingUnit(citizen, MyBuilding.m_buildings.m_buffer[CitizenData.m_homeBuilding].m_citizenUnits, CitizenUnit.Flags.Home);
+                            if (MyCitizenUnit > 0U)
                             {
-                                this.Family = this.MyCitizen.m_units.m_buffer[(int)this.MyCitizenUnit];
-                                this.BubbleHeaderCitizenName.text = this.MyCitizen.GetCitizenName(this.citizen);
-                                Citizen.Gender gender = Citizen.GetGender(this.citizen);
-                                bool flag3 = gender == Citizen.Gender.Female;
-                                if (flag3)
+                                Family = MyCitizen.m_units.m_buffer[(int)MyCitizenUnit];
+                                BubbleHeaderCitizenName.text = MyCitizen.GetCitizenName(citizen);
+                                Citizen.Gender gender = Citizen.GetGender(citizen);
+                                if (gender == Citizen.Gender.Female)
                                 {
-                                    this.BubbleHeaderIconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureFemale;
-                                    this.BubbleHeaderCitizenName.textColor = new Color32(byte.MaxValue, 102, 204, 213);
-                                    this.BubbleHeaderCitizenName.hoveredTextColor = new Color32(byte.MaxValue, 102, 204, 213);
-                                    this.BubbleHeaderCitizenName.pressedTextColor = new Color32(byte.MaxValue, 102, 204, 213);
-                                    this.BubbleHeaderCitizenName.focusedTextColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                    BubbleHeaderIconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureFemale;
+                                    BubbleHeaderCitizenName.textColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                    BubbleHeaderCitizenName.hoveredTextColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                    BubbleHeaderCitizenName.pressedTextColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                    BubbleHeaderCitizenName.focusedTextColor = new Color32(byte.MaxValue, 102, 204, 213);
                                 }
                                 else
                                 {
-                                    this.BubbleHeaderIconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
-                                    this.BubbleHeaderCitizenName.textColor = new Color32(204, 204, 51, 40);
-                                    this.BubbleHeaderCitizenName.hoveredTextColor = new Color32(204, 204, 51, 40);
-                                    this.BubbleHeaderCitizenName.pressedTextColor = new Color32(204, 204, 51, 40);
-                                    this.BubbleHeaderCitizenName.focusedTextColor = new Color32(204, 204, 51, 40);
+                                    BubbleHeaderIconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
+                                    BubbleHeaderCitizenName.textColor = new Color32(204, 204, 51, 40);
+                                    BubbleHeaderCitizenName.hoveredTextColor = new Color32(204, 204, 51, 40);
+                                    BubbleHeaderCitizenName.pressedTextColor = new Color32(204, 204, 51, 40);
+                                    BubbleHeaderCitizenName.focusedTextColor = new Color32(204, 204, 51, 40);
                                 }
-                                int health = (int)this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_health;
-                                string healthString = FamilyPanelTemplate.GetHealthString(Citizen.GetHealthLevel(health));
-                                this.BubbleHealthSprite.normalBgSprite = healthString;
-                                this.BubbleHealthSprite.tooltip = Locale.Get("INFO_HEALTH_TITLE");
-                                this.BubbleHealthValue.text = FavCimsLang.Text("Health_Level_" + FamilyPanelTemplate.sHealthLevels[(int)Citizen.GetHealthLevel(health)] + "_" + Citizen.GetGender(this.citizen).ToString());
+                                int health = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_health;
+                                string healthString = GetHealthString(Citizen.GetHealthLevel(health));
+                                BubbleHealthSprite.normalBgSprite = healthString;
+                                BubbleHealthSprite.tooltip = Locale.Get("INFO_HEALTH_TITLE");
+                                BubbleHealthValue.text = FavCimsLang.Text("Health_Level_" + sHealthLevels[(int)Citizen.GetHealthLevel(health)] + "_" + Citizen.GetGender(citizen).ToString());
                                 switch (Citizen.GetHealthLevel(health))
                                 {
                                     case Citizen.Health.VerySick:
-                                        this.BubbleHealthValue.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                        BubbleHealthValue.textColor = new Color32(byte.MaxValue, 0, 0, 0);
                                         break;
                                     case Citizen.Health.Sick:
-                                        this.BubbleHealthValue.textColor = new Color32(153, 0, 0, 0);
+                                        BubbleHealthValue.textColor = new Color32(153, 0, 0, 0);
                                         break;
                                     case Citizen.Health.PoorHealth:
-                                        this.BubbleHealthValue.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                        BubbleHealthValue.textColor = new Color32(byte.MaxValue, 204, 0, 32);
                                         break;
                                     case Citizen.Health.Healthy:
-                                        this.BubbleHealthValue.textColor = new Color32(102, 204, 0, 60);
+                                        BubbleHealthValue.textColor = new Color32(102, 204, 0, 60);
                                         break;
                                     case Citizen.Health.VeryHealthy:
-                                        this.BubbleHealthValue.textColor = new Color32(0, 102, 51, 100);
+                                        BubbleHealthValue.textColor = new Color32(0, 102, 51, 100);
                                         break;
                                     case Citizen.Health.ExcellentHealth:
-                                        this.BubbleHealthValue.textColor = new Color32(0, 102, 51, 100);
+                                        BubbleHealthValue.textColor = new Color32(0, 102, 51, 100);
                                         break;
                                 }
-                                Citizen.Education educationLevel = this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].EducationLevel;
+                                Citizen.Education educationLevel = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].EducationLevel;
                                 string text = educationLevel.ToString();
-                                this.BubbleRow1EducationTooltipArea.tooltip = FavCimsLang.Text("Education_" + text + "_" + Citizen.GetGender(this.citizen).ToString());
-                                bool flag4 = text == "ThreeSchools";
-                                if (flag4)
+                                BubbleRow1EducationTooltipArea.tooltip = FavCimsLang.Text("Education_" + text + "_" + Citizen.GetGender(citizen).ToString());
+                                
+                                switch(text)
                                 {
-                                    this.BubbleEduLevel3.isEnabled = true;
-                                    this.BubbleEduLevel2.isEnabled = true;
-                                    this.BubbleEduLevel1.isEnabled = true;
+                                    case "ThreeSchools":
+                                        BubbleEduLevel3.isEnabled = true;
+                                        BubbleEduLevel2.isEnabled = true;
+                                        BubbleEduLevel1.isEnabled = true;
+                                        break;
+                                    case "TwoSchools":
+                                        BubbleEduLevel3.isEnabled = false;
+                                        BubbleEduLevel2.isEnabled = true;
+                                        BubbleEduLevel1.isEnabled = true;
+                                        break;
+                                    case "OneSchool":
+                                        BubbleEduLevel3.isEnabled = false;
+                                        BubbleEduLevel2.isEnabled = false;
+                                        BubbleEduLevel1.isEnabled = true;
+                                        break;
+                                    default:
+                                        BubbleEduLevel3.isEnabled = false;
+                                        BubbleEduLevel2.isEnabled = false;
+                                        BubbleEduLevel1.isEnabled = false;
+                                        break;
+                                }
+
+                                int wellbeing = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_wellbeing;
+                                string happinessString = GetHappinessString(Citizen.GetHappinessLevel(wellbeing));
+                                BubbleRow2WellbeingIcon.normalBgSprite = happinessString;
+                                BubbleRow2WellbeingIcon.tooltip = FavCimsLang.Text("WellBeingLabel") + FavCimsLang.Text(happinessString);
+                                Citizen.Wealth wealthLevel = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].WealthLevel;
+                                BubbleRow2WealthValueVal.tooltip = FavCimsLang.Text("Wealth_Label");
+                                if (wealthLevel == 0)
+                                {
+                                    BubbleRow2WealthValueVal.text = FavCimsLang.Text("Low_Wealth_" + Citizen.GetGender(citizen).ToString());
+                                    BubbleRow2WealthValueVal.textColor = new Color32(153, 0, 0, 0);
                                 }
                                 else
                                 {
-                                    bool flag5 = text == "TwoSchools";
-                                    if (flag5)
+                                    if (wealthLevel == Citizen.Wealth.Medium)
                                     {
-                                        this.BubbleEduLevel3.isEnabled = false;
-                                        this.BubbleEduLevel2.isEnabled = true;
-                                        this.BubbleEduLevel1.isEnabled = true;
+                                        BubbleRow2WealthValueVal.text = FavCimsLang.Text("Mid_Wealth_" + Citizen.GetGender(citizen).ToString());
+                                        BubbleRow2WealthValueVal.textColor = new Color32(byte.MaxValue, 204, 0, 32);
                                     }
                                     else
                                     {
-                                        bool flag6 = text == "OneSchool";
-                                        if (flag6)
-                                        {
-                                            this.BubbleEduLevel3.isEnabled = false;
-                                            this.BubbleEduLevel2.isEnabled = false;
-                                            this.BubbleEduLevel1.isEnabled = true;
-                                        }
-                                        else
-                                        {
-                                            this.BubbleEduLevel3.isEnabled = false;
-                                            this.BubbleEduLevel2.isEnabled = false;
-                                            this.BubbleEduLevel1.isEnabled = false;
-                                        }
-                                    }
-                                }
-                                int wellbeing = (int)this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_wellbeing;
-                                string happinessString = FamilyPanelTemplate.GetHappinessString(Citizen.GetHappinessLevel(wellbeing));
-                                this.BubbleRow2WellbeingIcon.normalBgSprite = happinessString;
-                                this.BubbleRow2WellbeingIcon.tooltip = FavCimsLang.Text("WellBeingLabel") + FavCimsLang.Text(happinessString);
-                                Citizen.Wealth wealthLevel = this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].WealthLevel;
-                                this.BubbleRow2WealthValueVal.tooltip = FavCimsLang.Text("Wealth_Label");
-                                bool flag7 = wealthLevel == 0;
-                                if (flag7)
-                                {
-                                    this.BubbleRow2WealthValueVal.text = FavCimsLang.Text("Low_Wealth_" + Citizen.GetGender(this.citizen).ToString());
-                                    this.BubbleRow2WealthValueVal.textColor = new Color32(153, 0, 0, 0);
-                                }
-                                else
-                                {
-                                    bool flag8 = wealthLevel == Citizen.Wealth.Medium;
-                                    if (flag8)
-                                    {
-                                        this.BubbleRow2WealthValueVal.text = FavCimsLang.Text("Mid_Wealth_" + Citizen.GetGender(this.citizen).ToString());
-                                        this.BubbleRow2WealthValueVal.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                    }
-                                    else
-                                    {
-                                        this.BubbleRow2WealthValueVal.text = FavCimsLang.Text("High_Wealth_" + Citizen.GetGender(this.citizen).ToString());
-                                        this.BubbleRow2WealthValueVal.textColor = new Color32(102, 204, 0, 60);
+                                        BubbleRow2WealthValueVal.text = FavCimsLang.Text("High_Wealth_" + Citizen.GetGender(citizen).ToString());
+                                        BubbleRow2WealthValueVal.textColor = new Color32(102, 204, 0, 60);
                                     }
                                 }
                                 int happiness = Citizen.GetHappiness(health, wellbeing);
-                                string happinessString2 = FamilyPanelTemplate.GetHappinessString(Citizen.GetHappinessLevel(happiness));
-                                bool flag9 = this.MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)this.citizen)))].Arrested && this.MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)this.citizen)))].Criminal;
-                                if (flag9)
+                                string happinessString2 = GetHappinessString(Citizen.GetHappinessLevel(happiness));
+                                if (MyCitizen.m_citizens.m_buffer[citizen].Arrested && MyCitizen.m_citizens.m_buffer[citizen].Criminal)
                                 {
-                                    this.BubbleRow1HappyIcon.atlas = MyAtlas.FavCimsAtlas;
-                                    this.BubbleRow1HappyIcon.normalBgSprite = "FavCimsCrimeArrested";
-                                    this.BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("Citizen_Arrested");
+                                    BubbleRow1HappyIcon.atlas = MyAtlas.FavCimsAtlas;
+                                    BubbleRow1HappyIcon.normalBgSprite = "FavCimsCrimeArrested";
+                                    BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("Citizen_Arrested");
                                 }
                                 else
                                 {
-                                    this.BubbleRow1HappyIcon.atlas = UIView.GetAView().defaultAtlas;
-                                    this.BubbleRow1HappyIcon.normalBgSprite = happinessString2;
-                                    this.BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("HappinessLabel") + FavCimsLang.Text(happinessString2);
+                                    BubbleRow1HappyIcon.atlas = UIView.GetAView().defaultAtlas;
+                                    BubbleRow1HappyIcon.normalBgSprite = happinessString2;
+                                    BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("HappinessLabel") + FavCimsLang.Text(happinessString2);
                                 }
-                                int age = (int)this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_age;
+                                int age = (int)MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_age;
                                 string text2 = Citizen.GetAgeGroup(age).ToString();
-                                this.BubbleCitizenAgePhaseVal.text = FavCimsLang.Text("AgePhase_" + text2 + "_" + Citizen.GetGender(this.citizen).ToString());
-                                this.RealAge = FavCimsCore.CalculateCitizenAge(age);
-                                bool flag10 = this.RealAge <= 12;
-                                if (flag10)
+                                BubbleCitizenAgePhaseVal.text = FavCimsLang.Text("AgePhase_" + text2 + "_" + Citizen.GetGender(citizen).ToString());
+                                RealAge = FavCimsCore.CalculateCitizenAge(age);
+
+                                switch (RealAge)
                                 {
-                                    this.BubbleCitizenAgeVal.text = this.RealAge.ToString();
-                                    this.BubbleCitizenAgeVal.textColor = new Color32(83, 166, 0, 60);
-                                    this.BubbleCitizenAgePhaseVal.textColor = new Color32(83, 166, 0, 60);
+                                    case int n when n <= 12:
+                                        BubbleCitizenAgeVal.text = RealAge.ToString();
+                                        BubbleCitizenAgeVal.textColor = new Color32(83, 166, 0, 60);
+                                        BubbleCitizenAgePhaseVal.textColor = new Color32(83, 166, 0, 60);
+                                        break;
+                                    case int n when n <= 19:
+                                        BubbleCitizenAgeVal.text = RealAge.ToString();
+                                        BubbleCitizenAgeVal.textColor = new Color32(0, 102, 51, 100);
+                                        BubbleCitizenAgePhaseVal.textColor = new Color32(0, 102, 51, 100);
+                                        break;
+                                    case int n when n <= 25:
+                                        BubbleCitizenAgeVal.text = RealAge.ToString();
+                                        BubbleCitizenAgeVal.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                        BubbleCitizenAgePhaseVal.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                        break;
+                                    case int n when n <= 65:
+                                        BubbleCitizenAgeVal.text = RealAge.ToString();
+                                        BubbleCitizenAgeVal.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                        BubbleCitizenAgePhaseVal.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                        break;
+                                    case int n when n <= 90:
+                                        BubbleCitizenAgeVal.text = RealAge.ToString();
+                                        BubbleCitizenAgeVal.textColor = new Color32(153, 0, 0, 0);
+                                        BubbleCitizenAgePhaseVal.textColor = new Color32(153, 0, 0, 0);
+                                        break;
+                                    default:
+                                        BubbleCitizenAgeVal.text = RealAge.ToString();
+                                        BubbleCitizenAgeVal.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                        BubbleCitizenAgePhaseVal.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                        break;
+                                }
+
+                                WorkPlace = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_workBuilding;
+                                if (MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].GetCurrentSchoolLevel(citizen) != ItemClass.Level.None)
+                                {
+                                    isStudent = true;
+                                    FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
+                                    FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTextureStudent;
+                                    FavCimsCitizenWorkPlaceLevelSprite.texture = null;
+                                    FavCimsWorkingPlace.tooltip = Locale.Get("CITIZEN_SCHOOL_LEVEL", MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].GetCurrentSchoolLevel(citizen).ToString()) + " " + MyBuilding.GetBuildingName(WorkPlace, MyInstanceID);
                                 }
                                 else
                                 {
-                                    bool flag11 = this.RealAge <= 19;
-                                    if (flag11)
+                                    if (WorkPlace == 0)
                                     {
-                                        this.BubbleCitizenAgeVal.text = this.RealAge.ToString();
-                                        this.BubbleCitizenAgeVal.textColor = new Color32(0, 102, 51, 100);
-                                        this.BubbleCitizenAgePhaseVal.textColor = new Color32(0, 102, 51, 100);
-                                    }
-                                    else
-                                    {
-                                        bool flag12 = this.RealAge <= 25;
-                                        if (flag12)
+                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
+                                        if (age >= 180)
                                         {
-                                            this.BubbleCitizenAgeVal.text = this.RealAge.ToString();
-                                            this.BubbleCitizenAgeVal.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                            this.BubbleCitizenAgePhaseVal.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                            FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTextureRetired;
+                                            FavCimsWorkingPlace.text = FavCimsLang.Text("Citizen_Retired");
+                                            FavCimsWorkingPlace.isEnabled = false;
+                                            FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Citizen_Retired_tooltip");
+                                            FavCimsWorkingPlaceSprite.tooltip = null;
+                                            FavCimsWorkingPlaceButtonGamDefImg.tooltip = null;
+                                            FavCimsCitizenWorkPlaceLevelSprite.texture = null;
                                         }
                                         else
                                         {
-                                            bool flag13 = this.RealAge <= 65;
-                                            if (flag13)
-                                            {
-                                                this.BubbleCitizenAgeVal.text = this.RealAge.ToString();
-                                                this.BubbleCitizenAgeVal.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                                this.BubbleCitizenAgePhaseVal.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                            }
-                                            else
-                                            {
-                                                bool flag14 = this.RealAge <= 90;
-                                                if (flag14)
-                                                {
-                                                    this.BubbleCitizenAgeVal.text = this.RealAge.ToString();
-                                                    this.BubbleCitizenAgeVal.textColor = new Color32(153, 0, 0, 0);
-                                                    this.BubbleCitizenAgePhaseVal.textColor = new Color32(153, 0, 0, 0);
-                                                }
-                                                else
-                                                {
-                                                    this.BubbleCitizenAgeVal.text = this.RealAge.ToString();
-                                                    this.BubbleCitizenAgeVal.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                    this.BubbleCitizenAgePhaseVal.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                }
-                                            }
+                                            FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTexture;
+                                            FavCimsWorkingPlace.text = Locale.Get("CITIZEN_OCCUPATION_UNEMPLOYED");
+                                            FavCimsWorkingPlace.isEnabled = false;
+                                            FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Unemployed_tooltip");
+                                            FavCimsWorkingPlaceSprite.tooltip = null;
+                                            FavCimsWorkingPlaceButtonGamDefImg.tooltip = null;
+                                            FavCimsCitizenWorkPlaceLevelSprite.texture = null;
                                         }
                                     }
                                 }
-                                this.WorkPlace = this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_workBuilding;
-                                bool flag15 = MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].GetCurrentSchoolLevel(this.citizen) != ItemClass.Level.None;
-                                if (flag15)
-                                {
-                                    this.isStudent = true;
-                                    this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
-                                    this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTextureStudent;
-                                    this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
-                                    this.FavCimsWorkingPlace.tooltip = Locale.Get("CITIZEN_SCHOOL_LEVEL", this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].GetCurrentSchoolLevel(this.citizen).ToString()) + " " + this.MyBuilding.GetBuildingName(this.WorkPlace, this.MyInstanceID);
-                                }
-                                else
-                                {
-                                    bool flag16 = this.WorkPlace == 0;
-                                    if (flag16)
-                                    {
-                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
-                                        bool flag17 = age >= 180;
-                                        if (flag17)
-                                        {
-                                            this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTextureRetired;
-                                            this.FavCimsWorkingPlace.text = FavCimsLang.Text("Citizen_Retired");
-                                            this.FavCimsWorkingPlace.isEnabled = false;
-                                            this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Citizen_Retired_tooltip");
-                                            this.FavCimsWorkingPlaceSprite.tooltip = null;
-                                            this.FavCimsWorkingPlaceButtonGamDefImg.tooltip = null;
-                                            this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
-                                        }
-                                        else
-                                        {
-                                            this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTexture;
-                                            this.FavCimsWorkingPlace.text = Locale.Get("CITIZEN_OCCUPATION_UNEMPLOYED");
-                                            this.FavCimsWorkingPlace.isEnabled = false;
-                                            this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Unemployed_tooltip");
-                                            this.FavCimsWorkingPlaceSprite.tooltip = null;
-                                            this.FavCimsWorkingPlaceButtonGamDefImg.tooltip = null;
-                                            this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
-                                        }
-                                    }
-                                }
-                                bool flag18 = this.WorkPlace > 0;
-                                if (flag18)
+                                if (WorkPlace > 0)
                                 {
                                     string text3 = string.Empty;
-                                    bool flag19 = !this.isStudent;
-                                    if (flag19)
+                                    if (!isStudent)
                                     {
-                                        CommonBuildingAI commonBuildingAI = this.MyBuilding.m_buildings.m_buffer[(int)this.WorkPlace].Info.m_buildingAI as CommonBuildingAI;
-                                        bool flag20 = commonBuildingAI != null;
-                                        if (flag20)
+                                        CommonBuildingAI commonBuildingAI = MyBuilding.m_buildings.m_buffer[(int)WorkPlace].Info.m_buildingAI as CommonBuildingAI;
+                                        if (commonBuildingAI != null)
                                         {
-                                            text3 = commonBuildingAI.GetTitle(gender, educationLevel, this.WorkPlace, this.citizen);
+                                            text3 = commonBuildingAI.GetTitle(gender, educationLevel, WorkPlace, citizen);
                                         }
-                                        bool flag21 = text3 == string.Empty;
-                                        if (flag21)
+                                        if (text3 == string.Empty)
                                         {
-                                            int num = new Randomizer((uint)this.WorkPlace + this.citizen).Int32(1, 5);
+                                            int num = new Randomizer(WorkPlace + citizen).Int32(1, 5);
                                             switch (educationLevel)
                                             {
                                                 case Citizen.Education.Uneducated:
@@ -2470,1212 +2401,1018 @@ namespace FavoriteCims.UI.Panels
                                             }
                                         }
                                     }
-                                    this.WorkPlaceID.Building = this.WorkPlace;
-                                    this.FavCimsWorkingPlace.text = text3 + " " + this.MyBuilding.GetBuildingName(this.WorkPlace, this.MyInstanceID);
-                                    this.FavCimsWorkingPlace.isEnabled = true;
-                                    this.WorkInfo = this.MyBuilding.m_buildings.m_buffer[(int)this.WorkPlaceID.Index].Info;
-                                    bool flag22 = this.WorkInfo.m_class.m_service == ItemClass.Service.Commercial;
-                                    if (flag22)
+                                    WorkPlaceID.Building = WorkPlace;
+                                    FavCimsWorkingPlace.text = text3 + " " + MyBuilding.GetBuildingName(WorkPlace, MyInstanceID);
+                                    FavCimsWorkingPlace.isEnabled = true;
+                                    WorkInfo = MyBuilding.m_buildings.m_buffer[(int)WorkPlaceID.Index].Info;
+                                    if (WorkInfo.m_class.m_service == ItemClass.Service.Commercial)
                                     {
-                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
-                                        bool flag23 = this.WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialHigh;
-                                        if (flag23)
+                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
+
+                                        switch (WorkInfo.m_class.m_subService)
                                         {
-                                            this.FavCimsWorkingPlace.textColor = new Color32(0, 51, 153, 147);
-                                            this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                            this.FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 4.ToString());
+                                            case ItemClass.SubService.CommercialHigh:
+                                                FavCimsWorkingPlace.textColor = new Color32(0, 51, 153, 147);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
+                                                FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 4.ToString());
+                                                break;
+                                            case ItemClass.SubService.CommercialEco:
+                                                FavCimsWorkingPlace.textColor = new Color32(0, 150, 136, 116);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
+                                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialEco");
+                                                break;
+                                            case ItemClass.SubService.CommercialLeisure:
+                                                FavCimsWorkingPlace.textColor = new Color32(219, 68, 55, 3);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
+                                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialLeisure");
+                                                break;
+                                            case ItemClass.SubService.CommercialTourist:
+                                                FavCimsWorkingPlace.textColor = new Color32(156, 39, 176, 194);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
+                                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialTourist");
+                                                break;
+                                            default:
+                                                FavCimsWorkingPlace.textColor = new Color32(0, 153, 204, 130);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialLowTexture;
+                                                FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 3.ToString());
+                                                break;
                                         }
-                                        else
+
+                                        if (WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialHigh || WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialLow)
                                         {
-                                            bool flag24 = this.WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialEco;
-                                            if (flag24)
+                                            switch (WorkInfo.m_class.m_level)
                                             {
-                                                this.FavCimsWorkingPlace.textColor = new Color32(0, 150, 136, 116);
-                                                this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialEco");
-                                            }
-                                            else
-                                            {
-                                                bool flag25 = this.WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialLeisure;
-                                                if (flag25)
-                                                {
-                                                    this.FavCimsWorkingPlace.textColor = new Color32(219, 68, 55, 3);
-                                                    this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                    this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialLeisure");
-                                                }
-                                                else
-                                                {
-                                                    bool flag26 = this.WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialTourist;
-                                                    if (flag26)
-                                                    {
-                                                        this.FavCimsWorkingPlace.textColor = new Color32(156, 39, 176, 194);
-                                                        this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialTourist");
-                                                    }
-                                                    else
-                                                    {
-                                                        this.FavCimsWorkingPlace.textColor = new Color32(0, 153, 204, 130);
-                                                        this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialLowTexture;
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 3.ToString());
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        bool flag27 = this.WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialHigh || this.WorkInfo.m_class.m_subService == ItemClass.SubService.CommercialLow;
-                                        if (flag27)
-                                        {
-                                            ItemClass.Level level = this.WorkInfo.m_class.m_level;
-                                            ItemClass.Level level2 = level;
-                                            if (level2 != ItemClass.Level.Level2)
-                                            {
-                                                if (level2 != ItemClass.Level.Level3)
-                                                {
-                                                    this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsCommercialLevel[1];
-                                                }
-                                                else
-                                                {
-                                                    this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsCommercialLevel[3];
-                                                }
-                                            }
-                                            else
-                                            {
-                                                this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsCommercialLevel[2];
+                                                case ItemClass.Level.Level2:
+                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsCommercialLevel[2];
+                                                    break;
+                                                case ItemClass.Level.Level3:
+                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsResidentialLevel[3];
+                                                    break;
+                                                default:
+                                                    FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsResidentialLevel[1];
+                                                    break;
                                             }
                                         }
                                         else
                                         {
-                                            this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
+                                            FavCimsCitizenWorkPlaceLevelSprite.texture = null;
                                         }
                                     }
                                     else
                                     {
-                                        bool flag28 = this.WorkInfo.m_class.m_service == ItemClass.Service.Industrial;
-                                        if (flag28)
+                                        if (WorkInfo.m_class.m_service == ItemClass.Service.Industrial)
                                         {
-                                            this.FavCimsWorkingPlace.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                            this.FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", "Industrial");
-                                            ItemClass.SubService subService = this.WorkInfo.m_class.m_subService;
+                                            FavCimsWorkingPlace.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                            FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", "Industrial");
+                                            ItemClass.SubService subService = WorkInfo.m_class.m_subService;
                                             ItemClass.SubService subService2 = subService;
                                             switch (subService2)
                                             {
                                                 case ItemClass.SubService.IndustrialForestry:
-                                                    this.FavCimsWorkingPlaceSprite.texture = null;
-                                                    this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "ResourceForestry";
+                                                    FavCimsWorkingPlaceSprite.texture = null;
+                                                    FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "ResourceForestry";
                                                     break;
                                                 case ItemClass.SubService.IndustrialFarming:
-                                                    this.FavCimsWorkingPlaceSprite.texture = null;
-                                                    this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyFarming";
+                                                    FavCimsWorkingPlaceSprite.texture = null;
+                                                    FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyFarming";
                                                     break;
                                                 case ItemClass.SubService.IndustrialOil:
-                                                    this.FavCimsWorkingPlaceSprite.texture = null;
-                                                    this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyOil";
+                                                    FavCimsWorkingPlaceSprite.texture = null;
+                                                    FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyOil";
                                                     break;
                                                 case ItemClass.SubService.IndustrialOre:
-                                                    this.FavCimsWorkingPlaceSprite.texture = null;
-                                                    this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyOre";
+                                                    FavCimsWorkingPlaceSprite.texture = null;
+                                                    FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyOre";
                                                     break;
                                                 default:
                                                     switch (subService2)
                                                     {
                                                         case ItemClass.SubService.PlayerIndustryForestry:
-                                                            this.FavCimsWorkingPlaceSprite.texture = null;
-                                                            this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "ResourceForestry";
+                                                            FavCimsWorkingPlaceSprite.texture = null;
+                                                            FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "ResourceForestry";
                                                             break;
                                                         case ItemClass.SubService.PlayerIndustryFarming:
-                                                            this.FavCimsWorkingPlaceSprite.texture = null;
-                                                            this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyFarming";
+                                                            FavCimsWorkingPlaceSprite.texture = null;
+                                                            FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyFarming";
                                                             break;
                                                         case ItemClass.SubService.PlayerIndustryOil:
-                                                            this.FavCimsWorkingPlaceSprite.texture = null;
-                                                            this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyOil";
+                                                            FavCimsWorkingPlaceSprite.texture = null;
+                                                            FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyOil";
                                                             break;
                                                         case ItemClass.SubService.PlayerIndustryOre:
-                                                            this.FavCimsWorkingPlaceSprite.texture = null;
-                                                            this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyOre";
+                                                            FavCimsWorkingPlaceSprite.texture = null;
+                                                            FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyOre";
                                                             break;
                                                         default:
-                                                            this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
-                                                            this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenIndustrialGenericTexture;
+                                                            FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
+                                                            FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenIndustrialGenericTexture;
                                                             break;
                                                     }
                                                     break;
                                             }
-                                            bool flag29 = this.WorkInfo.m_class.m_subService == ItemClass.SubService.IndustrialGeneric;
-                                            if (flag29)
+                                            if (WorkInfo.m_class.m_subService == ItemClass.SubService.IndustrialGeneric)
                                             {
-                                                ItemClass.Level level3 = this.WorkInfo.m_class.m_level;
-                                                ItemClass.Level level4 = level3;
-                                                if (level4 != ItemClass.Level.Level2)
+                                                switch (WorkInfo.m_class.m_level)
                                                 {
-                                                    if (level4 != ItemClass.Level.Level3)
-                                                    {
-                                                        this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[1];
-                                                    }
-                                                    else
-                                                    {
-                                                        this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[3];
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[2];
+                                                    case ItemClass.Level.Level2:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[2];
+                                                        break;
+                                                    case ItemClass.Level.Level3:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[3];
+                                                        break;
+                                                    default:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsIndustrialLevel[1];
+                                                        break;
                                                 }
                                             }
                                             else
                                             {
-                                                this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
+                                                FavCimsCitizenWorkPlaceLevelSprite.texture = null;
                                             }
                                         }
                                         else
                                         {
-                                            bool flag30 = this.WorkInfo.m_class.m_service == ItemClass.Service.Office;
-                                            if (flag30)
+                                            if (WorkInfo.m_class.m_service == ItemClass.Service.Office)
                                             {
-                                                this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
-                                                this.FavCimsWorkingPlace.textColor = new Color32(0, 204, byte.MaxValue, 128);
-                                                this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenOfficeTexture;
-                                                ItemClass.SubService subService3 = this.WorkInfo.m_class.m_subService;
+                                                FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = null;
+                                                FavCimsWorkingPlace.textColor = new Color32(0, 204, byte.MaxValue, 128);
+                                                FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenOfficeTexture;
+                                                ItemClass.SubService subService3 = WorkInfo.m_class.m_subService;
                                                 ItemClass.SubService subService4 = subService3;
                                                 if (subService4 != ItemClass.SubService.OfficeHightech)
                                                 {
-                                                    this.FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", "Office");
+                                                    FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", "Office");
                                                 }
                                                 else
                                                 {
-                                                    this.FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", "Office") + " Eco";
+                                                    FavCimsWorkingPlace.tooltip = Locale.Get("ZONEDBUILDING_TITLE", "Office") + " Eco";
                                                 }
-                                                ItemClass.Level level5 = this.WorkInfo.m_class.m_level;
-                                                ItemClass.Level level6 = level5;
-                                                if (level6 != ItemClass.Level.Level2)
+   
+                                                switch (WorkInfo.m_class.m_level)
                                                 {
-                                                    if (level6 != ItemClass.Level.Level3)
-                                                    {
-                                                        this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[1];
-                                                    }
-                                                    else
-                                                    {
-                                                        this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[3];
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    this.FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[2];
+                                                    case ItemClass.Level.Level2:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[2];
+                                                        break;
+                                                    case ItemClass.Level.Level3:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[3];
+                                                        break;
+                                                    default:
+                                                        FavCimsCitizenWorkPlaceLevelSprite.texture = TextureDB.FavCimsOfficeLevel[1];
+                                                        break;
                                                 }
                                             }
                                             else
                                             {
-                                                this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
-                                                this.FavCimsWorkingPlaceSprite.texture = null;
-                                                this.FavCimsWorkingPlace.textColor = new Color32(153, 102, 51, 20);
-                                                switch (this.WorkInfo.m_class.m_service)
+                                                FavCimsCitizenWorkPlaceLevelSprite.texture = null;
+                                                FavCimsWorkingPlaceSprite.texture = null;
+                                                FavCimsWorkingPlace.textColor = new Color32(153, 102, 51, 20);
+                                                bool found_service = false;
+                                                switch (WorkInfo.m_class.m_service)
                                                 {
                                                     case ItemClass.Service.Electricity:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyPowerSaving";
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Electricity_job");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyPowerSaving";
+                                                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Electricity_job");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.Water:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyWaterSaving";
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Water_job");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyWaterSaving";
+                                                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Water_job");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.Beautification:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarBeautificationParksnPlazas";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Beautification");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarBeautificationParksnPlazas";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Beautification");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.Garbage:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyRecycling";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Garbage");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyRecycling";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Garbage");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.HealthCare:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "ToolbarIconHealthcareFocused";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Healthcare");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "ToolbarIconHealthcareFocused";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Healthcare");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.PoliceDepartment:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "ToolbarIconPolice";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Police");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "ToolbarIconPolice";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Police");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.Education:
-                                                        this.FavCimsWorkingPlace.textColor = new Color32(0, 102, 51, 100);
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "InfoIconEducationPressed";
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlace.textColor = new Color32(0, 102, 51, 100);
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "InfoIconEducationPressed";
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.Monument:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "FeatureMonumentLevel6";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Monuments");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "FeatureMonumentLevel6";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Monuments");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.FireDepartment:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "InfoIconFireSafety";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "FireDepartment");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "InfoIconFireSafety";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "FireDepartment");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.PublicTransport:
                                                         {
-                                                            ItemClass.SubService subService5 = this.WorkInfo.m_class.m_subService;
+                                                            ItemClass.SubService subService5 = WorkInfo.m_class.m_subService;
                                                             ItemClass.SubService subService6 = subService5;
                                                             if (subService6 != ItemClass.SubService.PublicTransportPost)
                                                             {
-                                                                this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyFreePublicTransport";
-                                                                this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "PublicTransport");
+                                                                FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyFreePublicTransport";
+                                                                FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "PublicTransport");
                                                             }
                                                             else
                                                             {
-                                                                this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarPublicTransportPost";
-                                                                this.FavCimsWorkingPlace.tooltip = Locale.Get("SUBSERVICE_DESC", "Post");
+                                                                FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarPublicTransportPost";
+                                                                FavCimsWorkingPlace.tooltip = Locale.Get("SUBSERVICE_DESC", "Post");
                                                             }
-                                                            goto IL_19C1;
+                                                            found_service = true;
+                                                            break;
                                                         }
                                                     case ItemClass.Service.Disaster:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarFireDepartmentDisaster";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("MAIN_CATEGORY", "FireDepartmentDisaster");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarFireDepartmentDisaster";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("MAIN_CATEGORY", "FireDepartmentDisaster");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.Museums:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarCampusAreaMuseums";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("MAIN_CATEGORY", "CampusAreaMuseums");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarCampusAreaMuseums";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("MAIN_CATEGORY", "CampusAreaMuseums");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.VarsitySports:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarCampusAreaVarsitySports";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "VarsitySports");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarCampusAreaVarsitySports";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "VarsitySports");
+                                                        found_service = true;
+                                                        break;
                                                     case ItemClass.Service.Fishing:
-                                                        this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarIndustryFishing";
-                                                        this.FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Fishing");
-                                                        goto IL_19C1;
+                                                        FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarIndustryFishing";
+                                                        FavCimsWorkingPlace.tooltip = Locale.Get("SERVICE_DESC", "Fishing");
+                                                        found_service = true;
+                                                        break;
                                                 }
-                                                this.FavCimsWorkingPlace.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                                this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyNone";
-                                                this.FavCimsWorkingPlace.tooltip = null;
-                                            IL_19C1:;
+                                                if(!found_service)
+                                                {
+                                                    FavCimsWorkingPlace.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                                    FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyNone";
+                                                    FavCimsWorkingPlace.tooltip = null;
+                                                }
                                             }
                                         }
                                     }
-                                    this.WorkDistrict = (int)this.MyDistrict.GetDistrict(this.MyBuilding.m_buildings.m_buffer[(int)this.WorkPlaceID.Index].m_position);
-                                    bool flag31 = this.WorkDistrict == 0;
-                                    if (flag31)
+                                    WorkDistrict = MyDistrict.GetDistrict(MyBuilding.m_buildings.m_buffer[(int)WorkPlaceID.Index].m_position);
+                                    if (WorkDistrict == 0)
                                     {
-                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
+                                        FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                     }
                                     else
                                     {
-                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.WorkDistrict);
+                                        FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + MyDistrict.GetDistrictName(WorkDistrict);
                                     }
                                 }
                                 else
                                 {
-                                    this.FavCimsWorkingPlace.isEnabled = false;
-                                    this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
-                                    this.FavCimsWorkingPlaceButtonGamDefImg.tooltip = null;
-                                    this.FavCimsWorkingPlaceSprite.tooltip = null;
+                                    FavCimsWorkingPlace.isEnabled = false;
+                                    FavCimsCitizenWorkPlaceLevelSprite.texture = null;
+                                    FavCimsWorkingPlaceButtonGamDefImg.tooltip = null;
+                                    FavCimsWorkingPlaceSprite.tooltip = null;
                                 }
-                                this.CitizenHome = this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_homeBuilding;
-                                bool flag32 = this.CitizenHome > 0;
-                                if (flag32)
+                                CitizenHome = MyCitizen.m_citizens.m_buffer[(int)MyInstanceID.Index].m_homeBuilding;
+                                if (CitizenHome > 0)
                                 {
-                                    this.CitizenHomeID.Building = this.CitizenHome;
-                                    this.BubbleHomeName.text = this.MyBuilding.GetBuildingName(this.CitizenHome, this.MyInstanceID);
-                                    this.BubbleHomeName.isEnabled = true;
-                                    this.BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTexture;
-                                    this.HomeInfo = this.MyBuilding.m_buildings.m_buffer[(int)this.CitizenHomeID.Index].Info;
-                                    bool flag33 = this.HomeInfo.m_class.m_service == ItemClass.Service.Residential;
-                                    if (flag33)
+                                    CitizenHomeID.Building = CitizenHome;
+                                    BubbleHomeName.text = MyBuilding.GetBuildingName(CitizenHome, MyInstanceID);
+                                    BubbleHomeName.isEnabled = true;
+                                    BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTexture;
+                                    HomeInfo = MyBuilding.m_buildings.m_buffer[(int)CitizenHomeID.Index].Info;
+                                    if (HomeInfo.m_class.m_service == ItemClass.Service.Residential)
                                     {
-                                        this.BubbleHomeName.tooltip = null;
-                                        bool flag34 = this.HomeInfo.m_class.m_subService == ItemClass.SubService.ResidentialHigh;
-                                        if (flag34)
+                                        BubbleHomeName.tooltip = null;
+
+                                        switch (HomeInfo.m_class.m_subService)
                                         {
-                                            this.BubbleHomeName.textColor = new Color32(0, 102, 51, 100);
-                                            this.BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTextureHigh;
-                                            this.BubbleHomeName.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 2.ToString());
+                                            case ItemClass.SubService.ResidentialHigh:
+                                                BubbleHomeName.textColor = new Color32(0, 102, 51, 100);
+                                                BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTextureHigh;
+                                                BubbleHomeName.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 2.ToString());
+                                                break;
+                                            case ItemClass.SubService.ResidentialHighEco:
+                                                BubbleHomeName.textColor = new Color32(0, 102, 51, 100);
+                                                BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTextureHigh;
+                                                BubbleHomeName.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 2.ToString()) + " Eco";
+                                                break;
+                                            case ItemClass.SubService.ResidentialLowEco:
+                                                BubbleHomeName.textColor = new Color32(0, 153, 0, 80);
+                                                BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTexture;
+                                                BubbleHomeName.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 1.ToString()) + " Eco";
+                                                break;
+                                            case ItemClass.SubService.ResidentialLow:
+                                                BubbleHomeName.textColor = new Color32(0, 153, 0, 80);
+                                                BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTexture;
+                                                BubbleHomeName.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 1.ToString());
+                                                break;
                                         }
-                                        else
-                                        {
-                                            bool flag35 = this.HomeInfo.m_class.m_subService == ItemClass.SubService.ResidentialHighEco;
-                                            if (flag35)
-                                            {
-                                                this.BubbleHomeName.textColor = new Color32(0, 102, 51, 100);
-                                                this.BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTextureHigh;
-                                                this.BubbleHomeName.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 2.ToString()) + " Eco";
-                                            }
-                                            else
-                                            {
-                                                bool flag36 = this.HomeInfo.m_class.m_subService == ItemClass.SubService.ResidentialLowEco;
-                                                if (flag36)
-                                                {
-                                                    this.BubbleHomeName.textColor = new Color32(0, 153, 0, 80);
-                                                    this.BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTexture;
-                                                    this.BubbleHomeName.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 1.ToString()) + " Eco";
-                                                }
-                                                else
-                                                {
-                                                    bool flag37 = this.HomeInfo.m_class.m_subService == ItemClass.SubService.ResidentialLow;
-                                                    if (flag37)
-                                                    {
-                                                        this.BubbleHomeName.textColor = new Color32(0, 153, 0, 80);
-                                                        this.BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTexture;
-                                                        this.BubbleHomeName.tooltip = Locale.Get("ZONEDBUILDING_TITLE", 1.ToString());
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        switch (this.HomeInfo.m_class.m_level)
+
+                                        switch (HomeInfo.m_class.m_level)
                                         {
                                             case ItemClass.Level.Level2:
-                                                this.BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[2];
+                                                BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[2];
                                                 break;
                                             case ItemClass.Level.Level3:
-                                                this.BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[3];
+                                                BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[3];
                                                 break;
                                             case ItemClass.Level.Level4:
-                                                this.BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[4];
+                                                BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[4];
                                                 break;
                                             case ItemClass.Level.Level5:
-                                                this.BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[5];
+                                                BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[5];
                                                 break;
                                             default:
-                                                this.BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[1];
+                                                BubbleHomeLevel.texture = TextureDB.FavCimsResidentialLevel[1];
                                                 break;
                                         }
-                                        this.HomeDistrict = (int)this.MyDistrict.GetDistrict(this.MyBuilding.m_buildings.m_buffer[(int)this.CitizenHomeID.Index].m_position);
-                                        bool flag38 = this.HomeDistrict == 0;
-                                        if (flag38)
+                                        HomeDistrict = MyDistrict.GetDistrict(MyBuilding.m_buildings.m_buffer[(int)CitizenHomeID.Index].m_position);
+                                        if (HomeDistrict == 0)
                                         {
-                                            this.BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
+                                            BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                         }
                                         else
                                         {
-                                            this.BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.HomeDistrict);
+                                            BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictLabel") + MyDistrict.GetDistrictName(HomeDistrict);
                                         }
-                                        Notification.ProblemStruct problems = this.MyBuilding.m_buildings.m_buffer[(int)this.CitizenHome].m_problems;
-                                        bool flag39 = problems != Notification.ProblemStruct.None;
-                                        if (flag39)
+                                        Notification.ProblemStruct problems = MyBuilding.m_buildings.m_buffer[(int)CitizenHome].m_problems;
+                                        if (problems != Notification.ProblemStruct.None)
                                         {
-                                            this.BubbleDetailsBgSprite.texture = TextureDB.BubbleDetailsBgSpriteProblems;
-                                        }
-                                        else
-                                        {
-                                            this.BubbleDetailsBgSprite.texture = TextureDB.BubbleDetailsBgSprite;
-                                        }
-                                        bool flag40 = problems.ToString().Contains(2L.ToString());
-                                        if (flag40)
-                                        {
-                                            this.BubbleDetailsElettricity.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsElettricity.tooltip = Locale.Get("NOTIFICATION_TITLE", "Electricity");
+                                            BubbleDetailsBgSprite.texture = TextureDB.BubbleDetailsBgSpriteProblems;
                                         }
                                         else
                                         {
-                                            this.BubbleDetailsElettricity.normalFgSprite = null;
-                                            this.BubbleDetailsElettricity.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                            BubbleDetailsBgSprite.texture = TextureDB.BubbleDetailsBgSprite;
                                         }
-                                        bool flag41 = problems.ToString().Contains(16384L.ToString());
-                                        if (flag41)
+
+
+                                        if (problems.ToString().Contains(Notification.Problem1.Electricity.ToString()))
                                         {
-                                            this.BubbleDetailsWater.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_TITLE", "Sewage");
+                                            BubbleDetailsElettricity.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsElettricity.tooltip = Locale.Get("NOTIFICATION_TITLE", "Electricity");
                                         }
                                         else
                                         {
-                                            bool flag42 = problems.ToString().Contains(16L.ToString());
-                                            if (flag42)
+                                            BubbleDetailsElettricity.normalFgSprite = null;
+                                            BubbleDetailsElettricity.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                        }
+                                        if (problems.ToString().Contains(Notification.Problem1.Sewage.ToString()))
+                                        {
+                                            BubbleDetailsWater.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_TITLE", "Sewage");
+                                        }
+                                        else
+                                        {
+                                            if (problems.ToString().Contains(Notification.Problem1.DirtyWater.ToString()))
                                             {
-                                                this.BubbleDetailsWater.normalFgSprite = "TutorialGlow";
-                                                this.BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_NORMAL", "DirtyWater");
+                                                BubbleDetailsWater.normalFgSprite = "TutorialGlow";
+                                                BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_NORMAL", "DirtyWater");
                                             }
                                             else
                                             {
-                                                bool flag43 = problems.ToString().Contains(4L.ToString());
-                                                if (flag43)
+                                                if (problems.ToString().Contains(Notification.Problem1.Water.ToString()))
                                                 {
-                                                    this.BubbleDetailsWater.normalFgSprite = "TutorialGlow";
-                                                    this.BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_TITLE", "Water");
+                                                    BubbleDetailsWater.normalFgSprite = "TutorialGlow";
+                                                    BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_TITLE", "Water");
                                                 }
                                                 else
                                                 {
-                                                    bool flag44 = problems.ToString().Contains(268435456L.ToString());
-                                                    if (flag44)
+                                                    if (problems.ToString().Contains(Notification.Problem1.Flood.ToString()))
                                                     {
-                                                        this.BubbleDetailsWater.normalFgSprite = "TutorialGlow";
-                                                        this.BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_TITLE", "Flood");
+                                                        BubbleDetailsWater.normalFgSprite = "TutorialGlow";
+                                                        BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_TITLE", "Flood");
                                                     }
                                                     else
                                                     {
-                                                        this.BubbleDetailsWater.normalFgSprite = null;
-                                                        this.BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                                        BubbleDetailsWater.normalFgSprite = null;
+                                                        BubbleDetailsWater.tooltip = Locale.Get("NOTIFICATION_NONE");
                                                     }
                                                 }
                                             }
                                         }
-                                        bool flag45 = problems.ToString().Contains(32768L.ToString());
-                                        if (flag45)
+                                        if (problems.ToString().Contains(Notification.Problem1.Death.ToString()))
                                         {
-                                            this.BubbleDetailsDeath.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsDeath.tooltip = Locale.Get("NOTIFICATION_TITLE", "Death");
+                                            BubbleDetailsDeath.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsDeath.tooltip = Locale.Get("NOTIFICATION_TITLE", "Death");
                                         }
                                         else
                                         {
-                                            this.BubbleDetailsDeath.normalFgSprite = null;
-                                            this.BubbleDetailsDeath.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                            BubbleDetailsDeath.normalFgSprite = null;
+                                            BubbleDetailsDeath.tooltip = Locale.Get("NOTIFICATION_NONE");
                                         }
-                                        bool flag46 = problems.ToString().Contains(8L.ToString());
-                                        if (flag46)
+                                        if (problems.ToString().Contains(Notification.Problem1.Fire.ToString()))
                                         {
-                                            this.BubbleDetailsFire.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsFire.tooltip = Locale.Get("NOTIFICATION_TITLE", "Fire");
-                                        }
-                                        else
-                                        {
-                                            this.BubbleDetailsFire.normalFgSprite = null;
-                                            this.BubbleDetailsFire.tooltip = Locale.Get("NOTIFICATION_NONE");
-                                        }
-                                        bool flag47 = problems.ToString().Contains(1L.ToString());
-                                        if (flag47)
-                                        {
-                                            this.BubbleDetailsGarbage.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsGarbage.tooltip = Locale.Get("NOTIFICATION_TITLE", "Garbage");
+                                            BubbleDetailsFire.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsFire.tooltip = Locale.Get("NOTIFICATION_TITLE", "Fire");
                                         }
                                         else
                                         {
-                                            this.BubbleDetailsGarbage.normalFgSprite = null;
-                                            this.BubbleDetailsGarbage.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                            BubbleDetailsFire.normalFgSprite = null;
+                                            BubbleDetailsFire.tooltip = Locale.Get("NOTIFICATION_NONE");
                                         }
-                                        bool flag48 = problems.ToString().Contains(512L.ToString());
-                                        if (flag48)
+                                        if (problems.ToString().Contains(Notification.Problem1.Garbage.ToString()))
                                         {
-                                            this.BubbleDetailsLandValue.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsLandValue.tooltip = Locale.Get("NOTIFICATION_TITLE", "LandValueLow");
+                                            BubbleDetailsGarbage.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsGarbage.tooltip = Locale.Get("NOTIFICATION_TITLE", "Garbage");
                                         }
                                         else
                                         {
-                                            bool flag49 = problems.ToString().Contains(256L.ToString());
-                                            if (flag49)
+                                            BubbleDetailsGarbage.normalFgSprite = null;
+                                            BubbleDetailsGarbage.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                        }
+                                        if (problems.ToString().Contains(Notification.Problem1.LandValueLow.ToString()))
+                                        {
+                                            BubbleDetailsLandValue.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsLandValue.tooltip = Locale.Get("NOTIFICATION_TITLE", "LandValueLow");
+                                        }
+                                        else
+                                        {
+                                            if (problems.ToString().Contains(Notification.Problem1.TooFewServices.ToString()))
                                             {
-                                                this.BubbleDetailsLandValue.normalFgSprite = "TutorialGlow";
-                                                this.BubbleDetailsLandValue.tooltip = Locale.Get("NOTIFICATION_TITLE", "ToofewServices");
+                                                BubbleDetailsLandValue.normalFgSprite = "TutorialGlow";
+                                                BubbleDetailsLandValue.tooltip = Locale.Get("NOTIFICATION_TITLE", "ToofewServices");
                                             }
                                             else
                                             {
-                                                bool flag50 = problems.ToString().Contains(67108864L.ToString());
-                                                if (flag50)
+                                                if (problems.ToString().Contains(Notification.Problem1.TaxesTooHigh.ToString()))
                                                 {
-                                                    this.BubbleDetailsLandValue.normalFgSprite = "TutorialGlow";
-                                                    this.BubbleDetailsLandValue.tooltip = Locale.Get("NOTIFICATION_TITLE", "TaxesTooHigh");
+                                                    BubbleDetailsLandValue.normalFgSprite = "TutorialGlow";
+                                                    BubbleDetailsLandValue.tooltip = Locale.Get("NOTIFICATION_TITLE", "TaxesTooHigh");
                                                 }
                                                 else
                                                 {
-                                                    this.BubbleDetailsLandValue.normalFgSprite = null;
-                                                    this.BubbleDetailsLandValue.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                                    BubbleDetailsLandValue.normalFgSprite = null;
+                                                    BubbleDetailsLandValue.tooltip = Locale.Get("NOTIFICATION_NONE");
                                                 }
                                             }
                                         }
-                                        bool flag51 = problems.ToString().Contains(16777216L.ToString());
-                                        if (flag51)
+                                        if (problems.ToString().Contains(Notification.Problem1.Noise.ToString()))
                                         {
-                                            this.BubbleDetailsNoise.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsNoise.tooltip = Locale.Get("NOTIFICATION_NORMAL", "Noise");
+                                            BubbleDetailsNoise.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsNoise.tooltip = Locale.Get("NOTIFICATION_NORMAL", "Noise");
                                         }
                                         else
                                         {
-                                            this.BubbleDetailsNoise.normalFgSprite = null;
-                                            this.BubbleDetailsNoise.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                            BubbleDetailsNoise.normalFgSprite = null;
+                                            BubbleDetailsNoise.tooltip = Locale.Get("NOTIFICATION_NONE");
                                         }
-                                        bool flag52 = problems.ToString().Contains(64L.ToString());
-                                        if (flag52)
+                                        if (problems.ToString().Contains(Notification.Problem1.Pollution.ToString()))
                                         {
-                                            this.BubbleDetailsPollution.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsPollution.tooltip = Locale.Get("NOTIFICATION_NORMAL", "Pollution");
-                                        }
-                                        else
-                                        {
-                                            this.BubbleDetailsPollution.normalFgSprite = null;
-                                            this.BubbleDetailsPollution.tooltip = Locale.Get("NOTIFICATION_NONE");
-                                        }
-                                        bool flag53 = this.MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)this.citizen)))].Arrested && this.MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)this.citizen)))].Criminal;
-                                        if (flag53)
-                                        {
-                                            this.BubbleDetailsCrime.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsCrime.tooltip = FavCimsLang.Text("Citizen_Arrested");
+                                            BubbleDetailsPollution.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsPollution.tooltip = Locale.Get("NOTIFICATION_NORMAL", "Pollution");
                                         }
                                         else
                                         {
-                                            bool flag54 = problems.ToString().Contains(32L.ToString());
-                                            if (flag54)
+                                            BubbleDetailsPollution.normalFgSprite = null;
+                                            BubbleDetailsPollution.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                        }
+                                        if (MyCitizen.m_citizens.m_buffer[citizen].Arrested && MyCitizen.m_citizens.m_buffer[citizen].Criminal)
+                                        {
+                                            BubbleDetailsCrime.normalFgSprite = "TutorialGlow";
+                                            BubbleDetailsCrime.tooltip = FavCimsLang.Text("Citizen_Arrested");
+                                        }
+                                        else
+                                        {
+                                            if (problems.ToString().Contains(Notification.Problem1.Crime.ToString()))
                                             {
-                                                this.BubbleDetailsCrime.normalFgSprite = "TutorialGlow";
-                                                this.BubbleDetailsCrime.tooltip = Locale.Get("NOTIFICATION_TITLE", "Crime");
+                                                BubbleDetailsCrime.normalFgSprite = "TutorialGlow";
+                                                BubbleDetailsCrime.tooltip = Locale.Get("NOTIFICATION_TITLE", "Crime");
                                             }
                                             else
                                             {
-                                                this.BubbleDetailsCrime.normalFgSprite = null;
-                                                this.BubbleDetailsCrime.tooltip = Locale.Get("NOTIFICATION_NONE");
+                                                BubbleDetailsCrime.normalFgSprite = null;
+                                                BubbleDetailsCrime.tooltip = Locale.Get("NOTIFICATION_NONE");
                                             }
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    this.BubbleHomeName.text = FavCimsLang.Text("Citizen_HomeLess");
-                                    this.BubbleHomeName.isEnabled = false;
-                                    this.BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTextureHomeless;
-                                    this.BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictNameNoDistrict");
-                                    this.BubbleHomeName.tooltip = FavCimsLang.Text("Citizen_HomeLess_tooltip");
+                                    BubbleHomeName.text = FavCimsLang.Text("Citizen_HomeLess");
+                                    BubbleHomeName.isEnabled = false;
+                                    BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTextureHomeless;
+                                    BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictNameNoDistrict");
+                                    BubbleHomeName.tooltip = FavCimsLang.Text("Citizen_HomeLess_tooltip");
                                 }
-                                this.Activity(this.citizen, this.FavCimsLastActivityVehicleButton, this.FavCimsLastActivity, out this.MyVehicleID, out this.MyTargetID);
-                                this.MainCitizenInstance = this.MyCitizen.m_citizens.m_buffer[(int)this.citizen].m_instance;
-                                this.CitizenDistrict = (int)this.MyDistrict.GetDistrict(this.MyCitizen.m_instances.m_buffer[(int)this.MainCitizenInstance].GetSmoothPosition(this.MainCitizenInstance));
-                                bool flag55 = this.CitizenDistrict == 0;
-                                if (flag55)
+                                Activity(citizen, FavCimsLastActivityVehicleButton, FavCimsLastActivity, out MyVehicleID, out MyTargetID);
+                                MainCitizenInstance = MyCitizen.m_citizens.m_buffer[(int)citizen].m_instance;
+                                CitizenDistrict = MyDistrict.GetDistrict(MyCitizen.m_instances.m_buffer[MainCitizenInstance].GetSmoothPosition(MainCitizenInstance));
+                                if (CitizenDistrict == 0)
                                 {
-                                    this.FavCimsDistrictValue.tooltip = FavCimsLang.Text("District_Label_tooltip");
-                                    this.FavCimsDistrictValue.text = FavCimsLang.Text("DistrictNameNoDistrict");
+                                    FavCimsDistrictValue.tooltip = FavCimsLang.Text("District_Label_tooltip");
+                                    FavCimsDistrictValue.text = FavCimsLang.Text("DistrictNameNoDistrict");
                                 }
                                 else
                                 {
-                                    this.FavCimsDistrictValue.tooltip = FavCimsLang.Text("District_Label_tooltip");
-                                    this.FavCimsDistrictValue.text = this.MyDistrict.GetDistrictName(this.CitizenDistrict);
+                                    FavCimsDistrictValue.tooltip = FavCimsLang.Text("District_Label_tooltip");
+                                    FavCimsDistrictValue.text = MyDistrict.GetDistrictName(CitizenDistrict);
                                 }
-                                this.FamilyVehicle(this.citizen, this.BubblePersonalCarButton, out this.PersonalVehicleID);
-                                this.FamilyVehicle(this.Family.m_citizen0, this.BubbleFamilyBarCarButton, out this.FamilyVehicleID);
-                                bool flag56 = false;
-                                int num2 = 0;
-                                bool flag57 = this.Family.m_citizen0 != 0U && this.citizen == this.Family.m_citizen1;
-                                if (flag57)
+                                FamilyVehicle(citizen, BubblePersonalCarButton, out PersonalVehicleID);
+                                FamilyVehicle(Family.m_citizen0, BubbleFamilyBarCarButton, out FamilyVehicleID);
+                                bool isSon = false;
+                                int Sons = 0;
+                                if (Family.m_citizen0 != 0U && citizen == Family.m_citizen1)
                                 {
-                                    this.CitizenPartner = this.Family.m_citizen0;
-                                    this.BubblePartnerLove.normalBgSprite = "InfoIconHealth";
-                                    bool flag58 = this.DogOwner > 0U;
-                                    if (flag58)
+                                    CitizenPartner = Family.m_citizen0;
+                                    BubblePartnerLove.normalBgSprite = "InfoIconHealth";
+                                    if (DogOwner > 0U)
                                     {
-                                        this.FamilyPet(this.DogOwner);
+                                        FamilyPet(DogOwner);
                                     }
                                     else
                                     {
-                                        this.FamilyPet(this.Family.m_citizen1);
+                                        FamilyPet(Family.m_citizen1);
                                     }
                                 }
                                 else
                                 {
-                                    bool flag59 = this.Family.m_citizen1 != 0U && this.citizen == this.Family.m_citizen0;
-                                    if (flag59)
+                                    if (Family.m_citizen1 != 0U && citizen == Family.m_citizen0)
                                     {
-                                        this.CitizenPartner = this.Family.m_citizen1;
-                                        this.BubblePartnerLove.normalBgSprite = "InfoIconHealth";
-                                        bool flag60 = this.DogOwner > 0U;
-                                        if (flag60)
+                                        CitizenPartner = Family.m_citizen1;
+                                        BubblePartnerLove.normalBgSprite = "InfoIconHealth";
+                                        if (DogOwner > 0U)
                                         {
-                                            this.FamilyPet(this.DogOwner);
+                                            FamilyPet(DogOwner);
                                         }
                                         else
                                         {
-                                            this.FamilyPet(this.Family.m_citizen0);
+                                            FamilyPet(Family.m_citizen0);
                                         }
                                     }
                                     else
                                     {
-                                        bool flag61 = this.citizen == this.Family.m_citizen0;
-                                        if (flag61)
+                                        if (citizen == Family.m_citizen0)
                                         {
-                                            bool flag62 = this.DogOwner > 0U;
-                                            if (flag62)
+                                            if (DogOwner > 0U)
                                             {
-                                                this.FamilyPet(this.DogOwner);
+                                                FamilyPet(DogOwner);
                                             }
                                             else
                                             {
-                                                this.FamilyPet(this.citizen);
+                                                FamilyPet(citizen);
                                             }
-                                            this.CitizenPartner = 0U;
+                                            CitizenPartner = 0U;
                                         }
                                         else
                                         {
-                                            this.BubblePartnerLove.normalBgSprite = "InfoIconAge";
-                                            this.CitizenPartner = this.Family.m_citizen0;
-                                            flag56 = true;
+                                            BubblePartnerLove.normalBgSprite = "InfoIconAge";
+                                            CitizenPartner = Family.m_citizen0;
+                                            isSon = true;
                                         }
                                     }
                                 }
-                                bool flag63 = this.CitizenPartner > 0U;
-                                if (flag63)
+                                if (CitizenPartner > 0U)
                                 {
-                                    this.PartnerID.Citizen = this.CitizenPartner;
-                                    int num3 = (int)(uint)((UIntPtr)this.CitizenPartner);
-                                    this.BubblePartnerName.text = this.MyCitizen.GetCitizenName(this.CitizenPartner);
-                                    bool flag64 = Citizen.GetGender(this.CitizenPartner) == Citizen.Gender.Female;
-                                    if (flag64)
+                                    PartnerID.Citizen = CitizenPartner;
+                                    int CitizenPartnerINT = (int)(UIntPtr)CitizenPartner;
+                                    BubblePartnerName.text = MyCitizen.GetCitizenName(CitizenPartner);
+                                    if (Citizen.GetGender(CitizenPartner) == Citizen.Gender.Female)
                                     {
-                                        this.BubblePartnerName.textColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                        BubblePartnerName.textColor = new Color32(byte.MaxValue, 102, 204, 213);
                                     }
                                     else
                                     {
-                                        this.BubblePartnerName.textColor = new Color32(204, 204, 51, 40);
+                                        BubblePartnerName.textColor = new Color32(204, 204, 51, 40);
                                     }
-                                    bool isEmpty = this.PartnerID.IsEmpty;
+                                    bool isEmpty = PartnerID.IsEmpty;
                                     if (isEmpty)
                                     {
-                                        this.BubblePartnerName.tooltip = null;
-                                        this.BubblePartnerName.isEnabled = false;
+                                        BubblePartnerName.tooltip = null;
+                                        BubblePartnerName.isEnabled = false;
                                     }
                                     else
                                     {
-                                        this.BubblePartnerName.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
-                                        this.BubblePartnerName.isEnabled = true;
+                                        BubblePartnerName.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
+                                        BubblePartnerName.isEnabled = true;
                                     }
-                                    bool flag65 = this.DogOwner > 0U;
-                                    if (flag65)
+                                    if (DogOwner > 0U)
                                     {
-                                        this.FamilyPet(this.DogOwner);
-                                    }
-                                    else
-                                    {
-                                        this.FamilyPet(this.CitizenPartner);
-                                    }
-                                    this.Activity(this.CitizenPartner, this.BubblePartnerVehicleButton, this.BubblePartnerDestination, out this.PartnerVehID, out this.PartnerTarget);
-                                    this.RealAge = FavCimsCore.CalculateCitizenAge((int)this.MyCitizen.m_citizens.m_buffer[(int)this.CitizenPartner].m_age);
-                                    bool flag66 = this.RealAge <= 12;
-                                    if (flag66)
-                                    {
-                                        this.BubbleParnerAgeButton.text = this.RealAge.ToString();
-                                        this.BubbleParnerAgeButton.textColor = new Color32(83, 166, 0, 60);
+                                        FamilyPet(DogOwner);
                                     }
                                     else
                                     {
-                                        bool flag67 = this.RealAge <= 19;
-                                        if (flag67)
-                                        {
-                                            this.BubbleParnerAgeButton.text = this.RealAge.ToString();
-                                            this.BubbleParnerAgeButton.textColor = new Color32(0, 102, 51, 100);
-                                        }
-                                        else
-                                        {
-                                            bool flag68 = this.RealAge <= 25;
-                                            if (flag68)
-                                            {
-                                                this.BubbleParnerAgeButton.text = this.RealAge.ToString();
-                                                this.BubbleParnerAgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                            }
-                                            else
-                                            {
-                                                bool flag69 = this.RealAge <= 65;
-                                                if (flag69)
-                                                {
-                                                    this.BubbleParnerAgeButton.text = this.RealAge.ToString();
-                                                    this.BubbleParnerAgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                                }
-                                                else
-                                                {
-                                                    bool flag70 = this.RealAge <= 90;
-                                                    if (flag70)
-                                                    {
-                                                        this.BubbleParnerAgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleParnerAgeButton.textColor = new Color32(153, 0, 0, 0);
-                                                    }
-                                                    else
-                                                    {
-                                                        this.BubbleParnerAgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleParnerAgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        FamilyPet(CitizenPartner);
                                     }
-                                    bool flag71 = FavCimsCore.RowID.ContainsKey(num3);
-                                    if (flag71)
+                                    Activity(CitizenPartner, BubblePartnerVehicleButton, BubblePartnerDestination, out PartnerVehID, out PartnerTarget);
+                                    RealAge = FavCimsCore.CalculateCitizenAge((int)MyCitizen.m_citizens.m_buffer[(int)CitizenPartner].m_age);
+
+                                    BubbleParnerAgeButton.text = RealAge.ToString();
+
+                                    switch (RealAge)
                                     {
-                                        this.BubblePartnerFollowToggler.normalBgSprite = "icon_fav_subscribed";
+                                        case int n when n <= 12:
+                                            BubbleParnerAgeButton.textColor = new Color32(83, 166, 0, 60);
+                                            break;
+                                        case int n when n <= 19:
+                                            BubbleParnerAgeButton.textColor = new Color32(0, 102, 51, 100);
+                                            break;
+                                        case int n when n <= 25:
+                                            BubbleParnerAgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                            break;
+                                        case int n when n <= 65:
+                                            BubbleParnerAgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                            break;
+                                        case int n when n <= 90:
+                                            BubbleParnerAgeButton.textColor = new Color32(153, 0, 0, 0);
+                                            break;
+                                        default:
+                                            BubbleParnerAgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                            break;
+                                    }
+
+                                    if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                    {
+                                        BubblePartnerFollowToggler.normalBgSprite = "icon_fav_subscribed";
                                     }
                                     else
                                     {
-                                        this.BubblePartnerFollowToggler.normalBgSprite = "icon_fav_unsubscribed";
+                                        BubblePartnerFollowToggler.normalBgSprite = "icon_fav_unsubscribed";
                                     }
-                                    this.PartnerPanel.Show();
-                                    bool flag72 = !flag56;
-                                    if (flag72)
+                                    PartnerPanel.Show();
+                                    if (!isSon)
                                     {
-                                        this.NoPartnerPanel.Hide();
+                                        NoPartnerPanel.Hide();
                                     }
                                 }
                                 else
                                 {
-                                    this.PartnerPanel.Hide();
-                                    bool flag73 = !flag56;
-                                    if (flag73)
+                                    PartnerPanel.Hide();
+                                    if (!isSon)
                                     {
-                                        this.NoPartnerPanel.Show();
+                                        NoPartnerPanel.Show();
                                     }
                                 }
-                                bool flag74 = flag56;
-                                if (flag74)
+                                if (isSon)
                                 {
-                                    this.NoPartnerPanel.Hide();
-                                    bool flag75 = this.Family.m_citizen1 > 0U;
-                                    if (flag75)
+                                    NoPartnerPanel.Hide();
+                                    if (Family.m_citizen1 > 0U)
                                     {
-                                        this.CitizenPartner = this.Family.m_citizen1;
-                                        this.Parent1ID.Citizen = this.CitizenPartner;
-                                        int num4 = (int)(uint)((UIntPtr)this.CitizenPartner);
-                                        this.BubbleParent1Name.text = this.MyCitizen.GetCitizenName(this.CitizenPartner);
-                                        bool flag76 = Citizen.GetGender(this.CitizenPartner) == Citizen.Gender.Female;
-                                        if (flag76)
+                                        CitizenPartner = Family.m_citizen1;
+                                        Parent1ID.Citizen = CitizenPartner;
+                                        int CitizenPartnerINT = (int)(UIntPtr)CitizenPartner;
+                                        BubbleParent1Name.text = MyCitizen.GetCitizenName(CitizenPartner);
+                                        if (Citizen.GetGender(CitizenPartner) == Citizen.Gender.Female)
                                         {
-                                            this.BubbleParent1Name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                            BubbleParent1Name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
                                         }
                                         else
                                         {
-                                            this.BubbleParent1Name.textColor = new Color32(204, 204, 51, 40);
+                                            BubbleParent1Name.textColor = new Color32(204, 204, 51, 40);
                                         }
-                                        bool isEmpty2 = this.Parent1ID.IsEmpty;
+                                        bool isEmpty2 = Parent1ID.IsEmpty;
                                         if (isEmpty2)
                                         {
-                                            this.BubbleParent1Name.isEnabled = false;
-                                            this.BubbleParent1Name.tooltip = null;
+                                            BubbleParent1Name.isEnabled = false;
+                                            BubbleParent1Name.tooltip = null;
                                         }
                                         else
                                         {
-                                            this.BubbleParent1Name.isEnabled = true;
-                                            this.BubbleParent1Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
+                                            BubbleParent1Name.isEnabled = true;
+                                            BubbleParent1Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                         }
-                                        this.Activity(this.CitizenPartner, this.BubbleParent1VehicleButton, this.BubbleParent1Destination, out this.Parent1VehID, out this.Parent1Target);
-                                        this.RealAge = FavCimsCore.CalculateCitizenAge((int)this.MyCitizen.m_citizens.m_buffer[(int)this.CitizenPartner].m_age);
-                                        bool flag77 = this.RealAge <= 12;
-                                        if (flag77)
+                                        Activity(CitizenPartner, BubbleParent1VehicleButton, BubbleParent1Destination, out Parent1VehID, out Parent1Target);
+                                        RealAge = FavCimsCore.CalculateCitizenAge((int)MyCitizen.m_citizens.m_buffer[(int)CitizenPartner].m_age);
+
+                                        BubbleParent1AgeButton.text = RealAge.ToString();
+
+                                        switch (RealAge)
                                         {
-                                            this.BubbleParent1AgeButton.text = this.RealAge.ToString();
-                                            this.BubbleParent1AgeButton.textColor = new Color32(83, 166, 0, 60);
+                                            case int n when n <= 12:
+                                                BubbleParent1AgeButton.textColor = new Color32(83, 166, 0, 60);
+                                                break;
+                                            case int n when n <= 19:
+                                                BubbleParent1AgeButton.textColor = new Color32(0, 102, 51, 100);
+                                                break;
+                                            case int n when n <= 25:
+                                                BubbleParent1AgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                                break;
+                                            case int n when n <= 65:
+                                                BubbleParent1AgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                                break;
+                                            case int n when n <= 90:
+                                                BubbleParent1AgeButton.textColor = new Color32(153, 0, 0, 0);
+                                                break;
+                                            default:
+                                                BubbleParent1AgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                                break;
+                                        }
+
+                                        if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                        {
+                                            BubbleParent1FollowToggler.normalBgSprite = "icon_fav_subscribed";
                                         }
                                         else
                                         {
-                                            bool flag78 = this.RealAge <= 19;
-                                            if (flag78)
-                                            {
-                                                this.BubbleParent1AgeButton.text = this.RealAge.ToString();
-                                                this.BubbleParent1AgeButton.textColor = new Color32(0, 102, 51, 100);
-                                            }
-                                            else
-                                            {
-                                                bool flag79 = this.RealAge <= 25;
-                                                if (flag79)
-                                                {
-                                                    this.BubbleParent1AgeButton.text = this.RealAge.ToString();
-                                                    this.BubbleParent1AgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                                }
-                                                else
-                                                {
-                                                    bool flag80 = this.RealAge <= 65;
-                                                    if (flag80)
-                                                    {
-                                                        this.BubbleParent1AgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleParent1AgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                                    }
-                                                    else
-                                                    {
-                                                        bool flag81 = this.RealAge <= 90;
-                                                        if (flag81)
-                                                        {
-                                                            this.BubbleParent1AgeButton.text = this.RealAge.ToString();
-                                                            this.BubbleParent1AgeButton.textColor = new Color32(153, 0, 0, 0);
-                                                        }
-                                                        else
-                                                        {
-                                                            this.BubbleParent1AgeButton.text = this.RealAge.ToString();
-                                                            this.BubbleParent1AgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                        }
-                                                    }
-                                                }
-                                            }
+                                            BubbleParent1FollowToggler.normalBgSprite = "icon_fav_unsubscribed";
                                         }
-                                        bool flag82 = FavCimsCore.RowID.ContainsKey(num4);
-                                        if (flag82)
-                                        {
-                                            this.BubbleParent1FollowToggler.normalBgSprite = "icon_fav_subscribed";
-                                        }
-                                        else
-                                        {
-                                            this.BubbleParent1FollowToggler.normalBgSprite = "icon_fav_unsubscribed";
-                                        }
-                                        this.Parent1Panel.Show();
+                                        Parent1Panel.Show();
                                     }
                                     else
                                     {
-                                        this.Parent1Panel.Hide();
+                                        Parent1Panel.Hide();
                                     }
                                 }
                                 else
                                 {
-                                    this.Parent1Panel.Hide();
+                                    Parent1Panel.Hide();
                                 }
-                                bool flag83 = this.Family.m_citizen2 != 0U && this.Family.m_citizen2 != this.citizen;
-                                if (flag83)
+                                if (Family.m_citizen2 != 0U && Family.m_citizen2 != citizen)
                                 {
-                                    this.CitizenParent2 = this.Family.m_citizen2;
-                                    this.Parent2ID.Citizen = this.CitizenParent2;
-                                    int num5 = (int)(uint)((UIntPtr)this.CitizenParent2);
-                                    this.BubbleFamilyMember2Name.text = this.MyCitizen.GetCitizenName(this.CitizenParent2);
-                                    bool flag84 = Citizen.GetGender(this.CitizenParent2) == Citizen.Gender.Female;
-                                    if (flag84)
+                                    CitizenParent2 = Family.m_citizen2;
+                                    Parent2ID.Citizen = CitizenParent2;
+                                    int CitizenPartnerINT = (int)(UIntPtr)CitizenParent2;
+                                    BubbleFamilyMember2Name.text = MyCitizen.GetCitizenName(CitizenParent2);
+                                    if (Citizen.GetGender(CitizenParent2) == Citizen.Gender.Female)
                                     {
-                                        this.BubbleFamilyMember2Name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
-                                        this.BubbleFamilyMember2IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureFemale;
+                                        BubbleFamilyMember2Name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                        BubbleFamilyMember2IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureFemale;
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember2Name.textColor = new Color32(204, 204, 51, 40);
-                                        this.BubbleFamilyMember2IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
+                                        BubbleFamilyMember2Name.textColor = new Color32(204, 204, 51, 40);
+                                        BubbleFamilyMember2IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
                                     }
-                                    bool isEmpty3 = this.Parent2ID.IsEmpty;
+                                    bool isEmpty3 = Parent2ID.IsEmpty;
                                     if (isEmpty3)
                                     {
-                                        this.BubbleFamilyMember2Name.isEnabled = false;
-                                        this.BubbleFamilyMember2Name.tooltip = null;
+                                        BubbleFamilyMember2Name.isEnabled = false;
+                                        BubbleFamilyMember2Name.tooltip = null;
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember2Name.isEnabled = true;
-                                        this.BubbleFamilyMember2Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
+                                        BubbleFamilyMember2Name.isEnabled = true;
+                                        BubbleFamilyMember2Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                     }
-                                    bool flag85 = this.DogOwner > 0U;
-                                    if (flag85)
+                                    if (DogOwner > 0U)
                                     {
-                                        this.FamilyPet(this.DogOwner);
-                                    }
-                                    else
-                                    {
-                                        this.FamilyPet(this.Family.m_citizen2);
-                                    }
-                                    this.Activity(this.CitizenParent2, this.BubbleFamilyMember2ActivityVehicleButton, this.BubbleFamilyMember2ActivityDestination, out this.Parent2VehID, out this.Parent2Target);
-                                    this.RealAge = FavCimsCore.CalculateCitizenAge((int)this.MyCitizen.m_citizens.m_buffer[(int)this.CitizenParent2].m_age);
-                                    bool flag86 = this.RealAge <= 12;
-                                    if (flag86)
-                                    {
-                                        this.BubbleFamilyMember2AgeButton.text = this.RealAge.ToString();
-                                        this.BubbleFamilyMember2AgeButton.textColor = new Color32(83, 166, 0, 60);
+                                        FamilyPet(DogOwner);
                                     }
                                     else
                                     {
-                                        bool flag87 = this.RealAge <= 19;
-                                        if (flag87)
-                                        {
-                                            this.BubbleFamilyMember2AgeButton.text = this.RealAge.ToString();
-                                            this.BubbleFamilyMember2AgeButton.textColor = new Color32(0, 102, 51, 100);
-                                        }
-                                        else
-                                        {
-                                            bool flag88 = this.RealAge <= 25;
-                                            if (flag88)
-                                            {
-                                                this.BubbleFamilyMember2AgeButton.text = this.RealAge.ToString();
-                                                this.BubbleFamilyMember2AgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                            }
-                                            else
-                                            {
-                                                bool flag89 = this.RealAge <= 65;
-                                                if (flag89)
-                                                {
-                                                    this.BubbleFamilyMember2AgeButton.text = this.RealAge.ToString();
-                                                    this.BubbleFamilyMember2AgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                                }
-                                                else
-                                                {
-                                                    bool flag90 = this.RealAge <= 90;
-                                                    if (flag90)
-                                                    {
-                                                        this.BubbleFamilyMember2AgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleFamilyMember2AgeButton.textColor = new Color32(153, 0, 0, 0);
-                                                    }
-                                                    else
-                                                    {
-                                                        this.BubbleFamilyMember2AgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleFamilyMember2AgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        FamilyPet(Family.m_citizen2);
                                     }
-                                    bool flag91 = FavCimsCore.RowID.ContainsKey(num5);
-                                    if (flag91)
+                                    Activity(CitizenParent2, BubbleFamilyMember2ActivityVehicleButton, BubbleFamilyMember2ActivityDestination, out Parent2VehID, out Parent2Target);
+                                    RealAge = FavCimsCore.CalculateCitizenAge((int)MyCitizen.m_citizens.m_buffer[(int)CitizenParent2].m_age);
+
+                                    BubbleFamilyMember2AgeButton.text = RealAge.ToString();
+
+                                    switch (RealAge)
                                     {
-                                        this.BubbleFamilyMember2FollowToggler.normalBgSprite = "icon_fav_subscribed";
+                                        case int n when n <= 12:
+                                            BubbleFamilyMember2AgeButton.textColor = new Color32(83, 166, 0, 60);
+                                            break;
+                                        case int n when n <= 19:
+                                            BubbleFamilyMember2AgeButton.textColor = new Color32(0, 102, 51, 100);
+                                            break;
+                                        case int n when n <= 25:
+                                            BubbleFamilyMember2AgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                            break;
+                                        case int n when n <= 65:
+                                            BubbleFamilyMember2AgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                            break;
+                                        case int n when n <= 90:
+                                            BubbleFamilyMember2AgeButton.textColor = new Color32(153, 0, 0, 0);
+                                            break;
+                                        default:
+                                            BubbleFamilyMember2AgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                            break;
+                                    }
+
+                                    if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                    {
+                                        BubbleFamilyMember2FollowToggler.normalBgSprite = "icon_fav_subscribed";
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember2FollowToggler.normalBgSprite = "icon_fav_unsubscribed";
+                                        BubbleFamilyMember2FollowToggler.normalBgSprite = "icon_fav_unsubscribed";
                                     }
-                                    this.FamilyMember2Panel.Show();
-                                    bool flag92 = !flag56;
-                                    if (flag92)
+                                    FamilyMember2Panel.Show();
+                                    if (!isSon)
                                     {
-                                        num2++;
+                                        Sons++;
                                     }
                                 }
                                 else
                                 {
-                                    bool flag93 = this.Family.m_citizen2 == this.citizen;
-                                    if (flag93)
+                                    if (Family.m_citizen2 == citizen)
                                     {
-                                        bool flag94 = this.DogOwner > 0U;
-                                        if (flag94)
+                                        if (DogOwner > 0U)
                                         {
-                                            this.FamilyPet(this.DogOwner);
+                                            FamilyPet(DogOwner);
                                         }
                                         else
                                         {
-                                            this.FamilyPet(this.Family.m_citizen2);
+                                            FamilyPet(Family.m_citizen2);
                                         }
                                     }
-                                    this.FamilyMember2Panel.Hide();
+                                    FamilyMember2Panel.Hide();
                                 }
-                                bool flag95 = this.Family.m_citizen3 != 0U && this.Family.m_citizen3 != this.citizen;
-                                if (flag95)
+                                if (Family.m_citizen3 != 0U && Family.m_citizen3 != citizen)
                                 {
-                                    this.CitizenParent3 = this.Family.m_citizen3;
-                                    this.Parent3ID.Citizen = this.CitizenParent3;
-                                    int num6 = (int)(uint)((UIntPtr)this.CitizenParent3);
-                                    this.BubbleFamilyMember3Name.text = this.MyCitizen.GetCitizenName(this.CitizenParent3);
-                                    bool flag96 = Citizen.GetGender(this.CitizenParent3) == Citizen.Gender.Female;
-                                    if (flag96)
+                                    CitizenParent3 = Family.m_citizen3;
+                                    Parent3ID.Citizen = CitizenParent3;
+                                    int CitizenPartnerINT = (int)(UIntPtr)CitizenParent3;
+                                    BubbleFamilyMember3Name.text = MyCitizen.GetCitizenName(CitizenParent3);
+                                    if (Citizen.GetGender(CitizenParent3) == Citizen.Gender.Female)
                                     {
-                                        this.BubbleFamilyMember3Name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
-                                        this.BubbleFamilyMember3IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureFemale;
+                                        BubbleFamilyMember3Name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                        BubbleFamilyMember3IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureFemale;
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember3Name.textColor = new Color32(204, 204, 51, 40);
-                                        this.BubbleFamilyMember3IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
+                                        BubbleFamilyMember3Name.textColor = new Color32(204, 204, 51, 40);
+                                        BubbleFamilyMember3IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
                                     }
-                                    bool isEmpty4 = this.Parent3ID.IsEmpty;
+                                    bool isEmpty4 = Parent3ID.IsEmpty;
                                     if (isEmpty4)
                                     {
-                                        this.BubbleFamilyMember3Name.isEnabled = false;
-                                        this.BubbleFamilyMember3Name.tooltip = null;
+                                        BubbleFamilyMember3Name.isEnabled = false;
+                                        BubbleFamilyMember3Name.tooltip = null;
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember3Name.isEnabled = true;
-                                        this.BubbleFamilyMember3Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
+                                        BubbleFamilyMember3Name.isEnabled = true;
+                                        BubbleFamilyMember3Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                     }
-                                    bool flag97 = this.DogOwner > 0U;
-                                    if (flag97)
+                                    if (DogOwner > 0U)
                                     {
-                                        this.FamilyPet(this.DogOwner);
-                                    }
-                                    else
-                                    {
-                                        this.FamilyPet(this.Family.m_citizen3);
-                                    }
-                                    this.Activity(this.CitizenParent3, this.BubbleFamilyMember3ActivityVehicleButton, this.BubbleFamilyMember3ActivityDestination, out this.Parent3VehID, out this.Parent3Target);
-                                    this.RealAge = FavCimsCore.CalculateCitizenAge((int)this.MyCitizen.m_citizens.m_buffer[(int)this.CitizenParent3].m_age);
-                                    bool flag98 = this.RealAge <= 12;
-                                    if (flag98)
-                                    {
-                                        this.BubbleFamilyMember3AgeButton.text = this.RealAge.ToString();
-                                        this.BubbleFamilyMember3AgeButton.textColor = new Color32(83, 166, 0, 60);
+                                        FamilyPet(DogOwner);
                                     }
                                     else
                                     {
-                                        bool flag99 = this.RealAge <= 19;
-                                        if (flag99)
-                                        {
-                                            this.BubbleFamilyMember3AgeButton.text = this.RealAge.ToString();
-                                            this.BubbleFamilyMember3AgeButton.textColor = new Color32(0, 102, 51, 100);
-                                        }
-                                        else
-                                        {
-                                            bool flag100 = this.RealAge <= 25;
-                                            if (flag100)
-                                            {
-                                                this.BubbleFamilyMember3AgeButton.text = this.RealAge.ToString();
-                                                this.BubbleFamilyMember3AgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                            }
-                                            else
-                                            {
-                                                bool flag101 = this.RealAge <= 65;
-                                                if (flag101)
-                                                {
-                                                    this.BubbleFamilyMember3AgeButton.text = this.RealAge.ToString();
-                                                    this.BubbleFamilyMember3AgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                                }
-                                                else
-                                                {
-                                                    bool flag102 = this.RealAge <= 90;
-                                                    if (flag102)
-                                                    {
-                                                        this.BubbleFamilyMember3AgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleFamilyMember3AgeButton.textColor = new Color32(153, 0, 0, 0);
-                                                    }
-                                                    else
-                                                    {
-                                                        this.BubbleFamilyMember3AgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleFamilyMember3AgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        FamilyPet(Family.m_citizen3);
                                     }
-                                    bool flag103 = FavCimsCore.RowID.ContainsKey(num6);
-                                    if (flag103)
+                                    Activity(CitizenParent3, BubbleFamilyMember3ActivityVehicleButton, BubbleFamilyMember3ActivityDestination, out Parent3VehID, out Parent3Target);
+                                    RealAge = FavCimsCore.CalculateCitizenAge((int)MyCitizen.m_citizens.m_buffer[(int)CitizenParent3].m_age);
+
+                                    BubbleFamilyMember3AgeButton.text = RealAge.ToString();
+
+                                    switch (RealAge)
                                     {
-                                        this.BubbleFamilyMember3FollowToggler.normalBgSprite = "icon_fav_subscribed";
+                                        case int n when n <= 12:
+                                            BubbleFamilyMember3AgeButton.textColor = new Color32(83, 166, 0, 60);
+                                            break;
+                                        case int n when n <= 19:
+                                            BubbleFamilyMember3AgeButton.textColor = new Color32(0, 102, 51, 100);
+                                            break;
+                                        case int n when n <= 25:
+                                            BubbleFamilyMember3AgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                            break;
+                                        case int n when n <= 65:
+                                            BubbleFamilyMember3AgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                            break;
+                                        case int n when n <= 90:
+                                            BubbleFamilyMember3AgeButton.textColor = new Color32(153, 0, 0, 0);
+                                            break;
+                                        default:
+                                            BubbleFamilyMember3AgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                            break;
+                                    }
+
+                                    if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                    {
+                                        BubbleFamilyMember3FollowToggler.normalBgSprite = "icon_fav_subscribed";
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember3FollowToggler.normalBgSprite = "icon_fav_unsubscribed";
+                                        BubbleFamilyMember3FollowToggler.normalBgSprite = "icon_fav_unsubscribed";
                                     }
-                                    this.FamilyMember3Panel.Show();
-                                    bool flag104 = !flag56;
-                                    if (flag104)
+                                    FamilyMember3Panel.Show();
+                                    if (!isSon)
                                     {
-                                        num2++;
+                                        Sons++;
                                     }
                                 }
                                 else
                                 {
-                                    bool flag105 = this.Family.m_citizen3 == this.citizen;
-                                    if (flag105)
+                                    if (Family.m_citizen3 == citizen)
                                     {
-                                        bool flag106 = this.DogOwner > 0U;
-                                        if (flag106)
+                                        if (DogOwner > 0U)
                                         {
-                                            this.FamilyPet(this.DogOwner);
+                                            FamilyPet(DogOwner);
                                         }
                                         else
                                         {
-                                            this.FamilyPet(this.Family.m_citizen3);
+                                            FamilyPet(Family.m_citizen3);
                                         }
                                     }
-                                    this.FamilyMember3Panel.Hide();
+                                    FamilyMember3Panel.Hide();
                                 }
-                                bool flag107 = this.Family.m_citizen4 != 0U && this.Family.m_citizen4 != this.citizen;
-                                if (flag107)
+                                if (Family.m_citizen4 != 0U && Family.m_citizen4 != citizen)
                                 {
-                                    this.CitizenParent4 = this.Family.m_citizen4;
-                                    this.Parent4ID.Citizen = this.CitizenParent4;
-                                    int num7 = (int)(uint)((UIntPtr)this.CitizenParent4);
-                                    this.BubbleFamilyMember4Name.text = this.MyCitizen.GetCitizenName(this.CitizenParent4);
-                                    bool flag108 = Citizen.GetGender(this.CitizenParent4) == Citizen.Gender.Female;
-                                    if (flag108)
+                                    CitizenParent4 = Family.m_citizen4;
+                                    Parent4ID.Citizen = CitizenParent4;
+                                    int CitizenPartnerINT = (int)(UIntPtr)CitizenParent4;
+                                    BubbleFamilyMember4Name.text = MyCitizen.GetCitizenName(CitizenParent4);
+                                    if (Citizen.GetGender(CitizenParent4) == Citizen.Gender.Female)
                                     {
-                                        this.BubbleFamilyMember4Name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
-                                        this.BubbleFamilyMember4IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureFemale;
+                                        BubbleFamilyMember4Name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
+                                        BubbleFamilyMember4IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureFemale;
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember4Name.textColor = new Color32(204, 204, 51, 40);
-                                        this.BubbleFamilyMember4IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
+                                        BubbleFamilyMember4Name.textColor = new Color32(204, 204, 51, 40);
+                                        BubbleFamilyMember4IconSprite.texture = TextureDB.BubbleHeaderIconSpriteTextureMale;
                                     }
-                                    bool isEmpty5 = this.Parent4ID.IsEmpty;
+                                    bool isEmpty5 = Parent4ID.IsEmpty;
                                     if (isEmpty5)
                                     {
-                                        this.BubbleFamilyMember4Name.isEnabled = false;
-                                        this.BubbleFamilyMember4Name.tooltip = null;
+                                        BubbleFamilyMember4Name.isEnabled = false;
+                                        BubbleFamilyMember4Name.tooltip = null;
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember4Name.isEnabled = true;
-                                        this.BubbleFamilyMember4Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
+                                        BubbleFamilyMember4Name.isEnabled = true;
+                                        BubbleFamilyMember4Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                     }
-                                    bool flag109 = this.DogOwner > 0U;
-                                    if (flag109)
+                                    if (DogOwner > 0U)
                                     {
-                                        this.FamilyPet(this.DogOwner);
-                                    }
-                                    else
-                                    {
-                                        this.FamilyPet(this.Family.m_citizen4);
-                                    }
-                                    this.Activity(this.CitizenParent4, this.BubbleFamilyMember4ActivityVehicleButton, this.BubbleFamilyMember4ActivityDestination, out this.Parent4VehID, out this.Parent4Target);
-                                    this.RealAge = FavCimsCore.CalculateCitizenAge((int)this.MyCitizen.m_citizens.m_buffer[(int)this.CitizenParent4].m_age);
-                                    bool flag110 = this.RealAge <= 12;
-                                    if (flag110)
-                                    {
-                                        this.BubbleFamilyMember4AgeButton.text = this.RealAge.ToString();
-                                        this.BubbleFamilyMember4AgeButton.textColor = new Color32(83, 166, 0, 60);
+                                        FamilyPet(DogOwner);
                                     }
                                     else
                                     {
-                                        bool flag111 = this.RealAge <= 19;
-                                        if (flag111)
-                                        {
-                                            this.BubbleFamilyMember4AgeButton.text = this.RealAge.ToString();
-                                            this.BubbleFamilyMember4AgeButton.textColor = new Color32(0, 102, 51, 100);
-                                        }
-                                        else
-                                        {
-                                            bool flag112 = this.RealAge <= 25;
-                                            if (flag112)
-                                            {
-                                                this.BubbleFamilyMember4AgeButton.text = this.RealAge.ToString();
-                                                this.BubbleFamilyMember4AgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
-                                            }
-                                            else
-                                            {
-                                                bool flag113 = this.RealAge <= 65;
-                                                if (flag113)
-                                                {
-                                                    this.BubbleFamilyMember4AgeButton.text = this.RealAge.ToString();
-                                                    this.BubbleFamilyMember4AgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
-                                                }
-                                                else
-                                                {
-                                                    bool flag114 = this.RealAge <= 90;
-                                                    if (flag114)
-                                                    {
-                                                        this.BubbleFamilyMember4AgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleFamilyMember4AgeButton.textColor = new Color32(153, 0, 0, 0);
-                                                    }
-                                                    else
-                                                    {
-                                                        this.BubbleFamilyMember4AgeButton.text = this.RealAge.ToString();
-                                                        this.BubbleFamilyMember4AgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        FamilyPet(Family.m_citizen4);
                                     }
-                                    bool flag115 = FavCimsCore.RowID.ContainsKey(num7);
-                                    if (flag115)
+                                    Activity(CitizenParent4, BubbleFamilyMember4ActivityVehicleButton, BubbleFamilyMember4ActivityDestination, out Parent4VehID, out Parent4Target);
+                                    RealAge = FavCimsCore.CalculateCitizenAge((int)MyCitizen.m_citizens.m_buffer[(int)CitizenParent4].m_age);
+
+                                    BubbleFamilyMember4AgeButton.text = RealAge.ToString();
+
+                                    switch (RealAge)
                                     {
-                                        this.BubbleFamilyMember4FollowToggler.normalBgSprite = "icon_fav_subscribed";
+                                        case int n when n <= 12:
+                                            BubbleFamilyMember4AgeButton.textColor = new Color32(83, 166, 0, 60);
+                                            break;
+                                        case int n when n <= 19:
+                                            BubbleFamilyMember4AgeButton.textColor = new Color32(0, 102, 51, 100);
+                                            break;
+                                        case int n when n <= 25:
+                                            BubbleFamilyMember4AgeButton.textColor = new Color32(byte.MaxValue, 204, 0, 32);
+                                            break;
+                                        case int n when n <= 65:
+                                            BubbleFamilyMember4AgeButton.textColor = new Color32(byte.MaxValue, 102, 0, 16);
+                                            break;
+                                        case int n when n <= 90:
+                                            BubbleFamilyMember4AgeButton.textColor = new Color32(153, 0, 0, 0);
+                                            break;
+                                        default:
+                                            BubbleFamilyMember4AgeButton.textColor = new Color32(byte.MaxValue, 0, 0, 0);
+                                            break;
+                                    }
+
+                                    if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                    {
+                                        BubbleFamilyMember4FollowToggler.normalBgSprite = "icon_fav_subscribed";
                                     }
                                     else
                                     {
-                                        this.BubbleFamilyMember4FollowToggler.normalBgSprite = "icon_fav_unsubscribed";
+                                        BubbleFamilyMember4FollowToggler.normalBgSprite = "icon_fav_unsubscribed";
                                     }
-                                    this.FamilyMember4Panel.Show();
-                                    bool flag116 = !flag56;
-                                    if (flag116)
+                                    FamilyMember4Panel.Show();
+                                    if (!isSon)
                                     {
-                                        num2++;
+                                        Sons++;
                                     }
                                 }
                                 else
                                 {
-                                    bool flag117 = this.Family.m_citizen4 == this.citizen;
-                                    if (flag117)
+                                    if (Family.m_citizen4 == citizen)
                                     {
-                                        bool flag118 = this.DogOwner > 0U;
-                                        if (flag118)
+                                        if (DogOwner > 0U)
                                         {
-                                            this.FamilyPet(this.DogOwner);
+                                            FamilyPet(DogOwner);
                                         }
                                         else
                                         {
-                                            this.FamilyPet(this.Family.m_citizen4);
+                                            FamilyPet(Family.m_citizen4);
                                         }
                                     }
-                                    this.FamilyMember4Panel.Hide();
+                                    FamilyMember4Panel.Hide();
                                 }
-                                bool flag119 = num2 == 0 && !flag56;
-                                if (flag119)
+                                if (Sons == 0 && !isSon)
                                 {
-                                    this.NoChildsPanel.Show();
+                                    NoChildsPanel.Show();
                                 }
                                 else
                                 {
-                                    this.NoChildsPanel.Hide();
+                                    NoChildsPanel.Hide();
                                 }
-                                bool firstRun = this.FirstRun;
+                                bool firstRun = FirstRun;
                                 if (firstRun)
                                 {
-                                    this.FirstRun = false;
+                                    FirstRun = false;
                                 }
                             }
                             else
                             {
-                                base.Hide();
-                                this.MyInstanceID = InstanceID.Empty;
+                                Hide();
+                                MyInstanceID = InstanceID.Empty;
                             }
                         }
                         catch

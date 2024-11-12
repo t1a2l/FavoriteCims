@@ -20,23 +20,22 @@ namespace FavoriteCims.Utils
 		{
 			get
 			{
-				return Path.GetDirectoryName(ResourceLoader.ResourceAssembly.Location) + Path.PathSeparator.ToString();
+				return Path.GetDirectoryName(ResourceAssembly.Location) + Path.PathSeparator.ToString();
 			}
 		}
 
 		public static byte[] LoadResourceData(string name)
 		{
 			name = "FavoriteCims.Utils.Resources." + name;
-			UnmanagedMemoryStream unmanagedMemoryStream = (UnmanagedMemoryStream)ResourceLoader.ResourceAssembly.GetManifestResourceStream(name);
-			bool flag = unmanagedMemoryStream == null;
+			UnmanagedMemoryStream unmanagedMemoryStream = (UnmanagedMemoryStream)ResourceAssembly.GetManifestResourceStream(name);
 			byte[] array;
-			if (flag)
+			if (unmanagedMemoryStream == null)
 			{
 				array = null;
 			}
 			else
 			{
-				BinaryReader binaryReader = new BinaryReader(unmanagedMemoryStream);
+				BinaryReader binaryReader = new(unmanagedMemoryStream);
 				array = binaryReader.ReadBytes((int)unmanagedMemoryStream.Length);
 			}
 			return array;
@@ -45,16 +44,15 @@ namespace FavoriteCims.Utils
 		public static string LoadResourceString(string name)
 		{
 			name = "FavoriteCims.Utils.Resources." + name;
-			UnmanagedMemoryStream unmanagedMemoryStream = (UnmanagedMemoryStream)ResourceLoader.ResourceAssembly.GetManifestResourceStream(name);
-			bool flag = unmanagedMemoryStream == null;
+			UnmanagedMemoryStream unmanagedMemoryStream = (UnmanagedMemoryStream)ResourceAssembly.GetManifestResourceStream(name);
 			string text;
-			if (flag)
+			if (unmanagedMemoryStream == null)
 			{
 				text = null;
 			}
 			else
 			{
-				StreamReader streamReader = new StreamReader(unmanagedMemoryStream);
+				StreamReader streamReader = new(unmanagedMemoryStream);
 				text = streamReader.ReadToEnd();
 			}
 			return text;
@@ -64,9 +62,9 @@ namespace FavoriteCims.Utils
 		{
 			try
 			{
-				Texture2D texture2D = new Texture2D(x, y, TextureFormat.ARGB32, false);
-				texture2D.LoadImage(ResourceLoader.LoadResourceData(filename));
-				return ResourceLoader.FixTransparency(texture2D);
+				Texture2D texture2D = new(x, y, TextureFormat.ARGB32, false);
+				texture2D.LoadImage(LoadResourceData(filename));
+				return FixTransparency(texture2D);
 			}
 			catch (Exception ex)
 			{
@@ -88,29 +86,24 @@ namespace FavoriteCims.Utils
 				{
 					int num = i * width + j;
 					Color32 color = pixels[num];
-					bool flag = color.a == 0;
-					if (flag)
+					if (color.a == 0)
 					{
-						bool flag2 = false;
-						bool flag3 = !flag2 && j > 0;
-						if (flag3)
+						bool done = false;
+						if (!done && j > 0)
 						{
-							flag2 = ResourceLoader.TryAdjacent(ref color, pixels[num - 1]);
+                            done = TryAdjacent(ref color, pixels[num - 1]);
 						}
-						bool flag4 = !flag2 && j < width - 1;
-						if (flag4)
+						if (!done && j < width - 1)
 						{
-							flag2 = ResourceLoader.TryAdjacent(ref color, pixels[num + 1]);
+                            done = TryAdjacent(ref color, pixels[num + 1]);
 						}
-						bool flag5 = !flag2 && i > 0;
-						if (flag5)
+						if (!done && i > 0)
 						{
-							flag2 = ResourceLoader.TryAdjacent(ref color, pixels[num - width]);
+                            done = TryAdjacent(ref color, pixels[num - width]);
 						}
-						bool flag6 = !flag2 && i < height - 1;
-						if (flag6)
+						if (!done && i < height - 1)
 						{
-							flag2 = ResourceLoader.TryAdjacent(ref color, pixels[num + width]);
+                            done = TryAdjacent(ref color, pixels[num + width]);
 						}
 						pixels[num] = color;
 					}
@@ -123,20 +116,14 @@ namespace FavoriteCims.Utils
 
 		private static bool TryAdjacent(ref Color32 pixel, Color32 adjacent)
 		{
-			bool flag = adjacent.a == 0;
-			bool flag2;
-			if (flag)
+			if (adjacent.a == 0)
 			{
-				flag2 = false;
+				return false;
 			}
-			else
-			{
-				pixel.r = adjacent.r;
-				pixel.g = adjacent.g;
-				pixel.b = adjacent.b;
-				flag2 = true;
-			}
-			return flag2;
-		}
+            pixel.r = adjacent.r;
+            pixel.g = adjacent.g;
+            pixel.b = adjacent.b;
+            return true;
+        }
 	}
 }

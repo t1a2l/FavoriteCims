@@ -35,14 +35,13 @@ namespace FavoriteCims.Utils
 			int num = 1024;
 			Texture2D texture2D = new(num, num, TextureFormat.ARGB32, false);
 			Texture2D[] array = new Texture2D[sPritesNames.Length];
-            _ = new Rect[sPritesNames.Length];
             for (int i = 0; i < sPritesNames.Length; i++)
 			{
 				array[i] = ResourceLoader.LoadTexture(0, 0, sPritesPath[i] + sPritesNames[i] + ".png");
 			}
             Rect[] array2 = texture2D.PackTextures(array, 2, num);
             UITextureAtlas uitextureAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
-			Material material = Object.Instantiate<Material>(BaseMat);
+			Material material = Object.Instantiate(BaseMat);
 			material.mainTexture = texture2D;
 			uitextureAtlas.material = material;
 			uitextureAtlas.name = AtlasName;

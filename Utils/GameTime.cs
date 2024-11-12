@@ -6,69 +6,55 @@ namespace FavoriteCims.Utils
 	{
 		public static string FavCimsDate(string format, string oldformat)
 		{
-			bool exists = Singleton<SimulationManager>.exists;
-			string text4;
-			if (exists)
+			if (Singleton<SimulationManager>.exists)
 			{
-				string text = Singleton<SimulationManager>.instance.m_currentGameTime.Date.Day.ToString();
-				string text2 = Singleton<SimulationManager>.instance.m_currentGameTime.Date.Month.ToString();
-				string text3 = Singleton<SimulationManager>.instance.m_currentGameTime.Date.Year.ToString();
-				bool flag = oldformat != "n/a";
-				if (flag)
+				string d = Singleton<SimulationManager>.instance.m_currentGameTime.Date.Day.ToString();
+				string m = Singleton<SimulationManager>.instance.m_currentGameTime.Date.Month.ToString();
+				string y = Singleton<SimulationManager>.instance.m_currentGameTime.Date.Year.ToString();
+				if (oldformat != "n/a")
 				{
-					string[] array = oldformat.Split(['/']);
-					bool flag2 = array[0] != null && array[1] != null && array[2] != null;
-					if (flag2)
+					string[] elements = oldformat.Split(['/']);
+					if (elements[0] != null && elements[1] != null && elements[2] != null)
 					{
-						text4 = string.Concat(
+						return string.Concat(
                         [
-                            array[1],
+                            elements[1],
 							"/",
-							array[0],
+                            elements[0],
 							"/",
-							array[2]
+                            elements[2]
 						]);
 					}
-					else
-					{
-						text4 = oldformat;
-					}
-				}
+                    return oldformat;
+                }
 				else
 				{
-					bool flag3 = format == "dd-mm-yyyy";
-					if (flag3)
+					if (format == "dd-mm-yyyy")
 					{
-						text4 = string.Concat([text, "/", text2, "/", text3]);
+                        return string.Concat([d, "/", m, "/", y]);
 					}
 					else
 					{
-						text4 = string.Concat([text2, "/", text, "/", text3]);
+                        return string.Concat([m, "/", d, "/", y]);
 					}
 				}
 			}
-			else
-			{
-				text4 = format;
-			}
-			return text4;
-		}
+            return format;
+        }
 
 		public static string FavCimsTime()
 		{
-			string text = Singleton<SimulationManager>.instance.m_currentGameTime.Hour.ToString();
-			string text2 = Singleton<SimulationManager>.instance.m_currentGameTime.Minute.ToString();
-			bool flag = text.Length == 1;
-			if (flag)
+			string h = Singleton<SimulationManager>.instance.m_currentGameTime.Hour.ToString();
+			string m = Singleton<SimulationManager>.instance.m_currentGameTime.Minute.ToString();
+			if (h.Length == 1)
 			{
-				text = "0" + text;
+				h = "0" + h;
 			}
-			bool flag2 = text2.Length == 1;
-			if (flag2)
+			if (m.Length == 1)
 			{
-				text2 = "0" + text2;
+				m = "0" + m;
 			}
-			return text + ":" + text2;
+			return h + ":" + m;
 		}
 	}
 }

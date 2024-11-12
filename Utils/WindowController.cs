@@ -21,24 +21,24 @@ namespace FavoriteCims.Utils
 
         public override void Start()
 		{
-			this.maX = Input.mousePosition.x;
-			this.maY = Input.mousePosition.y;
-			this.deltaX = this.maX - this.ComponentToMove.absolutePosition.x;
-			this.deltaY = this.maY - this.ComponentToMove.absolutePosition.y * -1f;
+			maX = Input.mousePosition.x;
+			maY = Input.mousePosition.y;
+			deltaX = maX - ComponentToMove.absolutePosition.x;
+			deltaY = maY - ComponentToMove.absolutePosition.y * -1f;
 		}
 
 		public override void Update()
 		{
-			bool stop = this.Stop;
+			bool stop = Stop;
 			if (!stop)
 			{
 				bool mouseButton = Input.GetMouseButton(0);
 				if (mouseButton)
 				{
-					this.maX = Input.mousePosition.x;
-					this.maY = Input.mousePosition.y;
-					this.MousePos = new Vector3(this.maX - this.deltaX, this.maY * -1f + this.deltaY);
-					this.ComponentToMove.absolutePosition = this.MousePos;
+					maX = Input.mousePosition.x;
+					maY = Input.mousePosition.y;
+					MousePos = new Vector3(maX - deltaX, maY * -1f + deltaY);
+					ComponentToMove.absolutePosition = MousePos;
 				}
 			}
 		}

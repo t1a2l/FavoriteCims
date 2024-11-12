@@ -56,11 +56,10 @@ namespace FavoriteCims.UI.Panels
 
         public static bool RowsAlreadyExist(InstanceID instanceID)
 		{
-			CitizenRow[] componentsInChildren = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.GetComponentsInChildren<CitizenRow>();
+			CitizenRow[] componentsInChildren = FavCimsCitizenRowsPanel.GetComponentsInChildren<CitizenRow>();
 			foreach (CitizenRow citizenRow in componentsInChildren)
 			{
-				bool flag = citizenRow.MyInstanceID == instanceID;
-				if (flag)
+				if (citizenRow.MyInstanceID == instanceID)
 				{
 					return true;
 				}
@@ -76,35 +75,31 @@ namespace FavoriteCims.UI.Panels
 			}
 			try
 			{
-				CitizenRow[] componentsInChildren = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.GetComponentsInChildren<CitizenRow>();
+				CitizenRow[] componentsInChildren = FavCimsCitizenRowsPanel.GetComponentsInChildren<CitizenRow>();
 				CitizenRow[] array = componentsInChildren;
 				for (int i = 0; i < array.Length; i++)
 				{
 					CitizenRow Rows = array[i];
-					bool flag = Rows != null && Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite") != null;
-					if (flag)
+					if (Rows != null && Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite") != null)
 					{
-						bool flag2 = Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture != null;
-						if (flag2)
+						if (Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture != null)
 						{
-							bool flag3 = Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture.name.Length > 0;
-							if (flag3)
+							if (Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture.name.Length > 0)
 							{
-								bool flag4 = !FavoriteCimsMainPanel.RowAlternateBackground;
 								Texture FavDot;
-								if (flag4)
+								if (!RowAlternateBackground)
 								{
 									FavDot = ResourceLoader.LoadTexture((int)Rows.width, 40, "UIMainPanel.Rows.bgrow_1.png");
 									FavDot.name = "FavDot_1";
 									Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture = FavDot;
-									FavoriteCimsMainPanel.RowAlternateBackground = true;
+									RowAlternateBackground = true;
 								}
 								else
 								{
 									FavDot = ResourceLoader.LoadTexture((int)Rows.width, 40, "UIMainPanel.Rows.bgrow_2.png");
 									FavDot.name = "FavDot_2";
 									Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture = FavDot;
-									FavoriteCimsMainPanel.RowAlternateBackground = false;
+									RowAlternateBackground = false;
 								}
 								Rows.eventMouseLeave -= delegate(UIComponent component, UIMouseEventParameter eventParam)
 								{
@@ -129,46 +124,46 @@ namespace FavoriteCims.UI.Panels
 			}
 		}
 
-		public void change_visibility_event()
+		public void Change_Visibility_Event()
 		{
-			this.FavCimsBCMenuButton.text = FavCimsLang.Text("FavCimsBCMenuButton_text");
-			this.FavCimsBCMenuButton.tooltip = FavCimsLang.Text("FavCimsBCMenuButton_tooltip");
-			FavoriteCimsMainPanel.FavCimsHappinesColText.text = FavCimsLang.Text("FavCimsHappinesColText_text");
-			FavoriteCimsMainPanel.FavCimsHappinesColText.tooltip = FavCimsLang.Text("FavCimsHappinesColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsNameColText.text = FavCimsLang.Text("FavCimsNameColText_text");
-			FavoriteCimsMainPanel.FavCimsNameColText.tooltip = FavCimsLang.Text("FavCimsNameColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.text = FavCimsLang.Text("FavCimsAgePhaseColText_text");
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.tooltip = FavCimsLang.Text("FavCimsAgePhaseColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsAgeColText.text = FavCimsLang.Text("FavCimsAgeColText_text");
-			FavoriteCimsMainPanel.FavCimsAgeColText.tooltip = FavCimsLang.Text("FavCimsAgeColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsEduColText.text = FavCimsLang.Text("FavCimsEduColText_text");
-			FavoriteCimsMainPanel.FavCimsEduColText.tooltip = FavCimsLang.Text("FavCimsEduColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsHomeColText.text = FavCimsLang.Text("FavCimsHomeColText_text");
-			FavoriteCimsMainPanel.FavCimsHomeColText.tooltip = FavCimsLang.Text("FavCimsHomeColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.text = FavCimsLang.Text("FavCimsWorkingPlaceColText_text");
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.tooltip = FavCimsLang.Text("FavCimsWorkingPlaceColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsLastActColText.text = FavCimsLang.Text("FavCimsLastActColText_text");
-			FavoriteCimsMainPanel.FavCimsLastActColText.tooltip = FavCimsLang.Text("FavCimsLastActColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.text = FavCimsLang.Text("FavCimsCloseButtonCol_text");
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("FavCimsCloseButtonCol_tooltip");
+			FavCimsBCMenuButton.text = FavCimsLang.Text("FavCimsBCMenuButton_text");
+			FavCimsBCMenuButton.tooltip = FavCimsLang.Text("FavCimsBCMenuButton_tooltip");
+			FavCimsHappinesColText.text = FavCimsLang.Text("FavCimsHappinesColText_text");
+			FavCimsHappinesColText.tooltip = FavCimsLang.Text("FavCimsHappinesColText_tooltip");
+			FavCimsNameColText.text = FavCimsLang.Text("FavCimsNameColText_text");
+			FavCimsNameColText.tooltip = FavCimsLang.Text("FavCimsNameColText_tooltip");
+			FavCimsAgePhaseColText.text = FavCimsLang.Text("FavCimsAgePhaseColText_text");
+			FavCimsAgePhaseColText.tooltip = FavCimsLang.Text("FavCimsAgePhaseColText_tooltip");
+			FavCimsAgeColText.text = FavCimsLang.Text("FavCimsAgeColText_text");
+			FavCimsAgeColText.tooltip = FavCimsLang.Text("FavCimsAgeColText_tooltip");
+			FavCimsEduColText.text = FavCimsLang.Text("FavCimsEduColText_text");
+			FavCimsEduColText.tooltip = FavCimsLang.Text("FavCimsEduColText_tooltip");
+			FavCimsHomeColText.text = FavCimsLang.Text("FavCimsHomeColText_text");
+			FavCimsHomeColText.tooltip = FavCimsLang.Text("FavCimsHomeColText_tooltip");
+			FavCimsWorkingPlaceColText.text = FavCimsLang.Text("FavCimsWorkingPlaceColText_text");
+			FavCimsWorkingPlaceColText.tooltip = FavCimsLang.Text("FavCimsWorkingPlaceColText_tooltip");
+			FavCimsLastActColText.text = FavCimsLang.Text("FavCimsLastActColText_text");
+			FavCimsLastActColText.tooltip = FavCimsLang.Text("FavCimsLastActColText_tooltip");
+			FavCimsCloseButtonCol.text = FavCimsLang.Text("FavCimsCloseButtonCol_text");
+			FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("FavCimsCloseButtonCol_tooltip");
 		}
 
 		public override void Start()
 		{
 			UIView aview = UIView.GetAView();
-			base.name = "FavCimsPanel";
-			base.width = 1200f;
-			base.height = 700f;
-			base.opacity = 0.95f;
-			base.eventVisibilityChanged += delegate(UIComponent component, bool value)
+			name = "FavCimsPanel";
+			width = 1200f;
+			height = 700f;
+			opacity = 0.95f;
+			eventVisibilityChanged += delegate(UIComponent component, bool value)
 			{
-				this.change_visibility_event();
+                Change_Visibility_Event();
 			};
-			Texture texture = ResourceLoader.LoadTexture((int)base.width, (int)base.height, "UIMainPanel.mainbg.png");
+			Texture texture = ResourceLoader.LoadTexture((int)width, (int)height, "UIMainPanel.mainbg.png");
 			texture.wrapMode = TextureWrapMode.Clamp;
 			texture.filterMode = FilterMode.Bilinear;
 			texture.name = "FavCimsMainBGTexture";
-			UITextureSprite uitextureSprite = base.AddUIComponent<UITextureSprite>();
+			UITextureSprite uitextureSprite = AddUIComponent<UITextureSprite>();
 			uitextureSprite.name = "FavCimsMainBGSprite";
 			uitextureSprite.texture = texture;
 			uitextureSprite.relativePosition = new Vector3(0f, 0f);
@@ -177,44 +172,42 @@ namespace FavoriteCims.UI.Panels
 				bool mouseButton = Input.GetMouseButton(0);
 				if (mouseButton)
 				{
-					bool flag2 = this.GetComponentInChildren<WindowController>() != null;
-					if (flag2)
+					if (GetComponentInChildren<WindowController>() != null)
 					{
-						this.PanelMover = this.GetComponentInChildren<WindowController>();
-						this.PanelMover.ComponentToMove = this;
-						this.PanelMover.Stop = false;
-						this.PanelMover.Start();
+						PanelMover = GetComponentInChildren<WindowController>();
+						PanelMover.ComponentToMove = this;
+						PanelMover.Stop = false;
+						PanelMover.Start();
 					}
 					else
 					{
-						this.PanelMover = this.AddUIComponent(typeof(WindowController)) as WindowController;
-						this.PanelMover.ComponentToMove = this;
+						PanelMover = AddUIComponent(typeof(WindowController)) as WindowController;
+						PanelMover.ComponentToMove = this;
 					}
-					this.opacity = 0.5f;
+					opacity = 0.5f;
 				}
 			};
 			uitextureSprite.eventMouseUp += delegate
 			{
-				bool flag3 = this.PanelMover != null;
-				if (flag3)
+				if (PanelMover != null)
 				{
-					this.PanelMover.Stop = true;
-					this.PanelMover.ComponentToMove = null;
-					this.PanelMover = null;
+					PanelMover.Stop = true;
+					PanelMover.ComponentToMove = null;
+					PanelMover = null;
 				}
-				this.opacity = 1f;
+				opacity = 1f;
 			};
-			Texture texture2 = ResourceLoader.LoadTexture((int)base.width, 58, "UIMainPanel.favcimstitle.png");
+			Texture texture2 = ResourceLoader.LoadTexture((int)width, 58, "UIMainPanel.favcimstitle.png");
 			texture2.wrapMode = TextureWrapMode.Clamp;
 			texture2.filterMode = FilterMode.Bilinear;
 			texture2.mipMapBias = -0.5f;
 			texture2.name = "FavCimsTitleTexture";
-			this.FavCimsTitleSprite = uitextureSprite.AddUIComponent<UITextureSprite>();
-			this.FavCimsTitleSprite.name = "FavCimsTitleSprite";
-			this.FavCimsTitleSprite.texture = texture2;
-			float num = base.width / 2f - (float)texture2.width / 2f;
-			this.FavCimsTitleSprite.relativePosition = new Vector3(num, 0f);
-			UIButton uibutton = base.AddUIComponent<UIButton>();
+			FavCimsTitleSprite = uitextureSprite.AddUIComponent<UITextureSprite>();
+			FavCimsTitleSprite.name = "FavCimsTitleSprite";
+			FavCimsTitleSprite.texture = texture2;
+			float num = width / 2f - texture2.width / 2f;
+			FavCimsTitleSprite.relativePosition = new Vector3(num, 0f);
+			UIButton uibutton = AddUIComponent<UIButton>();
 			uibutton.name = "FavCimsMenuCloseButton";
 			uibutton.width = 32f;
 			uibutton.height = 32f;
@@ -228,229 +221,229 @@ namespace FavoriteCims.UI.Panels
 			{
 				FavCimsMainClass.FavCimsPanelToggle();
 			};
-			uibutton.relativePosition = new Vector3(base.width - uibutton.width * 1.5f, (float)texture2.height / 2f - uibutton.height / 2f);
-			Texture texture3 = ResourceLoader.LoadTexture((int)base.width - 10, 70, "UIMainPanel.submenubar.png");
+			uibutton.relativePosition = new Vector3(width - uibutton.width * 1.5f, texture2.height / 2f - uibutton.height / 2f);
+			Texture texture3 = ResourceLoader.LoadTexture((int)width - 10, 70, "UIMainPanel.submenubar.png");
 			texture3.wrapMode = TextureWrapMode.Clamp;
 			texture3.filterMode = FilterMode.Bilinear;
 			texture3.name = "FavCimsBGMenuTexture";
 			UITextureSprite uitextureSprite2 = uitextureSprite.AddUIComponent<UITextureSprite>();
 			uitextureSprite2.name = "FavCimsBGMenuSprite";
 			uitextureSprite2.texture = texture3;
-			float num2 = base.width / 2f - (float)texture3.width / 2f;
+			float num2 = width / 2f - texture3.width / 2f;
 			uitextureSprite2.relativePosition = new Vector3(num2, 58f);
-			this.FavCimsCBETexture = ResourceLoader.LoadTexture(200, 59, "UIMainPanel.citizenbuttonenabled.png");
-			this.FavCimsCBDTexture = ResourceLoader.LoadTexture(200, 59, "UIMainPanel.citizenbuttondisabled.png");
-			this.FavCimsCBETexture.wrapMode = TextureWrapMode.Clamp;
-			this.FavCimsCBETexture.filterMode = FilterMode.Bilinear;
-			this.FavCimsCBETexture.name = "FavCimsCBETexture";
-			this.FavCimsCBETexture.mipMapBias = -0.5f;
-			this.FavCimsCBDTexture.wrapMode = TextureWrapMode.Clamp;
-			this.FavCimsCBDTexture.filterMode = FilterMode.Bilinear;
-			this.FavCimsCBDTexture.name = "FavCimsCBDTexture";
-			this.FavCimsCBDTexture.mipMapBias = -0.5f;
-			this.FavCimsCBMenuSprite = uitextureSprite.AddUIComponent<UITextureSprite>();
-			this.FavCimsCBMenuSprite.name = "FavCimsBGMenuSprite";
-			this.FavCimsCBMenuSprite.texture = this.FavCimsCBETexture;
-			this.FavCimsBCMenuButton = base.AddUIComponent<UIButton>();
-			this.FavCimsBCMenuButton.name = "FavCimsBCMenuButton";
-			this.FavCimsBCMenuButton.width = this.FavCimsCBMenuSprite.width;
-			this.FavCimsBCMenuButton.height = this.FavCimsCBMenuSprite.height;
-			this.FavCimsBCMenuButton.useOutline = true;
-			this.FavCimsBCMenuButton.playAudioEvents = true;
-			this.FavCimsBCMenuButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			this.FavCimsBCMenuButton.textScale = 1.8f;
-			this.FavCimsBCMenuButton.textColor = new Color32(204, 204, 51, 40);
-			this.FavCimsBCMenuButton.hoveredTextColor = new Color32(204, 102, 0, 20);
-			this.FavCimsBCMenuButton.pressedTextColor = new Color32(153, 0, 0, 0);
-			this.FavCimsBCMenuButton.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			this.FavCimsBCMenuButton.textPadding.left = 15;
-			this.FavCimsBCMenuButton.useDropShadow = true;
-			this.FavCimsBCMenuButton.tooltipBox = aview.defaultTooltipBox;
-			this.FavCimsCBMenuSprite.relativePosition = new Vector3(27f, 69f);
-			this.FavCimsBCMenuButton.relativePosition = new Vector3(27f, 69f);
-			this.CitizensPanel = base.AddUIComponent<UIPanel>();
-			this.CitizensPanel.name = "CitizensPanel";
-			this.CitizensPanel.width = 1190f;
-			this.CitizensPanel.height = 558f;
-			this.CitizensPanel.relativePosition = new Vector3(base.width / 2f - this.CitizensPanel.width / 2f, 128f);
-			this.FavCimsMainBodyTexture = ResourceLoader.LoadTexture(1190, 558, "UIMainPanel.bodybg.png");
-			this.FavCimsMainBodyTexture.wrapMode = TextureWrapMode.Clamp;
-			this.FavCimsMainBodyTexture.filterMode = FilterMode.Bilinear;
-			this.FavCimsMainBodyTexture.name = "FavCimsMainBodyTexture";
-			this.FavCimsBodySprite = this.CitizensPanel.AddUIComponent<UITextureSprite>();
-			this.FavCimsBodySprite.name = "FavCimsCBGBodySprite";
-			this.FavCimsBodySprite.texture = this.FavCimsMainBodyTexture;
-			this.FavCimsBodySprite.relativePosition = Vector3.zero;
+			FavCimsCBETexture = ResourceLoader.LoadTexture(200, 59, "UIMainPanel.citizenbuttonenabled.png");
+			FavCimsCBDTexture = ResourceLoader.LoadTexture(200, 59, "UIMainPanel.citizenbuttondisabled.png");
+			FavCimsCBETexture.wrapMode = TextureWrapMode.Clamp;
+			FavCimsCBETexture.filterMode = FilterMode.Bilinear;
+			FavCimsCBETexture.name = "FavCimsCBETexture";
+			FavCimsCBETexture.mipMapBias = -0.5f;
+			FavCimsCBDTexture.wrapMode = TextureWrapMode.Clamp;
+			FavCimsCBDTexture.filterMode = FilterMode.Bilinear;
+			FavCimsCBDTexture.name = "FavCimsCBDTexture";
+			FavCimsCBDTexture.mipMapBias = -0.5f;
+			FavCimsCBMenuSprite = uitextureSprite.AddUIComponent<UITextureSprite>();
+			FavCimsCBMenuSprite.name = "FavCimsBGMenuSprite";
+			FavCimsCBMenuSprite.texture = FavCimsCBETexture;
+			FavCimsBCMenuButton = AddUIComponent<UIButton>();
+			FavCimsBCMenuButton.name = "FavCimsBCMenuButton";
+			FavCimsBCMenuButton.width = FavCimsCBMenuSprite.width;
+			FavCimsBCMenuButton.height = FavCimsCBMenuSprite.height;
+			FavCimsBCMenuButton.useOutline = true;
+			FavCimsBCMenuButton.playAudioEvents = true;
+			FavCimsBCMenuButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsBCMenuButton.textScale = 1.8f;
+			FavCimsBCMenuButton.textColor = new Color32(204, 204, 51, 40);
+			FavCimsBCMenuButton.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsBCMenuButton.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsBCMenuButton.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsBCMenuButton.textPadding.left = 15;
+			FavCimsBCMenuButton.useDropShadow = true;
+			FavCimsBCMenuButton.tooltipBox = aview.defaultTooltipBox;
+			FavCimsCBMenuSprite.relativePosition = new Vector3(27f, 69f);
+			FavCimsBCMenuButton.relativePosition = new Vector3(27f, 69f);
+			CitizensPanel = AddUIComponent<UIPanel>();
+			CitizensPanel.name = "CitizensPanel";
+			CitizensPanel.width = 1190f;
+			CitizensPanel.height = 558f;
+			CitizensPanel.relativePosition = new Vector3(width / 2f - CitizensPanel.width / 2f, 128f);
+			FavCimsMainBodyTexture = ResourceLoader.LoadTexture(1190, 558, "UIMainPanel.bodybg.png");
+			FavCimsMainBodyTexture.wrapMode = TextureWrapMode.Clamp;
+			FavCimsMainBodyTexture.filterMode = FilterMode.Bilinear;
+			FavCimsMainBodyTexture.name = "FavCimsMainBodyTexture";
+			FavCimsBodySprite = CitizensPanel.AddUIComponent<UITextureSprite>();
+			FavCimsBodySprite.name = "FavCimsCBGBodySprite";
+			FavCimsBodySprite.texture = FavCimsMainBodyTexture;
+			FavCimsBodySprite.relativePosition = Vector3.zero;
 			Texture texture4 = ResourceLoader.LoadTexture(1146, 26, "UIMainPanel.indexerbgbar.png");
 			texture4.wrapMode = TextureWrapMode.Clamp;
 			texture4.filterMode = FilterMode.Bilinear;
 			texture4.name = "FavCimsIndexBgBar";
 			texture4.mipMapBias = -0.5f;
-			UITextureSprite uitextureSprite3 = this.CitizensPanel.AddUIComponent<UITextureSprite>();
+			UITextureSprite uitextureSprite3 = CitizensPanel.AddUIComponent<UITextureSprite>();
 			uitextureSprite3.name = "FavCimsIndexBgBarSprite";
 			uitextureSprite3.texture = texture4;
 			uitextureSprite3.relativePosition = new Vector3(21f, 7f);
-			FavoriteCimsMainPanel.FavCimsHappinesColText = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsHappinesColText.name = "FavCimsHappinesColText";
-			FavoriteCimsMainPanel.FavCimsHappinesColText.width = 60f;
-			FavoriteCimsMainPanel.FavCimsHappinesColText.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsHappinesColText.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsHappinesColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsHappinesColText.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsHappinesColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsHappinesColText.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsHappinesColText.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsHappinesColText.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsHappinesColText.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsHappinesColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsHappinesColText.textPadding.left = 0;
-			FavoriteCimsMainPanel.FavCimsHappinesColText.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsHappinesColText.relativePosition = new Vector3(uitextureSprite3.relativePosition.x + 6f, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsNameColText = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsNameColText.name = "FavCimsNameColText";
-			FavoriteCimsMainPanel.FavCimsNameColText.width = 180f;
-			FavoriteCimsMainPanel.FavCimsNameColText.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsNameColText.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsNameColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsNameColText.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsNameColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsNameColText.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsNameColText.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsNameColText.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsNameColText.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsNameColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsNameColText.textPadding.left = 0;
-			FavoriteCimsMainPanel.FavCimsNameColText.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsNameColText.relativePosition = new Vector3(FavoriteCimsMainPanel.FavCimsHappinesColText.relativePosition.x + FavoriteCimsMainPanel.FavCimsHappinesColText.width, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.name = "FavCimsAgePhaseColText";
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.width = 120f;
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.textPadding.left = 0;
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.relativePosition = new Vector3(FavoriteCimsMainPanel.FavCimsNameColText.relativePosition.x + FavoriteCimsMainPanel.FavCimsNameColText.width, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsAgeColText = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsAgeColText.name = "FavCimsAgeColText";
-			FavoriteCimsMainPanel.FavCimsAgeColText.width = 40f;
-			FavoriteCimsMainPanel.FavCimsAgeColText.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsAgeColText.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsAgeColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsAgeColText.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsAgeColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsAgeColText.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsAgeColText.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsAgeColText.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsAgeColText.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsAgeColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsAgeColText.textPadding.left = 0;
-			FavoriteCimsMainPanel.FavCimsAgeColText.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsAgeColText.relativePosition = new Vector3(FavoriteCimsMainPanel.FavCimsAgePhaseColText.relativePosition.x + FavoriteCimsMainPanel.FavCimsAgePhaseColText.width, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsEduColText = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsEduColText.name = "FavCimsEduColText";
-			FavoriteCimsMainPanel.FavCimsEduColText.width = 140f;
-			FavoriteCimsMainPanel.FavCimsEduColText.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsEduColText.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsEduColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsEduColText.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsEduColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsEduColText.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsEduColText.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsEduColText.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsEduColText.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsEduColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsEduColText.textPadding.left = 0;
-			FavoriteCimsMainPanel.FavCimsEduColText.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsEduColText.relativePosition = new Vector3(FavoriteCimsMainPanel.FavCimsAgeColText.relativePosition.x + FavoriteCimsMainPanel.FavCimsAgeColText.width, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsHomeColText = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsHomeColText.name = "FavCimsHomeColText";
-			FavoriteCimsMainPanel.FavCimsHomeColText.width = 184f;
-			FavoriteCimsMainPanel.FavCimsHomeColText.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsHomeColText.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsHomeColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsHomeColText.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsHomeColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsHomeColText.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsHomeColText.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsHomeColText.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsHomeColText.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsHomeColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsHomeColText.textPadding.left = 0;
-			FavoriteCimsMainPanel.FavCimsHomeColText.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsHomeColText.relativePosition = new Vector3(FavoriteCimsMainPanel.FavCimsEduColText.relativePosition.x + FavoriteCimsMainPanel.FavCimsEduColText.width, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.name = "FavCimsWorkingPlaceColText";
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.width = 180f;
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.textPadding.left = 0;
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.relativePosition = new Vector3(FavoriteCimsMainPanel.FavCimsHomeColText.relativePosition.x + FavoriteCimsMainPanel.FavCimsHomeColText.width, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsLastActColText = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsLastActColText.name = "FavCimsLastActColText";
-			FavoriteCimsMainPanel.FavCimsLastActColText.width = 180f;
-			FavoriteCimsMainPanel.FavCimsLastActColText.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsLastActColText.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsLastActColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsLastActColText.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsLastActColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsLastActColText.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsLastActColText.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsLastActColText.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsLastActColText.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsLastActColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsLastActColText.textPadding.left = 0;
-			FavoriteCimsMainPanel.FavCimsLastActColText.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsLastActColText.relativePosition = new Vector3(FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.relativePosition.x + FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.width, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol = this.CitizensPanel.AddUIComponent<UIButton>();
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.name = "FavCimsCloseButtonCol";
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.width = 50f;
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.height = (float)texture4.height;
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.textVerticalAlignment = UIVerticalAlignment.Middle;
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.textHorizontalAlignment = UIHorizontalAlignment.Center;
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.playAudioEvents = true;
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.font = UIDynamicFont.FindByName("OpenSans-Regular");
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.textScale = 0.7f;
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.textColor = new Color32(204, 204, 51, 40);
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.hoveredTextColor = new Color32(204, 102, 0, 20);
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.pressedTextColor = new Color32(153, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.textPadding.right = 6;
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.tooltipBox = aview.defaultTooltipBox;
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.relativePosition = new Vector3(FavoriteCimsMainPanel.FavCimsLastActColText.relativePosition.x + FavoriteCimsMainPanel.FavCimsLastActColText.width, uitextureSprite3.relativePosition.y + 1f);
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel = this.CitizensPanel.AddUIComponent<UIScrollablePanel>();
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.name = "FavCimsCitizenRowsPanel";
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.width = uitextureSprite3.width - 12f;
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.height = 500f;
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.autoLayoutDirection = LayoutDirection.Vertical;
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.autoLayout = true;
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.clipChildren = true;
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.autoLayoutPadding = new RectOffset(0, 0, 0, 0);
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.relativePosition = new Vector3(uitextureSprite3.relativePosition.x + 6f, uitextureSprite3.relativePosition.y + uitextureSprite3.height);
-			UIScrollablePanel uiscrollablePanel = this.CitizensPanel.AddUIComponent<UIScrollablePanel>();
+			FavCimsHappinesColText = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsHappinesColText.name = "FavCimsHappinesColText";
+			FavCimsHappinesColText.width = 60f;
+			FavCimsHappinesColText.height = texture4.height;
+			FavCimsHappinesColText.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsHappinesColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsHappinesColText.playAudioEvents = true;
+			FavCimsHappinesColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsHappinesColText.textScale = 0.7f;
+			FavCimsHappinesColText.textColor = new Color32(204, 204, 51, 40);
+			FavCimsHappinesColText.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsHappinesColText.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsHappinesColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsHappinesColText.textPadding.left = 0;
+			FavCimsHappinesColText.tooltipBox = aview.defaultTooltipBox;
+			FavCimsHappinesColText.relativePosition = new Vector3(uitextureSprite3.relativePosition.x + 6f, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsNameColText = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsNameColText.name = "FavCimsNameColText";
+			FavCimsNameColText.width = 180f;
+			FavCimsNameColText.height = texture4.height;
+			FavCimsNameColText.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsNameColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsNameColText.playAudioEvents = true;
+			FavCimsNameColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsNameColText.textScale = 0.7f;
+			FavCimsNameColText.textColor = new Color32(204, 204, 51, 40);
+			FavCimsNameColText.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsNameColText.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsNameColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsNameColText.textPadding.left = 0;
+			FavCimsNameColText.tooltipBox = aview.defaultTooltipBox;
+			FavCimsNameColText.relativePosition = new Vector3(FavCimsHappinesColText.relativePosition.x + FavCimsHappinesColText.width, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsAgePhaseColText = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsAgePhaseColText.name = "FavCimsAgePhaseColText";
+			FavCimsAgePhaseColText.width = 120f;
+			FavCimsAgePhaseColText.height = texture4.height;
+			FavCimsAgePhaseColText.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsAgePhaseColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsAgePhaseColText.playAudioEvents = true;
+			FavCimsAgePhaseColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsAgePhaseColText.textScale = 0.7f;
+			FavCimsAgePhaseColText.textColor = new Color32(204, 204, 51, 40);
+			FavCimsAgePhaseColText.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsAgePhaseColText.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsAgePhaseColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsAgePhaseColText.textPadding.left = 0;
+			FavCimsAgePhaseColText.tooltipBox = aview.defaultTooltipBox;
+			FavCimsAgePhaseColText.relativePosition = new Vector3(FavCimsNameColText.relativePosition.x + FavCimsNameColText.width, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsAgeColText = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsAgeColText.name = "FavCimsAgeColText";
+			FavCimsAgeColText.width = 40f;
+			FavCimsAgeColText.height = texture4.height;
+			FavCimsAgeColText.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsAgeColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsAgeColText.playAudioEvents = true;
+			FavCimsAgeColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsAgeColText.textScale = 0.7f;
+			FavCimsAgeColText.textColor = new Color32(204, 204, 51, 40);
+			FavCimsAgeColText.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsAgeColText.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsAgeColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsAgeColText.textPadding.left = 0;
+			FavCimsAgeColText.tooltipBox = aview.defaultTooltipBox;
+			FavCimsAgeColText.relativePosition = new Vector3(FavCimsAgePhaseColText.relativePosition.x + FavCimsAgePhaseColText.width, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsEduColText = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsEduColText.name = "FavCimsEduColText";
+			FavCimsEduColText.width = 140f;
+			FavCimsEduColText.height = texture4.height;
+			FavCimsEduColText.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsEduColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsEduColText.playAudioEvents = true;
+			FavCimsEduColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsEduColText.textScale = 0.7f;
+			FavCimsEduColText.textColor = new Color32(204, 204, 51, 40);
+			FavCimsEduColText.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsEduColText.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsEduColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsEduColText.textPadding.left = 0;
+			FavCimsEduColText.tooltipBox = aview.defaultTooltipBox;
+			FavCimsEduColText.relativePosition = new Vector3(FavCimsAgeColText.relativePosition.x + FavCimsAgeColText.width, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsHomeColText = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsHomeColText.name = "FavCimsHomeColText";
+			FavCimsHomeColText.width = 184f;
+			FavCimsHomeColText.height = texture4.height;
+			FavCimsHomeColText.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsHomeColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsHomeColText.playAudioEvents = true;
+			FavCimsHomeColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsHomeColText.textScale = 0.7f;
+			FavCimsHomeColText.textColor = new Color32(204, 204, 51, 40);
+			FavCimsHomeColText.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsHomeColText.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsHomeColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsHomeColText.textPadding.left = 0;
+			FavCimsHomeColText.tooltipBox = aview.defaultTooltipBox;
+			FavCimsHomeColText.relativePosition = new Vector3(FavCimsEduColText.relativePosition.x + FavCimsEduColText.width, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsWorkingPlaceColText = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsWorkingPlaceColText.name = "FavCimsWorkingPlaceColText";
+			FavCimsWorkingPlaceColText.width = 180f;
+			FavCimsWorkingPlaceColText.height = texture4.height;
+			FavCimsWorkingPlaceColText.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsWorkingPlaceColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsWorkingPlaceColText.playAudioEvents = true;
+			FavCimsWorkingPlaceColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsWorkingPlaceColText.textScale = 0.7f;
+			FavCimsWorkingPlaceColText.textColor = new Color32(204, 204, 51, 40);
+			FavCimsWorkingPlaceColText.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsWorkingPlaceColText.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsWorkingPlaceColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsWorkingPlaceColText.textPadding.left = 0;
+			FavCimsWorkingPlaceColText.tooltipBox = aview.defaultTooltipBox;
+			FavCimsWorkingPlaceColText.relativePosition = new Vector3(FavCimsHomeColText.relativePosition.x + FavCimsHomeColText.width, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsLastActColText = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsLastActColText.name = "FavCimsLastActColText";
+			FavCimsLastActColText.width = 180f;
+			FavCimsLastActColText.height = texture4.height;
+			FavCimsLastActColText.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsLastActColText.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsLastActColText.playAudioEvents = true;
+			FavCimsLastActColText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsLastActColText.textScale = 0.7f;
+			FavCimsLastActColText.textColor = new Color32(204, 204, 51, 40);
+			FavCimsLastActColText.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsLastActColText.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsLastActColText.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsLastActColText.textPadding.left = 0;
+			FavCimsLastActColText.tooltipBox = aview.defaultTooltipBox;
+			FavCimsLastActColText.relativePosition = new Vector3(FavCimsWorkingPlaceColText.relativePosition.x + FavCimsWorkingPlaceColText.width, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsCloseButtonCol = CitizensPanel.AddUIComponent<UIButton>();
+			FavCimsCloseButtonCol.name = "FavCimsCloseButtonCol";
+			FavCimsCloseButtonCol.width = 50f;
+			FavCimsCloseButtonCol.height = texture4.height;
+			FavCimsCloseButtonCol.textVerticalAlignment = UIVerticalAlignment.Middle;
+			FavCimsCloseButtonCol.textHorizontalAlignment = UIHorizontalAlignment.Center;
+			FavCimsCloseButtonCol.playAudioEvents = true;
+			FavCimsCloseButtonCol.font = UIDynamicFont.FindByName("OpenSans-Regular");
+			FavCimsCloseButtonCol.textScale = 0.7f;
+			FavCimsCloseButtonCol.textColor = new Color32(204, 204, 51, 40);
+			FavCimsCloseButtonCol.hoveredTextColor = new Color32(204, 102, 0, 20);
+			FavCimsCloseButtonCol.pressedTextColor = new Color32(153, 0, 0, 0);
+			FavCimsCloseButtonCol.focusedTextColor = new Color32(102, 153, byte.MaxValue, 147);
+			FavCimsCloseButtonCol.textPadding.right = 6;
+			FavCimsCloseButtonCol.tooltipBox = aview.defaultTooltipBox;
+			FavCimsCloseButtonCol.relativePosition = new Vector3(FavCimsLastActColText.relativePosition.x + FavCimsLastActColText.width, uitextureSprite3.relativePosition.y + 1f);
+			FavCimsCitizenRowsPanel = CitizensPanel.AddUIComponent<UIScrollablePanel>();
+			FavCimsCitizenRowsPanel.name = "FavCimsCitizenRowsPanel";
+			FavCimsCitizenRowsPanel.width = uitextureSprite3.width - 12f;
+			FavCimsCitizenRowsPanel.height = 500f;
+			FavCimsCitizenRowsPanel.autoLayoutDirection = LayoutDirection.Vertical;
+			FavCimsCitizenRowsPanel.autoLayout = true;
+			FavCimsCitizenRowsPanel.clipChildren = true;
+			FavCimsCitizenRowsPanel.autoLayoutPadding = new RectOffset(0, 0, 0, 0);
+			FavCimsCitizenRowsPanel.relativePosition = new Vector3(uitextureSprite3.relativePosition.x + 6f, uitextureSprite3.relativePosition.y + uitextureSprite3.height);
+			UIScrollablePanel uiscrollablePanel = CitizensPanel.AddUIComponent<UIScrollablePanel>();
 			uiscrollablePanel.name = "FavCimsCitizenRowsPanelScrollBar";
 			uiscrollablePanel.width = 10f;
 			uiscrollablePanel.height = 500f;
-			uiscrollablePanel.relativePosition = new Vector3(uitextureSprite3.relativePosition.x + uitextureSprite3.width, FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.relativePosition.y);
+			uiscrollablePanel.relativePosition = new Vector3(uitextureSprite3.relativePosition.x + uitextureSprite3.width, FavCimsCitizenRowsPanel.relativePosition.y);
 			UIScrollbar FavCimsMainPanelScrollBar = uiscrollablePanel.AddUIComponent<UIScrollbar>();
 			FavCimsMainPanelScrollBar.width = 10f;
-			FavCimsMainPanelScrollBar.height = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.height;
+			FavCimsMainPanelScrollBar.height = FavCimsCitizenRowsPanel.height;
 			FavCimsMainPanelScrollBar.orientation = UIOrientation.Vertical;
 			FavCimsMainPanelScrollBar.pivot = UIPivotPoint.TopRight;
 			FavCimsMainPanelScrollBar.AlignTo(FavCimsMainPanelScrollBar.parent, 0);
@@ -471,32 +464,31 @@ namespace FavoriteCims.UI.Panels
 			uislicedSprite2.fillDirection = UIFillDirection.Vertical;
 			uislicedSprite2.spriteName = "ScrollbarThumb";
 			FavCimsMainPanelScrollBar.thumbObject = uislicedSprite2;
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.verticalScrollbar = FavCimsMainPanelScrollBar;
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.eventMouseWheel += delegate(UIComponent component, UIMouseEventParameter eventParam)
+			FavCimsCitizenRowsPanel.verticalScrollbar = FavCimsMainPanelScrollBar;
+			FavCimsCitizenRowsPanel.eventMouseWheel += delegate(UIComponent component, UIMouseEventParameter eventParam)
 			{
-				int num3 = Math.Sign(eventParam.wheelDelta);
-				FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.scrollPosition += new Vector2(0f, (float)(num3 * -1) * FavCimsMainPanelScrollBar.incrementAmount);
+				int sign = Math.Sign(eventParam.wheelDelta);
+				FavCimsCitizenRowsPanel.scrollPosition += new Vector2(0f, (sign * -1) * FavCimsMainPanelScrollBar.incrementAmount);
 			};
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.eventComponentAdded += delegate(UIComponent component, UIComponent eventParam)
+			FavCimsCitizenRowsPanel.eventComponentAdded += delegate(UIComponent component, UIComponent eventParam)
 			{
-				this.ReorderRowsBackgrounds();
+				ReorderRowsBackgrounds();
 			};
-			FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.eventComponentRemoved += delegate(UIComponent component, UIComponent eventParam)
+			FavCimsCitizenRowsPanel.eventComponentRemoved += delegate(UIComponent component, UIComponent eventParam)
 			{
-				this.ReorderRowsBackgrounds();
+				ReorderRowsBackgrounds();
 			};
-			UITextureSprite uitextureSprite4 = this.CitizensPanel.AddUIComponent<UITextureSprite>();
+			UITextureSprite uitextureSprite4 = CitizensPanel.AddUIComponent<UITextureSprite>();
 			uitextureSprite4.name = "FavCimsFooterBgBarSprite";
 			uitextureSprite4.width = uitextureSprite3.width;
 			uitextureSprite4.height = 15f;
 			uitextureSprite4.texture = texture4;
-			uitextureSprite4.relativePosition = new Vector3(21f, FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.relativePosition.y + FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.height);
+			uitextureSprite4.relativePosition = new Vector3(21f, FavCimsCitizenRowsPanel.relativePosition.y + FavCimsCitizenRowsPanel.height);
 			foreach (KeyValuePair<InstanceID, string> keyValuePair in FavCimsCore.FavoriteCimsList())
 			{
-				bool flag = keyValuePair.Key.Type == InstanceType.Citizen;
-				if (flag)
+				if (keyValuePair.Key.Type == InstanceType.Citizen)
 				{
-					CitizenRow citizenRow = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
+					CitizenRow citizenRow = FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
 					citizenRow.MyInstanceID = keyValuePair.Key;
 					citizenRow.MyInstancedName = keyValuePair.Value;
 				}

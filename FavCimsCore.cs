@@ -5,7 +5,6 @@ using System.Threading;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
-using FavoriteCims.Utils;
 using UnityEngine;
 
 namespace FavoriteCims
@@ -18,19 +17,19 @@ namespace FavoriteCims
 
         public static T GetPrivateVariable<T>(object obj, string fieldName)
 		{
-			return (T)((object)obj.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(obj));
+			return (T)obj.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(obj);
 		}
 
 		public static Dictionary<InstanceID, string> FavoriteCimsList()
 		{
-			object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
+			object privateVariable = GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
 			while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
 			{
 			}
 			Dictionary<InstanceID, string> dictionary;
 			try
 			{
-				Dictionary<InstanceID, string> privateVariable2 = FavCimsCore.GetPrivateVariable<Dictionary<InstanceID, string>>(Singleton<InstanceManager>.instance, "m_names");
+				Dictionary<InstanceID, string> privateVariable2 = GetPrivateVariable<Dictionary<InstanceID, string>>(Singleton<InstanceManager>.instance, "m_names");
 				dictionary = privateVariable2;
 			}
 			finally
@@ -45,7 +44,7 @@ namespace FavoriteCims
 			bool isEmpty = MyInstanceID.IsEmpty;
 			if (!isEmpty)
 			{
-				object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
+				object privateVariable = GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
 				while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
 				{
 				}
@@ -55,22 +54,18 @@ namespace FavoriteCims
 					CitizenManager instance2 = Singleton<CitizenManager>.instance;
 					uint citizen = MyInstanceID.Citizen;
 					string citizenName = instance2.GetCitizenName(citizen);
-					int num = (int)(uint)((UIntPtr)citizen);
-					bool flag = citizenName != null && citizenName.Length > 0;
-					if (flag)
+					int citizenINT = (int)(UIntPtr)citizen;
+					if (citizenName != null && citizenName.Length > 0)
 					{
-						bool flag2 = !FavCimsCore.RowID.ContainsKey(num);
-						if (flag2)
+						if (RowID.ContainsKey(citizenINT))
 						{
-							bool flag3 = !FavoriteCimsMainPanel.RowsAlreadyExist(MyInstanceID);
-							if (flag3)
+							if (!FavoriteCimsMainPanel.RowsAlreadyExist(MyInstanceID))
 							{
 								try
 								{
 									instance.SetName(MyInstanceID, citizenName);
 									CitizenRow citizenRow = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
-									bool flag4 = citizenRow != null;
-									if (flag4)
+									if (citizenRow != null)
 									{
 										citizenRow.MyInstanceID = MyInstanceID;
 										citizenRow.MyInstancedName = citizenName;
@@ -84,7 +79,7 @@ namespace FavoriteCims
 						}
 						else
 						{
-							FavCimsCore.RemoveRowAndRemoveFav(MyInstanceID, num);
+							RemoveRowAndRemoveFav(MyInstanceID, citizenINT);
 						}
 					}
 				}
@@ -97,24 +92,22 @@ namespace FavoriteCims
 
 		public static void RemoveRowAndRemoveFav(InstanceID citizenInstanceID, int citizenID)
 		{
-			object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
+			object privateVariable = GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
 			while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
 			{
 			}
 			try
 			{
 				InstanceManager instance = Singleton<InstanceManager>.instance;
-				bool flag = !citizenInstanceID.IsEmpty;
-				if (flag)
+				if (!citizenInstanceID.IsEmpty)
 				{
 					string name = instance.GetName(citizenInstanceID);
-					bool flag2 = name != null && name.Length > 0;
-					if (flag2)
+					if (name != null && name.Length > 0)
 					{
 						instance.SetName(citizenInstanceID, null);
 					}
 				}
-				FavCimsCore.RemoveIdFromArray(citizenID);
+				RemoveIdFromArray(citizenID);
 			}
 			finally
 			{
@@ -124,7 +117,7 @@ namespace FavoriteCims
 
 		public static void UpdateMyCitizen(string action, UIPanel refPanel)
 		{
-            object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
+            object privateVariable = GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
 			while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
 			{
 			}
@@ -132,16 +125,15 @@ namespace FavoriteCims
 			{
 				InstanceManager instance2 = Singleton<InstanceManager>.instance;
 				refPanel.SimulateClick();
-				FavCimsCore.ThisHuman = WorldInfoPanel.GetCurrentInstanceID();
-				string name = instance2.GetName(FavCimsCore.ThisHuman);
-				int num = (int)(uint)((UIntPtr)FavCimsCore.ThisHuman.Citizen);
-				bool flag = action == "toggle" && name != null;
-				if (flag)
+				ThisHuman = WorldInfoPanel.GetCurrentInstanceID();
+				string name = instance2.GetName(ThisHuman);
+				int citizenINT = (int)(UIntPtr)ThisHuman.Citizen;
+				if (action == "toggle" && name != null)
 				{
 					try
 					{
-						instance2.SetName(FavCimsCore.ThisHuman, null);
-						FavCimsCore.RemoveIdFromArray(num);
+						instance2.SetName(ThisHuman, null);
+						RemoveIdFromArray(citizenINT);
 					}
 					catch (Exception ex)
 					{
@@ -153,7 +145,7 @@ namespace FavoriteCims
 					try
 					{
 						UITextField componentInChildren = refPanel.GetComponentInChildren<UITextField>();
-						instance2.SetName(FavCimsCore.ThisHuman, componentInChildren.text);
+						instance2.SetName(ThisHuman, componentInChildren.text);
 					}
 					catch (Exception ex2)
 					{
@@ -169,17 +161,17 @@ namespace FavoriteCims
 
 		public static void InsertIdIntoArray(int citID)
 		{
-			FavCimsCore.RowID[citID] = citID;
+			RowID[citID] = citID;
 		}
 
 		public static void RemoveIdFromArray(int citID)
 		{
-			FavCimsCore.RowID.Remove(citID);
+			RowID.Remove(citID);
 		}
 
 		public static void ClearIdArray()
 		{
-			FavCimsCore.RowID.Clear();
+			RowID.Clear();
 		}
 
 		public static void GoToCitizen(Vector3 position, InstanceID Target, bool tourist, UIMouseEventParameter eventParam)
@@ -190,16 +182,13 @@ namespace FavoriteCims
 				InstanceManager instance = Singleton<InstanceManager>.instance;
 				try
 				{
-					bool flag = instance.SelectInstance(Target);
-					if (flag)
+					if (instance.SelectInstance(Target))
 					{
-						bool flag2 = UIView.Find<UILabel>("DefaultTooltip");
-						if (flag2)
+						if (UIView.Find<UILabel>("DefaultTooltip"))
 						{
 							UIView.Find<UILabel>("DefaultTooltip").Hide();
 						}
-						bool flag3 = eventParam.buttons == UIMouseButton.Middle;
-						if (flag3)
+						if (eventParam.buttons == UIMouseButton.Middle)
 						{
 							if (tourist)
 							{
@@ -212,8 +201,7 @@ namespace FavoriteCims
 						}
 						else
 						{
-							bool flag4 = eventParam.buttons == UIMouseButton.Left;
-							if (flag4)
+							if (eventParam.buttons == UIMouseButton.Left)
 							{
 								ToolsModifierControl.cameraController.SetTarget(Target, ToolsModifierControl.cameraController.transform.position, true);
 							}
@@ -241,79 +229,73 @@ namespace FavoriteCims
 
 		public static int CalculateCitizenAge(int GameAge)
 		{
-			bool flag = GameAge <= 0;
 			int num;
-			if (flag)
+			if (GameAge <= 0)
 			{
 				num = 0;
 			}
 			else
 			{
-				bool flag2 = GameAge > 0 && GameAge <= 15;
-				if (flag2)
+				if (GameAge > 0 && GameAge <= 15)
 				{
-					double num2 = (double)GameAge / 15.0 * 100.0;
+					double num2 = GameAge / 15.0 * 100.0;
 					int num3 = 1;
 					int num4 = 12;
-					double num5 = ((double)num4 - (double)num3) / 100.0 * num2;
+					double num5 = (num4 - num3) / 100.0 * num2;
 					int num6 = num3 + (int)num5;
 					num = num6;
 				}
 				else
 				{
-					bool flag3 = GameAge <= 45;
-					if (flag3)
+					if (GameAge <= 45)
 					{
-						double num2 = ((double)GameAge - 15.0) / 30.0 * 100.0;
+						double num2 = (GameAge - 15.0) / 30.0 * 100.0;
 						int num3 = 13;
 						int num4 = 19;
-						double num5 = ((double)num4 - (double)num3) / 100.0 * num2;
+						double num5 = (num4 - num3) / 100.0 * num2;
 						int num6 = num3 + (int)num5;
 						num = num6;
 					}
 					else
 					{
-						bool flag4 = GameAge <= 90;
-						if (flag4)
+						if (GameAge <= 90)
 						{
-							double num2 = ((double)GameAge - 45.0) / 45.0 * 100.0;
+							double num2 = (GameAge - 45.0) / 45.0 * 100.0;
 							int num3 = 20;
 							int num4 = 25;
-							double num5 = ((double)num4 - (double)num3) / 100.0 * num2;
+							double num5 = (num4 - num3) / 100.0 * num2;
 							int num6 = num3 + (int)num5;
 							num = num6;
 						}
 						else
 						{
-							bool flag5 = GameAge <= 180;
-							if (flag5)
+							if (GameAge <= 180)
 							{
-								double num2 = ((double)GameAge - 90.0) / 90.0 * 100.0;
+								double num2 = (GameAge - 90.0) / 90.0 * 100.0;
 								int num3 = 26;
 								int num4 = 65;
-								double num5 = ((double)num4 - (double)num3) / 100.0 * num2;
+								double num5 = (num4 - num3) / 100.0 * num2;
 								int num6 = num3 + (int)num5;
 								num = num6;
 							}
 							else
 							{
-								bool flag6 = GameAge <= 240;
-								if (flag6)
+								if (GameAge <= 240)
 								{
-									double num2 = ((double)GameAge - 180.0) / 60.0 * 100.0;
+									double num2 = (GameAge - 180.0) / 60.0 * 100.0;
 									int num3 = 66;
 									int num4 = 90;
-									double num5 = ((double)num4 - (double)num3) / 100.0 * num2;
+									double num5 = (num4 - num3) / 100.0 * num2;
 									int num6 = num3 + (int)num5;
 									num = num6;
 								}
 								else
 								{
 									int num7 = 400;
-									double num2 = ((double)GameAge - 240.0) / (double)(num7 - 240) * 100.0;
+									double num2 = (GameAge - 240.0) / (num7 - 240) * 100.0;
 									int num3 = 91;
 									int num4 = 114;
-									double num5 = ((double)num4 - (double)num3) / 100.0 * num2;
+									double num5 = (num4 - num3) / 100.0 * num2;
 									int num6 = num3 + (int)num5;
 									num = num6;
 								}

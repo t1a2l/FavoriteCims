@@ -28,8 +28,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            bool flag = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<PeopleInsideServiceBuildingsPanel>() != null;
-            if (flag)
+            if (FavCimsMainClass.FullScreenContainer.GetComponentInChildren<PeopleInsideServiceBuildingsPanel>() != null)
             {
                 BuildingPanel = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<PeopleInsideServiceBuildingsPanel>();
             }
@@ -41,8 +40,7 @@ namespace FavoriteCims.UI.Buttons
             BuildingPanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                bool flag2 = !BuildingID.IsEmpty && !BuildingPanel.isVisible;
-                if (flag2)
+                if (!BuildingID.IsEmpty && !BuildingPanel.isVisible)
                 {
                     BuildingPanel.BuildingID = BuildingID;
                     BuildingPanel.RefPanel = RefPanel;
@@ -65,16 +63,13 @@ namespace FavoriteCims.UI.Buttons
                 if (isVisible)
                 {
                     tooltip = null;
-                    bool flag = WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty;
-                    if (flag)
+                    if (WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty)
                     {
                         BuildingID = WorldInfoPanel.GetCurrentInstanceID();
                     }
-                    bool flag2 = BuildingPanel != null;
-                    if (flag2)
+                    if (BuildingPanel != null)
                     {
-                        bool flag3 = !BuildingPanel.isVisible;
-                        if (flag3)
+                        if (!BuildingPanel.isVisible)
                         {
                             Unfocus();
                         }
@@ -83,10 +78,10 @@ namespace FavoriteCims.UI.Buttons
                             Focus();
                         }
                     }
-                    bool flag4 = !BuildingID.IsEmpty && BuildingID.Type == InstanceType.Building;
-                    if (flag4)
+                    if (!BuildingID.IsEmpty && BuildingID.Type == InstanceType.Building)
                     {
                         BuildingInfo info = MyBuilding.m_buildings.m_buffer[BuildingID.Building].Info;
+                        bool found_service = false;
                         switch (info.m_class.m_service)
                         {
                             case ItemClass.Service.Electricity:
@@ -96,7 +91,8 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "IndustrialBuildingButtonIconHovered";
                                 pressedBgSprite = "IndustrialBuildingButtonIconHovered";
                                 disabledBgSprite = "IndustrialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                found_service = true;
+                                break;
                             case ItemClass.Service.Beautification:
                                 tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Guests");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
@@ -104,7 +100,8 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
                                 pressedBgSprite = "CommercialBuildingButtonIconHovered";
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                found_service = true;
+                                break;
                             case ItemClass.Service.Garbage:
                                 tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
                                 normalBgSprite = "IndustrialBuildingButtonIcon";
@@ -112,7 +109,7 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "IndustrialBuildingButtonIconHovered";
                                 pressedBgSprite = "IndustrialBuildingButtonIconHovered";
                                 disabledBgSprite = "IndustrialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                break;
                             case ItemClass.Service.HealthCare:
                                 tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
@@ -120,7 +117,8 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
                                 pressedBgSprite = "CommercialBuildingButtonIconHovered";
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                found_service = true;
+                                break;
                             case ItemClass.Service.PoliceDepartment:
                                 tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
@@ -128,7 +126,8 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
                                 pressedBgSprite = "CommercialBuildingButtonIconHovered";
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                found_service = true;
+                                break;
                             case ItemClass.Service.Education:
                                 tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
@@ -136,7 +135,8 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
                                 pressedBgSprite = "CommercialBuildingButtonIconHovered";
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                found_service = true;
+                                break;
                             case ItemClass.Service.Monument:
                                 tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("CitizenOnBuilding");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
@@ -144,7 +144,8 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
                                 pressedBgSprite = "CommercialBuildingButtonIconHovered";
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                found_service = true;
+                                break;
                             case ItemClass.Service.FireDepartment:
                                 tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
@@ -152,7 +153,8 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
                                 pressedBgSprite = "CommercialBuildingButtonIconHovered";
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                found_service = true;
+                                break;
                             case ItemClass.Service.PublicTransport:
                                 tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
                                 normalBgSprite = "IndustrialBuildingButtonIcon";
@@ -160,25 +162,30 @@ namespace FavoriteCims.UI.Buttons
                                 focusedBgSprite = "IndustrialBuildingButtonIconHovered";
                                 pressedBgSprite = "IndustrialBuildingButtonIconHovered";
                                 disabledBgSprite = "IndustrialBuildingButtonIconDisabled";
-                                goto IL_050D;
+                                found_service = true;
+                                break;
                         }
-                        tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
-                        normalBgSprite = "CommercialBuildingButtonIcon";
-                        hoveredBgSprite = "CommercialBuildingButtonIconHovered";
-                        focusedBgSprite = "CommercialBuildingButtonIconHovered";
-                        pressedBgSprite = "CommercialBuildingButtonIconHovered";
-                        disabledBgSprite = "CommercialBuildingButtonIconDisabled";
-                    IL_050D:
-                        bool flag5 = Convert.ToInt32(MyBuilding.m_buildings.m_buffer[BuildingID.Building].m_citizenCount) == 0;
-                        if (flag5)
+                        if(!found_service)
                         {
-                            BuildingPanel.Hide();
-                            tooltip = FavCimsLang.Text("BuildingIsEmpty");
-                            isEnabled = false;
+                            tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
+                            normalBgSprite = "CommercialBuildingButtonIcon";
+                            hoveredBgSprite = "CommercialBuildingButtonIconHovered";
+                            focusedBgSprite = "CommercialBuildingButtonIconHovered";
+                            pressedBgSprite = "CommercialBuildingButtonIconHovered";
+                            disabledBgSprite = "CommercialBuildingButtonIconDisabled";
                         }
                         else
                         {
-                            isEnabled = true;
+                            if (Convert.ToInt32(MyBuilding.m_buildings.m_buffer[BuildingID.Building].m_citizenCount) == 0)
+                            {
+                                BuildingPanel.Hide();
+                                tooltip = FavCimsLang.Text("BuildingIsEmpty");
+                                isEnabled = false;
+                            }
+                            else
+                            {
+                                isEnabled = true;
+                            }
                         }
                     }
                     else
@@ -196,8 +203,5 @@ namespace FavoriteCims.UI.Buttons
                 }
             }
         }
-
-
-
     }
 }

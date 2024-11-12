@@ -8,12 +8,10 @@ namespace FavoriteCims.Utils
 		public static void Log(string message)
 		{
 			UIPanel uipanel = UIView.Find<UIPanel>("FullScreenContainer");
-			bool flag = uipanel != null;
-			if (flag)
+			if (uipanel != null)
 			{
-				bool flag2 = uipanel.Find<UILabel>("FavCimsDebugLabel") == null;
 				UILabel uilabel;
-				if (flag2)
+				if (uipanel.Find<UILabel>("FavCimsDebugLabel") == null)
 				{
 					uilabel = uipanel.AddUIComponent<UILabel>();
 					uilabel.name = "FavCimsDebugLabel";
@@ -32,8 +30,7 @@ namespace FavoriteCims.Utils
 		public static void Destroy()
 		{
 			UIPanel uipanel = UIView.Find<UIPanel>("FullScreenContainer");
-			bool flag = uipanel.Find<UILabel>("FavCimsDebugLabel") != null;
-			if (flag)
+			if (uipanel.Find<UILabel>("FavCimsDebugLabel") != null)
 			{
                 Object.Destroy(uipanel.Find<UILabel>("FavCimsDebugLabel").gameObject);
 			}
