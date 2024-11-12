@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CitiesSkylineFavoriteCimsMod", "CitiesSkylineFavoriteCimsMod.csproj", "{CF584495-4D36-481F-95C3-E7C2A5D6CD31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoriteCims", "FavoriteCims.csproj", "{CF584495-4D36-481F-95C3-E7C2A5D6CD31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
