@@ -113,7 +113,7 @@ namespace FavoriteCims.UI.PanelsRows
 			}
 			catch (Exception ex)
 			{
-				Debug.Error("Error in Passenger Creation " + ex.ToString());
+                Utils.Debug.Error("Error in Passenger Creation " + ex.ToString());
 			}
 		}
 

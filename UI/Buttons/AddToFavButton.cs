@@ -3,6 +3,7 @@ using System.Threading;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
+using FavoriteCims.Utils;
 using UnityEngine;
 
 namespace FavoriteCims.UI.Buttons

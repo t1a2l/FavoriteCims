@@ -268,7 +268,7 @@ namespace FavoriteCims.UI.Panels
                 }
                 catch (Exception ex)
                 {
-                    Debug.Error("Can't find the Citizen " + ex.ToString());
+                    Utils.Debug.Error("Can't find the Citizen " + ex.ToString());
                 }
             }
         }
@@ -303,7 +303,7 @@ namespace FavoriteCims.UI.Panels
                 }
                 catch (Exception ex)
                 {
-                    Debug.Error("Can't find the House " + ex.ToString());
+                    Utils.Debug.Error("Can't find the House " + ex.ToString());
                 }
             }
         }
@@ -338,7 +338,7 @@ namespace FavoriteCims.UI.Panels
                 }
                 catch (Exception ex)
                 {
-                    Debug.Error("Can't find the WorkPlace " + ex.ToString());
+                    Utils.Debug.Error("Can't find the WorkPlace " + ex.ToString());
                 }
             }
         }
@@ -373,7 +373,7 @@ namespace FavoriteCims.UI.Panels
                 }
                 catch (Exception ex)
                 {
-                    Debug.Error("Can't find the Target " + ex.ToString());
+                    Utils.Debug.Error("Can't find the Target " + ex.ToString());
                 }
             }
         }
@@ -408,7 +408,7 @@ namespace FavoriteCims.UI.Panels
                 }
                 catch (Exception ex)
                 {
-                    Debug.Error("Can't find the Vehicle " + ex.ToString());
+                    Utils.Debug.Error("Can't find the Vehicle " + ex.ToString());
                 }
             }
         }
@@ -594,7 +594,7 @@ namespace FavoriteCims.UI.Panels
                         }
                         catch (Exception ex2)
                         {
-                            Debug.Error("Error when loading the template : " + ex2.ToString());
+                            Utils.Debug.Error("Error when loading the template : " + ex2.ToString());
                         }
                     };
                     FavCimsSeparatorSprite2 = FavCimsCitizenNamePanel.AddUIComponent<UITextureSprite>();
@@ -870,7 +870,7 @@ namespace FavoriteCims.UI.Panels
                         }
                         catch (Exception ex3)
                         {
-                            Debug.Error("Can't remove row " + ex3.ToString());
+                            Utils.Debug.Error("Can't remove row " + ex3.ToString());
                         }
                     };
                     FavCimsRowCloseButton.relativePosition = new Vector3(FavCimsCloseRowPanel.width / 2f - FavCimsRowCloseButton.width / 2f, 7f);
@@ -882,7 +882,7 @@ namespace FavoriteCims.UI.Panels
             }
             catch (Exception ex)
             {
-                Debug.Error("CitizenRow Create Error : " + ex.ToString());
+                Utils.Debug.Error("CitizenRow Create Error : " + ex.ToString());
             }
         }
 
@@ -2107,7 +2107,7 @@ namespace FavoriteCims.UI.Panels
                                             }
                                             catch (Exception ex)
                                             {
-                                                Debug.Error("error " + ex.ToString());
+                                                Utils.Debug.Error("error " + ex.ToString());
                                             }
                                         }
                                         else

@@ -121,7 +121,7 @@ namespace FavoriteCims.UI.Panels
 			}
 			catch (Exception ex)
 			{
-				Debug.Error("Reorder Background Error " + ex.ToString());
+                Utils.Debug.Error("Reorder Background Error " + ex.ToString());
 			}
 			finally
 			{

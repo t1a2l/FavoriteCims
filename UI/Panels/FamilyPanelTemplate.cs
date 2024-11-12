@@ -423,7 +423,7 @@ namespace FavoriteCims.UI.Panels
                 }
                 catch (Exception ex)
                 {
-                    Debug.Error("Can't find the Citizen " + ex.ToString());
+                    Utils.Debug.Error("Can't find the Citizen " + ex.ToString());
                 }
             }
         }
@@ -889,7 +889,7 @@ namespace FavoriteCims.UI.Panels
                 }
                 catch (Exception ex)
                 {
-                    Debug.Error("Can't remove family panel " + ex.ToString());
+                    Utils.Debug.Error("Can't remove family panel " + ex.ToString());
                 }
             };
             this.BubbleCloseButton.relativePosition = new Vector3(this.BubbleHeaderPanel.width - 36f, 7f);

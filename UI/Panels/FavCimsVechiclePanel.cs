@@ -284,7 +284,7 @@ namespace FavoriteCims.UI.Panels
 			}
 			catch (Exception ex)
 			{
-				Debug.Error(" Passengers Panel Start() : " + ex.ToString());
+                Utils.Debug.Error(" Passengers Panel Start() : " + ex.ToString());
 			}
 		}
 
