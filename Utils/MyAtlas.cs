@@ -27,7 +27,7 @@ namespace FavoriteCims.Utils
 				"BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.",
 				"BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels.", "BuildingPanels."
 			];
-			MyAtlas.FavCimsAtlas = this.CreateMyAtlas("FavCimsAtlas", UIView.GetAView().defaultAtlas.material, array2, array);
+			MyAtlas.FavCimsAtlas = CreateMyAtlas("FavCimsAtlas", UIView.GetAView().defaultAtlas.material, array2, array);
 		}
 
 		private UITextureAtlas CreateMyAtlas(string AtlasName, Material BaseMat, string[] sPritesPath, string[] sPritesNames)
