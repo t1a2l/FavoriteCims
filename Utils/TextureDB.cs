@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.Utils
 {
-	public class TextureDB : Texture
+    public class TextureDB : Texture
 	{
         public static Texture FavCimsOtherInfoTexture;
 

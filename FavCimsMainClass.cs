@@ -3,12 +3,15 @@ using System.Reflection;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
+using FavoriteCims.UI.Buttons;
+using FavoriteCims.UI.Panels;
+using FavoriteCims.Utils;
 using ICities;
 using UnityEngine;
 
 namespace FavoriteCims
 {
-	public class FavCimsMainClass : LoadingExtensionBase
+    public class FavCimsMainClass : LoadingExtensionBase
 	{
         public UIView uiView;
 
@@ -32,7 +35,7 @@ namespace FavoriteCims
 
         public static UIPanel FavCimsHumanPassengerPanel;
 
-        private VechiclePassengersButton PassengerButton;
+        private VehiclePassengersButton PassengerButton;
 
         public static UIPanel FavCimsHumanPublicTransportPanel;
 
@@ -276,14 +279,14 @@ namespace FavoriteCims
 						bool flag14 = FavCimsMainClass.FavCimsHumanPassengerPanel != null;
 						if (flag14)
 						{
-							bool flag15 = FavCimsMainClass.FavCimsHumanPassengerPanel.GetComponentInChildren<VechiclePassengersButton>() != null;
+							bool flag15 = FavCimsMainClass.FavCimsHumanPassengerPanel.GetComponentInChildren<VehiclePassengersButton>() != null;
 							if (flag15)
 							{
-								this.PassengerButton = FavCimsMainClass.FavCimsHumanPassengerPanel.GetComponentInChildren<VechiclePassengersButton>();
+								this.PassengerButton = FavCimsMainClass.FavCimsHumanPassengerPanel.GetComponentInChildren<VehiclePassengersButton>();
 							}
 							else
 							{
-								this.PassengerButton = FavCimsMainClass.FavCimsHumanPassengerPanel.AddUIComponent(typeof(VechiclePassengersButton)) as VechiclePassengersButton;
+								this.PassengerButton = FavCimsMainClass.FavCimsHumanPassengerPanel.AddUIComponent(typeof(VehiclePassengersButton)) as VehiclePassengersButton;
 							}
 							this.PassengerButton.RefPanel = FavCimsMainClass.FavCimsHumanPassengerPanel;
 							this.PassengerButton.Alignment = UIAlignAnchor.BottomRight;
@@ -358,7 +361,7 @@ namespace FavoriteCims
 			}
 			catch (Exception ex)
 			{
-				Debug.Error("OnLoad List Error : " + ex.ToString());
+                Utils.Debug.Error("OnLoad List Error : " + ex.ToString());
 			}
 		}
 
@@ -381,7 +384,7 @@ namespace FavoriteCims
 			}
 			catch (Exception ex)
 			{
-				Debug.Error(ex.ToString());
+                Utils.Debug.Error(ex.ToString());
 			}
 		}
 

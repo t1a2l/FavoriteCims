@@ -4,9 +4,10 @@ using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.Math;
 using ColossalFramework.UI;
+using FavoriteCims.Utils;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.Panels
 {
     public class FamilyPanelTemplate : UIPanel
     {

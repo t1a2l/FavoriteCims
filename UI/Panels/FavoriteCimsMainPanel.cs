@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using ColossalFramework;
 using ColossalFramework.UI;
+using FavoriteCims.Utils;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.Panels
 {
-	public class FavoriteCimsMainPanel : UIPanel
+    public class FavoriteCimsMainPanel : UIPanel
 	{
 		public static UIButton FavCimsHappinesColText;
 

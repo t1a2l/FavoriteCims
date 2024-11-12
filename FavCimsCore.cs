@@ -4,11 +4,13 @@ using System.Reflection;
 using System.Threading;
 using ColossalFramework;
 using ColossalFramework.UI;
+using FavoriteCims.UI.Panels;
+using FavoriteCims.Utils;
 using UnityEngine;
 
 namespace FavoriteCims
 {
-	public class FavCimsCore : MonoBehaviour
+    public class FavCimsCore : MonoBehaviour
 	{
         public static InstanceID ThisHuman;
 
@@ -76,7 +78,7 @@ namespace FavoriteCims
 								}
 								catch (Exception ex)
 								{
-									Debug.Error("Add To Favorites Fail : " + ex.ToString());
+									Utils.Debug.Error("Add To Favorites Fail : " + ex.ToString());
 								}
 							}
 						}
@@ -143,7 +145,7 @@ namespace FavoriteCims
 					}
 					catch (Exception ex)
 					{
-						Debug.Error("Toggle Remove Fail : " + ex.ToString());
+						Utils.Debug.Error("Toggle Remove Fail : " + ex.ToString());
 					}
 				}
 				else
@@ -155,7 +157,7 @@ namespace FavoriteCims
 					}
 					catch (Exception ex2)
 					{
-						Debug.Error("Toggle Add Fail : " + ex2.ToString());
+                        Utils.Debug.Error("Toggle Add Fail : " + ex2.ToString());
 					}
 				}
 			}
@@ -232,7 +234,7 @@ namespace FavoriteCims
 				}
 				catch (Exception ex)
 				{
-					Debug.Error("Can't find the Citizen " + ex.ToString());
+                    Utils.Debug.Error("Can't find the Citizen " + ex.ToString());
 				}
 			}
 		}

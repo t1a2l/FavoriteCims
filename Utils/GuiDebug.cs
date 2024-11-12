@@ -1,7 +1,7 @@
 using ColossalFramework.UI;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.Utils
 {
 	public static class GuiDebug
 	{

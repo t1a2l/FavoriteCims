@@ -1,6 +1,7 @@
+using FavoriteCims.UI.Panels;
 using System.Collections.Generic;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.PanelsRows
 {
 	public class WorkersServiceBuildingPanelRow : ResidentialBuildingPanelRow
 	{

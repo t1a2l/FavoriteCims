@@ -1,6 +1,6 @@
 using ColossalFramework;
 
-namespace FavoriteCims
+namespace FavoriteCims.Utils
 {
 	public static class GameTime
 	{

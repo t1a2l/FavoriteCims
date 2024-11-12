@@ -1,23 +1,23 @@
-namespace FavoriteCims
+namespace FavoriteCims.Utils
 {
-	public static class Debug
-	{
+    public static class Debug
+    {
         private const string prefix = "FavoriteCimsMod: ";
 
         public static void Log(string message)
-		{
-			UnityEngine.Debug.Log(prefix + message);
-		}
+        {
+            UnityEngine.Debug.Log(prefix + message);
+        }
 
-		public static void Error(string message)
-		{
+        public static void Error(string message)
+        {
             UnityEngine.Debug.LogError(prefix + message);
-		}
+        }
 
-		public static void Warning(string message)
-		{
+        public static void Warning(string message)
+        {
             UnityEngine.Debug.LogWarning(prefix + message);
-		}
+        }
 
-	}
+    }
 }

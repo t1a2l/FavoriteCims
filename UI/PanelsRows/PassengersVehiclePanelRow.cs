@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
+using FavoriteCims.UI.Panels;
+using FavoriteCims.Utils;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.PanelsRows
 {
-	public class PassengersVehiclePanelRow : UIPanel
+    public class PassengersVehiclePanelRow : UIPanel
 	{
         private float seconds = 0.5f;
 
@@ -117,12 +119,12 @@ namespace FavoriteCims
 
 		public virtual bool Wait()
 		{
-			return FavCimsVechiclePanelPT.Wait;
+			return FavCimsVehiclePanelPT.Wait;
 		}
 
 		public virtual Dictionary<uint, uint> GetCimsDict()
 		{
-			return FavCimsVechiclePanelPT.CimsOnPTVeh;
+			return FavCimsVehiclePanelPT.CimsOnPTVeh;
 		}
 
 		public override void Update()

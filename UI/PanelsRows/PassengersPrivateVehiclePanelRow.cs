@@ -1,6 +1,6 @@
-namespace FavoriteCims
+namespace FavoriteCims.UI.PanelsRows
 {
-	public class PassengersPrivateVehiclePanelRow : DriverPrivateVehiclePanelRow
+    public class PassengersPrivateVehiclePanelRow : DriverPrivateVehiclePanelRow
 	{
 	}
 }

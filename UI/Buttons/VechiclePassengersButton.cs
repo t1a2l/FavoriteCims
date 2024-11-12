@@ -1,9 +1,9 @@
 using ColossalFramework.UI;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.Buttons
 {
-    public class VechiclePassengersButton : UIButton
+    public class VehiclePassengersButton : UIButton
     {
         private InstanceID VehicleID = InstanceID.Empty;
 
@@ -11,46 +11,46 @@ namespace FavoriteCims
 
         public UIPanel RefPanel;
 
-        private FavCimsVechiclePanel VehiclePanel;
+        private FavCimsVehiclePanel VehiclePanel;
 
         public override void Start()
         {
             UIView aview = UIView.GetAView();
-            base.name = "FavCimsVehPassButton";
-            base.normalBgSprite = "vehicleButton";
-            base.hoveredBgSprite = "vehicleButtonHovered";
-            base.focusedBgSprite = "vehicleButtonHovered";
-            base.pressedBgSprite = "vehicleButtonHovered";
-            base.disabledBgSprite = "vehicleButtonDisabled";
-            base.atlas = MyAtlas.FavCimsAtlas;
-            base.size = new Vector2(36f, 36f);
-            base.playAudioEvents = true;
-            base.AlignTo(this.RefPanel, this.Alignment);
-            base.tooltipBox = aview.defaultTooltipBox;
-            bool flag = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVechiclePanel>() != null;
+            name = "FavCimsVehPassButton";
+            normalBgSprite = "vehicleButton";
+            hoveredBgSprite = "vehicleButtonHovered";
+            focusedBgSprite = "vehicleButtonHovered";
+            pressedBgSprite = "vehicleButtonHovered";
+            disabledBgSprite = "vehicleButtonDisabled";
+            atlas = MyAtlas.FavCimsAtlas;
+            size = new Vector2(36f, 36f);
+            playAudioEvents = true;
+            AlignTo(RefPanel, Alignment);
+            tooltipBox = aview.defaultTooltipBox;
+            bool flag = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVehiclePanel>() != null;
             if (flag)
             {
-                this.VehiclePanel = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVechiclePanel>();
+                VehiclePanel = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVehiclePanel>();
             }
             else
             {
-                this.VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(FavCimsVechiclePanel)) as FavCimsVechiclePanel;
+                VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(FavCimsVehiclePanel)) as FavCimsVehiclePanel;
             }
-            this.VehiclePanel.VehicleID = InstanceID.Empty;
-            this.VehiclePanel.Hide();
-            base.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            VehiclePanel.VehicleID = InstanceID.Empty;
+            VehiclePanel.Hide();
+            eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                bool flag2 = !this.VehicleID.IsEmpty && !this.VehiclePanel.isVisible;
+                bool flag2 = !VehicleID.IsEmpty && !VehiclePanel.isVisible;
                 if (flag2)
                 {
-                    this.VehiclePanel.VehicleID = this.VehicleID;
-                    this.VehiclePanel.RefPanel = this.RefPanel;
-                    this.VehiclePanel.Show();
+                    VehiclePanel.VehicleID = VehicleID;
+                    VehiclePanel.RefPanel = RefPanel;
+                    VehiclePanel.Show();
                 }
                 else
                 {
-                    this.VehiclePanel.VehicleID = InstanceID.Empty;
-                    this.VehiclePanel.Hide();
+                    VehiclePanel.VehicleID = InstanceID.Empty;
+                    VehiclePanel.Hide();
                 }
             };
         }
@@ -63,43 +63,43 @@ namespace FavoriteCims
                 bool isVisible = base.isVisible;
                 if (isVisible)
                 {
-                    base.tooltip = FavCimsLang.Text("View_NoPassengers");
+                    tooltip = FavCimsLang.Text("View_NoPassengers");
                     bool flag = WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty;
                     if (flag)
                     {
-                        this.VehicleID = WorldInfoPanel.GetCurrentInstanceID();
+                        VehicleID = WorldInfoPanel.GetCurrentInstanceID();
                     }
-                    bool flag2 = this.VehiclePanel != null;
+                    bool flag2 = VehiclePanel != null;
                     if (flag2)
                     {
-                        bool flag3 = !this.VehiclePanel.isVisible;
+                        bool flag3 = !VehiclePanel.isVisible;
                         if (flag3)
                         {
-                            base.Unfocus();
+                            Unfocus();
                         }
                         else
                         {
-                            base.Focus();
+                            Focus();
                         }
                     }
-                    bool flag4 = !this.VehicleID.IsEmpty && this.VehicleID.Type == InstanceType.Vehicle;
+                    bool flag4 = !VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle;
                     if (flag4)
                     {
-                        base.isEnabled = true;
-                        base.tooltip = FavCimsLang.Text("View_PassengersList");
+                        isEnabled = true;
+                        tooltip = FavCimsLang.Text("View_PassengersList");
                     }
                     else
                     {
-                        this.VehiclePanel.Hide();
-                        base.Unfocus();
-                        base.isEnabled = false;
+                        VehiclePanel.Hide();
+                        Unfocus();
+                        isEnabled = false;
                     }
                 }
                 else
                 {
-                    base.isEnabled = false;
-                    this.VehiclePanel.Hide();
-                    this.VehicleID = InstanceID.Empty;
+                    isEnabled = false;
+                    VehiclePanel.Hide();
+                    VehicleID = InstanceID.Empty;
                 }
             }
         }

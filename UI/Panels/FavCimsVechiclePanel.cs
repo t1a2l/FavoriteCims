@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.UI;
+using FavoriteCims.UI.PanelsRows;
+using FavoriteCims.Utils;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.Panels
 {
-	public class FavCimsVechiclePanel : UIPanel
+    public class FavCimsVehiclePanel : UIPanel
 	{
         private float seconds = 0.5f;
 
@@ -297,8 +299,8 @@ namespace FavoriteCims
 					bool garbage = this.Garbage;
 					if (garbage)
 					{
-						FavCimsVechiclePanel.Wait = true;
-						FavCimsVechiclePanel.CimsOnVeh.Clear();
+                        FavCimsVehiclePanel.Wait = true;
+                        FavCimsVehiclePanel.CimsOnVeh.Clear();
 						try
 						{
 							this.DriverPanel.Hide();
@@ -314,7 +316,7 @@ namespace FavoriteCims
 								this.PassengersPrivateBodyRow[i].OnVehicle = 0;
 								this.PassengersPrivateBodyRow[i].firstRun = true;
 							}
-							FavCimsVechiclePanel.Wait = false;
+                            FavCimsVehiclePanel.Wait = false;
 						}
 						catch
 						{
@@ -330,8 +332,8 @@ namespace FavoriteCims
 						bool flag = !WorldInfoPanel.GetCurrentInstanceID().IsEmpty && WorldInfoPanel.GetCurrentInstanceID() != this.VehicleID;
 						if (flag)
 						{
-							FavCimsVechiclePanel.Wait = true;
-							FavCimsVechiclePanel.CimsOnVeh.Clear();
+                            FavCimsVehiclePanel.Wait = true;
+                            FavCimsVehiclePanel.CimsOnVeh.Clear();
 							try
 							{
 								this.DriverPanel.Hide();
@@ -353,7 +355,7 @@ namespace FavoriteCims
 								{
 									return;
 								}
-								FavCimsVechiclePanel.Wait = false;
+                                FavCimsVehiclePanel.Wait = false;
 							}
 							catch
 							{
@@ -366,21 +368,21 @@ namespace FavoriteCims
 							this.TitleVehicleName.text = FavCimsLang.Text("Vehicle_Passengers");
 							base.absolutePosition = new Vector3(this.RefPanel.absolutePosition.x + this.RefPanel.width + 5f, this.RefPanel.absolutePosition.y);
 							base.height = this.RefPanel.height - 15f;
-							bool flag3 = 50f + (float)FavCimsVechiclePanel.CimsOnVeh.Count * 25f < base.height - this.Title.height - this.Footer.height;
+							bool flag3 = 50f + (float)FavCimsVehiclePanel.CimsOnVeh.Count * 25f < base.height - this.Title.height - this.Footer.height;
 							if (flag3)
 							{
 								this.Body.height = base.height - this.Title.height - this.Footer.height;
 							}
 							else
 							{
-								bool flag4 = 50f + (float)FavCimsVechiclePanel.CimsOnVeh.Count * 25f > 400f;
+								bool flag4 = 50f + (float)FavCimsVehiclePanel.CimsOnVeh.Count * 25f > 400f;
 								if (flag4)
 								{
 									this.Body.height = 400f;
 								}
 								else
 								{
-									this.Body.height = 50f + (float)FavCimsVechiclePanel.CimsOnVeh.Count * 25f;
+									this.Body.height = 50f + (float)FavCimsVehiclePanel.CimsOnVeh.Count * 25f;
 								}
 							}
 							this.BodySpriteBg.height = this.Body.height;
@@ -406,7 +408,7 @@ namespace FavoriteCims
 								this.firstRun = false;
 								this.VehicleUnits = this.MyVehicle.m_vehicles.m_buffer[(int)this.VehicleID.Vehicle].m_citizenUnits;
 								int num = 0;
-								bool flag7 = FavCimsVechiclePanel.CimsOnVeh.Count == 0;
+								bool flag7 = FavCimsVehiclePanel.CimsOnVeh.Count == 0;
 								if (flag7)
 								{
 									this.PassengersPanelText.text = FavCimsLang.Text("View_NoPassengers");
@@ -420,7 +422,7 @@ namespace FavoriteCims
 									for (int k = 0; k < 5; k++)
 									{
 										uint citizen = this.MyCitizen.m_units.m_buffer[(int)this.VehicleUnits].GetCitizen(k);
-										bool flag8 = citizen != 0U && !FavCimsVechiclePanel.CimsOnVeh.ContainsKey(citizen);
+										bool flag8 = citizen != 0U && !FavCimsVehiclePanel.CimsOnVeh.ContainsKey(citizen);
 										if (flag8)
 										{
 											bool flag9 = k == 0;
@@ -429,7 +431,7 @@ namespace FavoriteCims
 												bool flag10 = this.DriverPanel != null && this.DriverPrivateBodyRow != null;
 												if (flag10)
 												{
-													FavCimsVechiclePanel.CimsOnVeh.Add(citizen, this.VehicleUnits);
+                                                    FavCimsVehiclePanel.CimsOnVeh.Add(citizen, this.VehicleUnits);
 													this.DriverPrivateBodyRow.citizen = citizen;
 													this.DriverPrivateBodyRow.OnVehicle = this.VehicleID.Vehicle;
 													this.DriverPrivateBodyRow.firstRun = true;
@@ -442,7 +444,7 @@ namespace FavoriteCims
 												bool flag11 = this.PassengersPanel != null && this.PassengersPrivateBodyRow[k] != null;
 												if (flag11)
 												{
-													FavCimsVechiclePanel.CimsOnVeh.Add(citizen, this.VehicleUnits);
+                                                    FavCimsVehiclePanel.CimsOnVeh.Add(citizen, this.VehicleUnits);
 													this.PassengersPrivateBodyRow[k].citizen = citizen;
 													this.PassengersPrivateBodyRow[k].OnVehicle = this.VehicleID.Vehicle;
 													this.PassengersPrivateBodyRow[k].firstRun = true;

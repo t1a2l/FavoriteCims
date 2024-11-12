@@ -2,9 +2,10 @@ using System;
 using System.Threading;
 using ColossalFramework;
 using ColossalFramework.UI;
+using FavoriteCims.UI.Panels;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.Buttons
 {
     public class AddToFavButton : UIButton
     {
@@ -21,16 +22,16 @@ namespace FavoriteCims
         public override void Start()
         {
             UIView aview = UIView.GetAView();
-            base.name = "FavCimsStarButton";
-            base.normalBgSprite = "icon_fav_unsubscribed";
-            base.atlas = MyAtlas.FavCimsAtlas;
-            base.size = new Vector2(32f, 32f);
-            base.playAudioEvents = true;
-            base.AlignTo(this.RefPanel, this.Alignment);
-            base.tooltipBox = aview.defaultTooltipBox;
-            base.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            name = "FavCimsStarButton";
+            normalBgSprite = "icon_fav_unsubscribed";
+            atlas = MyAtlas.FavCimsAtlas;
+            size = new Vector2(32f, 32f);
+            playAudioEvents = true;
+            AlignTo(RefPanel, Alignment);
+            tooltipBox = aview.defaultTooltipBox;
+            eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                FavCimsCore.UpdateMyCitizen("toggle", this.RefPanel);
+                FavCimsCore.UpdateMyCitizen("toggle", RefPanel);
             };
         }
 
@@ -45,15 +46,15 @@ namespace FavoriteCims
                     bool flag = !WorldInfoPanel.GetCurrentInstanceID().IsEmpty;
                     if (flag)
                     {
-                        this.ThisHuman = WorldInfoPanel.GetCurrentInstanceID();
-                        int num = (int)(uint)((UIntPtr)this.ThisHuman.Citizen);
-                        string name = this.MyInstance.GetName(this.ThisHuman);
+                        ThisHuman = WorldInfoPanel.GetCurrentInstanceID();
+                        int num = (int)(uint)(UIntPtr)ThisHuman.Citizen;
+                        string name = MyInstance.GetName(ThisHuman);
                         bool flag2 = name != null && name.Length > 0;
                         if (flag2)
                         {
-                            base.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
-                            base.normalBgSprite = "icon_fav_subscribed";
-                            bool flag3 = !FavCimsCore.RowID.ContainsKey(num) && !FavoriteCimsMainPanel.RowsAlreadyExist(this.ThisHuman);
+                            tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                            normalBgSprite = "icon_fav_subscribed";
+                            bool flag3 = !FavCimsCore.RowID.ContainsKey(num) && !FavoriteCimsMainPanel.RowsAlreadyExist(ThisHuman);
                             if (flag3)
                             {
                                 object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
@@ -66,7 +67,7 @@ namespace FavoriteCims
                                     bool flag4 = citizenRow != null;
                                     if (flag4)
                                     {
-                                        citizenRow.MyInstanceID = this.ThisHuman;
+                                        citizenRow.MyInstanceID = ThisHuman;
                                         citizenRow.MyInstancedName = name;
                                     }
                                 }
@@ -81,14 +82,14 @@ namespace FavoriteCims
                             bool flag5 = num != 0 && FavCimsCore.RowID.ContainsKey(num);
                             if (flag5)
                             {
-                                this.MyInstance.SetName(this.ThisHuman, this.MyCitizen.GetCitizenName(this.ThisHuman.Citizen));
-                                base.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
-                                base.normalBgSprite = "icon_fav_subscribed";
+                                MyInstance.SetName(ThisHuman, MyCitizen.GetCitizenName(ThisHuman.Citizen));
+                                tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                                normalBgSprite = "icon_fav_subscribed";
                             }
                             else
                             {
-                                base.tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
-                                base.normalBgSprite = "icon_fav_unsubscribed";
+                                tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
+                                normalBgSprite = "icon_fav_unsubscribed";
                             }
                         }
                     }

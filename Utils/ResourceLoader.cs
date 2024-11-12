@@ -1,11 +1,12 @@
+using FavoriteCims.Utils;
 using System;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.Utils
 {
-	public class ResourceLoader
+    public class ResourceLoader
 	{
 		public static Assembly ResourceAssembly
 		{

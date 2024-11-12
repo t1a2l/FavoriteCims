@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.UI;
+using FavoriteCims.Utils;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.Panels
 {
-	public class PeopleInsideBuildingsPanel : UIPanel
+    public class PeopleInsideBuildingsPanel : UIPanel
 	{
         private float seconds = 0.5f;
 

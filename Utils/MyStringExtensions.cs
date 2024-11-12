@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace FavoriteCims
+namespace FavoriteCims.Utils
 {
 	public static class MyStringExtensions
 	{

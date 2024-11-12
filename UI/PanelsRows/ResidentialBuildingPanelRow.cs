@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
+using FavoriteCims.UI.Panels;
+using FavoriteCims.Utils;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.UI.PanelsRows
 {
-	public class ResidentialBuildingPanelRow : UIPanel
+    public class ResidentialBuildingPanelRow : UIPanel
 	{
         private float seconds = 0.5f;
 

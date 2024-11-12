@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using ColossalFramework.Globalization;
 using UnityEngine;
 
-namespace FavoriteCims
+namespace FavoriteCims.Utils
 {
 	public class FavCimsLang : MonoBehaviour
 	{
