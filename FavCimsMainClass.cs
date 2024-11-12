@@ -50,6 +50,8 @@ namespace FavoriteCims
 
         private PeopleInsideServiceBuildingsButton PeopleServiceBuildingButton;
 
+        public static UIPanel FavCimsHumanTaxiPanel;
+
         private UIComponent FavCimsPanelTrigger_paneltime;
 
         private UIComponent FavCimsPanelTrigger_chirper;
@@ -332,7 +334,23 @@ namespace FavoriteCims
 							this.PeopleServiceBuildingButton.RefPanel = FavCimsMainClass.FavCimsPeopleServiceBuildingPanel;
 							this.PeopleServiceBuildingButton.Alignment = UIAlignAnchor.BottomRight;
 						}
-						this.GenerateFamilyDetailsTpl();
+                        FavCimsMainClass.FavCimsHumanTaxiPanel = FavCimsMainClass.FullScreenContainer.Find<UIPanel>("(Library) CityServiceVehicleWorldInfoPanel");
+                        bool flag22 = FavCimsMainClass.FavCimsHumanTaxiPanel != null;
+                        if (flag22)
+                        {
+                            bool flag23 = FavCimsMainClass.FavCimsHumanTaxiPanel.GetComponentInChildren<VechiclePassengersButtonPT>() != null;
+                            if (flag23)
+                            {
+                                this.PublicTransportPassengersButton = FavCimsMainClass.FavCimsHumanTaxiPanel.GetComponentInChildren<VechiclePassengersButtonPT>();
+                            }
+                            else
+                            {
+                                this.PublicTransportPassengersButton = FavCimsMainClass.FavCimsHumanTaxiPanel.AddUIComponent(typeof(VechiclePassengersButtonPT)) as VechiclePassengersButtonPT;
+                            }
+                            this.PublicTransportPassengersButton.RefPanel = FavCimsMainClass.FavCimsHumanTaxiPanel;
+                            this.PublicTransportPassengersButton.Alignment = UIAlignAnchor.BottomRight;
+                        }
+                        this.GenerateFamilyDetailsTpl();
 					}
 				}
 			}
