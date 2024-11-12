@@ -29,14 +29,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            if (FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVehiclePanel>() != null)
-            {
-                VehiclePanel = FavCimsMainClass.FullScreenContainer.GetComponentInChildren<FavCimsVehiclePanel>();
-            }
-            else
-            {
-                VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(FavCimsVehiclePanel)) as FavCimsVehiclePanel;
-            }
+            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(FavCimsVehiclePanel)) as FavCimsVehiclePanel;
             VehiclePanel.VehicleID = InstanceID.Empty;
             VehiclePanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
