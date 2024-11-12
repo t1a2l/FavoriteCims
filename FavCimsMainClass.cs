@@ -14,7 +14,7 @@ namespace FavoriteCims
 
         public static bool UnLoading = false;
 
-        private MyAtlas Atlas = new MyAtlas();
+        private readonly MyAtlas Atlas = new();
 
         public const int MaxTemplates = 5;
 
@@ -50,7 +50,9 @@ namespace FavoriteCims
 
         private PeopleInsideServiceBuildingsButton PeopleServiceBuildingButton;
 
-        public static UIPanel FavCimsHumanTaxiPanel;
+        public static UIPanel FavCimsPublicTransportTaxiPanel;
+
+        private VechiclePassengersButtonPT PublicTransportTaxiPassengersButton;
 
         private UIComponent FavCimsPanelTrigger_paneltime;
 
@@ -188,7 +190,7 @@ namespace FavoriteCims
 						};
 						FavCimsMainClass.mainButton.tooltip = "Favorite Cims v0.4a";
 						Locale locale = (Locale)typeof(LocaleManager).GetField("m_Locale", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(SingletonLite<LocaleManager>.instance);
-						Locale.Key key = default(Locale.Key);
+						Locale.Key key = default;
 						key.m_Identifier = "TUTORIAL_ADVISER_TITLE";
 						key.m_Key = FavCimsMainClass.mainButton.name;
 						Locale.Key key2 = key;
@@ -197,7 +199,7 @@ namespace FavoriteCims
 						{
 							locale.AddLocalizedString(key2, "Favorite Cims v0.4a");
 						}
-						key = default(Locale.Key);
+						key = default;
 						key.m_Identifier = "TUTORIAL_ADVISER";
 						key.m_Key = FavCimsMainClass.mainButton.name;
 						key2 = key;
@@ -334,23 +336,23 @@ namespace FavoriteCims
 							this.PeopleServiceBuildingButton.RefPanel = FavCimsMainClass.FavCimsPeopleServiceBuildingPanel;
 							this.PeopleServiceBuildingButton.Alignment = UIAlignAnchor.BottomRight;
 						}
-                        FavCimsMainClass.FavCimsHumanTaxiPanel = FavCimsMainClass.FullScreenContainer.Find<UIPanel>("(Library) CityServiceVehicleWorldInfoPanel");
-                        bool flag22 = FavCimsMainClass.FavCimsHumanTaxiPanel != null;
-                        if (flag22)
-                        {
-                            bool flag23 = FavCimsMainClass.FavCimsHumanTaxiPanel.GetComponentInChildren<VechiclePassengersButtonPT>() != null;
-                            if (flag23)
-                            {
-                                this.PublicTransportPassengersButton = FavCimsMainClass.FavCimsHumanTaxiPanel.GetComponentInChildren<VechiclePassengersButtonPT>();
-                            }
-                            else
-                            {
-                                this.PublicTransportPassengersButton = FavCimsMainClass.FavCimsHumanTaxiPanel.AddUIComponent(typeof(VechiclePassengersButtonPT)) as VechiclePassengersButtonPT;
-                            }
-                            this.PublicTransportPassengersButton.RefPanel = FavCimsMainClass.FavCimsHumanTaxiPanel;
-                            this.PublicTransportPassengersButton.Alignment = UIAlignAnchor.BottomRight;
-                        }
-                        this.GenerateFamilyDetailsTpl();
+						FavCimsMainClass.FavCimsPublicTransportTaxiPanel = FavCimsMainClass.FullScreenContainer.Find<UIPanel>("(Library) CityServiceVehicleWorldInfoPanel");
+						bool flag22 = FavCimsMainClass.FavCimsPublicTransportTaxiPanel != null;
+						if (flag22)
+						{
+							bool flag23 = FavCimsMainClass.FavCimsPublicTransportTaxiPanel.GetComponentInChildren<VechiclePassengersButtonPT>() != null;
+							if (flag23)
+							{
+								this.PublicTransportTaxiPassengersButton = FavCimsMainClass.FavCimsPublicTransportTaxiPanel.GetComponentInChildren<VechiclePassengersButtonPT>();
+							}
+							else
+							{
+								this.PublicTransportTaxiPassengersButton = FavCimsMainClass.FavCimsPublicTransportTaxiPanel.AddUIComponent(typeof(VechiclePassengersButtonPT)) as VechiclePassengersButtonPT;
+							}
+							this.PublicTransportTaxiPassengersButton.RefPanel = FavCimsMainClass.FavCimsPublicTransportTaxiPanel;
+							this.PublicTransportTaxiPassengersButton.Alignment = UIAlignAnchor.BottomRight;
+						}
+						this.GenerateFamilyDetailsTpl();
 					}
 				}
 			}

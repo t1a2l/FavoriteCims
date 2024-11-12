@@ -23,9 +23,5 @@ namespace FavoriteCims
 		{
 			PeopleInsideServiceBuildingsPanel.GuestsCount--;
 		}
-
-		public WorkersServiceBuildingPanelRow()
-		{
-		}
 	}
 }

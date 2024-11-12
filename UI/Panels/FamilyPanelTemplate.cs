@@ -10,27 +10,25 @@ namespace FavoriteCims
 {
     public class FamilyPanelTemplate : UIPanel
     {
-        private const float Run = 0.3f;
-
         private float seconds = 0.3f;
 
         private bool FirstRun = true;
 
         private bool execute = false;
 
-        private CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
+        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
 
-        private BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
+        private readonly BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
 
-        private InstanceManager MyInstance = Singleton<InstanceManager>.instance;
+        private readonly InstanceManager MyInstance = Singleton<InstanceManager>.instance;
 
-        private VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
+        private readonly VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
 
-        private DistrictManager MyDistrict = Singleton<DistrictManager>.instance;
+        private readonly DistrictManager MyDistrict = Singleton<DistrictManager>.instance;
 
-        private static readonly string[] sHappinessLevels = new string[] { "VeryUnhappy", "Unhappy", "Happy", "VeryHappy", "ExtremelyHappy" };
+        private static readonly string[] sHappinessLevels = ["VeryUnhappy", "Unhappy", "Happy", "VeryHappy", "ExtremelyHappy"];
 
-        private static readonly string[] sHealthLevels = new string[] { "VerySick", "Sick", "PoorHealth", "Healthy", "VeryHealthy", "ExcellentHealth" };
+        private static readonly string[] sHealthLevels = ["VerySick", "Sick", "PoorHealth", "Healthy", "VeryHealthy", "ExcellentHealth"];
 
         public InstanceID MyInstanceID;
 
@@ -675,7 +673,7 @@ namespace FavoriteCims
                     {
                         ButtVehicle.disabledBgSprite = "InfoIconPopulationDisabled";
                         ButtVehicle.isEnabled = false;
-                        ButtVehicle.tooltip = FavCimsLang.text("Vehicle_on_foot");
+                        ButtVehicle.tooltip = FavCimsLang.Text("Vehicle_on_foot");
                     }
                 }
                 else
@@ -696,11 +694,11 @@ namespace FavoriteCims
                     bool flag11 = district == 0;
                     if (flag11)
                     {
-                        ButtDestination.tooltip = FavCimsLang.text("DistrictLabel") + FavCimsLang.text("DistrictNameNoDistrict");
+                        ButtDestination.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                     }
                     else
                     {
-                        ButtDestination.tooltip = FavCimsLang.text("DistrictLabel") + this.MyDistrict.GetDistrictName(district);
+                        ButtDestination.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(district);
                     }
                 }
                 bool flag12 = this.MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)m_citizen)))].Arrested && this.MyCitizen.m_citizens.m_buffer[(int)((IntPtr)((long)((ulong)m_citizen)))].Criminal;
@@ -720,13 +718,13 @@ namespace FavoriteCims
                             ButtVehicle.playAudioEvents = true;
                             ButtVehicle.tooltip = this.MyVehicle.GetVehicleName(this.policeveh) + " - " + Locale.Get("VEHICLE_STATUS_PRISON_RETURN");
                             ButtDestination.isEnabled = false;
-                            ButtDestination.text = FavCimsLang.text("Transported_to_Prison");
+                            ButtDestination.text = FavCimsLang.Text("Transported_to_Prison");
                         }
                     }
                     else
                     {
                         ButtDestination.isEnabled = true;
-                        ButtDestination.text = FavCimsLang.text("Jailed_into") + buildingName;
+                        ButtDestination.text = FavCimsLang.Text("Jailed_into") + buildingName;
                         ButtVehicle.atlas = UIView.GetAView().defaultAtlas;
                     }
                 }
@@ -2206,14 +2204,14 @@ namespace FavoriteCims
                         {
                             this.citizen = this.MyInstanceID.Citizen;
                             this.CitizenData = this.MyCitizen.m_citizens.m_buffer[(int)this.citizen];
-                            this.BubbleCitizenAge.text = FavCimsLang.text("FavCimsAgeColText_text");
-                            this.BubbleCitizenAgePhase.text = FavCimsLang.text("FavCimsAgePhaseColText_text");
-                            this.BubbleCitizenEducation.text = FavCimsLang.text("FavCimsEduColText_text");
-                            this.BubbleWealthSprite.tooltip = FavCimsLang.text("Wealth_Label");
-                            this.FavCimsDistrictLabel.text = FavCimsLang.text("District_Label");
-                            this.BubbleFamilyBarLabel.text = FavCimsLang.text("Citizen_Family_unit");
-                            this.NoChildsFButton.text = FavCimsLang.text("Citizen_Details_No_Childs");
-                            this.NoPartnerFButton.text = FavCimsLang.text("Citizen_Details_No_Partner");
+                            this.BubbleCitizenAge.text = FavCimsLang.Text("FavCimsAgeColText_text");
+                            this.BubbleCitizenAgePhase.text = FavCimsLang.Text("FavCimsAgePhaseColText_text");
+                            this.BubbleCitizenEducation.text = FavCimsLang.Text("FavCimsEduColText_text");
+                            this.BubbleWealthSprite.tooltip = FavCimsLang.Text("Wealth_Label");
+                            this.FavCimsDistrictLabel.text = FavCimsLang.Text("District_Label");
+                            this.BubbleFamilyBarLabel.text = FavCimsLang.Text("Citizen_Family_unit");
+                            this.NoChildsFButton.text = FavCimsLang.Text("Citizen_Details_No_Childs");
+                            this.NoPartnerFButton.text = FavCimsLang.Text("Citizen_Details_No_Partner");
                             this.MyCitizenUnit = this.CitizenData.GetContainingUnit(this.citizen, this.MyBuilding.m_buildings.m_buffer[(int)this.CitizenData.m_homeBuilding].m_citizenUnits, CitizenUnit.Flags.Home);
                             bool flag2 = this.MyCitizenUnit > 0U;
                             if (flag2)
@@ -2242,7 +2240,7 @@ namespace FavoriteCims
                                 string healthString = FamilyPanelTemplate.GetHealthString(Citizen.GetHealthLevel(health));
                                 this.BubbleHealthSprite.normalBgSprite = healthString;
                                 this.BubbleHealthSprite.tooltip = Locale.Get("INFO_HEALTH_TITLE");
-                                this.BubbleHealthValue.text = FavCimsLang.text("Health_Level_" + FamilyPanelTemplate.sHealthLevels[(int)Citizen.GetHealthLevel(health)] + "_" + Citizen.GetGender(this.citizen).ToString());
+                                this.BubbleHealthValue.text = FavCimsLang.Text("Health_Level_" + FamilyPanelTemplate.sHealthLevels[(int)Citizen.GetHealthLevel(health)] + "_" + Citizen.GetGender(this.citizen).ToString());
                                 switch (Citizen.GetHealthLevel(health))
                                 {
                                     case Citizen.Health.VerySick:
@@ -2266,7 +2264,7 @@ namespace FavoriteCims
                                 }
                                 Citizen.Education educationLevel = this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].EducationLevel;
                                 string text = educationLevel.ToString();
-                                this.BubbleRow1EducationTooltipArea.tooltip = FavCimsLang.text("Education_" + text + "_" + Citizen.GetGender(this.citizen).ToString());
+                                this.BubbleRow1EducationTooltipArea.tooltip = FavCimsLang.Text("Education_" + text + "_" + Citizen.GetGender(this.citizen).ToString());
                                 bool flag4 = text == "ThreeSchools";
                                 if (flag4)
                                 {
@@ -2303,13 +2301,13 @@ namespace FavoriteCims
                                 int wellbeing = (int)this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_wellbeing;
                                 string happinessString = FamilyPanelTemplate.GetHappinessString(Citizen.GetHappinessLevel(wellbeing));
                                 this.BubbleRow2WellbeingIcon.normalBgSprite = happinessString;
-                                this.BubbleRow2WellbeingIcon.tooltip = FavCimsLang.text("WellBeingLabel") + FavCimsLang.text(happinessString);
+                                this.BubbleRow2WellbeingIcon.tooltip = FavCimsLang.Text("WellBeingLabel") + FavCimsLang.Text(happinessString);
                                 Citizen.Wealth wealthLevel = this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].WealthLevel;
-                                this.BubbleRow2WealthValueVal.tooltip = FavCimsLang.text("Wealth_Label");
+                                this.BubbleRow2WealthValueVal.tooltip = FavCimsLang.Text("Wealth_Label");
                                 bool flag7 = wealthLevel == 0;
                                 if (flag7)
                                 {
-                                    this.BubbleRow2WealthValueVal.text = FavCimsLang.text("Low_Wealth_" + Citizen.GetGender(this.citizen).ToString());
+                                    this.BubbleRow2WealthValueVal.text = FavCimsLang.Text("Low_Wealth_" + Citizen.GetGender(this.citizen).ToString());
                                     this.BubbleRow2WealthValueVal.textColor = new Color32(153, 0, 0, 0);
                                 }
                                 else
@@ -2317,12 +2315,12 @@ namespace FavoriteCims
                                     bool flag8 = wealthLevel == Citizen.Wealth.Medium;
                                     if (flag8)
                                     {
-                                        this.BubbleRow2WealthValueVal.text = FavCimsLang.text("Mid_Wealth_" + Citizen.GetGender(this.citizen).ToString());
+                                        this.BubbleRow2WealthValueVal.text = FavCimsLang.Text("Mid_Wealth_" + Citizen.GetGender(this.citizen).ToString());
                                         this.BubbleRow2WealthValueVal.textColor = new Color32(byte.MaxValue, 204, 0, 32);
                                     }
                                     else
                                     {
-                                        this.BubbleRow2WealthValueVal.text = FavCimsLang.text("High_Wealth_" + Citizen.GetGender(this.citizen).ToString());
+                                        this.BubbleRow2WealthValueVal.text = FavCimsLang.Text("High_Wealth_" + Citizen.GetGender(this.citizen).ToString());
                                         this.BubbleRow2WealthValueVal.textColor = new Color32(102, 204, 0, 60);
                                     }
                                 }
@@ -2333,17 +2331,17 @@ namespace FavoriteCims
                                 {
                                     this.BubbleRow1HappyIcon.atlas = MyAtlas.FavCimsAtlas;
                                     this.BubbleRow1HappyIcon.normalBgSprite = "FavCimsCrimeArrested";
-                                    this.BubbleRow1HappyIcon.tooltip = FavCimsLang.text("Citizen_Arrested");
+                                    this.BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("Citizen_Arrested");
                                 }
                                 else
                                 {
                                     this.BubbleRow1HappyIcon.atlas = UIView.GetAView().defaultAtlas;
                                     this.BubbleRow1HappyIcon.normalBgSprite = happinessString2;
-                                    this.BubbleRow1HappyIcon.tooltip = FavCimsLang.text("HappinessLabel") + FavCimsLang.text(happinessString2);
+                                    this.BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("HappinessLabel") + FavCimsLang.Text(happinessString2);
                                 }
                                 int age = (int)this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_age;
                                 string text2 = Citizen.GetAgeGroup(age).ToString();
-                                this.BubbleCitizenAgePhaseVal.text = FavCimsLang.text("AgePhase_" + text2 + "_" + Citizen.GetGender(this.citizen).ToString());
+                                this.BubbleCitizenAgePhaseVal.text = FavCimsLang.Text("AgePhase_" + text2 + "_" + Citizen.GetGender(this.citizen).ToString());
                                 this.RealAge = FavCimsCore.CalculateCitizenAge(age);
                                 bool flag10 = this.RealAge <= 12;
                                 if (flag10)
@@ -2418,9 +2416,9 @@ namespace FavoriteCims
                                         if (flag17)
                                         {
                                             this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTextureRetired;
-                                            this.FavCimsWorkingPlace.text = FavCimsLang.text("Citizen_Retired");
+                                            this.FavCimsWorkingPlace.text = FavCimsLang.Text("Citizen_Retired");
                                             this.FavCimsWorkingPlace.isEnabled = false;
-                                            this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Citizen_Retired_tooltip");
+                                            this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Citizen_Retired_tooltip");
                                             this.FavCimsWorkingPlaceSprite.tooltip = null;
                                             this.FavCimsWorkingPlaceButtonGamDefImg.tooltip = null;
                                             this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
@@ -2430,7 +2428,7 @@ namespace FavoriteCims
                                             this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTexture;
                                             this.FavCimsWorkingPlace.text = Locale.Get("CITIZEN_OCCUPATION_UNEMPLOYED");
                                             this.FavCimsWorkingPlace.isEnabled = false;
-                                            this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Unemployed_tooltip");
+                                            this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Unemployed_tooltip");
                                             this.FavCimsWorkingPlaceSprite.tooltip = null;
                                             this.FavCimsWorkingPlaceButtonGamDefImg.tooltip = null;
                                             this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
@@ -2493,7 +2491,7 @@ namespace FavoriteCims
                                             {
                                                 this.FavCimsWorkingPlace.textColor = new Color32(0, 150, 136, 116);
                                                 this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Buildings_Type_CommercialEco");
+                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialEco");
                                             }
                                             else
                                             {
@@ -2502,7 +2500,7 @@ namespace FavoriteCims
                                                 {
                                                     this.FavCimsWorkingPlace.textColor = new Color32(219, 68, 55, 3);
                                                     this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                    this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Buildings_Type_CommercialLeisure");
+                                                    this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialLeisure");
                                                 }
                                                 else
                                                 {
@@ -2511,7 +2509,7 @@ namespace FavoriteCims
                                                     {
                                                         this.FavCimsWorkingPlace.textColor = new Color32(156, 39, 176, 194);
                                                         this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Buildings_Type_CommercialTourist");
+                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialTourist");
                                                     }
                                                     else
                                                     {
@@ -2672,11 +2670,11 @@ namespace FavoriteCims
                                                 {
                                                     case ItemClass.Service.Electricity:
                                                         this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyPowerSaving";
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Electricity_job");
+                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Electricity_job");
                                                         goto IL_19C1;
                                                     case ItemClass.Service.Water:
                                                         this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyWaterSaving";
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Water_job");
+                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Water_job");
                                                         goto IL_19C1;
                                                     case ItemClass.Service.Beautification:
                                                         this.FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "SubBarBeautificationParksnPlazas";
@@ -2750,11 +2748,11 @@ namespace FavoriteCims
                                     bool flag31 = this.WorkDistrict == 0;
                                     if (flag31)
                                     {
-                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.text("DistrictLabel") + FavCimsLang.text("DistrictNameNoDistrict");
+                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                     }
                                     else
                                     {
-                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.WorkDistrict);
+                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.WorkDistrict);
                                     }
                                 }
                                 else
@@ -2836,11 +2834,11 @@ namespace FavoriteCims
                                         bool flag38 = this.HomeDistrict == 0;
                                         if (flag38)
                                         {
-                                            this.BubbleHomeIcon.tooltip = FavCimsLang.text("DistrictLabel") + FavCimsLang.text("DistrictNameNoDistrict");
+                                            this.BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                         }
                                         else
                                         {
-                                            this.BubbleHomeIcon.tooltip = FavCimsLang.text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.HomeDistrict);
+                                            this.BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.HomeDistrict);
                                         }
                                         Notification.ProblemStruct problems = this.MyBuilding.m_buildings.m_buffer[(int)this.CitizenHome].m_problems;
                                         bool flag39 = problems != Notification.ProblemStruct.None;
@@ -2989,7 +2987,7 @@ namespace FavoriteCims
                                         if (flag53)
                                         {
                                             this.BubbleDetailsCrime.normalFgSprite = "TutorialGlow";
-                                            this.BubbleDetailsCrime.tooltip = FavCimsLang.text("Citizen_Arrested");
+                                            this.BubbleDetailsCrime.tooltip = FavCimsLang.Text("Citizen_Arrested");
                                         }
                                         else
                                         {
@@ -3009,11 +3007,11 @@ namespace FavoriteCims
                                 }
                                 else
                                 {
-                                    this.BubbleHomeName.text = FavCimsLang.text("Citizen_HomeLess");
+                                    this.BubbleHomeName.text = FavCimsLang.Text("Citizen_HomeLess");
                                     this.BubbleHomeName.isEnabled = false;
                                     this.BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTextureHomeless;
-                                    this.BubbleHomeIcon.tooltip = FavCimsLang.text("DistrictNameNoDistrict");
-                                    this.BubbleHomeName.tooltip = FavCimsLang.text("Citizen_HomeLess_tooltip");
+                                    this.BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictNameNoDistrict");
+                                    this.BubbleHomeName.tooltip = FavCimsLang.Text("Citizen_HomeLess_tooltip");
                                 }
                                 this.Activity(this.citizen, this.FavCimsLastActivityVehicleButton, this.FavCimsLastActivity, out this.MyVehicleID, out this.MyTargetID);
                                 this.MainCitizenInstance = this.MyCitizen.m_citizens.m_buffer[(int)this.citizen].m_instance;
@@ -3021,12 +3019,12 @@ namespace FavoriteCims
                                 bool flag55 = this.CitizenDistrict == 0;
                                 if (flag55)
                                 {
-                                    this.FavCimsDistrictValue.tooltip = FavCimsLang.text("District_Label_tooltip");
-                                    this.FavCimsDistrictValue.text = FavCimsLang.text("DistrictNameNoDistrict");
+                                    this.FavCimsDistrictValue.tooltip = FavCimsLang.Text("District_Label_tooltip");
+                                    this.FavCimsDistrictValue.text = FavCimsLang.Text("DistrictNameNoDistrict");
                                 }
                                 else
                                 {
-                                    this.FavCimsDistrictValue.tooltip = FavCimsLang.text("District_Label_tooltip");
+                                    this.FavCimsDistrictValue.tooltip = FavCimsLang.Text("District_Label_tooltip");
                                     this.FavCimsDistrictValue.text = this.MyDistrict.GetDistrictName(this.CitizenDistrict);
                                 }
                                 this.FamilyVehicle(this.citizen, this.BubblePersonalCarButton, out this.PersonalVehicleID);
@@ -3112,7 +3110,7 @@ namespace FavoriteCims
                                     }
                                     else
                                     {
-                                        this.BubblePartnerName.tooltip = FavCimsLang.text("Right_click_to_swith_tooltip");
+                                        this.BubblePartnerName.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                         this.BubblePartnerName.isEnabled = true;
                                     }
                                     bool flag65 = this.DogOwner > 0U;
@@ -3227,7 +3225,7 @@ namespace FavoriteCims
                                         else
                                         {
                                             this.BubbleParent1Name.isEnabled = true;
-                                            this.BubbleParent1Name.tooltip = FavCimsLang.text("Right_click_to_swith_tooltip");
+                                            this.BubbleParent1Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                         }
                                         this.Activity(this.CitizenPartner, this.BubbleParent1VehicleButton, this.BubbleParent1Destination, out this.Parent1VehID, out this.Parent1Target);
                                         this.RealAge = FavCimsCore.CalculateCitizenAge((int)this.MyCitizen.m_citizens.m_buffer[(int)this.CitizenPartner].m_age);
@@ -3325,7 +3323,7 @@ namespace FavoriteCims
                                     else
                                     {
                                         this.BubbleFamilyMember2Name.isEnabled = true;
-                                        this.BubbleFamilyMember2Name.tooltip = FavCimsLang.text("Right_click_to_swith_tooltip");
+                                        this.BubbleFamilyMember2Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                     }
                                     bool flag85 = this.DogOwner > 0U;
                                     if (flag85)
@@ -3445,7 +3443,7 @@ namespace FavoriteCims
                                     else
                                     {
                                         this.BubbleFamilyMember3Name.isEnabled = true;
-                                        this.BubbleFamilyMember3Name.tooltip = FavCimsLang.text("Right_click_to_swith_tooltip");
+                                        this.BubbleFamilyMember3Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                     }
                                     bool flag97 = this.DogOwner > 0U;
                                     if (flag97)
@@ -3565,7 +3563,7 @@ namespace FavoriteCims
                                     else
                                     {
                                         this.BubbleFamilyMember4Name.isEnabled = true;
-                                        this.BubbleFamilyMember4Name.tooltip = FavCimsLang.text("Right_click_to_swith_tooltip");
+                                        this.BubbleFamilyMember4Name.tooltip = FavCimsLang.Text("Right_click_to_swith_tooltip");
                                     }
                                     bool flag109 = this.DogOwner > 0U;
                                     if (flag109)
@@ -3686,14 +3684,5 @@ namespace FavoriteCims
                 }
             }
         }
-
-        public FamilyPanelTemplate()
-        {
-        }
-
-        static FamilyPanelTemplate()
-        {
-        }
-
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using ColossalFramework;
 using ColossalFramework.UI;
 using UnityEngine;
@@ -9,8 +8,6 @@ namespace FavoriteCims
 {
 	public class FavCimsVechiclePanel : UIPanel
 	{
-        private const float Run = 0.5f;
-
         private float seconds = 0.5f;
 
         private bool execute = false;
@@ -25,11 +22,11 @@ namespace FavoriteCims
 
         public UIPanel RefPanel;
 
-        private VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
+        private readonly VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
 
-        private CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
+        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
 
-        public static Dictionary<uint, uint> CimsOnVeh = new Dictionary<uint, uint>();
+        public static Dictionary<uint, uint> CimsOnVeh = [];
 
         private UIPanel DriverPanel;
 
@@ -49,7 +46,7 @@ namespace FavoriteCims
 
         private UIButton PassengersPanelText;
 
-        private PassengersPrivateVehiclePanelRow[] PassengersPrivateBodyRow = new PassengersPrivateVehiclePanelRow[5];
+        private readonly PassengersPrivateVehiclePanelRow[] PassengersPrivateBodyRow = new PassengersPrivateVehiclePanelRow[5];
 
         private uint VehicleUnits;
 
@@ -366,7 +363,7 @@ namespace FavoriteCims
 						if (flag2)
 						{
 							this.Garbage = true;
-							this.TitleVehicleName.text = FavCimsLang.text("Vehicle_Passengers");
+							this.TitleVehicleName.text = FavCimsLang.Text("Vehicle_Passengers");
 							base.absolutePosition = new Vector3(this.RefPanel.absolutePosition.x + this.RefPanel.width + 5f, this.RefPanel.absolutePosition.y);
 							base.height = this.RefPanel.height - 15f;
 							bool flag3 = 50f + (float)FavCimsVechiclePanel.CimsOnVeh.Count * 25f < base.height - this.Title.height - this.Footer.height;
@@ -412,10 +409,10 @@ namespace FavoriteCims
 								bool flag7 = FavCimsVechiclePanel.CimsOnVeh.Count == 0;
 								if (flag7)
 								{
-									this.PassengersPanelText.text = FavCimsLang.text("View_NoPassengers");
+									this.PassengersPanelText.text = FavCimsLang.Text("View_NoPassengers");
 								}
 								this.DriverPanel.Show();
-								this.DriverPanelText.text = FavCimsLang.text("Vehicle_DriverIconText");
+								this.DriverPanelText.text = FavCimsLang.Text("Vehicle_DriverIconText");
 								this.PassengersPanel.Show();
 								while (this.VehicleUnits > 0U)
 								{
@@ -441,7 +438,7 @@ namespace FavoriteCims
 											}
 											else
 											{
-												this.PassengersPanelText.text = FavCimsLang.text("Vehicle_PasssengerIconText");
+												this.PassengersPanelText.text = FavCimsLang.Text("Vehicle_PasssengerIconText");
 												bool flag11 = this.PassengersPanel != null && this.PassengersPrivateBodyRow[k] != null;
 												if (flag11)
 												{
@@ -470,7 +467,5 @@ namespace FavoriteCims
 				}
 			}
 		}
-
-		
 	}
 }

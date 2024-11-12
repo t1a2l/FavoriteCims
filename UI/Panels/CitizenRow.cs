@@ -10,13 +10,9 @@ namespace FavoriteCims
 {
     public class CitizenRow : UIPanel
     {
-        private const float Run = 0.5f;
-
         private float seconds = 0.5f;
 
         private float secondsForceRun = 2f;
-
-        private const float SlowRun = 30f;
 
         private float HiddenRowsSeconds = 30f;
 
@@ -28,7 +24,7 @@ namespace FavoriteCims
 
         public string MyInstancedName;
 
-        private Dictionary<string, string> CitizenRowData = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> CitizenRowData = [];
 
         private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
 
@@ -40,7 +36,7 @@ namespace FavoriteCims
 
         private readonly DistrictManager MyDistrict = Singleton<DistrictManager>.instance;
 
-        private static readonly string[] sHappinessLevels = new string[] { "VeryUnhappy", "Unhappy", "Happy", "VeryHappy", "ExtremelyHappy" };
+        private static readonly string[] sHappinessLevels = ["VeryUnhappy", "Unhappy", "Happy", "VeryHappy", "ExtremelyHappy"];
 
         private UIPanel FavCimsCitizenSingleRowPanel;
 
@@ -968,7 +964,7 @@ namespace FavoriteCims
                     if (flag3)
                     {
                         this.OtherInfoButton.isEnabled = false;
-                        this.OtherInfoButton.tooltip = FavCimsLang.text("Citizen_Details_NoUnit");
+                        this.OtherInfoButton.tooltip = FavCimsLang.Text("Citizen_Details_NoUnit");
                     }
                     else
                     {
@@ -981,7 +977,7 @@ namespace FavoriteCims
                                 this.MyFamily = null;
                             }
                             this.OtherInfoButton.isEnabled = false;
-                            this.OtherInfoButton.tooltip = FavCimsLang.text("Citizen_Details_fullTemplate");
+                            this.OtherInfoButton.tooltip = FavCimsLang.Text("Citizen_Details_fullTemplate");
                         }
                         else
                         {
@@ -995,7 +991,7 @@ namespace FavoriteCims
                                 this.OtherInfoButton.normalBgSprite = "CityInfo";
                             }
                             this.OtherInfoButton.isEnabled = true;
-                            this.OtherInfoButton.tooltip = FavCimsLang.text("Citizen_Details");
+                            this.OtherInfoButton.tooltip = FavCimsLang.Text("Citizen_Details");
                         }
                     }
                     uint citizen = this.MyInstanceID.Citizen;
@@ -1018,7 +1014,7 @@ namespace FavoriteCims
                                 this.MyInstancedName = this.CitizenName;
                             }
                             this.citizenInfo = this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].GetCitizenInfo(citizen);
-                            this.FavCimsRowCloseButton.tooltip = FavCimsLang.text("FavStarButton_disable_tooltip");
+                            this.FavCimsRowCloseButton.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
                             bool flag10 = this.FavCimsCitizenSingleRowPanel != null && citizen != 0U && this.CitizenName == this.MyInstancedName && FavCimsCore.RowID.ContainsKey(this.citizenINT);
                             if (flag10)
                             {
@@ -1034,17 +1030,17 @@ namespace FavoriteCims
                                 bool flag12 = this.CitizenDistrict == 0;
                                 if (flag12)
                                 {
-                                    this.FavCimsCitizenName.tooltip = FavCimsLang.text("NowInThisDistrict") + FavCimsLang.text("DistrictNameNoDistrict");
+                                    this.FavCimsCitizenName.tooltip = FavCimsLang.Text("NowInThisDistrict") + FavCimsLang.Text("DistrictNameNoDistrict");
                                 }
                                 else
                                 {
-                                    this.FavCimsCitizenName.tooltip = FavCimsLang.text("NowInThisDistrict") + this.MyDistrict.GetDistrictName(this.CitizenDistrict);
+                                    this.FavCimsCitizenName.tooltip = FavCimsLang.Text("NowInThisDistrict") + this.MyDistrict.GetDistrictName(this.CitizenDistrict);
                                 }
                                 this.tmp_health = (int)this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_health;
                                 this.CitizenRowData["health"] = Citizen.GetHealthLevel(this.tmp_health).ToString();
                                 Citizen.Education educationLevel = this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].EducationLevel;
                                 this.CitizenRowData["education"] = educationLevel.ToString();
-                                this.FavCimsEducation.text = FavCimsLang.text("Education_" + this.CitizenRowData["education"] + "_" + this.CitizenRowData["gender"]);
+                                this.FavCimsEducation.text = FavCimsLang.Text("Education_" + this.CitizenRowData["education"] + "_" + this.CitizenRowData["gender"]);
                                 bool flag13 = this.CitizenRowData["education"] == "ThreeSchools";
                                 if (flag13)
                                 {
@@ -1075,10 +1071,10 @@ namespace FavoriteCims
                                 this.tmp_happiness = Citizen.GetHappiness(this.tmp_health, this.tmp_wellbeing);
                                 this.CitizenRowData["happiness_icon"] = CitizenRow.GetHappinessString(Citizen.GetHappinessLevel(this.tmp_happiness));
                                 this.FavCimsHappyIcon.normalBgSprite = this.CitizenRowData["happiness_icon"];
-                                this.FavCimsHappyIcon.tooltip = FavCimsLang.text(this.CitizenRowData["happiness_icon"]);
+                                this.FavCimsHappyIcon.tooltip = FavCimsLang.Text(this.CitizenRowData["happiness_icon"]);
                                 this.tmp_age = (int)this.MyCitizen.m_citizens.m_buffer[(int)this.MyInstanceID.Index].m_age;
                                 this.CitizenRowData["agegroup"] = Citizen.GetAgeGroup(this.tmp_age).ToString();
-                                this.FavCimsAgePhase.text = FavCimsLang.text("AgePhase_" + this.CitizenRowData["agegroup"] + "_" + this.CitizenRowData["gender"]);
+                                this.FavCimsAgePhase.text = FavCimsLang.Text("AgePhase_" + this.CitizenRowData["agegroup"] + "_" + this.CitizenRowData["gender"]);
                                 this.RealAge = FavCimsCore.CalculateCitizenAge(this.tmp_age);
                                 bool flag16 = this.RealAge <= 12;
                                 if (flag16)
@@ -1206,21 +1202,21 @@ namespace FavoriteCims
                                         bool flag27 = this.HomeDistrict == 0;
                                         if (flag27)
                                         {
-                                            this.FavCimsCitizenHomeButton.tooltip = FavCimsLang.text("DistrictLabel") + FavCimsLang.text("DistrictNameNoDistrict");
+                                            this.FavCimsCitizenHomeButton.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                         }
                                         else
                                         {
-                                            this.FavCimsCitizenHomeButton.tooltip = FavCimsLang.text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.HomeDistrict);
+                                            this.FavCimsCitizenHomeButton.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.HomeDistrict);
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    this.FavCimsCitizenHome.text = FavCimsLang.text("Citizen_HomeLess");
+                                    this.FavCimsCitizenHome.text = FavCimsLang.Text("Citizen_HomeLess");
                                     this.FavCimsCitizenHome.isEnabled = false;
                                     this.FavCimsCitizenHomeButton.normalBgSprite = "homelessIcon";
-                                    this.FavCimsCitizenHomeButton.tooltip = FavCimsLang.text("DistrictNameNoDistrict");
-                                    this.FavCimsCitizenHome.tooltip = FavCimsLang.text("Citizen_HomeLess_tooltip");
+                                    this.FavCimsCitizenHomeButton.tooltip = FavCimsLang.Text("DistrictNameNoDistrict");
+                                    this.FavCimsCitizenHome.tooltip = FavCimsLang.Text("Citizen_HomeLess_tooltip");
                                     this.FavCimsCitizenResidentialLevelSprite.texture = null;
                                     this.HomeLess = true;
                                 }
@@ -1258,7 +1254,7 @@ namespace FavoriteCims
                                             this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTexture;
                                             this.FavCimsWorkingPlace.text = text;
                                             this.FavCimsWorkingPlace.isEnabled = false;
-                                            this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Citizen_Tourist_tooltip");
+                                            this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Citizen_Tourist_tooltip");
                                             this.FavCimsWorkingPlaceSprite.tooltip = null;
                                             this.FavCimsWorkingPlaceButton.tooltip = null;
                                             this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
@@ -1269,9 +1265,9 @@ namespace FavoriteCims
                                             if (flag32)
                                             {
                                                 this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTextureRetired;
-                                                this.FavCimsWorkingPlace.text = FavCimsLang.text("Citizen_Retired");
+                                                this.FavCimsWorkingPlace.text = FavCimsLang.Text("Citizen_Retired");
                                                 this.FavCimsWorkingPlace.isEnabled = false;
-                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Citizen_Retired_tooltip");
+                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Citizen_Retired_tooltip");
                                                 this.FavCimsWorkingPlaceSprite.tooltip = null;
                                                 this.FavCimsWorkingPlaceButton.tooltip = null;
                                                 this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
@@ -1281,7 +1277,7 @@ namespace FavoriteCims
                                                 this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsWorkingPlaceTexture;
                                                 this.FavCimsWorkingPlace.text = Locale.Get("CITIZEN_OCCUPATION_UNEMPLOYED");
                                                 this.FavCimsWorkingPlace.isEnabled = false;
-                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Unemployed_tooltip");
+                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Unemployed_tooltip");
                                                 this.FavCimsWorkingPlaceSprite.tooltip = null;
                                                 this.FavCimsWorkingPlaceButton.tooltip = null;
                                                 this.FavCimsCitizenWorkPlaceLevelSprite.texture = null;
@@ -1346,7 +1342,7 @@ namespace FavoriteCims
                                             {
                                                 this.FavCimsWorkingPlace.textColor = new Color32(0, 150, 136, 116);
                                                 this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Buildings_Type_CommercialEco");
+                                                this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialEco");
                                             }
                                             else
                                             {
@@ -1355,7 +1351,7 @@ namespace FavoriteCims
                                                 {
                                                     this.FavCimsWorkingPlace.textColor = new Color32(219, 68, 55, 3);
                                                     this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                    this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Buildings_Type_CommercialLeisure");
+                                                    this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialLeisure");
                                                 }
                                                 else
                                                 {
@@ -1364,7 +1360,7 @@ namespace FavoriteCims
                                                     {
                                                         this.FavCimsWorkingPlace.textColor = new Color32(156, 39, 176, 194);
                                                         this.FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Buildings_Type_CommercialTourist");
+                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Buildings_Type_CommercialTourist");
                                                     }
                                                     else
                                                     {
@@ -1524,11 +1520,11 @@ namespace FavoriteCims
                                                 {
                                                     case ItemClass.Service.Electricity:
                                                         this.FavCimsWorkingPlaceButton.normalBgSprite = "IconPolicyPowerSaving";
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Electricity_job");
+                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Electricity_job");
                                                         goto IL_1D8D;
                                                     case ItemClass.Service.Water:
                                                         this.FavCimsWorkingPlaceButton.normalBgSprite = "IconPolicyWaterSaving";
-                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.text("Water_job");
+                                                        this.FavCimsWorkingPlace.tooltip = FavCimsLang.Text("Water_job");
                                                         goto IL_1D8D;
                                                     case ItemClass.Service.Beautification:
                                                         this.FavCimsWorkingPlaceButton.normalBgSprite = "SubBarBeautificationParksnPlazas";
@@ -1603,11 +1599,11 @@ namespace FavoriteCims
                                     bool flag46 = this.WorkDistrict == 0;
                                     if (flag46)
                                     {
-                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.text("DistrictLabel") + FavCimsLang.text("DistrictNameNoDistrict");
+                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                     }
                                     else
                                     {
-                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.WorkDistrict);
+                                        this.FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.WorkDistrict);
                                     }
                                 }
                                 else
@@ -1833,7 +1829,7 @@ namespace FavoriteCims
                                         }
                                         this.FavCimsLastActivityVehicleButton.disabledBgSprite = "InfoIconPopulationDisabled";
                                         this.FavCimsLastActivityVehicleButton.isEnabled = false;
-                                        this.FavCimsLastActivityVehicleButton.tooltip = FavCimsLang.text("Vehicle_on_foot");
+                                        this.FavCimsLastActivityVehicleButton.tooltip = FavCimsLang.Text("Vehicle_on_foot");
                                     }
                                 }
                                 else
@@ -1853,11 +1849,11 @@ namespace FavoriteCims
                                     bool flag58 = this.TargetDistrict == 0;
                                     if (flag58)
                                     {
-                                        this.FavCimsLastActivity.tooltip = FavCimsLang.text("DistrictLabel") + FavCimsLang.text("DistrictNameNoDistrict");
+                                        this.FavCimsLastActivity.tooltip = FavCimsLang.Text("DistrictLabel") + FavCimsLang.Text("DistrictNameNoDistrict");
                                     }
                                     else
                                     {
-                                        this.FavCimsLastActivity.tooltip = FavCimsLang.text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.TargetDistrict);
+                                        this.FavCimsLastActivity.tooltip = FavCimsLang.Text("DistrictLabel") + this.MyDistrict.GetDistrictName(this.TargetDistrict);
                                     }
                                 }
                                 this.CitizenDistrict = (int)this.MyDistrict.GetDistrict(this.citizenInstance.GetSmoothPosition(this.InstanceCitizenID));
@@ -1866,7 +1862,7 @@ namespace FavoriteCims
                                 {
                                     this.FavCimsHappyIcon.atlas = MyAtlas.FavCimsAtlas;
                                     this.FavCimsHappyIcon.normalBgSprite = "FavCimsCrimeArrested";
-                                    this.FavCimsHappyIcon.tooltip = FavCimsLang.text("Citizen_Arrested");
+                                    this.FavCimsHappyIcon.tooltip = FavCimsLang.Text("Citizen_Arrested");
                                     bool flag60 = this.MyCitizen.m_citizens.m_buffer[(int)citizen].CurrentLocation == Citizen.Location.Moving;
                                     if (flag60)
                                     {
@@ -1881,13 +1877,13 @@ namespace FavoriteCims
                                             this.FavCimsLastActivityVehicleButton.playAudioEvents = true;
                                             this.FavCimsLastActivityVehicleButton.tooltip = this.MyVehicle.GetVehicleName(this.policeveh) + " - " + Locale.Get("VEHICLE_STATUS_PRISON_RETURN");
                                             this.FavCimsLastActivity.isEnabled = false;
-                                            this.FavCimsLastActivity.text = FavCimsLang.text("Transported_to_Prison");
+                                            this.FavCimsLastActivity.text = FavCimsLang.Text("Transported_to_Prison");
                                         }
                                     }
                                     else
                                     {
                                         this.FavCimsLastActivity.isEnabled = true;
-                                        this.FavCimsLastActivity.text = FavCimsLang.text("Jailed_into") + this.CitizenTarget;
+                                        this.FavCimsLastActivity.text = FavCimsLang.Text("Jailed_into") + this.CitizenTarget;
                                         this.FavCimsLastActivityVehicleButton.atlas = UIView.GetAView().defaultAtlas;
                                     }
                                 }
@@ -1895,13 +1891,13 @@ namespace FavoriteCims
                                 {
                                     this.FavCimsHappyIcon.atlas = UIView.GetAView().defaultAtlas;
                                     this.FavCimsHappyIcon.normalBgSprite = this.CitizenRowData["happiness_icon"];
-                                    this.FavCimsHappyIcon.tooltip = FavCimsLang.text(this.CitizenRowData["happiness_icon"]);
+                                    this.FavCimsHappyIcon.tooltip = FavCimsLang.Text(this.CitizenRowData["happiness_icon"]);
                                 }
                                 bool citizenIsDead = this.CitizenIsDead;
                                 if (citizenIsDead)
                                 {
                                     this.FavCimsHappyIcon.normalBgSprite = "NotificationIconDead";
-                                    this.FavCimsHappyIcon.tooltip = FavCimsLang.text("People_Life_Status_Dead");
+                                    this.FavCimsHappyIcon.tooltip = FavCimsLang.Text("People_Life_Status_Dead");
                                     bool flag62 = this.CitizenRowData["deathrealage"] == "0";
                                     if (flag62)
                                     {
@@ -1911,18 +1907,18 @@ namespace FavoriteCims
                                     bool flag63 = this.DeathDate == null;
                                     if (flag63)
                                     {
-                                        this.DeathDate = GameTime.FavCimsDate(FavCimsLang.text("time_format"), "n/a");
+                                        this.DeathDate = GameTime.FavCimsDate(FavCimsLang.Text("time_format"), "n/a");
                                         this.DeathTime = GameTime.FavCimsTime();
                                     }
                                     this.FavCimsCitizenName.tooltip = string.Concat(new string[]
                                     {
-                                        FavCimsLang.text("People_Life_Status_Dead"),
+                                        FavCimsLang.Text("People_Life_Status_Dead"),
                                         " ",
-                                        FavCimsLang.text("People_Life_Status_Dead_date"),
+                                        FavCimsLang.Text("People_Life_Status_Dead_date"),
                                         " ",
                                         this.DeathDate,
                                         " ",
-                                        FavCimsLang.text("People_Life_Status_Dead_time"),
+                                        FavCimsLang.Text("People_Life_Status_Dead_time"),
                                         " ",
                                         this.DeathTime
                                     });
@@ -1939,7 +1935,7 @@ namespace FavoriteCims
                                             this.FavCimsLastActivityVehicleButton.isEnabled = true;
                                             this.FavCimsLastActivityVehicleButton.playAudioEvents = true;
                                             this.FavCimsLastActivityVehicleButton.tooltip = Locale.Get("VEHICLE_TITLE", "Hearse");
-                                            this.FavCimsLastActivity.text = FavCimsLang.text("Citizen_on_hearse");
+                                            this.FavCimsLastActivity.text = FavCimsLang.Text("Citizen_on_hearse");
                                         }
                                     }
                                     else
@@ -1947,13 +1943,13 @@ namespace FavoriteCims
                                         bool flag66 = this.MyCitizen.m_citizens.m_buffer[(int)citizen].CurrentLocation != Citizen.Location.Moving && this.hearse == 0;
                                         if (flag66)
                                         {
-                                            this.FavCimsLastActivity.text = FavCimsLang.text("Citizen_wait_hearse");
+                                            this.FavCimsLastActivity.text = FavCimsLang.Text("Citizen_wait_hearse");
                                             this.FavCimsLastActivityVehicleButton.disabledBgSprite = "NotificationIconVerySick";
                                             this.FavCimsLastActivityVehicleButton.isEnabled = false;
                                         }
                                         else
                                         {
-                                            this.FavCimsLastActivity.text = FavCimsLang.text("Citizen_hisfuneral");
+                                            this.FavCimsLastActivity.text = FavCimsLang.Text("Citizen_hisfuneral");
                                             this.FavCimsLastActivityVehicleButton.disabledBgSprite = "NotificationIconVerySick";
                                             this.FavCimsLastActivityVehicleButton.isEnabled = false;
                                         }
@@ -1978,12 +1974,12 @@ namespace FavoriteCims
                                         bool flag70 = this.DeathDate != null;
                                         if (flag70)
                                         {
-                                            this.DeathDate = GameTime.FavCimsDate(FavCimsLang.text("time_format"), this.DeathDate);
+                                            this.DeathDate = GameTime.FavCimsDate(FavCimsLang.Text("time_format"), this.DeathDate);
                                         }
                                         bool flag71 = this.DeathDate == null;
                                         if (flag71)
                                         {
-                                            this.DeathDate = GameTime.FavCimsDate(FavCimsLang.text("time_format"), "n/a");
+                                            this.DeathDate = GameTime.FavCimsDate(FavCimsLang.Text("time_format"), "n/a");
                                             this.DeathTime = GameTime.FavCimsTime();
                                         }
                                         this.FavCimsCitizenName.disabledTextColor = new Color32(51, 51, 51, 160);
@@ -2073,23 +2069,23 @@ namespace FavoriteCims
                                             try
                                             {
                                                 this.FavCimsHappyIcon.normalBgSprite = "NotificationIconDead";
-                                                this.FavCimsHappyIcon.tooltip = FavCimsLang.text("People_Life_Status_Dead");
+                                                this.FavCimsHappyIcon.tooltip = FavCimsLang.Text("People_Life_Status_Dead");
                                                 this.FavCimsCitizenName.text = this.MyInstancedName;
                                                 this.FavCimsCitizenName.tooltip = string.Concat(new string[]
                                                 {
-                                                    FavCimsLang.text("People_Life_Status_Dead"),
+                                                    FavCimsLang.Text("People_Life_Status_Dead"),
                                                     " ",
-                                                    FavCimsLang.text("People_Life_Status_Dead_date"),
+                                                    FavCimsLang.Text("People_Life_Status_Dead_date"),
                                                     " ",
                                                     this.DeathDate,
                                                     " ",
-                                                    FavCimsLang.text("People_Life_Status_Dead_time"),
+                                                    FavCimsLang.Text("People_Life_Status_Dead_time"),
                                                     " ",
                                                     this.DeathTime
                                                 });
                                                 this.OtherInfoButton.isEnabled = false;
-                                                this.FavCimsAgePhase.text = FavCimsLang.text("AgePhaseDead_" + this.CitizenRowData["gender"]);
-                                                this.FavCimsCitizenHome.text = FavCimsLang.text("Home_Location_Dead");
+                                                this.FavCimsAgePhase.text = FavCimsLang.Text("AgePhaseDead_" + this.CitizenRowData["gender"]);
+                                                this.FavCimsCitizenHome.text = FavCimsLang.Text("Home_Location_Dead");
                                                 this.FavCimsCitizenHomeButton.normalBgSprite = "houseofthedead";
                                                 this.FavCimsCitizenHome.tooltip = null;
                                                 this.FavCimsCitizenHome.isEnabled = false;
@@ -2105,7 +2101,7 @@ namespace FavoriteCims
                                                 this.FavCimsLastActivityVehicleButton.disabledBgSprite = "NotificationIconDead";
                                                 this.FavCimsLastActivityVehicleButton.tooltip = null;
                                                 this.FavCimsLastActivity.tooltip = null;
-                                                this.FavCimsLastActivity.text = FavCimsLang.text("Citizen_buried");
+                                                this.FavCimsLastActivity.text = FavCimsLang.Text("Citizen_buried");
                                                 this.CitizenRowData.Clear();
                                             }
                                             catch (Exception ex)
@@ -2119,22 +2115,22 @@ namespace FavoriteCims
                                             this.FavCimsHappyIcon.tooltip = null;
                                             this.FavCimsHappyOverride.texture = TextureDB.FavCimsHappyOverride_texture;
                                             this.FavCimsHappyOverride.relativePosition = new Vector3(0f, 0f);
-                                            this.FavCimsHappyOverride.tooltip = FavCimsLang.text("People_Life_Status_IsGone");
+                                            this.FavCimsHappyOverride.tooltip = FavCimsLang.Text("People_Life_Status_IsGone");
                                             this.FavCimsCitizenName.text = this.MyInstancedName;
                                             this.FavCimsCitizenName.tooltip = string.Concat(new string[]
                                             {
-                                                FavCimsLang.text("People_Life_Status_IsGone"),
+                                                FavCimsLang.Text("People_Life_Status_IsGone"),
                                                 " ",
-                                                FavCimsLang.text("People_Life_Status_Dead_date"),
+                                                FavCimsLang.Text("People_Life_Status_Dead_date"),
                                                 " ",
                                                 this.DeathDate,
                                                 " ",
-                                                FavCimsLang.text("People_Life_Status_Dead_time"),
+                                                FavCimsLang.Text("People_Life_Status_Dead_time"),
                                                 " ",
                                                 this.DeathTime
                                             });
                                             this.OtherInfoButton.isEnabled = false;
-                                            this.FavCimsCitizenHome.text = FavCimsLang.text("HomeOutsideTheCity");
+                                            this.FavCimsCitizenHome.text = FavCimsLang.Text("HomeOutsideTheCity");
                                             this.FavCimsCitizenHomeButton.normalBgSprite = "homelessIcon";
                                             this.FavCimsCitizenHome.tooltip = null;
                                             this.FavCimsCitizenHome.isEnabled = false;

@@ -5,7 +5,9 @@ namespace FavoriteCims
 {
 	public class MyAtlas
 	{
-		public void LoadAtlasIcons()
+        public static UITextureAtlas FavCimsAtlas;
+
+        public void LoadAtlasIcons()
 		{
 			string[] array =
             [
@@ -31,23 +33,23 @@ namespace FavoriteCims
 		private UITextureAtlas CreateMyAtlas(string AtlasName, Material BaseMat, string[] sPritesPath, string[] sPritesNames)
 		{
 			int num = 1024;
-			Texture2D texture2D = new Texture2D(num, num, TextureFormat.ARGB32, false);
+			Texture2D texture2D = new(num, num, TextureFormat.ARGB32, false);
 			Texture2D[] array = new Texture2D[sPritesNames.Length];
-			Rect[] array2 = new Rect[sPritesNames.Length];
-			for (int i = 0; i < sPritesNames.Length; i++)
+            _ = new Rect[sPritesNames.Length];
+            for (int i = 0; i < sPritesNames.Length; i++)
 			{
 				array[i] = ResourceLoader.LoadTexture(0, 0, sPritesPath[i] + sPritesNames[i] + ".png");
 			}
-			array2 = texture2D.PackTextures(array, 2, num);
-			UITextureAtlas uitextureAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
+            Rect[] array2 = texture2D.PackTextures(array, 2, num);
+            UITextureAtlas uitextureAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
 			Material material = Object.Instantiate<Material>(BaseMat);
 			material.mainTexture = texture2D;
 			uitextureAtlas.material = material;
 			uitextureAtlas.name = AtlasName;
 			for (int j = 0; j < sPritesNames.Length; j++)
 			{
-				UITextureAtlas.SpriteInfo spriteInfo = new UITextureAtlas.SpriteInfo
-				{
+				UITextureAtlas.SpriteInfo spriteInfo = new()
+                {
 					name = sPritesNames[j],
 					texture = texture2D,
 					region = array2[j]
@@ -56,11 +58,5 @@ namespace FavoriteCims
 			}
 			return uitextureAtlas;
 		}
-
-		public MyAtlas()
-		{
-		}
-
-		public static UITextureAtlas FavCimsAtlas;
 	}
 }

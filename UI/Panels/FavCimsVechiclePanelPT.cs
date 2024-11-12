@@ -8,8 +8,6 @@ namespace FavoriteCims
 {
 	public class FavCimsVechiclePanelPT : UIPanel
 	{
-        private const float Run = 0.5f;
-
         private float seconds = 0.5f;
 
         private bool execute = false;
@@ -24,13 +22,11 @@ namespace FavoriteCims
 
         public UIPanel RefPanel;
 
-        private VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
+        private readonly VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
 
-        private CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
+        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
 
-        public static Dictionary<uint, uint> CimsOnPTVeh = new Dictionary<uint, uint>();
-
-        private const int MaxPassengersUnit = 20;
+        public static Dictionary<uint, uint> CimsOnPTVeh = [];
 
         private UIPanel PassengersPanel;
 
@@ -40,7 +36,7 @@ namespace FavoriteCims
 
         private UIButton PassengersPanelText;
 
-        private PassengersVehiclePanelRow[] PassengersBodyRow = new PassengersVehiclePanelRow[100];
+        private readonly PassengersVehiclePanelRow[] PassengersBodyRow = new PassengersVehiclePanelRow[100];
 
         private uint VehicleUnits;
 
@@ -306,7 +302,7 @@ namespace FavoriteCims
 						if (flag2)
 						{
 							this.Garbage = true;
-							this.TitleVehicleName.text = FavCimsLang.text("Vehicle_Passengers");
+							this.TitleVehicleName.text = FavCimsLang.Text("Vehicle_Passengers");
 							base.absolutePosition = new Vector3(this.RefPanel.absolutePosition.x + this.RefPanel.width + 5f, this.RefPanel.absolutePosition.y);
 							base.height = this.RefPanel.height - 15f;
 							bool flag3 = 25f + (float)FavCimsVechiclePanelPT.CimsOnPTVeh.Count * 25f < base.height - this.Title.height - this.Footer.height;
@@ -353,7 +349,7 @@ namespace FavoriteCims
 								bool flag7 = FavCimsVechiclePanelPT.CimsOnPTVeh.Count == 0;
 								if (flag7)
 								{
-									this.PassengersPanelText.text = FavCimsLang.text("View_NoPassengers");
+									this.PassengersPanelText.text = FavCimsLang.Text("View_NoPassengers");
 								}
 								this.PassengersPanel.Show();
 								while (this.VehicleUnits != 0U && num < 20)
@@ -365,7 +361,7 @@ namespace FavoriteCims
 										bool flag8 = citizen != 0U && !FavCimsVechiclePanelPT.CimsOnPTVeh.ContainsKey(citizen);
 										if (flag8)
 										{
-											this.PassengersPanelText.text = FavCimsLang.text("Vehicle_PasssengerIconText");
+											this.PassengersPanelText.text = FavCimsLang.Text("Vehicle_PasssengerIconText");
 											bool flag9 = this.PassengersPanel != null && this.PassengersBodyRow[num] != null;
 											if (flag9)
 											{
@@ -405,7 +401,5 @@ namespace FavoriteCims
 				}
 			}
 		}
-
-		
 	}
 }

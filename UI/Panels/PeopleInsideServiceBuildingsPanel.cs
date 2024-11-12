@@ -9,8 +9,6 @@ namespace FavoriteCims
 {
 	public class PeopleInsideServiceBuildingsPanel : UIPanel
 	{
-        private const float Run = 0.5f;
-
         private float seconds = 0.5f;
 
         private bool execute = false;
@@ -25,21 +23,17 @@ namespace FavoriteCims
 
         public UIPanel RefPanel;
 
-        private BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
+        private readonly BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
 
-        private CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
+        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
 
-        public static Dictionary<uint, uint> CimsOnBuilding = new Dictionary<uint, uint>();
+        public static Dictionary<uint, uint> CimsOnBuilding = [];
 
         public static int WorkersCount = 0;
 
         public static int GuestsCount = 0;
 
         private BuildingInfo buildingInfo;
-
-        private const int MaxWorkersUnit = 40;
-
-        private const int MaxGuestsUnit = 40;
 
         private UIPanel WorkersPanel;
 
@@ -49,7 +43,7 @@ namespace FavoriteCims
 
         private UIButton WorkersPanelText;
 
-        private WorkersServiceBuildingPanelRow[] WorkersBodyRow = new WorkersServiceBuildingPanelRow[200];
+        private readonly WorkersServiceBuildingPanelRow[] WorkersBodyRow = new WorkersServiceBuildingPanelRow[200];
 
         private UIPanel GuestsPanel;
 
@@ -59,7 +53,7 @@ namespace FavoriteCims
 
         private UIButton GuestsPanelText;
 
-        private GuestsServiceBuildingPanelRow[] GuestsBodyRow = new GuestsServiceBuildingPanelRow[200];
+        private readonly GuestsServiceBuildingPanelRow[] GuestsBodyRow = new GuestsServiceBuildingPanelRow[200];
 
         private uint BuildingUnits;
 
@@ -475,39 +469,39 @@ namespace FavoriteCims
 												bool flag12 = this.buildingInfo.m_class.m_service == ItemClass.Service.PoliceDepartment;
 												if (flag12)
 												{
-													this.TitleBuildingName.text = FavCimsLang.text("OnPolice_Building_Service");
+													this.TitleBuildingName.text = FavCimsLang.Text("OnPolice_Building_Service");
 												}
 												else
 												{
 													bool flag13 = this.buildingInfo.m_class.m_service == ItemClass.Service.Education;
 													if (flag13)
 													{
-														this.TitleBuildingName.text = FavCimsLang.text("OnEducation_Building_Service");
+														this.TitleBuildingName.text = FavCimsLang.Text("OnEducation_Building_Service");
 													}
 													else
 													{
 														bool flag14 = this.buildingInfo.m_class.m_service == ItemClass.Service.HealthCare;
 														if (flag14)
 														{
-															this.TitleBuildingName.text = FavCimsLang.text("OnMedical_Building_Service");
+															this.TitleBuildingName.text = FavCimsLang.Text("OnMedical_Building_Service");
 														}
 														else
 														{
 															bool flag15 = this.buildingInfo.m_class.m_service == ItemClass.Service.Beautification;
 															if (flag15)
 															{
-																this.TitleBuildingName.text = FavCimsLang.text("OnBuilding_Guests");
+																this.TitleBuildingName.text = FavCimsLang.Text("OnBuilding_Guests");
 															}
 															else
 															{
 																bool flag16 = this.buildingInfo.m_class.m_service == ItemClass.Service.Monument;
 																if (flag16)
 																{
-																	this.TitleBuildingName.text = FavCimsLang.text("CitizenOnBuildingTitle");
+																	this.TitleBuildingName.text = FavCimsLang.Text("CitizenOnBuildingTitle");
 																}
 																else
 																{
-																	this.TitleBuildingName.text = FavCimsLang.text("OnBuilding_Workers");
+																	this.TitleBuildingName.text = FavCimsLang.Text("OnBuilding_Workers");
 																}
 															}
 														}
@@ -520,9 +514,9 @@ namespace FavoriteCims
 													this.WorkersPanelIcon.normalFgSprite = "BworkingIcon";
 													this.WorkersPanelText.text = string.Concat(new string[]
 													{
-														FavCimsLang.text("OnBuilding_Workers"),
+														FavCimsLang.Text("OnBuilding_Workers"),
 														" (",
-														FavCimsLang.text("OnBuilding_TotalWorkers"),
+														FavCimsLang.Text("OnBuilding_TotalWorkers"),
 														" ",
 														num3.ToString(),
 														")"
@@ -558,9 +552,9 @@ namespace FavoriteCims
 													{
 														this.WorkersPanelText.text = string.Concat(new string[]
 														{
-															FavCimsLang.text("OnBuilding_NoWorkers"),
+															FavCimsLang.Text("OnBuilding_NoWorkers"),
 															" (",
-															FavCimsLang.text("OnBuilding_TotalWorkers"),
+															FavCimsLang.Text("OnBuilding_TotalWorkers"),
 															" ",
 															num3.ToString(),
 															")"
@@ -575,7 +569,7 @@ namespace FavoriteCims
 													{
 														this.GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
 														this.GuestsPanelIcon.normalFgSprite = "FavCimsCrimeArrested";
-														this.GuestsPanelText.text = FavCimsLang.text("Citizen_Under_Arrest");
+														this.GuestsPanelText.text = FavCimsLang.Text("Citizen_Under_Arrest");
 													}
 													else
 													{
@@ -584,7 +578,7 @@ namespace FavoriteCims
 														{
 															this.GuestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
 															this.GuestsPanelIcon.normalFgSprite = "IconPolicySchoolsOut";
-															this.GuestsPanelText.text = FavCimsLang.text("Citizen_at_School");
+															this.GuestsPanelText.text = FavCimsLang.Text("Citizen_at_School");
 														}
 														else
 														{
@@ -593,13 +587,13 @@ namespace FavoriteCims
 															{
 																this.GuestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
 																this.GuestsPanelIcon.normalFgSprite = "SubBarHealthcareDefault";
-																this.GuestsPanelText.text = FavCimsLang.text("Citizen_on_Clinic");
+																this.GuestsPanelText.text = FavCimsLang.Text("Citizen_on_Clinic");
 															}
 															else
 															{
 																this.GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
 																this.GuestsPanelIcon.normalFgSprite = "BcommercialIcon";
-																this.GuestsPanelText.text = FavCimsLang.text("OnBuilding_Guests");
+																this.GuestsPanelText.text = FavCimsLang.Text("OnBuilding_Guests");
 															}
 														}
 													}
@@ -635,7 +629,7 @@ namespace FavoriteCims
 														bool flag29 = this.buildingInfo.m_class.m_service == ItemClass.Service.PoliceDepartment;
 														if (flag29)
 														{
-															this.GuestsPanelText.text = FavCimsLang.text("OnBuilding_noArrested");
+															this.GuestsPanelText.text = FavCimsLang.Text("OnBuilding_noArrested");
 														}
 														else
 														{
@@ -653,7 +647,7 @@ namespace FavoriteCims
 																}
 																else
 																{
-																	this.GuestsPanelText.text = FavCimsLang.text("OnBuilding_NoGuests");
+																	this.GuestsPanelText.text = FavCimsLang.Text("OnBuilding_NoGuests");
 																}
 															}
 														}
@@ -679,7 +673,5 @@ namespace FavoriteCims
 				}
 			}
 		}
-
-
 	}
 }

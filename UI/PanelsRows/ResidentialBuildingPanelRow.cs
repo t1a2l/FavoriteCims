@@ -9,8 +9,6 @@ namespace FavoriteCims
 {
 	public class ResidentialBuildingPanelRow : UIPanel
 	{
-        private const float Run = 0.5f;
-
         private float seconds = 0.5f;
 
         private bool execute = false;
@@ -29,9 +27,9 @@ namespace FavoriteCims
 
         public Citizen.Location LocType;
 
-        private CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
+        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
 
-        private BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
+        private readonly BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
 
         private int RealAge;
 
@@ -250,7 +248,7 @@ namespace FavoriteCims
 											bool arrested = this.MyCitizen.m_citizens.m_buffer[(int)this.citizen].Arrested;
 											if (arrested)
 											{
-												this.Name.tooltip = FavCimsLang.text("Jailed_into") + " " + buildingName;
+												this.Name.tooltip = FavCimsLang.Text("Jailed_into") + " " + buildingName;
 											}
 											else
 											{
@@ -333,12 +331,12 @@ namespace FavoriteCims
 										if (flag21)
 										{
 											this.Star.normalBgSprite = "icon_fav_subscribed";
-											this.Star.tooltip = FavCimsLang.text("FavStarButton_disable_tooltip");
+											this.Star.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
 										}
 										else
 										{
 											this.Star.normalBgSprite = "icon_fav_unsubscribed";
-											this.Star.tooltip = FavCimsLang.text("FavStarButton_enable_tooltip");
+											this.Star.tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
 										}
 										bool flag22 = info.m_class.m_service == ItemClass.Service.Residential && this.MyCitizen.m_citizens.m_buffer[(int)this.citizen].m_homeBuilding != this.OnBuilding;
 										if (flag22)
@@ -375,10 +373,5 @@ namespace FavoriteCims
 				}
 			}
 		}
-
-		public ResidentialBuildingPanelRow()
-		{
-		}
-
 	}
 }

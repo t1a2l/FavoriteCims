@@ -130,26 +130,26 @@ namespace FavoriteCims
 
 		public void change_visibility_event()
 		{
-			this.FavCimsBCMenuButton.text = FavCimsLang.text("FavCimsBCMenuButton_text");
-			this.FavCimsBCMenuButton.tooltip = FavCimsLang.text("FavCimsBCMenuButton_tooltip");
-			FavoriteCimsMainPanel.FavCimsHappinesColText.text = FavCimsLang.text("FavCimsHappinesColText_text");
-			FavoriteCimsMainPanel.FavCimsHappinesColText.tooltip = FavCimsLang.text("FavCimsHappinesColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsNameColText.text = FavCimsLang.text("FavCimsNameColText_text");
-			FavoriteCimsMainPanel.FavCimsNameColText.tooltip = FavCimsLang.text("FavCimsNameColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.text = FavCimsLang.text("FavCimsAgePhaseColText_text");
-			FavoriteCimsMainPanel.FavCimsAgePhaseColText.tooltip = FavCimsLang.text("FavCimsAgePhaseColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsAgeColText.text = FavCimsLang.text("FavCimsAgeColText_text");
-			FavoriteCimsMainPanel.FavCimsAgeColText.tooltip = FavCimsLang.text("FavCimsAgeColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsEduColText.text = FavCimsLang.text("FavCimsEduColText_text");
-			FavoriteCimsMainPanel.FavCimsEduColText.tooltip = FavCimsLang.text("FavCimsEduColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsHomeColText.text = FavCimsLang.text("FavCimsHomeColText_text");
-			FavoriteCimsMainPanel.FavCimsHomeColText.tooltip = FavCimsLang.text("FavCimsHomeColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.text = FavCimsLang.text("FavCimsWorkingPlaceColText_text");
-			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.tooltip = FavCimsLang.text("FavCimsWorkingPlaceColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsLastActColText.text = FavCimsLang.text("FavCimsLastActColText_text");
-			FavoriteCimsMainPanel.FavCimsLastActColText.tooltip = FavCimsLang.text("FavCimsLastActColText_tooltip");
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.text = FavCimsLang.text("FavCimsCloseButtonCol_text");
-			FavoriteCimsMainPanel.FavCimsCloseButtonCol.tooltip = FavCimsLang.text("FavCimsCloseButtonCol_tooltip");
+			this.FavCimsBCMenuButton.text = FavCimsLang.Text("FavCimsBCMenuButton_text");
+			this.FavCimsBCMenuButton.tooltip = FavCimsLang.Text("FavCimsBCMenuButton_tooltip");
+			FavoriteCimsMainPanel.FavCimsHappinesColText.text = FavCimsLang.Text("FavCimsHappinesColText_text");
+			FavoriteCimsMainPanel.FavCimsHappinesColText.tooltip = FavCimsLang.Text("FavCimsHappinesColText_tooltip");
+			FavoriteCimsMainPanel.FavCimsNameColText.text = FavCimsLang.Text("FavCimsNameColText_text");
+			FavoriteCimsMainPanel.FavCimsNameColText.tooltip = FavCimsLang.Text("FavCimsNameColText_tooltip");
+			FavoriteCimsMainPanel.FavCimsAgePhaseColText.text = FavCimsLang.Text("FavCimsAgePhaseColText_text");
+			FavoriteCimsMainPanel.FavCimsAgePhaseColText.tooltip = FavCimsLang.Text("FavCimsAgePhaseColText_tooltip");
+			FavoriteCimsMainPanel.FavCimsAgeColText.text = FavCimsLang.Text("FavCimsAgeColText_text");
+			FavoriteCimsMainPanel.FavCimsAgeColText.tooltip = FavCimsLang.Text("FavCimsAgeColText_tooltip");
+			FavoriteCimsMainPanel.FavCimsEduColText.text = FavCimsLang.Text("FavCimsEduColText_text");
+			FavoriteCimsMainPanel.FavCimsEduColText.tooltip = FavCimsLang.Text("FavCimsEduColText_tooltip");
+			FavoriteCimsMainPanel.FavCimsHomeColText.text = FavCimsLang.Text("FavCimsHomeColText_text");
+			FavoriteCimsMainPanel.FavCimsHomeColText.tooltip = FavCimsLang.Text("FavCimsHomeColText_tooltip");
+			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.text = FavCimsLang.Text("FavCimsWorkingPlaceColText_text");
+			FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.tooltip = FavCimsLang.Text("FavCimsWorkingPlaceColText_tooltip");
+			FavoriteCimsMainPanel.FavCimsLastActColText.text = FavCimsLang.Text("FavCimsLastActColText_text");
+			FavoriteCimsMainPanel.FavCimsLastActColText.tooltip = FavCimsLang.Text("FavCimsLastActColText_tooltip");
+			FavoriteCimsMainPanel.FavCimsCloseButtonCol.text = FavCimsLang.Text("FavCimsCloseButtonCol_text");
+			FavoriteCimsMainPanel.FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("FavCimsCloseButtonCol_tooltip");
 		}
 
 		public override void Start()
@@ -501,8 +501,5 @@ namespace FavoriteCims
 				}
 			}
 		}
-
-		
-		
 	}
 }

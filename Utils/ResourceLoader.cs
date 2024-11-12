@@ -25,7 +25,7 @@ namespace FavoriteCims
 
 		public static byte[] LoadResourceData(string name)
 		{
-			name = "FavoriteCims.Resources." + name;
+			name = "FavoriteCims.Utils.Resources." + name;
 			UnmanagedMemoryStream unmanagedMemoryStream = (UnmanagedMemoryStream)ResourceLoader.ResourceAssembly.GetManifestResourceStream(name);
 			bool flag = unmanagedMemoryStream == null;
 			byte[] array;
@@ -43,7 +43,7 @@ namespace FavoriteCims
 
 		public static string LoadResourceString(string name)
 		{
-			name = "FavoriteCims.Resources." + name;
+			name = "FavoriteCims.Utils.Resources." + name;
 			UnmanagedMemoryStream unmanagedMemoryStream = (UnmanagedMemoryStream)ResourceLoader.ResourceAssembly.GetManifestResourceStream(name);
 			bool flag = unmanagedMemoryStream == null;
 			string text;

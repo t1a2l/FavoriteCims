@@ -12,7 +12,7 @@ namespace FavoriteCims
 	{
         public static InstanceID ThisHuman;
 
-        public static Dictionary<int, int> RowID = new Dictionary<int, int>();
+        public static Dictionary<int, int> RowID = [];
 
         public static T GetPrivateVariable<T>(object obj, string fieldName)
 		{
@@ -122,8 +122,7 @@ namespace FavoriteCims
 
 		public static void UpdateMyCitizen(string action, UIPanel refPanel)
 		{
-			CitizenManager instance = Singleton<CitizenManager>.instance;
-			object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
+            object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
 			while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
 			{
 			}
@@ -323,8 +322,5 @@ namespace FavoriteCims
 			}
 			return num;
 		}
-
-
-		
 	}
 }

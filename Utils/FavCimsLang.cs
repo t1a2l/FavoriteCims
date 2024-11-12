@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using ColossalFramework.Globalization;
 using UnityEngine;
@@ -7,7 +6,17 @@ namespace FavoriteCims
 {
 	public class FavCimsLang : MonoBehaviour
 	{
-		public static string text(string index)
+        public static string GameLanguage;
+
+        public static Dictionary<string, string> it = [];
+
+        public static Dictionary<string, string> en = [];
+
+        public static Dictionary<string, string> nl = [];
+
+        public static Dictionary<string, string> rus = [];
+
+        public static string Text(string index)
 		{
 			bool flag = FavCimsLang.GameLanguage == null || FavCimsLang.GameLanguage != Locale.Get("LANGUAGE_ENGLISH");
 			if (flag)
@@ -641,24 +650,5 @@ namespace FavoriteCims
 			}
 			return text;
 		}
-
-		public FavCimsLang()
-		{
-		}
-
-		// Note: this type is marked as 'beforefieldinit'.
-		static FavCimsLang()
-		{
-		}
-
-		public static string GameLanguage;
-
-		public static Dictionary<string, string> it = new Dictionary<string, string>();
-
-		public static Dictionary<string, string> en = new Dictionary<string, string>();
-
-		public static Dictionary<string, string> nl = new Dictionary<string, string>();
-
-		public static Dictionary<string, string> rus = new Dictionary<string, string>();
 	}
 }

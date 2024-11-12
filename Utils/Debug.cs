@@ -1,5 +1,3 @@
-using System;
-
 namespace FavoriteCims
 {
 	public static class Debug

@@ -8,8 +8,6 @@ namespace FavoriteCims
 {
 	public class PeopleInsideBuildingsPanel : UIPanel
 	{
-        private const float Run = 0.5f;
-
         private float seconds = 0.5f;
 
         private bool execute = false;
@@ -24,11 +22,11 @@ namespace FavoriteCims
 
         public UIPanel RefPanel;
 
-        private BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
+        private readonly BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
 
-        private CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
+        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
 
-        public static Dictionary<uint, uint> CimsOnBuilding = new Dictionary<uint, uint>();
+        public static Dictionary<uint, uint> CimsOnBuilding = [];
 
         public static int WorkersCount = 0;
 
@@ -36,21 +34,15 @@ namespace FavoriteCims
 
         private BuildingInfo buildingInfo;
 
-        private const int MaxHouseHolds = 26;
+        private readonly UIPanel[] ResidentialPanels = new UIPanel[26];
 
-        private const int MaxWorkersUnit = 20;
+        private readonly UIPanel[] ResidentialPanelSubRow = new UIPanel[26];
 
-        private const int MaxGuestsUnit = 20;
+        private readonly UIButton[] ResidentialPanelIcon = new UIButton[26];
 
-        private UIPanel[] ResidentialPanels = new UIPanel[26];
+        private readonly UIButton[] ResidentialPanelText = new UIButton[26];
 
-        private UIPanel[] ResidentialPanelSubRow = new UIPanel[26];
-
-        private UIButton[] ResidentialPanelIcon = new UIButton[26];
-
-        private UIButton[] ResidentialPanelText = new UIButton[26];
-
-        private ResidentialBuildingPanelRow[] ResidentialBodyRow = new ResidentialBuildingPanelRow[130];
+        private readonly ResidentialBuildingPanelRow[] ResidentialBodyRow = new ResidentialBuildingPanelRow[130];
 
         private UIPanel WorkersPanel;
 
@@ -60,7 +52,7 @@ namespace FavoriteCims
 
         private UIButton WorkersPanelText;
 
-        private WorkersBuildingPanelRow[] WorkersBodyRow = new WorkersBuildingPanelRow[100];
+        private readonly WorkersBuildingPanelRow[] WorkersBodyRow = new WorkersBuildingPanelRow[100];
 
         private UIPanel GuestsPanel;
 
@@ -70,7 +62,7 @@ namespace FavoriteCims
 
         private UIButton GuestsPanelText;
 
-        private GuestsBuildingPanelRow[] GuestsBodyRow = new GuestsBuildingPanelRow[100];
+        private readonly GuestsBuildingPanelRow[] GuestsBodyRow = new GuestsBuildingPanelRow[100];
 
         private uint BuildingUnits;
 
@@ -609,13 +601,13 @@ namespace FavoriteCims
 											bool flag14 = this.buildingInfo.m_class.m_service == ItemClass.Service.Residential;
 											if (flag14)
 											{
-												this.TitleBuildingName.text = FavCimsLang.text("Citizens_HouseHoldsTitle");
+												this.TitleBuildingName.text = FavCimsLang.Text("Citizens_HouseHoldsTitle");
 												bool flag15 = this.ResidentialPanels[num7] != null;
 												if (flag15)
 												{
 													this.ResidentialPanels[num7].Show();
 													this.ResidentialPanelIcon[num7].normalFgSprite = "BapartmentIcon";
-													this.ResidentialPanelText[num7].text = FavCimsLang.text("OnBuilding_Residential") + " " + (num7 + 1).ToString();
+													this.ResidentialPanelText[num7].text = FavCimsLang.Text("OnBuilding_Residential") + " " + (num7 + 1).ToString();
 													bool flag16 = this.ResidentialBodyRow[num8].citizen != 0U && PeopleInsideBuildingsPanel.CimsOnBuilding.ContainsKey(this.ResidentialBodyRow[num8].citizen);
 													if (flag16)
 													{
@@ -640,10 +632,10 @@ namespace FavoriteCims
 												bool flag17 = this.buildingInfo.m_class.m_service == ItemClass.Service.Industrial || this.buildingInfo.m_class.m_service == ItemClass.Service.Office;
 												if (flag17)
 												{
-													this.TitleBuildingName.text = FavCimsLang.text("WorkersOnBuilding");
+													this.TitleBuildingName.text = FavCimsLang.Text("WorkersOnBuilding");
 													this.WorkersPanel.Show();
 													this.WorkersPanelIcon.normalFgSprite = "BworkingIcon";
-													this.WorkersPanelText.text = FavCimsLang.text("OnBuilding_Workers");
+													this.WorkersPanelText.text = FavCimsLang.Text("OnBuilding_Workers");
 													bool flag18 = citizen2.GetBuildingByLocation() == this.BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving;
 													if (flag18)
 													{
@@ -673,18 +665,18 @@ namespace FavoriteCims
 													bool flag21 = PeopleInsideBuildingsPanel.WorkersCount == 0;
 													if (flag21)
 													{
-														this.WorkersPanelText.text = FavCimsLang.text("OnBuilding_NoWorkers");
+														this.WorkersPanelText.text = FavCimsLang.Text("OnBuilding_NoWorkers");
 													}
 												}
 												else
 												{
-													this.TitleBuildingName.text = FavCimsLang.text("CitizenOnBuildingTitle");
+													this.TitleBuildingName.text = FavCimsLang.Text("CitizenOnBuildingTitle");
 													bool flag22 = this.BuildingID.Building == citizen2.m_workBuilding;
 													if (flag22)
 													{
 														this.WorkersPanel.Show();
 														this.WorkersPanelIcon.normalFgSprite = "BworkingIcon";
-														this.WorkersPanelText.text = FavCimsLang.text("OnBuilding_Workers");
+														this.WorkersPanelText.text = FavCimsLang.Text("OnBuilding_Workers");
 														bool flag23 = citizen2.GetBuildingByLocation() == this.BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving;
 														if (flag23)
 														{
@@ -714,14 +706,14 @@ namespace FavoriteCims
 														bool flag26 = PeopleInsideBuildingsPanel.WorkersCount == 0;
 														if (flag26)
 														{
-															this.WorkersPanelText.text = FavCimsLang.text("OnBuilding_NoWorkers");
+															this.WorkersPanelText.text = FavCimsLang.Text("OnBuilding_NoWorkers");
 														}
 													}
 													else
 													{
 														this.GuestsPanel.Show();
 														this.GuestsPanelIcon.normalFgSprite = "BcommercialIcon";
-														this.GuestsPanelText.text = FavCimsLang.text("OnBuilding_Guests");
+														this.GuestsPanelText.text = FavCimsLang.Text("OnBuilding_Guests");
 														bool flag27 = citizen2.GetBuildingByLocation() == this.BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving;
 														if (flag27)
 														{
@@ -751,7 +743,7 @@ namespace FavoriteCims
 														bool flag30 = PeopleInsideBuildingsPanel.GuestsCount == 0;
 														if (flag30)
 														{
-															this.GuestsPanelText.text = FavCimsLang.text("OnBuilding_NoGuests");
+															this.GuestsPanelText.text = FavCimsLang.Text("OnBuilding_NoGuests");
 														}
 													}
 												}

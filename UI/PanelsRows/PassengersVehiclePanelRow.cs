@@ -9,8 +9,6 @@ namespace FavoriteCims
 {
 	public class PassengersVehiclePanelRow : UIPanel
 	{
-        private const float Run = 0.5f;
-
         private float seconds = 0.5f;
 
         private bool execute = false;
@@ -27,11 +25,11 @@ namespace FavoriteCims
 
         public uint citizen;
 
-        private CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
+        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
 
-        private BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
+        private readonly BuildingManager MyBuilding = Singleton<BuildingManager>.instance;
 
-        private VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
+        private readonly VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
 
         private int RealAge;
 
@@ -283,12 +281,12 @@ namespace FavoriteCims
 									if (flag17)
 									{
 										this.Star.normalBgSprite = "icon_fav_subscribed";
-										this.Star.tooltip = FavCimsLang.text("FavStarButton_disable_tooltip");
+										this.Star.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
 									}
 									else
 									{
 										this.Star.normalBgSprite = "icon_fav_unsubscribed";
-										this.Star.tooltip = FavCimsLang.text("FavStarButton_enable_tooltip");
+										this.Star.tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
 									}
 									bool flag18 = this.MyCitizen.m_citizens.m_buffer[(int)this.citizen].m_vehicle == 0 || this.MyCitizen.m_citizens.m_buffer[(int)this.citizen].m_vehicle != this.OnVehicle;
 									if (flag18)

@@ -16,18 +16,18 @@ namespace FavoriteCims
 				bool flag = oldformat != "n/a";
 				if (flag)
 				{
-					string[] array = oldformat.Split(new char[] { '/' });
+					string[] array = oldformat.Split(['/']);
 					bool flag2 = array[0] != null && array[1] != null && array[2] != null;
 					if (flag2)
 					{
-						text4 = string.Concat(new string[]
-						{
-							array[1],
+						text4 = string.Concat(
+                        [
+                            array[1],
 							"/",
 							array[0],
 							"/",
 							array[2]
-						});
+						]);
 					}
 					else
 					{
@@ -39,11 +39,11 @@ namespace FavoriteCims
 					bool flag3 = format == "dd-mm-yyyy";
 					if (flag3)
 					{
-						text4 = string.Concat(new string[] { text, "/", text2, "/", text3 });
+						text4 = string.Concat([text, "/", text2, "/", text3]);
 					}
 					else
 					{
-						text4 = string.Concat(new string[] { text2, "/", text, "/", text3 });
+						text4 = string.Concat([text2, "/", text, "/", text3]);
 					}
 				}
 			}
