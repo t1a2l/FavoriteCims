@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FavoriteCims.UI.Buttons
 {
-    public class VechiclePassengersButtonPT : UIButton
+    public class VehiclePassengersButtonPT : UIButton
     {
         private InstanceID VehicleID = InstanceID.Empty;
 

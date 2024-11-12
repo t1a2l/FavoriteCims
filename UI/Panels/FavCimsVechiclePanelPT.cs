@@ -74,16 +74,16 @@ namespace FavoriteCims.UI.Panels
 			{
 				width = 250f;
 				height = 0f;
-				name = "FavCimsVechiclePanelPT";
+				name = "FavCimsVehiclePanelPT";
 				absolutePosition = new Vector3(0f, 0f);
 				Hide();
 				Title = AddUIComponent<UIPanel>();
-				Title.name = "FavCimsVechiclePanelPTTitle";
+				Title.name = "FavCimsVehiclePanelPTTitle";
 				Title.width = width;
 				Title.height = 41f;
 				Title.relativePosition = Vector3.zero;
 				TitleSpriteBg = Title.AddUIComponent<UITextureSprite>();
-				TitleSpriteBg.name = "FavCimsVechiclePanelPTTitleBG";
+				TitleSpriteBg.name = "FavCimsVehiclePanelPTTitleBG";
 				TitleSpriteBg.width = Title.width;
 				TitleSpriteBg.height = Title.height;
 				TitleSpriteBg.texture = TextureDB.VehiclePanelTitleBackground;
@@ -110,7 +110,7 @@ namespace FavoriteCims.UI.Panels
 				TitleVehicleName.dropShadowColor = new Color32(0, 0, 0, 0);
 				TitleVehicleName.relativePosition = Vector3.zero;
 				Body = AddUIComponent<UIPanel>();
-				Body.name = "VechiclePanelPTBody";
+				Body.name = "VehiclePanelPTBody";
 				Body.width = width;
 				Body.autoLayoutDirection = LayoutDirection.Vertical;
 				Body.autoLayout = true;
@@ -118,7 +118,7 @@ namespace FavoriteCims.UI.Panels
 				Body.height = 0f;
 				Body.relativePosition = new Vector3(0f, Title.height);
 				BodySpriteBg = Body.AddUIComponent<UITextureSprite>();
-				BodySpriteBg.name = "VechiclePanelPTDataContainer";
+				BodySpriteBg.name = "VehiclePanelPTDataContainer";
 				BodySpriteBg.width = Body.width;
 				BodySpriteBg.height = Body.height;
 				BodySpriteBg.texture = TextureDB.VehiclePanelBackground;
@@ -214,7 +214,7 @@ namespace FavoriteCims.UI.Panels
 					BodyRows.scrollPosition += new Vector2(0f, (sign * -1) * BodyScrollBar.incrementAmount);
 				};
 				Footer = AddUIComponent<UIPanel>();
-				Footer.name = "VechiclePanelPTFooter";
+				Footer.name = "VehiclePanelPTFooter";
 				Footer.width = width;
 				Footer.height = 12f;
 				Footer.relativePosition = new Vector3(0f, Title.height + Body.height);
