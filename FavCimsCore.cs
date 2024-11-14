@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using ColossalFramework;
@@ -14,6 +15,19 @@ namespace FavoriteCims
         public static InstanceID ThisHuman;
 
         public static Dictionary<int, int> RowID = [];
+
+        private static readonly string[] Hotel_Names =
+        [
+            "Hotel",
+            "hotel",
+            "Crescent",
+            "Obsidian",
+            "Yggdrasil",
+            "K207",
+            "Rental",
+            "Inn",
+            "Babylon"
+        ];
 
         public static T GetPrivateVariable<T>(object obj, string fieldName)
 		{
@@ -306,5 +320,64 @@ namespace FavoriteCims
 			}
 			return num;
 		}
-	}
+
+        public static bool IsHotel(ushort buildingId)
+        {
+            var building = BuildingManager.instance.m_buildings.m_buffer[buildingId];
+
+            if (building.Info.m_class.m_service == ItemClass.Service.Hotel)
+            {
+                return true;
+            }
+
+            if (building.Info.m_class.m_service == ItemClass.Service.Commercial && building.Info.m_class.m_subService == ItemClass.SubService.CommercialTourist
+                && Hotel_Names.Any(name => building.Info.name.Contains(name)))
+            {
+                return true;
+            }
+
+            if (building.Info.m_buildingAI.GetType().Name.Contains("AirportHotelAI") || building.Info.m_buildingAI.GetType().Name.Contains("ParkHotelAI"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsAreaResidentalBuilding(ushort buildingId)
+        {
+            if (buildingId == 0)
+            {
+                return false;
+            }
+
+            // Here we need to check if the mod is active
+            var buildingInfo = BuildingManager.instance.m_buildings.m_buffer[buildingId].Info;
+            var buildinAI = buildingInfo?.m_buildingAI;
+            if (buildinAI is AuxiliaryBuildingAI && buildinAI.GetType().Name.Equals("BarracksAI") || buildinAI is CampusBuildingAI && buildinAI.GetType().Name.Equals("DormsAI"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool IsCimCareBuilding(ushort buildingId)
+        {
+            if (buildingId == 0)
+            {
+                return false;
+            }
+
+            // Here we need to check if the mod is active
+            var buildingInfo = BuildingManager.instance.m_buildings.m_buffer[buildingId].Info;
+            var buildinAI = buildingInfo?.m_buildingAI;
+            if (buildinAI.GetType().Name.Equals("NursingHomeAI") || buildinAI.GetType().Name.Equals("OrphanageAI"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+    }
 }
