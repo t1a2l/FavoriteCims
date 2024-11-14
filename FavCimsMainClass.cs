@@ -45,15 +45,17 @@ namespace FavoriteCims
 
         private UIGroupPanel m_groupPanel;
 
-        public static UIPanel FavCimsPeopleBuildingPanel;
-
-        private PeopleInsideBuildingsButton PeopleBuildingButton;
+        public static UIPanel FavCimsPeopleZonedBuildingPanel;
 
         public static UIPanel FavCimsPeopleServiceBuildingPanel;
 
-        private PeopleInsideServiceBuildingsButton PeopleServiceBuildingButton;
+        private PeopleInsideBuildingsButton PeopleZonedBuildingButton;
+
+        private PeopleInsideBuildingsButton PeopleServiceBuildingButton;
 
         public static UIPanel FavCimsPublicTransportTaxiPanel;
+
+        public static UIPanel FavCimsPeopleServiceResidentBuildingPanel;
 
         private UIComponent FavCimsPanelTrigger_paneltime;
 
@@ -303,30 +305,30 @@ namespace FavoriteCims
                     PublicTransportPassengersButton.RefPanel = FavCimsPublicTransportTaxiPanel;
                     PublicTransportPassengersButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) ZonedBuildingWorldInfoPanel");
-                if (FavCimsPeopleBuildingPanel != null)
+                FavCimsPeopleZonedBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) ZonedBuildingWorldInfoPanel");
+                if (FavCimsPeopleZonedBuildingPanel != null)
                 {
-                    if (FavCimsPeopleBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (FavCimsPeopleZonedBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleBuildingButton = FavCimsPeopleBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleZonedBuildingButton = FavCimsPeopleZonedBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleBuildingButton = FavCimsPeopleBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleZonedBuildingButton = FavCimsPeopleZonedBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleBuildingButton.RefPanel = FavCimsPeopleBuildingPanel;
-                    PeopleBuildingButton.Alignment = UIAlignAnchor.BottomRight;
+                    PeopleZonedBuildingButton.RefPanel = FavCimsPeopleZonedBuildingPanel;
+                    PeopleZonedBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
                 FavCimsPeopleServiceBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) CityServiceWorldInfoPanel");
                 if (FavCimsPeopleServiceBuildingPanel != null)
                 {
-                    if (FavCimsPeopleServiceBuildingPanel.GetComponentInChildren<PeopleInsideServiceBuildingsButton>() != null)
+                    if (FavCimsPeopleServiceBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleServiceBuildingButton = FavCimsPeopleServiceBuildingPanel.GetComponentInChildren<PeopleInsideServiceBuildingsButton>();
+                        PeopleServiceBuildingButton = FavCimsPeopleServiceBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleServiceBuildingButton = FavCimsPeopleServiceBuildingPanel.AddUIComponent(typeof(PeopleInsideServiceBuildingsButton)) as PeopleInsideServiceBuildingsButton;
+                        PeopleServiceBuildingButton = FavCimsPeopleServiceBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
                     PeopleServiceBuildingButton.RefPanel = FavCimsPeopleServiceBuildingPanel;
                     PeopleServiceBuildingButton.Alignment = UIAlignAnchor.BottomRight;
