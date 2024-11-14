@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using ColossalFramework;
+using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using FavoriteCims.UI.PanelsRows;
 using FavoriteCims.Utils;
+using ICities;
 using UnityEngine;
 
 namespace FavoriteCims.UI.Panels
@@ -34,11 +36,16 @@ namespace FavoriteCims.UI.Panels
 
         public static int GuestsCount = 0;
 
+        public static int HotelGuestsCount = 0;
+
+        private Building building;
+
         private BuildingInfo buildingInfo;
 
         const int MaxHouseHolds = 26;
         const int MaxWorkersUnit = 20; // **Important** *same of MaxGuestsUnit*
         const int MaxGuestsUnit = 20;
+        const int MaxHotelRooms = 26;
 
         private readonly UIPanel[] ResidentialPanels = new UIPanel[MaxHouseHolds];
 
@@ -58,7 +65,7 @@ namespace FavoriteCims.UI.Panels
 
         private UIButton WorkersPanelText;
 
-        private readonly WorkersBuildingPanelRow[] WorkersBodyRow = new WorkersBuildingPanelRow[100];
+        private readonly WorkersBuildingPanelRow[] WorkersBodyRow = new WorkersBuildingPanelRow[MaxWorkersUnit*5];
 
         private UIPanel GuestsPanel;
 
@@ -68,7 +75,17 @@ namespace FavoriteCims.UI.Panels
 
         private UIButton GuestsPanelText;
 
-        private readonly GuestsBuildingPanelRow[] GuestsBodyRow = new GuestsBuildingPanelRow[100];
+        private readonly GuestsBuildingPanelRow[] GuestsBodyRow = new GuestsBuildingPanelRow[MaxGuestsUnit*5];
+
+        private readonly UIPanel[] HotelRoomsPanels = new UIPanel[MaxHotelRooms];
+
+        private readonly UIPanel[] HotelRoomsPanelSubRow = new UIPanel[MaxHotelRooms];
+
+        private readonly UIButton[] HotelRoomsPanelIcon = new UIButton[MaxHotelRooms];
+
+        private readonly UIButton[] HotelRoomsPanelText = new UIButton[MaxHotelRooms];
+
+        private readonly HotelBuildingPanelRow[] HotelRoomsBodyRow = new HotelBuildingPanelRow[MaxHotelRooms*5];
 
         private uint BuildingUnits;
 
@@ -157,8 +174,8 @@ namespace FavoriteCims.UI.Panels
 				BodyRows.autoLayoutDirection = LayoutDirection.Vertical;
 				BodyRows.autoLayout = true;
 				BodyRows.relativePosition = new Vector3(12f, 0f);
-				string[] array = ["Residential", "Workers", "Guests"];
-				for (int i = 0; i < 3; i++)
+				string[] array = ["Residential", "Workers", "Guests", "HotelGuests"];
+				for (int i = 0; i < 4; i++)
 				{
 					if (i == 0)
 					{
@@ -267,53 +284,109 @@ namespace FavoriteCims.UI.Panels
 						}
 						else
 						{
-							GuestsPanel = BodyRows.AddUIComponent<UIPanel>();
-							GuestsPanel.width = 226f;
-							GuestsPanel.height = 25f;
-							GuestsPanel.name = "LabelPanel_" + array[i] + "_0";
-							GuestsPanel.autoLayoutDirection = LayoutDirection.Vertical;
-							GuestsPanel.autoLayout = true;
-							GuestsPanel.Hide();
-							GuestsPanelSubRow = GuestsPanel.AddUIComponent<UIPanel>();
-							GuestsPanelSubRow.width = 226f;
-							GuestsPanelSubRow.height = 25f;
-							GuestsPanelSubRow.name = "TitlePanel_" + array[i] + "_0";
-							GuestsPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
-							GuestsPanelSubRow.backgroundSprite = "bg_row2";
-							GuestsPanelIcon = GuestsPanelSubRow.AddUIComponent<UIButton>();
-							GuestsPanelIcon.name = "LabelPanelIcon_" + array[i] + "_0";
-							GuestsPanelIcon.width = 17f;
-							GuestsPanelIcon.height = 17f;
-							GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-							GuestsPanelIcon.relativePosition = new Vector3(5f, 4f);
-							GuestsPanelText = GuestsPanelSubRow.AddUIComponent<UIButton>();
-							GuestsPanelText.name = "LabelPanelText_" + array[i] + "_0";
-							GuestsPanelText.width = 200f;
-							GuestsPanelText.height = 25f;
-							GuestsPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
-							GuestsPanelText.textHorizontalAlignment = 0;
-							GuestsPanelText.playAudioEvents = true;
-							GuestsPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-							GuestsPanelText.font.size = 15;
-							GuestsPanelText.textScale = 0.8f;
-							GuestsPanelText.useDropShadow = true;
-							GuestsPanelText.dropShadowOffset = new Vector2(1f, -1f);
-							GuestsPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
-							GuestsPanelText.textPadding.left = 5;
-							GuestsPanelText.textPadding.right = 5;
-							GuestsPanelText.textColor = new Color32(51, 51, 51, 160);
-							GuestsPanelText.isInteractive = false;
-							GuestsPanelText.relativePosition = new Vector3(GuestsPanelIcon.relativePosition.x + GuestsPanelIcon.width, 1f);
-							int row = 0;
-							for (int m = 0; m < MaxGuestsUnit*5; m++)
+                            if (i == 2)
 							{
-								GuestsBodyRow[row] = BodyRows.AddUIComponent(typeof(GuestsBuildingPanelRow)) as GuestsBuildingPanelRow;
-								GuestsBodyRow[row].name = "Row_" + array[i] + "_" + m.ToString();
-								GuestsBodyRow[row].OnBuilding = 0;
-								GuestsBodyRow[row].citizen = 0U;
-								GuestsBodyRow[row].Hide();
-                                row++;
-							}
+                                GuestsPanel = BodyRows.AddUIComponent<UIPanel>();
+                                GuestsPanel.width = 226f;
+                                GuestsPanel.height = 25f;
+                                GuestsPanel.name = "LabelPanel_" + array[i] + "_0";
+                                GuestsPanel.autoLayoutDirection = LayoutDirection.Vertical;
+                                GuestsPanel.autoLayout = true;
+                                GuestsPanel.Hide();
+                                GuestsPanelSubRow = GuestsPanel.AddUIComponent<UIPanel>();
+                                GuestsPanelSubRow.width = 226f;
+                                GuestsPanelSubRow.height = 25f;
+                                GuestsPanelSubRow.name = "TitlePanel_" + array[i] + "_0";
+                                GuestsPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
+                                GuestsPanelSubRow.backgroundSprite = "bg_row2";
+                                GuestsPanelIcon = GuestsPanelSubRow.AddUIComponent<UIButton>();
+                                GuestsPanelIcon.name = "LabelPanelIcon_" + array[i] + "_0";
+                                GuestsPanelIcon.width = 17f;
+                                GuestsPanelIcon.height = 17f;
+                                GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+                                GuestsPanelIcon.relativePosition = new Vector3(5f, 4f);
+                                GuestsPanelText = GuestsPanelSubRow.AddUIComponent<UIButton>();
+                                GuestsPanelText.name = "LabelPanelText_" + array[i] + "_0";
+                                GuestsPanelText.width = 200f;
+                                GuestsPanelText.height = 25f;
+                                GuestsPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
+                                GuestsPanelText.textHorizontalAlignment = 0;
+                                GuestsPanelText.playAudioEvents = true;
+                                GuestsPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+                                GuestsPanelText.font.size = 15;
+                                GuestsPanelText.textScale = 0.8f;
+                                GuestsPanelText.useDropShadow = true;
+                                GuestsPanelText.dropShadowOffset = new Vector2(1f, -1f);
+                                GuestsPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
+                                GuestsPanelText.textPadding.left = 5;
+                                GuestsPanelText.textPadding.right = 5;
+                                GuestsPanelText.textColor = new Color32(51, 51, 51, 160);
+                                GuestsPanelText.isInteractive = false;
+                                GuestsPanelText.relativePosition = new Vector3(GuestsPanelIcon.relativePosition.x + GuestsPanelIcon.width, 1f);
+                                int row = 0;
+                                for (int m = 0; m < MaxGuestsUnit * 5; m++)
+                                {
+                                    GuestsBodyRow[row] = BodyRows.AddUIComponent(typeof(GuestsBuildingPanelRow)) as GuestsBuildingPanelRow;
+                                    GuestsBodyRow[row].name = "Row_" + array[i] + "_" + m.ToString();
+                                    GuestsBodyRow[row].OnBuilding = 0;
+                                    GuestsBodyRow[row].citizen = 0U;
+                                    GuestsBodyRow[row].Hide();
+                                    row++;
+                                }
+                            }
+                            else
+							{
+                                int row = 0;
+                                for (int j = 0; j < 26; j++)
+                                {
+                                    HotelRoomsPanels[j] = BodyRows.AddUIComponent<UIPanel>();
+                                    HotelRoomsPanels[j].width = 226f;
+                                    HotelRoomsPanels[j].height = 25f;
+                                    HotelRoomsPanels[j].name = "LabelPanel_" + array[i] + "_" + j.ToString();
+                                    HotelRoomsPanels[j].autoLayoutDirection = LayoutDirection.Vertical;
+                                    HotelRoomsPanels[j].autoLayout = true;
+                                    HotelRoomsPanels[j].Hide();
+                                    HotelRoomsPanelSubRow[j] = HotelRoomsPanels[j].AddUIComponent<UIPanel>();
+                                    HotelRoomsPanelSubRow[j].width = 226f;
+                                    HotelRoomsPanelSubRow[j].height = 25f;
+                                    HotelRoomsPanelSubRow[j].name = "TitlePanel_" + array[i] + "_" + j.ToString();
+                                    HotelRoomsPanelSubRow[j].atlas = MyAtlas.FavCimsAtlas;
+                                    HotelRoomsPanelSubRow[j].backgroundSprite = "bg_row2";
+                                    HotelRoomsPanelIcon[j] = HotelRoomsPanelSubRow[j].AddUIComponent<UIButton>();
+                                    HotelRoomsPanelIcon[j].name = "LabelPanelIcon_" + array[i] + "_" + j.ToString();
+                                    HotelRoomsPanelIcon[j].width = 17f;
+                                    HotelRoomsPanelIcon[j].height = 17f;
+                                    HotelRoomsPanelIcon[j].atlas = MyAtlas.FavCimsAtlas;
+                                    HotelRoomsPanelIcon[j].relativePosition = new Vector3(5f, 4f);
+                                    HotelRoomsPanelText[j] = HotelRoomsPanelSubRow[j].AddUIComponent<UIButton>();
+                                    HotelRoomsPanelText[j].name = "LabelPanelText_" + array[i] + "_" + j.ToString();
+                                    HotelRoomsPanelText[j].width = 200f;
+                                    HotelRoomsPanelText[j].height = 25f;
+                                    HotelRoomsPanelText[j].textVerticalAlignment = UIVerticalAlignment.Middle;
+                                    HotelRoomsPanelText[j].textHorizontalAlignment = 0;
+                                    HotelRoomsPanelText[j].playAudioEvents = true;
+                                    HotelRoomsPanelText[j].font = UIDynamicFont.FindByName("OpenSans-Regular");
+                                    HotelRoomsPanelText[j].font.size = 15;
+                                    HotelRoomsPanelText[j].textScale = 0.8f;
+                                    HotelRoomsPanelText[j].useDropShadow = true;
+                                    HotelRoomsPanelText[j].dropShadowOffset = new Vector2(1f, -1f);
+                                    HotelRoomsPanelText[j].dropShadowColor = new Color32(0, 0, 0, 0);
+                                    HotelRoomsPanelText[j].textPadding.left = 5;
+                                    HotelRoomsPanelText[j].textPadding.right = 5;
+                                    HotelRoomsPanelText[j].textColor = new Color32(51, 51, 51, 160);
+                                    HotelRoomsPanelText[j].isInteractive = false;
+                                    HotelRoomsPanelText[j].relativePosition = new Vector3(HotelRoomsPanelIcon[j].relativePosition.x + HotelRoomsPanelIcon[j].width, 1f);
+                                    for (int k = 0; k < 5; k++)
+                                    {
+                                        HotelRoomsBodyRow[row] = BodyRows.AddUIComponent(typeof(HotelBuildingPanelRow)) as HotelBuildingPanelRow;
+                                        HotelRoomsBodyRow[row].name = "Row_" + array[i] + "_" + k.ToString();
+                                        HotelRoomsBodyRow[row].OnBuilding = 0;
+                                        HotelRoomsBodyRow[row].citizen = 0U;
+                                        HotelRoomsBodyRow[row].Hide();
+                                        row++;
+                                    }
+                                }
+                            }
 						}
 					}
 				}
@@ -383,7 +456,16 @@ namespace FavoriteCims.UI.Panels
 			bool unLoading = FavCimsMainClass.UnLoading;
 			if (!unLoading)
 			{
-				bool isEmpty = BuildingID.IsEmpty;
+                building = MyBuilding.m_buildings.m_buffer[BuildingID.Building];
+                buildingInfo = building.Info;
+                int homeCount = 0;
+                int workCount = 0;
+                int visitCount = 0;
+                int studentCount = 0;
+                int hotelCount = 0;
+                CountCitizenUnits(ref building, ref homeCount, ref workCount, ref visitCount, ref studentCount, ref hotelCount);
+                int totalUnitsCount = homeCount + workCount + visitCount + studentCount + hotelCount;
+                bool isEmpty = BuildingID.IsEmpty;
 				if (isEmpty)
 				{
 					bool garbage = Garbage;
@@ -393,12 +475,13 @@ namespace FavoriteCims.UI.Panels
 						CimsOnBuilding.Clear();
 						WorkersCount = 0;
 						GuestsCount = 0;
-						try
+						HotelGuestsCount = 0;
+                        try
 						{
-							if (buildingInfo.m_class.m_service == ItemClass.Service.Residential)
+							if (buildingInfo.m_class.m_service == ItemClass.Service.Residential || FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building))
 							{
 								int row = 0;
-								for (int i = 0; i < 26; i++)
+								for (int i = 0; i < homeCount; i++)
 								{
 									ResidentialPanels[i].Hide();
 									for (int j = 0; j < 5; j++)
@@ -411,12 +494,71 @@ namespace FavoriteCims.UI.Panels
 									}
 								}
 							}
-							else
+							else if (FavCimsCore.IsHotel(BuildingID.Building))
+                            {
+                                int row = 0;
+                                for (int i = 0; i < hotelCount; i++)
+                                {
+                                    HotelRoomsPanels[i].Hide();
+                                    for (int j = 0; j < 5; j++)
+                                    {
+                                        HotelRoomsBodyRow[row].Hide();
+                                        HotelRoomsBodyRow[row].citizen = 0U;
+                                        HotelRoomsBodyRow[row].OnBuilding = 0;
+                                        HotelRoomsBodyRow[row].firstRun = true;
+                                        row++;
+                                    }
+                                }
+
+                                WorkersPanel.Hide();
+                                for (int k = 0; k < workCount; k++)
+                                {
+                                    WorkersBodyRow[k].Hide();
+                                    WorkersBodyRow[k].citizen = 0U;
+                                    WorkersBodyRow[k].OnBuilding = 0;
+                                    WorkersBodyRow[k].firstRun = true;
+                                }
+                                GuestsPanel.Hide();
+                                for (int l = 0; l < visitCount; l++)
+                                {
+                                    GuestsBodyRow[l].Hide();
+                                    GuestsBodyRow[l].citizen = 0U;
+                                    GuestsBodyRow[l].OnBuilding = 0;
+                                    GuestsBodyRow[l].firstRun = true;
+                                }
+                            }
+                            else if (FavCimsCore.IsCimCareBuilding(BuildingID.Building))
+                            {
+                                int row = 0;
+                                for (int i = 0; i < homeCount; i++)
+                                {
+                                    ResidentialPanels[i].Hide();
+                                    for (int j = 0; j < 5; j++)
+                                    {
+                                        ResidentialBodyRow[row].Hide();
+                                        ResidentialBodyRow[row].citizen = 0U;
+                                        ResidentialBodyRow[row].OnBuilding = 0;
+                                        ResidentialBodyRow[row].firstRun = true;
+                                        row++;
+                                    }
+                                }
+
+                                WorkersPanel.Hide();
+                                for (int k = 0; k < workCount; k++)
+                                {
+                                    WorkersBodyRow[k].Hide();
+                                    WorkersBodyRow[k].citizen = 0U;
+                                    WorkersBodyRow[k].OnBuilding = 0;
+                                    WorkersBodyRow[k].firstRun = true;
+                                }
+
+                            }
+                            else
 							{
 								if (buildingInfo.m_class.m_service == ItemClass.Service.Commercial)
 								{
 									WorkersPanel.Hide();
-									for (int k = 0; k < MaxWorkersUnit*5; k++)
+									for (int k = 0; k < workCount; k++)
 									{
 										WorkersBodyRow[k].Hide();
 										WorkersBodyRow[k].citizen = 0U;
@@ -424,7 +566,7 @@ namespace FavoriteCims.UI.Panels
 										WorkersBodyRow[k].firstRun = true;
 									}
 									GuestsPanel.Hide();
-									for (int l = 0; l < MaxGuestsUnit*5; l++)
+									for (int l = 0; l < visitCount; l++)
 									{
 										GuestsBodyRow[l].Hide();
 										GuestsBodyRow[l].citizen = 0U;
@@ -435,7 +577,7 @@ namespace FavoriteCims.UI.Panels
 								else
 								{
 									WorkersPanel.Hide();
-									for (int m = 0; m < MaxWorkersUnit * 5; m++)
+									for (int m = 0; m < workCount; m++)
 									{
 										WorkersBodyRow[m].Hide();
 										WorkersBodyRow[m].citizen = 0U;
@@ -457,17 +599,17 @@ namespace FavoriteCims.UI.Panels
 				{
 					try
 					{
-						buildingInfo = MyBuilding.m_buildings.m_buffer[BuildingID.Building].Info;
 						if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty && WorldInfoPanel.GetCurrentInstanceID() != BuildingID)
 						{
 							Wait = true;
 							CimsOnBuilding.Clear();
 							WorkersCount = 0;
 							GuestsCount = 0;
-							if (buildingInfo.m_class.m_service == ItemClass.Service.Residential)
+							HotelGuestsCount = 0;
+                            if (buildingInfo.m_class.m_service == ItemClass.Service.Residential || FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building))
 							{
 								int i = 0;
-								for (int n = 0; n < MaxHouseHolds; n++)
+								for (int n = 0; n < homeCount; n++)
 								{
 									ResidentialPanels[n].Hide();
 									for (int b = 0; b < 5; b++)
@@ -480,12 +622,71 @@ namespace FavoriteCims.UI.Panels
 									}
 								}
 							}
-							else
+                            else if (FavCimsCore.IsHotel(BuildingID.Building))
+                            {
+                                int row = 0;
+                                for (int i = 0; i < hotelCount; i++)
+                                {
+                                    HotelRoomsPanels[i].Hide();
+                                    for (int j = 0; j < 5; j++)
+                                    {
+                                        HotelRoomsBodyRow[row].Hide();
+                                        HotelRoomsBodyRow[row].citizen = 0U;
+                                        HotelRoomsBodyRow[row].OnBuilding = 0;
+                                        HotelRoomsBodyRow[row].firstRun = true;
+                                        row++;
+                                    }
+                                }
+
+                                WorkersPanel.Hide();
+                                for (int k = 0; k < workCount; k++)
+                                {
+                                    WorkersBodyRow[k].Hide();
+                                    WorkersBodyRow[k].citizen = 0U;
+                                    WorkersBodyRow[k].OnBuilding = 0;
+                                    WorkersBodyRow[k].firstRun = true;
+                                }
+                                GuestsPanel.Hide();
+                                for (int l = 0; l < visitCount; l++)
+                                {
+                                    GuestsBodyRow[l].Hide();
+                                    GuestsBodyRow[l].citizen = 0U;
+                                    GuestsBodyRow[l].OnBuilding = 0;
+                                    GuestsBodyRow[l].firstRun = true;
+                                }
+                            }
+                            else if (FavCimsCore.IsCimCareBuilding(BuildingID.Building))
+                            {
+                                int row = 0;
+                                for (int i = 0; i < homeCount; i++)
+                                {
+                                    ResidentialPanels[i].Hide();
+                                    for (int j = 0; j < 5; j++)
+                                    {
+                                        ResidentialBodyRow[row].Hide();
+                                        ResidentialBodyRow[row].citizen = 0U;
+                                        ResidentialBodyRow[row].OnBuilding = 0;
+                                        ResidentialBodyRow[row].firstRun = true;
+                                        row++;
+                                    }
+                                }
+
+                                WorkersPanel.Hide();
+                                for (int k = 0; k < workCount; k++)
+                                {
+                                    WorkersBodyRow[k].Hide();
+                                    WorkersBodyRow[k].citizen = 0U;
+                                    WorkersBodyRow[k].OnBuilding = 0;
+                                    WorkersBodyRow[k].firstRun = true;
+                                }
+
+                            }
+                            else
 							{
 								if (buildingInfo.m_class.m_service == ItemClass.Service.Commercial)
 								{
 									WorkersPanel.Hide();
-									for (int a = 0; a < MaxWorkersUnit*5; a++)
+									for (int a = 0; a < workCount; a++)
 									{
 										WorkersBodyRow[a].Hide();
 										WorkersBodyRow[a].citizen = 0U;
@@ -493,7 +694,7 @@ namespace FavoriteCims.UI.Panels
 										WorkersBodyRow[a].firstRun = true;
 									}
 									GuestsPanel.Hide();
-									for (int a = 0; a < MaxGuestsUnit*5; a++)
+									for (int a = 0; a < visitCount; a++)
 									{
 										GuestsBodyRow[a].Hide();
 										GuestsBodyRow[a].citizen = 0U;
@@ -504,7 +705,7 @@ namespace FavoriteCims.UI.Panels
 								else
 								{
 									WorkersPanel.Hide();
-									for (int a = 0; a < MaxWorkersUnit*5; a++)
+									for (int a = 0; a < workCount; a++)
 									{
 										WorkersBodyRow[a].Hide();
 										WorkersBodyRow[a].citizen = 0U;
@@ -564,24 +765,8 @@ namespace FavoriteCims.UI.Panels
 
 								int unitnum = 0;
 								int rownum = 0;
-
-								int limit;
-								if (buildingInfo.m_class.m_service == ItemClass.Service.Residential)
-								{
-                                    limit = MaxHouseHolds;
-								}
-								else
-								{
-									if (buildingInfo.m_class.m_service == ItemClass.Service.Commercial)
-									{
-                                        limit = MaxGuestsUnit;
-									}
-									else
-									{
-                                        limit = MaxWorkersUnit;
-									}
-								}
-								while (BuildingUnits != 0U && unitnum < limit)
+                                int total_workers = 0;
+                                while (BuildingUnits != 0U && unitnum < totalUnitsCount)
 								{
 									uint nextUnit = MyCitizen.m_units.m_buffer[(int)BuildingUnits].m_nextUnit;
 									for (int i = 0; i < 5; i++)
@@ -590,7 +775,22 @@ namespace FavoriteCims.UI.Panels
 										Citizen citizen2 = MyCitizen.m_citizens.m_buffer[(int)citizen];
 										if (citizen != 0U && !CimsOnBuilding.ContainsKey(citizen))
 										{
-											if (buildingInfo.m_class.m_service == ItemClass.Service.Residential)
+                                            int forcedToGuest = 0;
+                                            CitizenInfo citizenInfo = MyCitizen.m_citizens.m_buffer[(int)citizen].GetCitizenInfo(citizen);
+                                            string localizedStatus = citizenInfo.m_citizenAI.GetLocalizedStatus(citizen, ref MyCitizen.m_citizens.m_buffer[(int)citizen], out InstanceID instanceID);
+                                            if (citizen2.m_workBuilding == BuildingID.Building && buildingInfo.m_class.m_service == ItemClass.Service.Education)
+                                            {
+                                                if (Locale.Get("CITIZEN_STATUS_AT_SCHOOL") == localizedStatus)
+                                                {
+                                                    forcedToGuest = 1;
+                                                }
+                                            }
+                                            if (BuildingID.Building == citizen2.m_workBuilding && forcedToGuest == 0)
+                                            {
+                                                total_workers++;
+                                            }
+                                            if ((buildingInfo.m_class.m_service == ItemClass.Service.Residential || FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building) || FavCimsCore.IsCimCareBuilding(BuildingID.Building))
+												&& (MyCitizen.m_units.m_buffer[BuildingUnits].m_flags & CitizenUnit.Flags.Home) != 0)
 											{
 												TitleBuildingName.text = FavCimsLang.Text("Citizens_HouseHoldsTitle");
 												if (ResidentialPanels[unitnum] != null)
@@ -606,7 +806,7 @@ namespace FavoriteCims.UI.Panels
 													CimsOnBuilding.Add(citizen, BuildingUnits);
 													ResidentialBodyRow[rownum].OnBuilding = BuildingID.Building;
 													ResidentialBodyRow[rownum].citizen = citizen;
-													ResidentialBodyRow[rownum].LocType = 0;
+													ResidentialBodyRow[rownum].LocType = Citizen.Location.Home;
 													ResidentialBodyRow[rownum].firstRun = true;
 													ResidentialBodyRow[rownum].Show();
 													bool wait = Wait;
@@ -618,7 +818,9 @@ namespace FavoriteCims.UI.Panels
 											}
 											else
 											{
-												if (buildingInfo.m_class.m_service == ItemClass.Service.Industrial || buildingInfo.m_class.m_service == ItemClass.Service.Office)
+												if ((buildingInfo.m_class.m_service == ItemClass.Service.Industrial || buildingInfo.m_class.m_service == ItemClass.Service.Office ||
+                                                    buildingInfo.m_buildingAI.GetType().Name.Contains("InternationalTradeOfficeBuildingAI") || FavCimsCore.IsCimCareBuilding(BuildingID.Building))
+                                                     && (MyCitizen.m_units.m_buffer[BuildingUnits].m_flags & CitizenUnit.Flags.Work) != 0)
 												{
 													TitleBuildingName.text = FavCimsLang.Text("WorkersOnBuilding");
 													WorkersPanel.Show();
@@ -627,7 +829,7 @@ namespace FavoriteCims.UI.Panels
 													if (citizen2.GetBuildingByLocation() == BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving)
 													{
 														WorkersCount++;
-			
+
 														if (WorkersPanel != null && WorkersBodyRow[unitnum] != null)
 														{
 															if (WorkersBodyRow[rownum].citizen != 0U && CimsOnBuilding.ContainsKey(WorkersBodyRow[rownum].citizen))
@@ -653,10 +855,59 @@ namespace FavoriteCims.UI.Panels
 														WorkersPanelText.text = FavCimsLang.Text("OnBuilding_NoWorkers");
 													}
 												}
-												else
+                                                else if (FavCimsCore.IsHotel(BuildingID.Building) && (MyCitizen.m_units.m_buffer[BuildingUnits].m_flags & CitizenUnit.Flags.Hotel) != 0)
+                                                {
+                                                    TitleBuildingName.text = FavCimsLang.Text("CitizenOnHotelBuildingTitle");
+                                                    if (HotelRoomsPanels[HotelGuestsCount] != null)
+                                                    {
+                                                        HotelRoomsPanels[HotelGuestsCount].Show();
+                                                        HotelRoomsPanelIcon[HotelGuestsCount].normalFgSprite = "BapartmentIcon";
+                                                        HotelRoomsPanelText[HotelGuestsCount].text = FavCimsLang.Text("OnBuilding_HotelRooms") + " " + (HotelGuestsCount + 1);
+                                                        if (HotelRoomsBodyRow[rownum].citizen != 0 && CimsOnBuilding.ContainsKey(HotelRoomsBodyRow[rownum].citizen))
+                                                        {
+                                                            Wait = true;
+                                                            CimsOnBuilding.Remove(HotelRoomsBodyRow[rownum].citizen);
+                                                        }
+
+                                                        CimsOnBuilding.Add(citizen, BuildingUnits);
+                                                        HotelRoomsBodyRow[rownum].OnBuilding = BuildingID.Building;
+                                                        HotelRoomsBodyRow[rownum].citizen = citizen;
+                                                        HotelRoomsBodyRow[rownum].LocType = Citizen.Location.Hotel;
+                                                        HotelRoomsBodyRow[rownum].firstRun = true;
+                                                        HotelRoomsBodyRow[rownum].Show();
+                                                        if (Wait)
+                                                        {
+                                                            Wait = false;
+                                                        }
+                                                        HotelGuestsCount++;
+                                                    }
+                                                }
+                                                else
 												{
-													TitleBuildingName.text = FavCimsLang.Text("CitizenOnBuildingTitle");
-													if (BuildingID.Building == citizen2.m_workBuilding)
+                                                    switch (buildingInfo.m_class.m_service)
+                                                    {
+                                                        case ItemClass.Service.PoliceDepartment:
+                                                            TitleBuildingName.text = FavCimsLang.Text("OnPolice_Building_Service");
+                                                            break;
+                                                        case ItemClass.Service.Education:
+                                                        case ItemClass.Service.PlayerEducation when !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
+                                                            TitleBuildingName.text = FavCimsLang.Text("OnEducation_Building_Service");
+                                                            break;
+                                                        case ItemClass.Service.HealthCare:
+                                                            TitleBuildingName.text = FavCimsLang.Text("OnMedical_Building_Service");
+                                                            break;
+                                                        case ItemClass.Service.Beautification:
+                                                            TitleBuildingName.text = FavCimsLang.Text("OnBuilding_Guests");
+                                                            break;
+                                                        case ItemClass.Service.Monument:
+                                                            TitleBuildingName.text = FavCimsLang.Text("CitizenOnBuildingTitle");
+                                                            break;
+                                                        default:
+                                                            TitleBuildingName.text = FavCimsLang.Text("OnBuilding_Workers");
+                                                            break;
+                                                    }
+
+													if (BuildingID.Building == citizen2.m_workBuilding && forcedToGuest == 0)
 													{
 														WorkersPanel.Show();
 														WorkersPanelIcon.normalFgSprite = "BworkingIcon";
@@ -686,14 +937,47 @@ namespace FavoriteCims.UI.Panels
 														}
 														if (WorkersCount == 0)
 														{
-															WorkersPanelText.text = FavCimsLang.Text("OnBuilding_NoWorkers");
-														}
+                                                            WorkersPanelText.text = string.Concat(
+															[
+																FavCimsLang.Text("OnBuilding_NoWorkers"),
+																" (",
+																FavCimsLang.Text("OnBuilding_TotalWorkers"),
+																" ",
+																total_workers.ToString(),
+																")"
+															]);
+                                                        }
 													}
 													else
 													{
 														GuestsPanel.Show();
-														GuestsPanelIcon.normalFgSprite = "BcommercialIcon";
-														GuestsPanelText.text = FavCimsLang.Text("OnBuilding_Guests");
+
+                                                        switch (buildingInfo.m_class.m_service)
+                                                        {
+                                                            case ItemClass.Service.PoliceDepartment:
+                                                                GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+                                                                GuestsPanelIcon.normalFgSprite = "FavCimsCrimeArrested";
+                                                                GuestsPanelText.text = FavCimsLang.Text("Citizen_Under_Arrest");
+                                                                break;
+                                                            case ItemClass.Service.Education:
+                                                            case ItemClass.Service.PlayerEducation when !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
+                                                                GuestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
+                                                                GuestsPanelIcon.normalFgSprite = "IconPolicySchoolsOut";
+
+                                                                GuestsPanelText.text = FavCimsLang.Text("Citizen_at_School");
+                                                                break;
+                                                            case ItemClass.Service.HealthCare:
+                                                                GuestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
+                                                                GuestsPanelIcon.normalFgSprite = "SubBarHealthcareDefault";
+                                                                GuestsPanelText.text = FavCimsLang.Text("Citizen_on_Clinic");
+                                                                break;
+                                                            default:
+                                                                GuestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+                                                                GuestsPanelIcon.normalFgSprite = "BcommercialIcon";
+                                                                GuestsPanelText.text = FavCimsLang.Text("OnBuilding_Guests");
+                                                                break;
+                                                        }
+
 														if (citizen2.GetBuildingByLocation() == BuildingID.Building && citizen2.CurrentLocation != Citizen.Location.Moving)
 														{
 															GuestsCount++;
@@ -719,8 +1003,23 @@ namespace FavoriteCims.UI.Panels
 														}
 														if (GuestsCount == 0)
 														{
-															GuestsPanelText.text = FavCimsLang.Text("OnBuilding_NoGuests");
-														}
+                                                            switch (buildingInfo.m_class.m_service)
+                                                            {
+                                                                case ItemClass.Service.PoliceDepartment:
+                                                                    GuestsPanelText.text = FavCimsLang.Text("OnBuilding_noArrested");
+                                                                    break;
+                                                                case ItemClass.Service.Education:
+                                                                case ItemClass.Service.PlayerEducation when !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
+                                                                    GuestsPanelText.text = FavCimsLang.Text("OnBuilding_noStudents");
+                                                                    break;
+                                                                case ItemClass.Service.HealthCare:
+                                                                    GuestsPanelText.text = FavCimsLang.Text("OnBuilding_noPatients");
+                                                                    break;
+                                                                default:
+                                                                    GuestsPanelText.text = FavCimsLang.Text("OnBuilding_NoGuests");
+                                                                    break;
+                                                            }
+                                                        }
 													}
 												}
 											}
@@ -746,5 +1045,46 @@ namespace FavoriteCims.UI.Panels
 				}
 			}
 		}
-	}
+
+        private void CountCitizenUnits(ref Building data, ref int homeCount, ref int workCount, ref int visitCount, ref int studentCount, ref int hotelCount)
+        {
+            if ((data.m_flags & (Building.Flags.Abandoned | Building.Flags.Collapsed)) != 0)
+            {
+                return;
+            }
+            CitizenManager instance = Singleton<CitizenManager>.instance;
+            uint num2 = data.m_citizenUnits;
+            uint num3 = 0;
+            while (num2 != 0)
+            {
+                CitizenUnit.Flags flags = instance.m_units.m_buffer[num2].m_flags;
+                if ((flags & CitizenUnit.Flags.Home) != 0)
+                {
+                    homeCount++;
+                }
+                if ((flags & CitizenUnit.Flags.Work) != 0)
+                {
+                    workCount++;
+                }
+                if ((flags & CitizenUnit.Flags.Visit) != 0)
+                {
+                    visitCount++;
+                }
+                if ((flags & CitizenUnit.Flags.Student) != 0)
+                {
+                    studentCount++;
+                }
+                if ((flags & CitizenUnit.Flags.Hotel) != 0)
+                {
+                    hotelCount++;
+                }
+                num2 = instance.m_units.m_buffer[num2].m_nextUnit;
+                if (++num3 > 524288)
+                {
+                    CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
+                    break;
+                }
+            }
+        }
+    }
 }

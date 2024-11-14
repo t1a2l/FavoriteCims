@@ -7,22 +7,22 @@ namespace FavoriteCims.UI.PanelsRows
 	{
 		public override bool Wait()
 		{
-			return PeopleInsideServiceBuildingsPanel.Wait;
+			return PeopleInsideBuildingsPanel.Wait;
 		}
 
 		public override Dictionary<uint, uint> GetCimsDict()
 		{
-			return PeopleInsideServiceBuildingsPanel.CimsOnBuilding;
+			return PeopleInsideBuildingsPanel.CimsOnBuilding;
 		}
 
 		public override void DecreaseWorkersCount()
 		{
-			PeopleInsideServiceBuildingsPanel.WorkersCount--;
+            PeopleInsideBuildingsPanel.WorkersCount--;
 		}
 
 		public override void DecreaseGuestsCount()
 		{
-			PeopleInsideServiceBuildingsPanel.GuestsCount--;
+            PeopleInsideBuildingsPanel.GuestsCount--;
 		}
 	}
 }

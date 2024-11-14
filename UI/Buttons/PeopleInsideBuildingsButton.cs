@@ -75,9 +75,18 @@ namespace FavoriteCims.UI.Buttons
                     {
                         BuildingInfo info = MyBuilding.m_buildings.m_buffer[BuildingID.Building].Info;
 
-                        switch(info.m_class.m_service)
+                        tooltip = "";
+                        normalBgSprite = "";
+                        hoveredBgSprite = "";
+                        focusedBgSprite = "";
+                        pressedBgSprite = "";
+                        disabledBgSprite = "";
+
+                        switch (info.m_class.m_service)
                         {
                             case ItemClass.Service.Residential:
+                            case ItemClass.Service.PlayerEducation when FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
+                            case ItemClass.Service.PlayerIndustry when FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
                                 tooltip = FavCimsLang.Text("Citizens_HouseHolds");
                                 normalBgSprite = "BuildingButtonIcon";
                                 hoveredBgSprite = "BuildingButtonIconHovered";
@@ -101,13 +110,60 @@ namespace FavoriteCims.UI.Buttons
                                 pressedBgSprite = "CommercialBuildingButtonIconHovered";
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
                                 break;
-                            default:
+                            case ItemClass.Service.Industrial:
                                 tooltip = FavCimsLang.Text("WorkersOnBuilding");
                                 normalBgSprite = "IndustrialBuildingButtonIcon";
                                 hoveredBgSprite = "IndustrialBuildingButtonIconHovered";
                                 focusedBgSprite = "IndustrialBuildingButtonIconHovered";
                                 pressedBgSprite = "IndustrialBuildingButtonIconHovered";
                                 disabledBgSprite = "IndustrialBuildingButtonIconDisabled";
+                                break;
+                            case ItemClass.Service.Electricity:
+                            case ItemClass.Service.Water:
+                            case ItemClass.Service.Garbage:
+                            case ItemClass.Service.Road:
+                            case ItemClass.Service.PublicTransport:
+                            case ItemClass.Service.PlayerIndustry when !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
+                            case ItemClass.Service.Fishing:
+                                tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
+                                normalBgSprite = "IndustrialBuildingButtonIcon";
+                                hoveredBgSprite = "IndustrialBuildingButtonIconHovered";
+                                focusedBgSprite = "IndustrialBuildingButtonIconHovered";
+                                pressedBgSprite = "IndustrialBuildingButtonIconHovered";
+                                disabledBgSprite = "IndustrialBuildingButtonIconDisabled";
+                                break;
+                            case ItemClass.Service.Beautification:
+                                tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Guests");
+                                normalBgSprite = "CommercialBuildingButtonIcon";
+                                hoveredBgSprite = "CommercialBuildingButtonIconHovered";
+                                focusedBgSprite = "CommercialBuildingButtonIconHovered";
+                                pressedBgSprite = "CommercialBuildingButtonIconHovered";
+                                disabledBgSprite = "CommercialBuildingButtonIconDisabled";
+                                break;
+                            case ItemClass.Service.HealthCare:
+                            case ItemClass.Service.PoliceDepartment:
+                            case ItemClass.Service.FireDepartment:
+                            case ItemClass.Service.Disaster:
+                            case ItemClass.Service.Education:
+                            case ItemClass.Service.PlayerEducation when !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
+                            case ItemClass.Service.Museums:
+                            case ItemClass.Service.VarsitySports:
+                            case ItemClass.Service.ServicePoint:
+                            case ItemClass.Service.Hotel:
+                                tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
+                                normalBgSprite = "CommercialBuildingButtonIcon";
+                                hoveredBgSprite = "CommercialBuildingButtonIconHovered";
+                                focusedBgSprite = "CommercialBuildingButtonIconHovered";
+                                pressedBgSprite = "CommercialBuildingButtonIconHovered";
+                                disabledBgSprite = "CommercialBuildingButtonIconDisabled";
+                                break;
+                            case ItemClass.Service.Monument:
+                                tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("CitizenOnBuilding");
+                                normalBgSprite = "CommercialBuildingButtonIcon";
+                                hoveredBgSprite = "CommercialBuildingButtonIconHovered";
+                                focusedBgSprite = "CommercialBuildingButtonIconHovered";
+                                pressedBgSprite = "CommercialBuildingButtonIconHovered";
+                                disabledBgSprite = "CommercialBuildingButtonIconDisabled";
                                 break;
                         }
 
