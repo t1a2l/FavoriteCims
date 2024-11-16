@@ -40,7 +40,7 @@ namespace FavoriteCims.UI.Panels
 
         private UIButton PassengersPanelText;
 
-        private readonly PassengersVehiclePanelRow[] PassengersBodyRow = new PassengersVehiclePanelRow[MaxPassengersUnit*5];
+        private readonly PassengersVehiclePanelRow[] PassengersBodyRow = new PassengersVehiclePanelRow[MaxPassengersUnit * 5];
 
         private uint VehicleUnits;
 
@@ -168,7 +168,7 @@ namespace FavoriteCims.UI.Panels
 				PassengersPanelText.isInteractive = false;
 				PassengersPanelText.relativePosition = new Vector3(PassengersPanelIcon.relativePosition.x + PassengersPanelIcon.width, 1f);
 				int row = 0;
-				for (int i = 0; i < MaxPassengersUnit*5; i++)
+				for (int i = 0; i < MaxPassengersUnit * 5; i++)
 				{
 					PassengersBodyRow[row] = BodyRows.AddUIComponent(typeof(PassengersVehiclePanelRow)) as PassengersVehiclePanelRow;
 					PassengersBodyRow[row].name = "RowPanel_PT_" + i.ToString();
@@ -254,7 +254,7 @@ namespace FavoriteCims.UI.Panels
 						try
 						{
 							PassengersPanel.Hide();
-							for (int i = 0; i < MaxPassengersUnit*5; i++)
+							for (int i = 0; i < MaxPassengersUnit * 5; i++)
 							{
 								PassengersBodyRow[i].Hide();
 								PassengersBodyRow[i].citizen = 0U;
@@ -281,7 +281,7 @@ namespace FavoriteCims.UI.Panels
 							try
 							{
 								PassengersPanel.Hide();
-								for (int j = 0; j < MaxPassengersUnit*5; j++)
+								for (int j = 0; j < MaxPassengersUnit * 5; j++)
 								{
 									PassengersBodyRow[j].Hide();
 									PassengersBodyRow[j].citizen = 0U;
