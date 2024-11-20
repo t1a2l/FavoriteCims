@@ -49,9 +49,33 @@ namespace FavoriteCims
 
         public static UIPanel FavCimsPeopleServiceBuildingPanel;
 
+        public static UIPanel FavCimsPeopleFootballEventBuildingPanel;
+
+        public static UIPanel FavCimsPeopleVarsitySportsArenaBuildingPanel;
+
+        public static UIPanel FavCimsPeopleWarehouseBuildingPanel;
+
+        public static UIPanel FavCimsPeopleShelterBuildingPanel;
+
+        public static UIPanel FavCimsPeopleUniqueFactoryBuildingPanel;
+
+        public static UIPanel FavCimsPeopleHotelBuildingPanel;
+
         private PeopleInsideBuildingsButton PeopleZonedBuildingButton;
 
         private PeopleInsideBuildingsButton PeopleServiceBuildingButton;
+
+        private PeopleInsideBuildingsButton PeopleFootballEventBuildingButton;
+
+        private PeopleInsideBuildingsButton PeopleVarsitySportsArenaBuildingButton;
+
+        private PeopleInsideBuildingsButton PeopleWarehouseBuildingButton;
+
+        private PeopleInsideBuildingsButton PeopleShelterBuildingButton;
+
+        private PeopleInsideBuildingsButton PeopleUniqueFactoryBuildingButton;
+
+        private PeopleInsideBuildingsButton PeopleHotelBuildingButton;
 
         public static UIPanel FavCimsPublicTransportTaxiPanel;
 
@@ -332,6 +356,90 @@ namespace FavoriteCims
                     }
                     PeopleServiceBuildingButton.RefPanel = FavCimsPeopleServiceBuildingPanel;
                     PeopleServiceBuildingButton.Alignment = UIAlignAnchor.BottomRight;
+                }
+                FavCimsPeopleVarsitySportsArenaBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) VarsitySportsArenaPanel");
+                if (FavCimsPeopleVarsitySportsArenaBuildingPanel != null)
+                {
+                    if (FavCimsPeopleVarsitySportsArenaBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    {
+                        PeopleVarsitySportsArenaBuildingButton = FavCimsPeopleVarsitySportsArenaBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                    }
+                    else
+                    {
+                        PeopleVarsitySportsArenaBuildingButton = FavCimsPeopleVarsitySportsArenaBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                    }
+                    PeopleVarsitySportsArenaBuildingButton.RefPanel = FavCimsPeopleVarsitySportsArenaBuildingPanel;
+                    PeopleVarsitySportsArenaBuildingButton.Alignment = UIAlignAnchor.BottomRight;
+                }
+                FavCimsPeopleFootballEventBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) FootballPanel");
+                if (FavCimsPeopleFootballEventBuildingPanel != null)
+                {
+                    if (FavCimsPeopleFootballEventBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    {
+                        PeopleFootballEventBuildingButton = FavCimsPeopleFootballEventBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                    }
+                    else
+                    {
+                        PeopleFootballEventBuildingButton = FavCimsPeopleFootballEventBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                    }
+                    PeopleFootballEventBuildingButton.RefPanel = FavCimsPeopleFootballEventBuildingPanel;
+                    PeopleFootballEventBuildingButton.Alignment = UIAlignAnchor.BottomRight;
+                }
+                FavCimsPeopleUniqueFactoryBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) UniqueFactoryWorldInfoPanel");
+                if (FavCimsPeopleUniqueFactoryBuildingPanel != null)
+                {
+                    if (FavCimsPeopleUniqueFactoryBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    {
+                        PeopleUniqueFactoryBuildingButton = FavCimsPeopleUniqueFactoryBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                    }
+                    else
+                    {
+                        PeopleUniqueFactoryBuildingButton = FavCimsPeopleUniqueFactoryBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                    }
+                    PeopleUniqueFactoryBuildingButton.RefPanel = FavCimsPeopleUniqueFactoryBuildingPanel;
+                    PeopleUniqueFactoryBuildingButton.Alignment = UIAlignAnchor.BottomRight;
+                }
+                FavCimsPeopleShelterBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) ShelterWorldInfoPanel");
+                if (FavCimsPeopleShelterBuildingPanel != null)
+                {
+                    if (FavCimsPeopleShelterBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    {
+                        PeopleShelterBuildingButton = FavCimsPeopleShelterBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                    }
+                    else
+                    {
+                        PeopleShelterBuildingButton = FavCimsPeopleShelterBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                    }
+                    PeopleShelterBuildingButton.RefPanel = FavCimsPeopleShelterBuildingPanel;
+                    PeopleShelterBuildingButton.Alignment = UIAlignAnchor.BottomRight;
+                }
+                FavCimsPeopleHotelBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) HotelWorldInfoPanel");
+                if (FavCimsPeopleHotelBuildingPanel != null)
+                {
+                    if (FavCimsPeopleHotelBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    {
+                        PeopleHotelBuildingButton = FavCimsPeopleHotelBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                    }
+                    else
+                    {
+                        PeopleHotelBuildingButton = FavCimsPeopleHotelBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                    }
+                    PeopleHotelBuildingButton.RefPanel = FavCimsPeopleHotelBuildingPanel;
+                    PeopleHotelBuildingButton.Alignment = UIAlignAnchor.BottomRight;
+                }
+                FavCimsPeopleWarehouseBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) WarehouseWorldInfoPanel");
+                if (FavCimsPeopleWarehouseBuildingPanel != null)
+                {
+                    if (FavCimsPeopleWarehouseBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    {
+                        PeopleWarehouseBuildingButton = FavCimsPeopleWarehouseBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                    }
+                    else
+                    {
+                        PeopleWarehouseBuildingButton = FavCimsPeopleWarehouseBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                    }
+                    PeopleWarehouseBuildingButton.RefPanel = FavCimsPeopleWarehouseBuildingPanel;
+                    PeopleWarehouseBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
                 GenerateFamilyDetailsTpl();
             }
