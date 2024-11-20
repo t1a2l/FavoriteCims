@@ -148,13 +148,16 @@ namespace FavoriteCims.Utils
                             ["Citizens_HouseHoldsTitle"] = "Inquilini",
                             ["CitizenOnBuilding"] = "Lista Dipendenti e Visitatori",
                             ["CitizenOnBuildingTitle"] = "Dipendenti e Visitatori",
+                            ["CitizenOnHotelBuildingTitle"] = "Employees and Hotel Guests and Visitors",
                             ["OnBuilding_Residential"] = "Appartamento ",
+                            ["OnBuilding_HotelRooms"] = "Hotel Room ",
                             ["View_List"] = "Guarda ",
                             ["OnBuilding_Guests"] = "Visitatori",
                             ["OnBuilding_Workers"] = "Dipendenti al lavoro",
                             ["WorkersOnBuilding"] = "Lavoratori nell'edificio",
                             ["OnBuilding_NoWorkers"] = "Nessuno lavora oggi",
                             ["OnBuilding_NoGuests"] = "Nessun visitatore",
+                            ["OnBuilding_NoHotelGuests"] = "No hotel guests inside",
                             ["BuildingIsEmpty"] = "Nessuno vive o lavora in questo edificio",
                             ["OnBuilding_TotalWorkers"] = "Totale :",
                             ["Buildings_Type_CommercialEco"] = "Edificio Commerciale Ecologico",
@@ -180,6 +183,7 @@ namespace FavoriteCims.Utils
                             ["OnFire_Building_Service"] = "FireFighters and Workers",
                             ["OnRescue_Building_Service"] = "Pilots and RescueWorkers",
                             ["OnShelter_Building_Service"] = "Survivors and Workers",
+                            ["OnBuilding_noHotelGuests"] = "No Hotel guests inside",
                         };
 						return it[index];
 					}
@@ -308,13 +312,16 @@ namespace FavoriteCims.Utils
                             ["Citizens_HouseHoldsTitle"] = "Residents",
                             ["CitizenOnBuilding"] = "Employees and Guests List",
                             ["CitizenOnBuildingTitle"] = "Employees and Guests",
+                            ["CitizenOnHotelBuildingTitle"] = "Employees and Hotel Guests and Visitors",
                             ["OnBuilding_Residential"] = "Apartment ",
+                            ["OnBuilding_HotelRooms"] = "Hotel Room ",
                             ["View_List"] = "View ",
                             ["OnBuilding_Guests"] = "Guests",
                             ["OnBuilding_Workers"] = "Employees at work",
                             ["WorkersOnBuilding"] = "List of employees at work",
                             ["OnBuilding_NoWorkers"] = "Nobody at work now",
                             ["OnBuilding_NoGuests"] = "No guests inside",
+                            ["OnBuilding_NoHotelGuests"] = "No hotel guests inside",
                             ["BuildingIsEmpty"] = "Nobody works or lives here",
                             ["OnBuilding_TotalWorkers"] = "Total :",
                             ["Buildings_Type_CommercialEco"] = "Ecologic Commercial Building",
@@ -340,6 +347,7 @@ namespace FavoriteCims.Utils
                             ["OnFire_Building_Service"] = "FireFighters and Workers",
                             ["OnRescue_Building_Service"] = "Pilots and RescueWorkers",
                             ["OnShelter_Building_Service"] = "Survivors and Workers",
+                            ["OnBuilding_noHotelGuests"] = "No Hotel guests inside",
                         };
 						return nl[index];
 					}
@@ -468,13 +476,16 @@ namespace FavoriteCims.Utils
                             ["Citizens_HouseHoldsTitle"] = "Жильцы",
                             ["CitizenOnBuilding"] = "Список кадров и гостей",
                             ["CitizenOnBuildingTitle"] = "Сотрудники и Гости",
+                            ["CitizenOnHotelBuildingTitle"] = "Employees and Hotel Guests and Visitors",
                             ["OnBuilding_Residential"] = "Квартира ",
+                            ["OnBuilding_HotelRooms"] = "Hotel Room ",
                             ["View_List"] = "Просмотр ",
                             ["OnBuilding_Guests"] = "Посетители",
                             ["OnBuilding_Workers"] = "Сотрудники",
                             ["WorkersOnBuilding"] = "Список сотрудников",
                             ["OnBuilding_NoWorkers"] = "На работе никого",
                             ["OnBuilding_NoGuests"] = "Посетителей нет",
+                            ["OnBuilding_NoHotelGuests"] = "No hotel guests inside",
                             ["BuildingIsEmpty"] = "Жителей/работников нет",
                             ["OnBuilding_TotalWorkers"] = "Всего :",
                             ["Buildings_Type_CommercialEco"] = "Коммер. здание (Экология)",
@@ -500,6 +511,7 @@ namespace FavoriteCims.Utils
                             ["OnFire_Building_Service"] = "FireFighters and Workers",
                             ["OnRescue_Building_Service"] = "Pilots and RescueWorkers",
                             ["OnShelter_Building_Service"] = "Survivors and Workers",
+                            ["OnBuilding_noHotelGuests"] = "No Hotel guests inside",
                         };
 						return rus[index];
 					}
@@ -626,13 +638,16 @@ namespace FavoriteCims.Utils
                         ["Citizens_HouseHoldsTitle"] = "Residents",
                         ["CitizenOnBuilding"] = "Employees and Guests List",
                         ["CitizenOnBuildingTitle"] = "Employees and Guests",
+                        ["CitizenOnHotelBuildingTitle"] = "Employees and Hotel Guests and Visitors",
                         ["OnBuilding_Residential"] = "Apartment ",
+                        ["OnBuilding_HotelRooms"] = "Hotel Room ",
                         ["View_List"] = "View ",
                         ["OnBuilding_Guests"] = "Guests",
                         ["OnBuilding_Workers"] = "Employees at work",
                         ["WorkersOnBuilding"] = "List of employees at work",
                         ["OnBuilding_NoWorkers"] = "Nobody at work",
                         ["OnBuilding_NoGuests"] = "No guests inside",
+                        ["OnBuilding_NoHotelGuests"] = "No hotel guests inside",
                         ["BuildingIsEmpty"] = "Nobody works or lives here",
                         ["OnBuilding_TotalWorkers"] = "Tot :",
                         ["Buildings_Type_CommercialEco"] = "Ecologic Commercial Building",
@@ -658,6 +673,7 @@ namespace FavoriteCims.Utils
                         ["OnFire_Building_Service"] = "FireFighters and Workers",
                         ["OnRescue_Building_Service"] = "Pilots and RescueWorkers",
                         ["OnShelter_Building_Service"] = "Survivors and Workers",
+                        ["OnBuilding_noHotelGuests"] = "No Hotel guests inside",
                     };
 					return en[index];
 				}
