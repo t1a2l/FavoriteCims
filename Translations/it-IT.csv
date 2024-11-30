@@ -1,0 +1,175 @@
+﻿LANGUAGE,Italiano,Language name (in native language).
+LANGUAGE_CHOICE,Seleziona la lingua,Heading for language selection menu.
+LANGUAGE_GAME,Usa la lingua del gioco,Default selection in language selection menu.
+NOTE_CLOSE,Chiudi,Notification button text - closes the notification.
+NOTE_DONTSHOWAGAIN,Non mostrare di nuovo,Notification button text - don't show this notification again.
+NO,No,Notification button text - don't perform this action.
+YES,Sì,Notification button text - perfom this action.
+PRESS_ANY_KEY,Premi un tasto qualsiasi,Shown when awaiting user input when changing a key setting.
+CONFLICT_DETECTED,Conflitto tra mod rilevato!,Warning message that a mod conflict was detected.
+UNABLE_TO_OPERATE,Ciò significa che la mod non è in grado di funzionare e si è arrestata.,Warning message letting the user know that the mod can't work.
+CONFLICTING_MODS,Le mod in conflitto sono:,Part of the mod conflict warning notification - header for the list of conflicting mods.
+HARMONY_ERROR,La mod non è stata in grado di applicare correttamente le patch Harmony necessarie.,Warning message that a patching problem was detected, and the mod can't operate.
+HARMONY_PROBLEM_CAUSES,Le possibili cause di questo problema includono:,Header for list of possible causes of Harmony errors.
+HARMONY_NOT_INSTALLED,La mod condizionale Harmony 2 non è stata installata,Possible cause of Harmony error - Harmony not installed.
+HARMONY_MOD_ERROR,Una mod vecchia e/o fuori uso non consente ad Harmony 2 di funzionare correttamente,Possible cause of Harmony error - a broken mod (not this one) can cause things to stop working.
+HARMONY_MOD_CONFLICT,Un'altra mod potrebbe provare ad applicare una patch conflittuale di Harmony,Possible cause of Harmony error - two mods trying to patch the same thing at once.
+DETAIL_LOGGING,Abilita registrazione dettagliata di debug,Option to record more detail in game log
+FavCimsButton_tooltip,I Miei Cims Preferiti
+FavCimsBCMenuButton_text,Abitanti
+FavCimsBCMenuButton_tooltip,Persone che segui
+FavCimsBBMenuButton_text,Edifici
+FavCimsBBMenuButton_tooltip,Edifici Preferiti
+FavCimsBSMenuButton_text,Stats
+FavCimsBSMenuButton_tooltip,Info e Statistiche
+FavStarButton_enable_tooltip,Clicca per aggiungere ai preferiti!
+FavStarButton_disable_tooltip,Clicca per rimuovere dai preferiti :(
+FavCimsHappinesColText_text,Stato
+FavCimsHappinesColText_tooltip,Felicita' cittadino
+FavCimsNameColText_text,Nome Abitante
+FavCimsNameColText_tooltip,Nome del Cittadino
+FavCimsEduColText_text,Istruzione
+FavCimsEduColText_tooltip,Livello di educazione del Cittadino
+FavCimsWorkingPlaceColText_text,Posto di Lavoro / Studio
+FavCimsWorkingPlaceColText_tooltip,Edificio in cui lavora o studia il Cittadino
+FavCimsAgePhaseColText_text,Fase di vita
+FavCimsAgePhaseColText_tooltip,Fase della vita in cui si trova il cittadino
+FavCimsAgeColText_text,Eta'
+FavCimsAgeColText_tooltip,L'Eta' del Cittadino
+FavCimsHomeColText_text,Abitazione
+FavCimsHomeColText_tooltip,Il cittadino abita in questa casa
+FavCimsLastActColText_text,Ultima Attivita'
+FavCimsLastActColText_tooltip,Quello che sta' facendo il cittadino in questo momento
+FavCimsCloseButtonCol_text,Chiudi
+FavCimsCloseButtonCol_tooltip,Clicca sul pulsante chiudi per rimuovere il cittadino dai preferiti :(
+Male,Maschio
+Female,Femmina
+AgePhase_Child_Male,Bambino
+AgePhase_Teen_Male,Ragazzino
+AgePhase_Young_Male,Ragazzo
+AgePhase_Adult_Male,Adulto
+AgePhase_Senior_Male,Anziano
+Education_Uneducated_Male,Non Istruito
+Education_OneSchool_Male,Istruito
+Education_TwoSchools_Male,Ben Istruito
+Education_ThreeSchools_Male,Molto Istruito
+AgePhase_Child_Female,Bambina
+AgePhase_Teen_Female,Ragazzina
+AgePhase_Young_Female,Ragazza
+AgePhase_Adult_Female,Adulta
+AgePhase_Senior_Female,Anziana
+Education_Uneducated_Female,Non Istruita
+Education_OneSchool_Female,Istruita
+Education_TwoSchools_Female,Ben Istruita
+Education_ThreeSchools_Female,Molto Istruita
+AgePhaseDead_Male,Morto
+AgePhaseDead_Female,Morta
+People_Life_Status_Alive,Il Cittadino e' vivo
+People_Life_Status_Dead,Il Cittadino e' morto
+People_Life_Status_Dead_date,il giorno
+People_Life_Status_Dead_time,alle ore
+NotificationIconVeryUnhappy,Molto Infelice
+NotificationIconUnhappy,Infelice
+NotificationIconHappy,Felice
+NotificationIconVeryHappy,Veramente Felice
+NotificationIconExtremelyHappy,Estremamente Felice
+time_format,dd-mm-yyyy
+People_Life_Status_IsGone,Questo cittadino ha abbandonato la citta'
+Citizen_HomeLess,Senzatetto
+Citizen_HomeLess_tooltip,Questo cittadino non ha una casa
+HomeOutsideTheCity,Molto molto lontano
+Home_Location_Dead,Al Cimitero
+Citizen_Retired,In Pensione
+Citizen_Retired_tooltip,Il cittadino si e' ritirato dal lavoro
+Unemployed_tooltip,Il cittadino ha motlo tempo libero al momento...
+Government_job,Edificio governativo
+Electricity_job,Centrale Elettrica
+Water_job,Centrale Idrica
+Generic_job_place,Il cittadino lavora in questo edificio
+Vehicle_on_foot,Il cittadino sta camminando
+Citizen_Details,Dettagli del cittadino
+Citizen_Details_fullTemplate,Troppe finestre dettagli aperte, chiudine una prima di aprirne una nuova
+Status_static_label,Stato : 
+Citizen_Family_unit,Famiglia
+NowInThisDistrict,Attualmente si trova nel distretto: 
+DistrictLabel,Distretto: 
+DistrictNameNoDistrict,Nessuno
+Citizen_Details_No_Partner,Nessun Partner
+Citizen_Details_No_Childs,Nessun Figlio
+Right_click_to_swith_tooltip,Tasto destro per invertire
+Home_Bubble_panel_Label,Casa : 
+Low_Wealth_Male,Povero
+Mid_Wealth_Male,Benestante
+High_Wealth_Male,Ricco
+Low_Wealth_Female,Povera
+Mid_Wealth_Female,Benestante
+High_Wealth_Female,Ricca
+WellBeingLabel,Benessere: 
+HappinessLabel,Felicita' complessiva: 
+Wealth_Label,Ricchezza
+Health_Level_VerySick_Male,Molto malato
+Health_Level_Sick_Male,Malato
+Health_Level_PoorHealth_Male,Salute scarsa
+Health_Level_Healthy_Male,In salute
+Health_Level_VeryHealthy_Male,Buona salute
+Health_Level_ExcellentHealth_Male,Ottima salute
+Health_Level_VerySick_Female,Molto malata
+Health_Level_Sick_Female,Malata
+Health_Level_PoorHealth_Female,Salute scarsa
+Health_Level_Healthy_Female,In salute
+Health_Level_VeryHealthy_Female,Buona salute
+Health_Level_ExcellentHealth_Female,Ottima salute
+District_Label,Distretto: 
+District_Label_tooltip,Attualmente si trova in questo distretto
+Citizen_Details_NoUnit,Il cittadino e' morto o non ha una casa
+Citizen_wait_hearse,Aspetta il carro funebre
+Citizen_on_hearse,Sul carro funebre
+Citizen_hisfuneral,Cerimonia funebre
+Citizen_buried,Sepolto
+Citizen_Tourist_tooltip,Questo cittadino e' in visita nella nostra citta'
+View_PassengersList,Guarda lista passeggeri
+View_NoPassengers,Nessun passeggero
+Vehicle_Passengers,Passeggeri nel veicolo
+Vehicle_DriverIconText,Al volante
+Vehicle_PasssengerIconText,Passeggeri
+Citizens_HouseHolds,Guarda Inquilini
+Citizens_HouseHoldsTitle,Inquilini
+CitizenOnBuilding,Lista Dipendenti e Visitatori
+CitizenOnBuildingTitle,Dipendenti e Visitatori
+CitizenOnHotelBuildingTitle,Employees and Hotel Guests and Visitors
+OnBuilding_Residential,Appartamento 
+OnBuilding_HotelRooms,Hotel Room 
+View_List,Guarda 
+OnBuilding_Guests,Visitatori
+OnBuilding_Workers,Dipendenti al lavoro
+WorkersOnBuilding,Lavoratori nell'edificio
+OnBuilding_NoWorkers,Nessuno lavora oggi
+OnBuilding_NoGuests,Nessun visitatore
+OnBuilding_NoHotelGuests,No hotel guests inside
+BuildingIsEmpty,Nessuno vive o lavora in questo edificio
+OnBuilding_TotalWorkers,Totale :
+Buildings_Type_CommercialEco,Edificio Commerciale Ecologico
+Buildings_Type_CommercialLeisure,Edificio Commerciale d'intrattenimento.
+Buildings_Type_CommercialTourist,Edificio Turistico o adibito al turismo.
+Citizen_Arrested,Questo cittadino e' in prigione!
+Transported_to_Prison,Scortato in Prigione!
+Jailed_into,Incarcerato presso 
+Citizen_at_School,Studenti a lezione
+Citizen_at_University,Students at university
+Citizen_at_Clinic,Pazienti in cura
+Citizen_Under_Arrest,Cittadini in arresto
+OnBuilding_noArrested,Nessun cittadino in arresto
+OnPolice_Building_Service,Secondini e Carcerati
+OnPrison_Building_Service,Guards and Prisoners
+OnEducation_Building_Service,Insegnanti e Studenti
+OnHighEducation_Building_Service,Lecturers and Students
+OnMedical_Building_Service,Medici e Pazienti
+OnMedicalUniversity_Building_Service,Doctors and Patients and Students
+OnBuilding_noStudents,No Students inside
+OnBuilding_noPatients,No Patients inside
+OnHelicopter_Building_Service,Pilots and Workers
+OnFire_Building_Service,FireFighters and Workers
+OnRescue_Building_Service,Pilots and RescueWorkers
+OnShelter_Building_Service,Survivors and Workers
+OnBuilding_noHotelGuests,No Hotel guests inside
+

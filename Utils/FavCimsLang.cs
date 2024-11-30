@@ -1,11 +1,12 @@
-using System.Collections.Generic;
 using ColossalFramework.Globalization;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FavoriteCims.Utils
 {
-	public class FavCimsLang : MonoBehaviour
-	{
+    [System.Obsolete("Use AlgernonCommons.Translations instead in the furture")]
+    public class FavCimsLang : MonoBehaviour
+    {
         public static string GameLanguage;
 
         public static Dictionary<string, string> it = [];
@@ -17,15 +18,15 @@ namespace FavoriteCims.Utils
         public static Dictionary<string, string> rus = [];
 
         public static string Text(string index)
-		{
-			if (GameLanguage == null || GameLanguage != Locale.Get("LANGUAGE_ENGLISH"))
-			{
-				try
-				{
-					GameLanguage = Locale.Get("LANGUAGE_ENGLISH");
-					if (GameLanguage == "(ITALIAN)")
-					{
-						it = new Dictionary<string, string>
+        {
+            if (GameLanguage == null || GameLanguage != Locale.Get("LANGUAGE_ENGLISH"))
+            {
+                try
+                {
+                    GameLanguage = Locale.Get("LANGUAGE_ENGLISH");
+                    if (GameLanguage == "(ITALIAN)")
+                    {
+                        it = new Dictionary<string, string>
                         {
                             ["FavCimsButton_tooltip"] = "I Miei Cims Preferiti",
                             ["FavCimsBCMenuButton_text"] = "Abitanti",
@@ -185,11 +186,11 @@ namespace FavoriteCims.Utils
                             ["OnShelter_Building_Service"] = "Survivors and Workers",
                             ["OnBuilding_noHotelGuests"] = "No Hotel guests inside",
                         };
-						return it[index];
-					}
-					if (GameLanguage == "(DUTCH)")
-					{
-						nl = new Dictionary<string, string>
+                        return it[index];
+                    }
+                    if (GameLanguage == "(DUTCH)")
+                    {
+                        nl = new Dictionary<string, string>
                         {
                             ["FavCimsButton_tooltip"] = "Mijn favoriete cims",
                             ["FavCimsBCMenuButton_text"] = "Inwoners",
@@ -349,11 +350,11 @@ namespace FavoriteCims.Utils
                             ["OnShelter_Building_Service"] = "Survivors and Workers",
                             ["OnBuilding_noHotelGuests"] = "No Hotel guests inside",
                         };
-						return nl[index];
-					}
-					if (GameLanguage == "(RUSSIAN)")
-					{
-						rus = new Dictionary<string, string>
+                        return nl[index];
+                    }
+                    if (GameLanguage == "(RUSSIAN)")
+                    {
+                        rus = new Dictionary<string, string>
                         {
                             ["FavCimsButton_tooltip"] = "My Favorite Cims",
                             ["FavCimsBCMenuButton_text"] = "Жители",
@@ -513,9 +514,9 @@ namespace FavoriteCims.Utils
                             ["OnShelter_Building_Service"] = "Survivors and Workers",
                             ["OnBuilding_noHotelGuests"] = "No Hotel guests inside",
                         };
-						return rus[index];
-					}
-					en = new Dictionary<string, string>
+                        return rus[index];
+                    }
+                    en = new Dictionary<string, string>
                     {
                         ["FavCimsButton_tooltip"] = "My Favorite Cims",
                         ["FavCimsBCMenuButton_text"] = "Citizens",
@@ -675,13 +676,13 @@ namespace FavoriteCims.Utils
                         ["OnShelter_Building_Service"] = "Survivors and Workers",
                         ["OnBuilding_noHotelGuests"] = "No Hotel guests inside",
                     };
-					return en[index];
-				}
-				catch
-				{
-					return "language Error";
-				}
-			}
+                    return en[index];
+                }
+                catch
+                {
+                    return "language Error";
+                }
+            }
 
             string text = GameLanguage switch
             {
@@ -691,6 +692,6 @@ namespace FavoriteCims.Utils
                 _ => en[index],
             };
             return text;
-		}
-	}
+        }
+    }
 }

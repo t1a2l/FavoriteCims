@@ -1,0 +1,153 @@
+﻿LANGUAGE,Русский,Language name (in native language).
+LANGUAGE_CHOICE,Выбрать язык,Heading for language selection menu.
+LANGUAGE_GAME,Использ. язык игры,Default selection in language selection menu.
+NOTE_CLOSE,Закрыть,Notification button text - closes the notification.
+NOTE_DONTSHOWAGAIN,Не показывать снова,Notification button text - don't show this notification again.
+NO,Нет,Notification button text - don't perform this action.
+YES,Да,Notification button text - perfom this action.
+PRESS_ANY_KEY,Нажмите любую клавишу,Shown when awaiting user input when changing a key setting.
+CONFLICT_DETECTED,Обнаружен конфликт модов!,Warning message that a mod conflict was detected.
+UNABLE_TO_OPERATE,Это означает, что мод не может работать и был отключён.,Warning message letting the user know that the mod can't work.
+CONFLICTING_MODS,Конфликтующие моды:,Part of the mod conflict warning notification - header for the list of conflicting mods.
+HARMONY_ERROR,Моду не удалось правильно применить необходимые исправления Harmony.,Warning message that a patching problem was detected, and the mod can't operate.
+HARMONY_PROBLEM_CAUSES,Возможные причины этой проблемы:,Header for list of possible causes of Harmony errors.
+HARMONY_NOT_INSTALLED,Требуемый мод Harmony 2 не был установлен,Possible cause of Harmony error - Harmony not installed.
+HARMONY_MOD_ERROR,Старый и/или сломанный мод мешает правильной работе Harmony 2,Possible cause of Harmony error - a broken mod (not this one) can cause things to stop working.
+HARMONY_MOD_CONFLICT,Другой мод, возможно, пытается применить конфликтующее исправление Harmony,Possible cause of Harmony error - two mods trying to patch the same thing at once.
+DETAIL_LOGGING,Включить расширенный лог,Option to record more detail in game log
+FavCimsButton_tooltip,My Favorite Cims
+FavCimsBCMenuButton_text,Жители
+FavCimsBCMenuButton_tooltip,Люди
+FavCimsBBMenuButton_text,Здания
+FavCimsBBMenuButton_tooltip,Избранные здания
+FavCimsBSMenuButton_text,Показатели
+FavCimsBSMenuButton_tooltip,Инфо и показатели
+FavStarButton_enable_tooltip,Кликни, чтобы добавить в Избранные!
+FavStarButton_disable_tooltip,Кликни, чтобы удалить из Избранных :(
+FavCimsHappinesColText_text,Статус
+FavCimsHappinesColText_tooltip,Статус счастья
+FavCimsNameColText_text,Имя жителя
+FavCimsNameColText_tooltip,Имя жителя
+FavCimsEduColText_text,Образование
+FavCimsEduColText_tooltip,Уровень образования
+FavCimsWorkingPlaceColText_text,Место учебы/работы
+FavCimsWorkingPlaceColText_tooltip,Место где учится/работает житель
+FavCimsAgePhaseColText_text,Возрастная категория
+FavCimsAgePhaseColText_tooltip,Категория возраста жителя
+FavCimsAgeColText_text,Возраст
+FavCimsAgeColText_tooltip,Возраст жителя
+FavCimsHomeColText_text,Место жительства
+FavCimsHomeColText_tooltip,Горожанин живет здесь
+FavCimsLastActColText_text,Последняя активность
+FavCimsLastActColText_tooltip,Чем житель занят в данный момент
+FavCimsCloseButtonCol_text,Закрыть
+FavCimsCloseButtonCol_tooltip,Нажми Закрыть, чтобы убрать жителя из Избранных :(
+Male,Мужчина
+Female,Женщина
+AgePhase_Child_Male,Ребенок
+AgePhase_Teen_Male,Подросток
+AgePhase_Young_Male,Молодой
+AgePhase_Adult_Male,Взрослый
+AgePhase_Senior_Male,Старый
+Education_Uneducated_Male,Необразован
+Education_OneSchool_Male,Начальная школа
+Education_TwoSchools_Male,Средняя школа
+Education_ThreeSchools_Male,Университет
+AgePhase_Child_Female,Ребенок
+AgePhase_Teen_Female,Подросток
+AgePhase_Young_Female,Молодая
+AgePhase_Adult_Female,Взрослая
+AgePhase_Senior_Female,Старая
+Education_Uneducated_Female,Необразована
+Education_OneSchool_Female,Начальная школа
+Education_TwoSchools_Female,Средняя школа
+Education_ThreeSchools_Female,Университет
+AgePhaseDead_Male,Умер
+AgePhaseDead_Female,Умерла
+People_Life_Status_Alive,Горожанин жив
+People_Life_Status_Dead,Горожанин умер
+People_Life_Status_Dead_date,в этот день
+People_Life_Status_Dead_time,в это время
+NotificationIconVeryUnhappy,Горемыка
+NotificationIconUnhappy,Грустный(ая)
+NotificationIconHappy,Радостный(ая)
+NotificationIconVeryHappy,Счастливец(а)
+NotificationIconExtremelyHappy,На седьмом небе
+time_format,мм-дд-гггг
+People_Life_Status_IsGone,Житель уехал из города
+Citizen_HomeLess,Бомж
+Citizen_HomeLess_tooltip,У жителя нет дома
+HomeOutsideTheCity,Далеко-далеко
+Home_Location_Dead,На кладбище
+Citizen_Retired,Не работает
+Citizen_Retired_tooltip,Житель больше не работает
+Unemployed_tooltip,У жителя полно свободного времени...
+Government_job,Административное Здание
+Electricity_job,Электростанция
+Water_job,Гидростанция
+Generic_job_place,Житель работает здесь
+Vehicle_on_foot,Житель идет пешком
+Citizen_Details,Подробности
+Citizen_Details_fullTemplate,Открыто слишком много Панелей Семей
+Status_static_label,Статус : 
+Citizen_Family_unit,Семья
+NowInThisDistrict,Находится в районе: 
+DistrictLabel,Район: 
+DistrictNameNoDistrict,Отсутсвует
+Citizen_Details_No_Partner,Одинок(а)
+Citizen_Details_No_Childs,Детей нет
+Right_click_to_swith_tooltip,Правая кнопка - сменить жителя
+Home_Bubble_panel_Label,Дом : 
+Low_Wealth_Male,Бедный
+Mid_Wealth_Male,Обеспеченный
+High_Wealth_Male,Богатый
+Low_Wealth_Female,Бедная
+Mid_Wealth_Female,Обеспеченная
+High_Wealth_Female,Богатая
+WellBeingLabel,Благополучие: 
+HappinessLabel,Счастье : 
+Wealth_Label,Благосостояние
+Health_Level_VerySick_Male,Тяжело болен
+Health_Level_Sick_Male,Болен
+Health_Level_PoorHealth_Male,Хворает
+Health_Level_Healthy_Male,В норме
+Health_Level_VeryHealthy_Male,Здоров
+Health_Level_ExcellentHealth_Male,До безобразия здоров
+Health_Level_VerySick_Female,Тяжело больна
+Health_Level_Sick_Female,Больна
+Health_Level_PoorHealth_Female,Хворает
+Health_Level_Healthy_Female,В норме
+Health_Level_VeryHealthy_Female,Здорова
+Health_Level_ExcellentHealth_Female,До неприличия здорова
+District_Label,Район: 
+District_Label_tooltip,Сейчас в этом районе
+Citizen_Details_NoUnit,Житель умер или бомж
+Citizen_wait_hearse,Ждет катафалк
+Citizen_on_hearse,В катафалке
+Citizen_hisfuneral,Похороны
+Citizen_buried,Погребен(а)
+Citizen_Tourist_tooltip,Этот турист посещает ваш город
+View_PassengersList,Просмотр пассажиров
+View_NoPassengers,Пассажиров нет
+Vehicle_Passengers,Пассажиры в салоне
+Vehicle_DriverIconText,Водитель
+Vehicle_PasssengerIconText,Пассажиры
+Citizens_HouseHolds,Просмотр жильцов
+Citizens_HouseHoldsTitle,Жильцы
+CitizenOnBuilding,Список кадров и гостей
+CitizenOnBuildingTitle,Сотрудники и Гости
+CitizenOnHotelBuildingTitle,Employees and Hotel Guests and Visitors
+OnBuilding_Residential,Квартира 
+OnBuilding_HotelRooms,Hotel Room 
+View_List,Просмотр 
+OnBuilding_Guests,Посетители
+OnBuilding_Workers,Сотрудники
+WorkersOnBuilding,Список сотрудников
+OnBuilding_NoWorkers,На работе никого
+OnBuilding_NoGuests,Посетителей нет
+OnBuilding_NoHotelGuests,No hotel guests inside
+BuildingIsEmpty,Жителей/работников нет
+OnBuilding_TotalWorkers,Всего :
+Buildings_Type_CommercialEco,Коммер. здание (Экология)
+Buildings_Type_CommercialLeisure,Коммер. здание (Досуг и отдых)
+Buildings_Type_CommercialTourist,Коммер. здание (Туризм)

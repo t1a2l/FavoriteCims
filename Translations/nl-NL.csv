@@ -1,0 +1,128 @@
+﻿LANGUAGE,Nederlands,Language name (in native language).
+LANGUAGE_CHOICE,Kies taal,Heading for language selection menu.
+LANGUAGE_GAME,Gebruik speltaal,Default selection in language selection menu.
+NOTE_CLOSE,Sluiten,Notification button text - closes the notification.
+NOTE_DONTSHOWAGAIN,Laat niet opnieuw zien,Notification button text - don't show this notification again.
+NO,Nee,Notification button text - don't perform this action.
+YES,Ja,Notification button text - perfom this action.
+PRESS_ANY_KEY,Druk op een toets,Shown when awaiting user input when changing a key setting.
+CONFLICT_DETECTED,Mod conflict gedetecteerd!,Warning message that a mod conflict was detected.
+UNABLE_TO_OPERATE,Dit betekent dat de mod niet kan functioneren en is gestopt.,Warning message letting the user know that the mod can't work.
+CONFLICTING_MODS,De mods waarmee conflicten zijn:,Part of the mod conflict warning notification - header for the list of conflicting mods.
+HARMONY_ERROR,De mod was niet in staat om zijn vereiste Harmony patches toe te passen.,Warning message that a patching problem was detected, and the mod can't operate.
+HARMONY_PROBLEM_CAUSES,Mogelijke oorzaken van dit probleem zijn:,Header for list of possible causes of Harmony errors.
+HARMONY_NOT_INSTALLED,De benodigde Harmony 2 mod afhankelijkheid is niet geïnstalleerd,Possible cause of Harmony error - Harmony not installed.
+HARMONY_MOD_ERROR,Een oude en/of beschadigde mod voorkomt dat Harmony 2 naar behoren kan functioneren,Possible cause of Harmony error - a broken mod (not this one) can cause things to stop working.
+HARMONY_MOD_CONFLICT,Een andere mod kan proberen een conflicterende Harmony patch toe te passen,Possible cause of Harmony error - two mods trying to patch the same thing at once.
+DETAIL_LOGGING,Maakt gedetailleerde foutopsporingslogging mogelijk,Option to record more detail in game log
+FavCimsButton_tooltip,Mijn favoriete cims
+FavCimsBCMenuButton_text,Inwoners
+FavCimsBCMenuButton_tooltip,Gevolgde personen
+FavCimsBBMenuButton_text,Gebouwen
+FavCimsBBMenuButton_tooltip,Favoriete gebouwen
+FavCimsBSMenuButton_text,Stats
+FavCimsBSMenuButton_tooltip,Info en stats
+FavStarButton_enable_tooltip,Klik hier om aan favorieten toe te voegen!
+FavStarButton_disable_tooltip,Klik hier om uit favoriete te verwijderen :(
+FavCimsHappinesColText_text,Status
+FavCimsHappinesColText_tooltip,Inwonergeluk
+FavCimsNameColText_text,Inwonernaam
+FavCimsNameColText_tooltip,Inwonernaam
+FavCimsEduColText_text,Opleiding
+FavCimsEduColText_tooltip,Opleidingsniveau van de inwoner
+FavCimsWorkingPlaceColText_text,Beroep
+FavCimsWorkingPlaceColText_tooltip,Plaats waar de inwoner werkt of onderwijs geniet
+FavCimsAgePhaseColText_text,Levensfase
+FavCimsAgePhaseColText_tooltip,Levensfase van de inwoner
+FavCimsAgeColText_text,Leeftijd
+FavCimsAgeColText_tooltip,Leeftijf van de inwoner
+FavCimsHomeColText_text,Woning van inwoner
+FavCimsHomeColText_tooltip,Inwoner woont in dit huis
+FavCimsLastActColText_text,Laatste activiteit
+FavCimsLastActColText_tooltip,Wat de inwoner op dit moment aan het doen is
+FavCimsCloseButtonCol_text,Sluiten
+FavCimsCloseButtonCol_tooltip,Klik op de knop Sluiten om de inwoner uit de favorieten te verwijderen :(
+Male,Mannelijk
+Female,Vrouwelijk
+AgePhase_Child_Male,Jongetje
+AgePhase_Teen_Male,Jongen
+AgePhase_Young_Male,Jonge man
+AgePhase_Adult_Male,Man
+AgePhase_Senior_Male,Oude man
+Education_Uneducated_Male,Ongeschoold
+Education_OneSchool_Male,Laag geschoold
+Education_TwoSchools_Male,Goed geschoold
+Education_ThreeSchools_Male,Hoog opgeleid
+AgePhase_Child_Female,Meisje
+AgePhase_Teen_Female,Meid
+AgePhase_Young_Female,Jonge vrouw
+AgePhase_Adult_Female,Vrouw
+AgePhase_Senior_Female,Oude vrouw
+Education_Uneducated_Female,Ongeschoold
+Education_OneSchool_Female,Laag geschoold
+Education_TwoSchools_Female,Goed geschoold
+Education_ThreeSchools_Female,Hoog opgeleid
+AgePhaseDead_Male,Dood
+AgePhaseDead_Female,Dood
+People_Life_Status_Alive,Inwoner leeft
+People_Life_Status_Dead,Inwoner is dood
+People_Life_Status_Dead_date,op deze datum
+People_Life_Status_Dead_time,om
+NotificationIconVeryUnhappy,Zeer ongelukkig
+NotificationIconUnhappy,Ongelukkig
+NotificationIconHappy,Gelukkig
+NotificationIconVeryHappy,Zeer gelukkig
+NotificationIconExtremelyHappy,Buitengewoon gelukkig
+time_format,mm-dd-yyyy
+People_Life_Status_IsGone,Inwoner is momenteel niet in de stad
+Citizen_HomeLess,Dakloos
+Citizen_HomeLess_tooltip,Inwoner heeft geen woning
+HomeOutsideTheCity,Erg ver weg
+Home_Location_Dead,Op de begraafplaats
+Citizen_Retired,Gepensioneerd
+Citizen_Retired_tooltip,Inwoner is met pensioen
+Unemployed_tooltip,Inwoner heeft momenteel veel vrije tijd...
+Government_job,Overheidsgebouw
+Electricity_job,Electriciteitscentrale
+Water_job,Waterbedrijf
+Generic_job_place,Inwoner werkt in dit gebouw
+Vehicle_on_foot,Inwoner is te voet
+Citizen_Details,Inwonerdetails
+Citizen_Details_fullTemplate,Teveel gezinvensters geopend, sluit er alvorens andere te openen
+Status_static_label,Status: 
+Citizen_Family_unit,Gezin
+NowInThisDistrict,Is op dit moment in de wijk: 
+DistrictLabel,Wijk: 
+DistrictNameNoDistrict,Geen
+Citizen_Details_No_Partner,Geen partner
+Citizen_Details_No_Childs,Geen kinderen
+Right_click_to_swith_tooltip,Rechtermuisknop om van inwoner te wisselen
+Home_Bubble_panel_Label,Woning: 
+Low_Wealth_Male,Arm
+Mid_Wealth_Male,Modaal
+High_Wealth_Male,Rijk
+Low_Wealth_Female,Arm
+Mid_Wealth_Female,Modaal
+High_Wealth_Female,Rijk
+WellBeingLabel,Welzijn: 
+HappinessLabel,Geluk: 
+Wealth_Label,Rijkdom
+Health_Level_VerySick_Male,Zeer ziek
+Health_Level_Sick_Male,Ziek
+Health_Level_PoorHealth_Male,Zwakke gezondheid
+Health_Level_Healthy_Male,Normale gezondheid
+Health_Level_VeryHealthy_Male,Goede gezondheid
+Health_Level_ExcellentHealth_Male,Uitmuntende gezondheid
+Health_Level_VerySick_Female,Zeer ziek
+Health_Level_Sick_Female,Ziek
+Health_Level_PoorHealth_Female,Zwakke gezondheid
+Health_Level_Healthy_Female,Normale gezondheid
+Health_Level_VeryHealthy_Female,Goede gezondheid
+Health_Level_ExcellentHealth_Female,Uitmuntende gezondheid
+District_Label,Wijk: 
+District_Label_tooltip,Momenteel in de wijk
+Citizen_Details_NoUnit,Inwoner is dood of dakloos
+Citizen_wait_hearse,Wacht op een lijkwagen
+Citizen_on_hearse,In lijkwagen
+Citizen_hisfuneral,Begravenisceremonie
+Citizen_buried,Onder de groene zoden
