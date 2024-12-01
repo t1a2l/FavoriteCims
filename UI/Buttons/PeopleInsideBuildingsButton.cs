@@ -1,8 +1,8 @@
-using System;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
+using System;
 using UnityEngine;
 
 namespace FavoriteCims.UI.Buttons
@@ -44,6 +44,7 @@ namespace FavoriteCims.UI.Buttons
                     BuildingPanel.BuildingID = InstanceID.Empty;
                     BuildingPanel.Hide();
                 }
+                BuildingPanel.UpdateList();
             };
         }
 
