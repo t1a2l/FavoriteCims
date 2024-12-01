@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FavoriteCims", "FavoriteCims.csproj", "{CF584495-4D36-481F-95C3-E7C2A5D6CD31}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AlgernonCommonsShared", "..\FPSCamera-Continued\AlgernonCommons\AlgernonCommonsShared.shproj", "{25AEF446-6F0D-43A8-BB84-D1306789B68C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,5 +23,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8BE3A7CC-3CD3-4051-BDEF-1BEF4196767E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\FPSCamera-Continued\AlgernonCommons\AlgernonCommonsShared.projitems*{25aef446-6f0d-43a8-bb84-d1306789b68c}*SharedItemsImports = 13
+		..\FPSCamera-Continued\AlgernonCommons\AlgernonCommonsShared.projitems*{cf584495-4d36-481f-95c3-e7c2a5d6cd31}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,174 @@
+﻿LANGUAGE,English,Language name (in native language).  This means the NAME OF THE LANGUAGE BEING TRANSLATED INTO, and should NOT be a translation of the word 'English'
+LANGUAGE_CHOICE,Choose language,Heading for language selection menu.
+LANGUAGE_GAME,Use game language,Default selection in language selection menu.
+NOTE_CLOSE,Close,Notification button text - closes the notification.
+NOTE_DONTSHOWAGAIN,Don't show again,Notification button text - don't show this notification again.
+NO,No,Notification button text - don't perform this action.
+YES,Yes,Notification button text - perfom this action.
+PRESS_ANY_KEY,Press any key,Shown when awaiting user input when changing a key setting.
+CONFLICT_DETECTED,Mod conflict detected!,Warning message that a mod conflict was detected.
+UNABLE_TO_OPERATE,This means that the mod is not able to operate and has shut down.,Warning message letting the user know that the mod can't work.
+CONFLICTING_MODS,The conflicting mods are:,Part of the mod conflict warning notification - header for the list of conflicting mods.
+HARMONY_ERROR,The mod was unable to properly apply its required Harmony patches.,Warning message that a patching problem was detected, and the mod can't operate.
+HARMONY_PROBLEM_CAUSES,Possible causes of this problem include:,Header for list of possible causes of Harmony errors.
+HARMONY_NOT_INSTALLED,The required Harmony 2 mod dependency was not installed,Possible cause of Harmony error - Harmony not installed.
+HARMONY_MOD_ERROR,An old and/or broken mod is preventing Harmony 2 from operating properly,Possible cause of Harmony error - a broken mod (not this one) can cause things to stop working.
+HARMONY_MOD_CONFLICT,Another mod may be trying to apply a conflicting Harmony patch,Possible cause of Harmony error - two mods trying to patch the same thing at once.
+DETAIL_LOGGING,Enable detailed debugging logging,Option to record more detail in game log
+FavCimsButton_tooltip,My Favorite Cims
+FavCimsBCMenuButton_text,Citizens
+FavCimsBCMenuButton_tooltip,Followed People
+FavCimsBBMenuButton_text,Buildings
+FavCimsBBMenuButton_tooltip,Favorite Buildings
+FavCimsBSMenuButton_text,Stats
+FavCimsBSMenuButton_tooltip,Info and Stats
+FavStarButton_enable_tooltip,Click here to add to Favorites!
+FavStarButton_disable_tooltip,Click here to remove from Favorites :(
+FavCimsHappinesColText_text,Status
+FavCimsHappinesColText_tooltip,Citizen Happiness
+FavCimsNameColText_text,Citizen Name
+FavCimsNameColText_tooltip,Citizen Name
+FavCimsEduColText_text,Education
+FavCimsEduColText_tooltip,Citizen Education Level
+FavCimsWorkingPlaceColText_text,Occupation
+FavCimsWorkingPlaceColText_tooltip,Place where the Citizen Works or Study
+FavCimsAgePhaseColText_text,Age Phase
+FavCimsAgePhaseColText_tooltip,Citizen life Age Phase
+FavCimsAgeColText_text,Age
+FavCimsAgeColText_tooltip,Citizen Age
+FavCimsHomeColText_text,Citizen Home
+FavCimsHomeColText_tooltip,Citizen Living in this House
+FavCimsLastActColText_text,Last Activity
+FavCimsLastActColText_tooltip,What the Citizen is doing at the moment
+FavCimsCloseButtonCol_text,Close
+FavCimsCloseButtonCol_tooltip,Click on close button for remove citizen from favorites :(
+Male,Male
+Female,Female
+AgePhase_Child_Male,Child
+AgePhase_Teen_Male,Boy
+AgePhase_Young_Male,Young Man
+AgePhase_Adult_Male,Man
+AgePhase_Senior_Male,Old Man
+Education_Uneducated_Male,Uneducated
+Education_OneSchool_Male,Educated
+Education_TwoSchools_Male,Well Educated
+Education_ThreeSchools_Male,Highly Educated
+AgePhase_Child_Female,Child
+AgePhase_Teen_Female,Girl
+AgePhase_Young_Female,Young Woman
+AgePhase_Adult_Female,Woman
+AgePhase_Senior_Female,Old Woman
+Education_Uneducated_Female,Uneducated
+Education_OneSchool_Female,Educated
+Education_TwoSchools_Female,Well Educated
+Education_ThreeSchools_Female,Highly Educated
+AgePhaseDead_Male,Dead
+AgePhaseDead_Female,Dead
+People_Life_Status_Alive,Citizen is alive
+People_Life_Status_Dead,Citizen is dead
+People_Life_Status_Dead_date,on this date
+People_Life_Status_Dead_time,at time
+NotificationIconVeryUnhappy,Very Unhappy
+NotificationIconUnhappy,Unhappy
+NotificationIconHappy,Happy
+NotificationIconVeryHappy,Very Happy
+NotificationIconExtremelyHappy,Extremely Happy
+time_format,mm-dd-yyyy
+People_Life_Status_IsGone,Citizen is gone away from the city
+Citizen_HomeLess,Homeless
+Citizen_HomeLess_tooltip,Citizen has no home
+HomeOutsideTheCity,Far far away
+Home_Location_Dead,At Cemetery
+Citizen_Retired,Retired
+Citizen_Retired_tooltip,Citizen retired from work
+Unemployed_tooltip,Citizen has much free time at the moment...
+Government_job,Government Building
+Electricity_job,Electricity Plant
+Water_job,Water Plant
+Generic_job_place,Citizen Works in this building
+Vehicle_on_foot,Citizen walking on foot
+Citizen_Details,Citizen Detail
+Citizen_Details_fullTemplate,Too many Family Windows opened, close one before open another
+Status_static_label,Status : 
+Citizen_Family_unit,Family
+NowInThisDistrict,In this moment is in District: 
+DistrictLabel,District: 
+DistrictNameNoDistrict,None
+Citizen_Details_No_Partner,No Partner
+Citizen_Details_No_Childs,No Childs
+Right_click_to_swith_tooltip,Right Click to Switch Citizen
+Home_Bubble_panel_Label,Home : 
+Low_Wealth_Male,Poor
+Mid_Wealth_Male,Well-off
+High_Wealth_Male,Rich
+Low_Wealth_Female,Poor
+Mid_Wealth_Female,Well-off
+High_Wealth_Female,Rich
+WellBeingLabel,Wellbeing: 
+HappinessLabel,Happiness : 
+Wealth_Label,Wealth
+Health_Level_VerySick_Male,Very Sick
+Health_Level_Sick_Male,Sick
+Health_Level_PoorHealth_Male,Poor Health
+Health_Level_Healthy_Male,Healthy
+Health_Level_VeryHealthy_Male,Very Healthy
+Health_Level_ExcellentHealth_Male,Excellent Health
+Health_Level_VerySick_Female,Very Sick
+Health_Level_Sick_Female,Sick
+Health_Level_PoorHealth_Female,Poor Health
+Health_Level_Healthy_Female,Healthy
+Health_Level_VeryHealthy_Female,Very Healthy
+Health_Level_ExcellentHealth_Female,Excellent Health
+District_Label,District: 
+District_Label_tooltip,In this District at the moment
+Citizen_Details_NoUnit,Citizen is dead or homeless
+Citizen_wait_hearse,Waiting for funeral car
+Citizen_on_hearse,On funeral car
+Citizen_hisfuneral,Funeral ceremony
+Citizen_buried,Six Feet Under
+Citizen_Tourist_tooltip,This citizen is visiting our City
+View_PassengersList,View passengers list
+View_NoPassengers,No passengers
+Vehicle_Passengers,Passengers on board
+Vehicle_DriverIconText,Vehicle Driver
+Vehicle_PasssengerIconText,Passengers
+Citizens_HouseHolds,View Residents
+Citizens_HouseHoldsTitle,Residents
+CitizenOnBuilding,Employees and Guests List
+CitizenOnBuildingTitle,Employees and Guests
+CitizenOnHotelBuildingTitle,Employees and Hotel Guests and Visitors
+OnBuilding_Residential,Apartment 
+OnBuilding_HotelRooms,Hotel Room 
+View_List,View 
+OnBuilding_Guests,Guests
+OnBuilding_Workers,Employees at work
+WorkersOnBuilding,List of employees at work
+OnBuilding_NoWorkers,Nobody at work
+OnBuilding_NoGuests,No guests inside
+OnBuilding_NoHotelGuests,No hotel guests inside
+BuildingIsEmpty,Nobody works or lives here
+OnBuilding_TotalWorkers,Tot :
+Buildings_Type_CommercialEco,Ecologic Commercial Building
+Buildings_Type_CommercialLeisure,Leisure Commercial Building
+Buildings_Type_CommercialTourist,Tourism Commercial Building
+Citizen_Arrested,This Citizen is in Jail!
+Transported_to_Prison,Transported to Prison
+Jailed_into,Jailed into 
+Citizen_at_School,Pupils at school
+Citizen_at_University,Students at university
+Citizen_at_Clinic,Patients being treated
+Citizen_Under_Arrest,Citizens under arrest
+OnBuilding_noArrested,Nobody jailed here
+OnPolice_Building_Service,Officers and Prisoners
+OnPrison_Building_Service,Guards and Prisoners
+OnEducation_Building_Service,Teachers and Pupils
+OnHighEducation_Building_Service,Lecturers and Students
+OnMedical_Building_Service,Doctors and Patients
+OnMedicalUniversity_Building_Service,Doctors and Patients and Students
+OnBuilding_noStudents,No Students inside
+OnBuilding_noPatients,No Patients inside
+OnHelicopter_Building_Service,Pilots and Workers
+OnFire_Building_Service,FireFighters and Workers
+OnRescue_Building_Service,Pilots and RescueWorkers
+OnShelter_Building_Service,Survivors and Workers
+OnBuilding_noHotelGuests,No Hotel guests inside

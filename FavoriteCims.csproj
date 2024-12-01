@@ -243,21 +243,39 @@
 	  <EmbeddedResource Include="Utils\Resources\VehiclePanel\VehiclePanelTitleBg.png" />
 	</ItemGroup>
 	<ItemGroup>
-		<Reference Include="Assembly-CSharp">
-			<HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ColossalManaged">
-			<HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="ICities">
-			<HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="UnityEngine">
-			<HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
+	  <Reference Include="Assembly-CSharp">
+	    <HintPath>..\..\..\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
+	    <Private>False</Private>
+	  </Reference>
+	  <Reference Include="ColossalManaged">
+	    <HintPath>..\..\..\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
+	    <Private>False</Private>
+	  </Reference>
+	  <Reference Include="ICities">
+	    <HintPath>..\..\..\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
+	    <Private>False</Private>
+	  </Reference>
+	  <Reference Include="UnityEngine">
+	    <HintPath>..\..\..\SteamLibrary\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
+	    <Private>False</Private>
+	  </Reference>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Translations\en-EN.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Translations\it-IT.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Translations\nl-NL.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Translations\ru-RU.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Translations\zh-CN.csv">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+	<Import Project="..\FPSCamera-Continued\AlgernonCommons\AlgernonCommonsShared.projitems" Label="Shared" />
 </Project>
