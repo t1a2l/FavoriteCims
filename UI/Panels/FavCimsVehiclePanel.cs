@@ -15,8 +15,6 @@ namespace FavoriteCims.UI.Panels
 
         private bool execute = false;
 
-        private bool firstRun = true;
-
         public static bool Wait = false;
 
         public InstanceID VehicleID;
