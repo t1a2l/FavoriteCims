@@ -225,13 +225,14 @@ namespace FavoriteCims.UI.Panels
 					}
 				}
 				VehicleUnits = nextUnit;
-				if (++unitnum > 524288)
+				if (++unitnum > Singleton<CitizenManager>.instance.m_units.m_size)
 				{
 					break;
 				}	
 			}
-			
-		}
+            BodyList.Data = fastList;
+            BodyList.CurrentPosition = 0;
+        }
 
         private void UpdatePanelLayout()
         {
