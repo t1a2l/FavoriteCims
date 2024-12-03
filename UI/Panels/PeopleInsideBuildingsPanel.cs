@@ -29,7 +29,7 @@ namespace FavoriteCims.UI.Panels
 
         public static Dictionary<uint, uint> CimsOnBuilding = [];
 
-        private FastList<object> fastList = new FastList<object>();
+        private readonly FastList<object> fastList = new();
 
         public static int WorkersCount = 0;
 
@@ -40,6 +40,7 @@ namespace FavoriteCims.UI.Panels
         private int total_workers = 0;
 
         private uint BuildingUnits;
+
         private CitizenUnit CitizenUnit => MyCitizen.m_units.m_buffer[BuildingUnits];
 
         private UIPanel Title;
@@ -58,10 +59,12 @@ namespace FavoriteCims.UI.Panels
 
         private UITextureSprite FooterSpriteBg;
 
-
         private bool IsCimCareBuilding => FavCimsCore.IsCimCareBuilding(BuildingID.Building);
+
         private bool IsAreaResidentalBuilding => FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building);
+
         private bool IsHotel => FavCimsCore.IsHotel(BuildingID.Building);
+
         private bool IsInternationalTradeOfficeBuilding => FavCimsCore.IsInternationalTradeOfficeBuilding(BuildingID.Building);
 
         public override void Awake()
@@ -147,6 +150,7 @@ namespace FavoriteCims.UI.Panels
                 Utils.Debug.Error(" Building Panel Start() : " + ex.ToString());
             }
         }
+
         public override void Update()
         {
             if (FavCimsMainClass.UnLoading)
@@ -204,10 +208,10 @@ namespace FavoriteCims.UI.Panels
             AddSubtitles();
             BuildingUnits = MyBuilding.m_buildings.m_buffer[BuildingID.Building].m_citizenUnits;
             int unitnum = 0;
-            //int rownum = 0;
+
             total_workers = 0;
             int hotel_guest_unit = 0;
-            //bool hotelrow = false;
+
             while (BuildingUnits != 0U && unitnum < totalUnitsCount)
             {
                 uint nextUnit = MyCitizen.m_units.m_buffer[BuildingUnits].m_nextUnit;
@@ -215,12 +219,14 @@ namespace FavoriteCims.UI.Panels
                 if ((buildingInfo.m_class.m_service == ItemClass.Service.Residential ||
                     IsAreaResidentalBuilding ||
                     IsCimCareBuilding) && CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Home))
+                {
                     fastList.Add(new TitleRowInfo
                     {
                         atlas = null,
                         spriteName = "BapartmentIcon",
                         text = FavCimsLang.Text("OnBuilding_Residential") + " " + (unitnum + 1).ToString()
                     });
+                }
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -257,28 +263,21 @@ namespace FavoriteCims.UI.Panels
                                 buildingInfo.m_class.m_service == ItemClass.Service.Office ||
                                 IsInternationalTradeOfficeBuilding ||
                                 IsCimCareBuilding)
-                                && CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Work))
+                                && CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Work) && isAtBuilding)
                             {
-                                if (isAtBuilding)
+                                WorkersCount++;
+                                CimsOnBuilding.Add(citizenId, BuildingUnits);
+                                fastList.Add(citizenId);
+                            }
+                            else if (IsHotel)
+                            {
+                                if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Work) && isAtBuilding)
                                 {
                                     WorkersCount++;
                                     CimsOnBuilding.Add(citizenId, BuildingUnits);
                                     fastList.Add(citizenId);
                                 }
-                            }
-                            else if (IsHotel)
-                            {
-
-                                if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Work))
-                                {
-                                    if (isAtBuilding)
-                                    {
-                                        WorkersCount++;
-                                        CimsOnBuilding.Add(citizenId, BuildingUnits);
-                                        fastList.Add(citizenId);
-                                    }
-                                }
-                                else if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Hotel))
+                                else if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Hotel) && isAtBuilding)
                                 {
                                     fastList.Add(new TitleRowInfo
                                     {
@@ -295,7 +294,7 @@ namespace FavoriteCims.UI.Panels
                                         {
                                             atlas = null,
                                             spriteName = "BapartmentIcon",
-                                            text = FavCimsLang.Text("OnBuilding_NoGuests")
+                                            text = FavCimsLang.Text("OnBuilding_noHotelGuests")
                                         });
                                     }
                                 }
@@ -312,7 +311,7 @@ namespace FavoriteCims.UI.Panels
                                         fastList.Add(new TitleRowInfo
                                         {
                                             atlas = null,
-                                            spriteName = "BworkingIcon",
+                                            spriteName = "BcommercialIcon",
                                             text = FavCimsLang.Text("OnBuilding_NoGuests")
                                         });
                                     }
@@ -381,25 +380,25 @@ namespace FavoriteCims.UI.Panels
                     case ItemClass.Service.PoliceDepartment when buildingInfo.m_class.m_level == ItemClass.Level.Level4:
                         TitleBuildingName.text = FavCimsLang.Text("OnPrison_Building_Service");
                         break;
-                    case ItemClass.Service.PoliceDepartment:
+                    case ItemClass.Service.PoliceDepartment when buildingInfo.m_class.m_subService != ItemClass.SubService.PoliceDepartmentBank:
                         TitleBuildingName.text = FavCimsLang.Text("OnPolice_Building_Service");
                         break;
                     case ItemClass.Service.FireDepartment:
                         TitleBuildingName.text = FavCimsLang.Text("OnFire_Building_Service");
                         break;
                     case ItemClass.Service.Disaster when buildingInfo.GetAI() is ShelterAI:
-                        TitleBuildingName.text = FavCimsLang.Text("OnRescue_Building_Service");
+                        TitleBuildingName.text = FavCimsLang.Text("OnShelter_Building_Service");
                         break;
                     case ItemClass.Service.Disaster:
-                        TitleBuildingName.text = FavCimsLang.Text("OnShelter_Building_Service");
+                        TitleBuildingName.text = FavCimsLang.Text("OnRescue_Building_Service");
                         break;
                     case ItemClass.Service.Education:
                         TitleBuildingName.text = FavCimsLang.Text("OnEducation_Building_Service");
                         break;
-                    case ItemClass.Service.PlayerEducation when !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
+                    case ItemClass.Service.PlayerEducation when !IsAreaResidentalBuilding:
                         TitleBuildingName.text = FavCimsLang.Text("OnHighEducation_Building_Service");
                         break;
-                    case ItemClass.Service.HealthCare:
+                    case ItemClass.Service.HealthCare when !IsCimCareBuilding:
                         TitleBuildingName.text = FavCimsLang.Text("OnMedical_Building_Service");
                         break;
                     case ItemClass.Service.Beautification:
@@ -414,9 +413,9 @@ namespace FavoriteCims.UI.Panels
                 }
             }
         }
+
         public void AddSubtitles()
         {
-
             if (buildingInfo.m_class.m_service == ItemClass.Service.Industrial ||
                 buildingInfo.m_class.m_service == ItemClass.Service.Office ||
                 IsInternationalTradeOfficeBuilding ||
@@ -475,6 +474,7 @@ namespace FavoriteCims.UI.Panels
                 }
             }
         }
+
         private void UpdatePanelLayout()
         {
             absolutePosition = new Vector3(RefPanel.absolutePosition.x + RefPanel.width + 5f, RefPanel.absolutePosition.y);
