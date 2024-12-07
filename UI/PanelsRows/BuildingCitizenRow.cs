@@ -25,11 +25,13 @@ namespace FavoriteCims.UI.PanelsRows
         private UIButton age;
 
         private UIButton star;
+
         public override void Awake()
         {
             base.Awake();
             width = 226f;
             height = 25f;
+            name = "BuildingCitizenRow";
             atlas = MyAtlas.FavCimsAtlas;
             BackgroundSpriteName = "bg_row1";
             relativePosition = new Vector3(0f, 0f);
@@ -88,30 +90,7 @@ namespace FavoriteCims.UI.PanelsRows
                 FavCimsCore.AddToFavorites(citizenInstanceID);
             };
         }
-        /*
-        public override void Update()
-        {
-            base.Update();
-            if (Citizen.GetBuildingByLocation() == PeopleInsideBuildingsPanel.BuildingID.Building)
-            {
-                if (RecentSeconds <= 0f)
-                {
-                    Gender.normalFgSprite = null;
-                }
-                else
-                {
-                    Gender.normalFgSprite = "greenArrowIcon";
-                }
-            }
-            else
-            {
-                if (info.m_class.m_service == ItemClass.Service.Residential)
-                {
-                    Gender.normalFgSprite = "redArrowIcon";
-                    RecentSeconds = 8f;
-                }
-            }
-        }*/
+
         public override void Display(object data, int rowIndex)
         {
             citizenId = (uint)data;
@@ -126,7 +105,7 @@ namespace FavoriteCims.UI.PanelsRows
                 isTourist = true;
                 gender.tooltip = Locale.Get("CITIZEN_OCCUPATION_TOURIST");
                 _name.tooltip = localizedStatus + " " + buildingName;
-                if (global::Citizen.GetGender(citizenId) == global::Citizen.Gender.Female)
+                if (Citizen.GetGender(citizenId) == Citizen.Gender.Female)
                 {
                     _name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
                     gender.normalBgSprite = "touristIcon";
@@ -140,7 +119,7 @@ namespace FavoriteCims.UI.PanelsRows
             else
             {
                 gender.tooltip = Locale.Get("ASSETTYPE_CITIZEN");
-                if (global::Citizen.GetGender(citizenId) == global::Citizen.Gender.Female)
+                if (Citizen.GetGender(citizenId) == Citizen.Gender.Female)
                 {
                     _name.textColor = new Color32(byte.MaxValue, 102, 204, 213);
                     gender.normalBgSprite = "Female";
@@ -152,8 +131,6 @@ namespace FavoriteCims.UI.PanelsRows
                 }
                 _name.tooltip = citizen.Arrested ? FavCimsLang.Text("Jailed_into") + " " + buildingName : localizedStatus + " " + buildingName;
             }
-
-
 
             _name.text = CitizenManager.instance.GetCitizenName(citizenId);
             realAge = FavCimsCore.CalculateCitizenAge(citizen.m_age);
@@ -198,6 +175,7 @@ namespace FavoriteCims.UI.PanelsRows
 
             Deselect(rowIndex);
         }
+
         public override void Deselect(int rowIndex)
         {
             //Always use lighter background

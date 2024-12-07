@@ -6,13 +6,17 @@ namespace FavoriteCims.UI.PanelsRows
     public class MultiTypeRow : UIListRow
     {
         private TitleRow _cachedTitleRow;
+
         private BuildingCitizenRow _cachedCitizenRow;
+
         private object _cachedObject;
+
         public override void Awake()
         {
             base.Awake();
             BackgroundOpacity = 0f;//We don't need background for this "row".
         }
+
         public override void Display(object data, int rowIndex)
         {
             if (_cachedTitleRow == null)
@@ -55,13 +59,25 @@ namespace FavoriteCims.UI.PanelsRows
             }
         }
 
-        public override void Select() { }
+        public override void Select() 
+        { 
+
+        }
+
         public override void Deselect(int rowIndex)
         {
             if (_cachedTitleRow is not null)
+            {
                 if (_cachedObject is uint)
+                {
                     _cachedCitizenRow?.Deselect(rowIndex);
-                else _cachedTitleRow?.Deselect(rowIndex);
+                }
+                else
+                {
+                    _cachedTitleRow?.Deselect(rowIndex);
+                }
+            }
+               
         }
     }
 }
