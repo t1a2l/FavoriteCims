@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FavoriteCims.UI.Buttons
 {
-    public class VehiclePassengersButton : UIButton
+    public class PassengersInsideVehiclesButton : UIButton
     {
         private InstanceID VehicleID = InstanceID.Empty;
 
@@ -13,7 +13,7 @@ namespace FavoriteCims.UI.Buttons
 
         public UIPanel RefPanel;
 
-        private FavCimsVehiclePanel VehiclePanel;
+        private PeopleInsideVehiclesPanel VehiclePanel;
 
         public override void Start()
         {
@@ -29,7 +29,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(FavCimsVehiclePanel)) as FavCimsVehiclePanel;
+            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideVehiclesPanel)) as PeopleInsideVehiclesPanel;
             VehiclePanel.VehicleID = InstanceID.Empty;
             VehiclePanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)

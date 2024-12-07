@@ -7,14 +7,14 @@ namespace FavoriteCims.UI.PanelsRows
     {
         private TitleRow _cachedTitleRow;
 
-        private BuildingCitizenRow _cachedCitizenRow;
+        private ItemRow _cachedCitizenRow;
 
         private object _cachedObject;
 
         public override void Awake()
         {
             base.Awake();
-            BackgroundOpacity = 0f;//We don't need background for this "row".
+            BackgroundOpacity = 0f;// We don't need background for this "row".
         }
 
         public override void Display(object data, int rowIndex)
@@ -29,7 +29,7 @@ namespace FavoriteCims.UI.PanelsRows
             }
             if (_cachedCitizenRow == null)
             {
-                _cachedCitizenRow = AddUIComponent<BuildingCitizenRow>();
+                _cachedCitizenRow = AddUIComponent<ItemRow>();
                 _cachedCitizenRow.height = _cachedTitleRow.RowHeight;
                 _cachedCitizenRow.width = width;
                 _cachedCitizenRow.relativePosition = new Vector3(0f, 0f);
@@ -71,6 +71,7 @@ namespace FavoriteCims.UI.PanelsRows
                 if (_cachedObject is uint)
                 {
                     _cachedCitizenRow?.Deselect(rowIndex);
+
                 }
                 else
                 {

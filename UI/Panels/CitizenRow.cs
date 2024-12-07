@@ -428,19 +428,19 @@ namespace FavoriteCims.UI.Panels
                     FavCimsCitizenSingleRowBGSprite.width = FavCimsCitizenSingleRowPanel.width;
                     FavCimsCitizenSingleRowBGSprite.height = FavCimsCitizenSingleRowPanel.height;
                     FavCimsCitizenSingleRowBGSprite.AlignTo(FavCimsCitizenSingleRowPanel, UIAlignAnchor.TopLeft);
-                    if (!FavoriteCimsMainPanel.RowAlternateBackground)
+                    if (!MainPanel.RowAlternateBackground)
                     {
                         FavDot = ResourceLoader.LoadTexture((int)width, 40, "UIMainPanel.Rows.bgrow_1.png");
                         FavDot.name = "FavDot_1";
                         FavCimsCitizenSingleRowBGSprite.texture = FavDot;
-                        FavoriteCimsMainPanel.RowAlternateBackground = true;
+                        MainPanel.RowAlternateBackground = true;
                     }
                     else
                     {
                         FavDot = ResourceLoader.LoadTexture((int)width, 40, "UIMainPanel.Rows.bgrow_2.png");
                         FavDot.name = "FavDot_2";
                         FavCimsCitizenSingleRowBGSprite.texture = FavDot;
-                        FavoriteCimsMainPanel.RowAlternateBackground = false;
+                        MainPanel.RowAlternateBackground = false;
                     }
                     FavDot_hover = ResourceLoader.LoadTexture((int)width, 40, "UIMainPanel.Rows.bgrow_hover.png");
                     FavCimsCitizenSingleRowPanel.eventMouseEnter += delegate (UIComponent component, UIMouseEventParameter eventParam)
@@ -453,7 +453,7 @@ namespace FavoriteCims.UI.Panels
                     };
                     FavCimsCitizenHappinessPanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsCitizenHappinessPanel.name = "FavCimsCitizenHappinessPanel";
-                    FavCimsCitizenHappinessPanel.width = FavoriteCimsMainPanel.FavCimsHappinesColText.width;
+                    FavCimsCitizenHappinessPanel.width = MainPanel.FavCimsHappinesColText.width;
                     FavCimsCitizenHappinessPanel.height = 40f;
                     FavCimsCitizenHappinessPanel.relativePosition = new Vector3(0f, 0f);
                     FavCimsHappyIcon = FavCimsCitizenHappinessPanel.AddUIComponent<UIButton>();
@@ -469,7 +469,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsHappyOverride.tooltipBox = UIView.GetAView().defaultTooltipBox;
                     FavCimsCitizenNamePanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsCitizenNamePanel.name = "FavCimsCitizenNamePanel";
-                    FavCimsCitizenNamePanel.width = FavoriteCimsMainPanel.FavCimsNameColText.width;
+                    FavCimsCitizenNamePanel.width = MainPanel.FavCimsNameColText.width;
                     FavCimsCitizenNamePanel.height = 40f;
                     FavCimsCitizenNamePanel.relativePosition = new Vector3(FavCimsCitizenHappinessPanel.relativePosition.x + FavCimsCitizenHappinessPanel.width, 0f);
                     FavCimsCitizenName = FavCimsCitizenNamePanel.AddUIComponent<UIButton>();
@@ -502,24 +502,24 @@ namespace FavoriteCims.UI.Panels
                     FavCimsNameColText_EmptySprite.width = FavCimsCitizenName.width;
                     FavCimsNameColText_EmptySprite.height = FavCimsCitizenName.height;
                     FavCimsNameColText_EmptySprite.relativePosition = new Vector3(0f, 0f);
-                    bool columnSpecialBackground = FavoriteCimsMainPanel.ColumnSpecialBackground;
+                    bool columnSpecialBackground = MainPanel.ColumnSpecialBackground;
                     if (columnSpecialBackground)
                     {
                         FavCimsNameColText_EmptySprite.texture = TextureDB.FavCimsNameBgOverride_texture;
                         FavCimsNameColText_EmptySprite.opacity = 0.7f;
                     }
-                    FavoriteCimsMainPanel.FavCimsNameColText.eventClick += delegate
+                    MainPanel.FavCimsNameColText.eventClick += delegate
                     {
                         if (FavCimsNameColText_EmptySprite.texture == null)
                         {
                             FavCimsNameColText_EmptySprite.texture = TextureDB.FavCimsNameBgOverride_texture;
                             FavCimsNameColText_EmptySprite.opacity = 0.7f;
-                            FavoriteCimsMainPanel.ColumnSpecialBackground = true;
+                            MainPanel.ColumnSpecialBackground = true;
                         }
                         else
                         {
                             FavCimsNameColText_EmptySprite.texture = null;
-                            FavoriteCimsMainPanel.ColumnSpecialBackground = false;
+                            MainPanel.ColumnSpecialBackground = false;
                         }
                     };
                     FavCimsCitizenName.BringToFront();
@@ -579,7 +579,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsSeparatorSprite2.relativePosition = new Vector3(0f, 0f);
                     FavCimsAgePhasePanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsAgePhasePanel.name = "FavCimsAgePhasePanel";
-                    FavCimsAgePhasePanel.width = FavoriteCimsMainPanel.FavCimsAgePhaseColText.width;
+                    FavCimsAgePhasePanel.width = MainPanel.FavCimsAgePhaseColText.width;
                     FavCimsAgePhasePanel.height = 40f;
                     FavCimsAgePhasePanel.relativePosition = new Vector3(FavCimsCitizenNamePanel.relativePosition.x + FavCimsCitizenNamePanel.width, 0f);
                     FavCimsAgePhase = FavCimsAgePhasePanel.AddUIComponent<UIButton>();
@@ -610,7 +610,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsSeparatorSprite3.relativePosition = new Vector3(0f, 0f);
                     FavCimsRealAgePanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsRealAgePanel.name = "FavCimsRealAgePanel";
-                    FavCimsRealAgePanel.width = FavoriteCimsMainPanel.FavCimsAgeColText.width;
+                    FavCimsRealAgePanel.width = MainPanel.FavCimsAgeColText.width;
                     FavCimsRealAgePanel.height = 40f;
                     FavCimsRealAgePanel.relativePosition = new Vector3(FavCimsAgePhasePanel.relativePosition.x + FavCimsAgePhasePanel.width, 0f);
                     FavCimsRealAge = FavCimsRealAgePanel.AddUIComponent<UIButton>();
@@ -641,7 +641,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsSeparatorSprite4.relativePosition = new Vector3(0f, 0f);
                     FavCimsEducationPanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsEducationPanel.name = "FavCimsEducationPanel";
-                    FavCimsEducationPanel.width = FavoriteCimsMainPanel.FavCimsEduColText.width;
+                    FavCimsEducationPanel.width = MainPanel.FavCimsEduColText.width;
                     FavCimsEducationPanel.height = 40f;
                     FavCimsEducationPanel.relativePosition = new Vector3(FavCimsRealAgePanel.relativePosition.x + FavCimsRealAgePanel.width, 0f);
                     FavCimsEducation = FavCimsEducationPanel.AddUIComponent<UIButton>();
@@ -672,7 +672,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsSeparatorSprite5.relativePosition = new Vector3(0f, 0f);
                     FavCimsCitizenHomePanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsCitizenHomePanel.name = "FavCimsCitizenHomePanel";
-                    FavCimsCitizenHomePanel.width = FavoriteCimsMainPanel.FavCimsHomeColText.width;
+                    FavCimsCitizenHomePanel.width = MainPanel.FavCimsHomeColText.width;
                     FavCimsCitizenHomePanel.height = 40f;
                     FavCimsCitizenHomePanel.relativePosition = new Vector3(FavCimsEducationPanel.relativePosition.x + FavCimsEducationPanel.width, 0f);
                     FavCimsCitizenHome = FavCimsCitizenHomePanel.AddUIComponent<UIButton>();
@@ -717,7 +717,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsSeparatorSprite6.relativePosition = new Vector3(0f, 0f);
                     FavCimsWorkingPlacePanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsWorkingPlacePanel.name = "FavCimsWorkingPlacePanel";
-                    FavCimsWorkingPlacePanel.width = FavoriteCimsMainPanel.FavCimsWorkingPlaceColText.width;
+                    FavCimsWorkingPlacePanel.width = MainPanel.FavCimsWorkingPlaceColText.width;
                     FavCimsWorkingPlacePanel.height = 40f;
                     FavCimsWorkingPlacePanel.relativePosition = new Vector3(FavCimsCitizenHomePanel.relativePosition.x + FavCimsCitizenHomePanel.width, 0f);
                     FavCimsWorkingPlace = FavCimsWorkingPlacePanel.AddUIComponent<UIButton>();
@@ -769,7 +769,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsSeparatorSprite7.relativePosition = new Vector3(0f, 0f);
                     FavCimsLastActivityPanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsLastActivityPanel.name = "FavCimsLastActivityPanel";
-                    FavCimsLastActivityPanel.width = FavoriteCimsMainPanel.FavCimsLastActColText.width;
+                    FavCimsLastActivityPanel.width = MainPanel.FavCimsLastActColText.width;
                     FavCimsLastActivityPanel.height = 40f;
                     FavCimsLastActivityPanel.relativePosition = new Vector3(FavCimsWorkingPlacePanel.relativePosition.x + FavCimsWorkingPlacePanel.width, 0f);
                     FavCimsLastActivity = FavCimsLastActivityPanel.AddUIComponent<UIButton>();
@@ -812,7 +812,7 @@ namespace FavoriteCims.UI.Panels
                     FavCimsSeparatorSprite8.relativePosition = new Vector3(0f, 0f);
                     FavCimsCloseRowPanel = FavCimsCitizenSingleRowPanel.AddUIComponent<UIPanel>();
                     FavCimsCloseRowPanel.name = "FavCimsCloseRowPanel";
-                    FavCimsCloseRowPanel.width = FavoriteCimsMainPanel.FavCimsCloseButtonCol.width;
+                    FavCimsCloseRowPanel.width = MainPanel.FavCimsCloseButtonCol.width;
                     FavCimsCloseRowPanel.height = 40f;
                     FavCimsCloseRowPanel.relativePosition = new Vector3(FavCimsLastActivityPanel.relativePosition.x + FavCimsLastActivityPanel.width, 0f);
                     FavCimsRowCloseButton = FavCimsCloseRowPanel.AddUIComponent<UIButton>();

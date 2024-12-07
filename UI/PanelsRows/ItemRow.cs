@@ -1,4 +1,5 @@
 ﻿using AlgernonCommons.UI;
+using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using FavoriteCims.Utils;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace FavoriteCims.UI.PanelsRows
 {
-    public class BuildingCitizenRow : UIListRow
+    public class ItemRow : UIListRow
     {
         private InstanceID citizenInstanceID;
 
@@ -97,8 +98,20 @@ namespace FavoriteCims.UI.PanelsRows
             citizen = CitizenManager.instance.m_citizens.m_buffer[citizenId];
             citizenInstanceID.Citizen = citizenId;
             CitizenInfo citizenInfo = citizen.GetCitizenInfo(citizenId);
-            string localizedStatus = citizenInfo.m_citizenAI.GetLocalizedStatus(citizenId, ref citizen, out InstanceID empty);
-            string buildingName = BuildingManager.instance.GetBuildingName(empty.Building, citizenInstanceID);
+            VehicleInfo vehicleInfo = null;
+            BuildingInfo buildingInfo = null;
+            
+            string localizedStatus = citizenInfo.m_citizenAI.GetLocalizedStatus(citizenId, ref citizen, out InstanceID target);
+            string buildingName = BuildingManager.instance.GetBuildingName(target.Building, citizenInstanceID);
+
+            if (citizen.m_vehicle != 0)
+            {
+                vehicleInfo = Singleton<VehicleManager>.instance.m_vehicles.m_buffer[citizen.m_vehicle].Info;
+            }
+            if (target.Building != 0)
+            {
+                buildingInfo = Singleton<BuildingManager>.instance.m_buildings.m_buffer[target.Building].Info;
+            }
 
             if (citizenInfo.m_class.m_service == ItemClass.Service.Tourism)
             {
@@ -130,6 +143,25 @@ namespace FavoriteCims.UI.PanelsRows
                     gender.normalBgSprite = "Male";
                 }
                 _name.tooltip = citizen.Arrested ? FavCimsLang.Text("Jailed_into") + " " + buildingName : localizedStatus + " " + buildingName;
+            }
+
+            if (citizen.GetBuildingByLocation() == target.Building)
+            {
+
+                gender.normalFgSprite = "greenArrowIcon";
+
+            }
+            else
+            {
+                if (buildingInfo && buildingInfo.m_class.m_service == ItemClass.Service.Residential)
+                {
+                    gender.normalFgSprite = "redArrowIcon";
+                }
+            }
+
+            if (vehicleInfo && vehicleInfo.m_class.m_service == ItemClass.Service.PublicTransport)
+            {
+                gender.normalFgSprite = "greenArrowIcon";
             }
 
             _name.text = CitizenManager.instance.GetCitizenName(citizenId);

@@ -53,7 +53,7 @@ namespace FavoriteCims.UI.Buttons
                         {
                             tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
                             normalBgSprite = "icon_fav_subscribed";
-                            if (!FavCimsCore.RowID.ContainsKey(num) && !FavoriteCimsMainPanel.RowsAlreadyExist(ThisHuman))
+                            if (!FavCimsCore.RowID.ContainsKey(num) && !MainPanel.RowsAlreadyExist(ThisHuman))
                             {
                                 object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
                                 while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
@@ -61,7 +61,7 @@ namespace FavoriteCims.UI.Buttons
                                 }
                                 try
                                 {
-                                    CitizenRow citizenRow = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
+                                    CitizenRow citizenRow = MainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
                                     if (citizenRow != null)
                                     {
                                         citizenRow.MyInstanceID = ThisHuman;

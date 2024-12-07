@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace FavoriteCims.UI.Panels
 {
-    public class FavoriteCimsMainPanel : UIPanel
+    public class MainPanel : UIPanel
 	{
 		public static UIButton FavCimsHappinesColText;
 

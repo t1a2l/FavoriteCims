@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FavoriteCims.UI.Buttons
 {
-    public class VehiclePassengersButtonPT : UIButton
+    public class PassengersInsidePTVehiclesButton : UIButton
     {
         private InstanceID VehicleID = InstanceID.Empty;
 
@@ -14,7 +14,7 @@ namespace FavoriteCims.UI.Buttons
 
         public UIPanel RefPanel;
 
-        private FavCimsVehiclePanelPT VehiclePanel;
+        private PeopleInsidePTVehiclesPanel VehiclePanel;
 
         private readonly VehicleManager VehicleManager = Singleton<VehicleManager>.instance;
 
@@ -32,7 +32,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aView.defaultTooltipBox;
-            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(FavCimsVehiclePanelPT)) as FavCimsVehiclePanelPT;
+            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsidePTVehiclesPanel)) as PeopleInsidePTVehiclesPanel;
             VehiclePanel.VehicleID = InstanceID.Empty;
             VehiclePanel.Hide();
             eventClick += delegate
