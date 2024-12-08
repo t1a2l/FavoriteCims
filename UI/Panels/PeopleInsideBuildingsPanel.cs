@@ -290,13 +290,13 @@ namespace FavoriteCims.UI.Panels
                             }
                             else if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Hotel) && isAtBuilding)
                             {
-                                HotelGuestsCount++;
                                 fastList.Add(new TitleRowInfo
                                 {
                                     atlas = null,
                                     spriteName = "BapartmentIcon",
                                     text = Translations.Translate("OnBuilding_HotelRooms") + " " + (HotelGuestsCount + 1),
                                 });
+                                HotelGuestsCount++;
                                 CimsOnBuilding.Add(citizenId, BuildingUnits);
                                 fastList.Add(citizenId);
                             }
