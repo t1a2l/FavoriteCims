@@ -16,33 +16,33 @@ HARMONY_MOD_ERROR,An old and/or broken mod is preventing Harmony 2 from operatin
 HARMONY_MOD_CONFLICT,Another mod may be trying to apply a conflicting Harmony patch,Possible cause of Harmony error - two mods trying to patch the same thing at once.
 DETAIL_LOGGING,Enable detailed debugging logging,Option to record more detail in game log
 MOD_DESCRIPTION,Allows you to add and show favorite citizens in a list
-FavCimsButton_tooltip,My Favorite Cims
-FavCimsBCMenuButton_text,Citizens
-FavCimsBCMenuButton_tooltip,Followed People
-FavCimsBBMenuButton_text,Buildings
-FavCimsBBMenuButton_tooltip,Favorite Buildings
-FavCimsBSMenuButton_text,Stats
-FavCimsBSMenuButton_tooltip,Info and Stats
+Button_tooltip,My Favorite Cims
+BCMenuButton_text,Citizens
+BCMenuButton_tooltip,Followed People
+BBMenuButton_text,Buildings
+BBMenuButton_tooltip,Favorite Buildings
+BSMenuButton_text,Stats
+BSMenuButton_tooltip,Info and Stats
 FavStarButton_enable_tooltip,Click here to add to Favorites!
 FavStarButton_disable_tooltip,Click here to remove from Favorites :(
-FavCimsHappinesColText_text,Status
-FavCimsHappinesColText_tooltip,Citizen Happiness
-FavCimsNameColText_text,Citizen Name
-FavCimsNameColText_tooltip,Citizen Name
-FavCimsEduColText_text,Education
-FavCimsEduColText_tooltip,Citizen Education Level
-FavCimsWorkingPlaceColText_text,Occupation
-FavCimsWorkingPlaceColText_tooltip,Place where the Citizen Works or Study
-FavCimsAgePhaseColText_text,Age Phase
-FavCimsAgePhaseColText_tooltip,Citizen life Age Phase
-FavCimsAgeColText_text,Age
-FavCimsAgeColText_tooltip,Citizen Age
-FavCimsHomeColText_text,Citizen Home
-FavCimsHomeColText_tooltip,Citizen Living in this House
-FavCimsLastActColText_text,Last Activity
-FavCimsLastActColText_tooltip,What the Citizen is doing at the moment
-FavCimsCloseButtonCol_text,Close
-FavCimsCloseButtonCol_tooltip,Click on close button for remove citizen from favorites :(
+HappinesColText_text,Status
+HappinesColText_tooltip,Citizen Happiness
+NameColText_text,Citizen Name
+NameColText_tooltip,Citizen Name
+EduColText_text,Education
+EduColText_tooltip,Citizen Education Level
+WorkingPlaceColText_text,Occupation
+WorkingPlaceColText_tooltip,Place where the Citizen Works or Study
+AgePhaseColText_text,Age Phase
+AgePhaseColText_tooltip,Citizen life Age Phase
+AgeColText_text,Age
+AgeColText_tooltip,Citizen Age
+HomeColText_text,Citizen Home
+HomeColText_tooltip,Citizen Living in this House
+LastActColText_text,Last Activity
+LastActColText_tooltip,What the Citizen is doing at the moment
+CloseButtonCol_text,Close
+CloseButtonCol_tooltip,Click on close button for remove citizen from favorites :(
 Male,Male
 Female,Female
 AgePhase_Child_Male,Child

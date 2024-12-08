@@ -15,33 +15,33 @@ HARMONY_NOT_INSTALLED,De benodigde Harmony 2 mod afhankelijkheid is niet geïnst
 HARMONY_MOD_ERROR,Een oude en/of beschadigde mod voorkomt dat Harmony 2 naar behoren kan functioneren,Possible cause of Harmony error - a broken mod (not this one) can cause things to stop working.
 HARMONY_MOD_CONFLICT,Een andere mod kan proberen een conflicterende Harmony patch toe te passen,Possible cause of Harmony error - two mods trying to patch the same thing at once.
 DETAIL_LOGGING,Maakt gedetailleerde foutopsporingslogging mogelijk,Option to record more detail in game log
-FavCimsButton_tooltip,Mijn favoriete cims
-FavCimsBCMenuButton_text,Inwoners
-FavCimsBCMenuButton_tooltip,Gevolgde personen
-FavCimsBBMenuButton_text,Gebouwen
-FavCimsBBMenuButton_tooltip,Favoriete gebouwen
-FavCimsBSMenuButton_text,Stats
-FavCimsBSMenuButton_tooltip,Info en stats
+Button_tooltip,Mijn favoriete cims
+BCMenuButton_text,Inwoners
+BCMenuButton_tooltip,Gevolgde personen
+BBMenuButton_text,Gebouwen
+BBMenuButton_tooltip,Favoriete gebouwen
+BSMenuButton_text,Stats
+BSMenuButton_tooltip,Info en stats
 FavStarButton_enable_tooltip,Klik hier om aan favorieten toe te voegen!
 FavStarButton_disable_tooltip,Klik hier om uit favoriete te verwijderen :(
-FavCimsHappinesColText_text,Status
-FavCimsHappinesColText_tooltip,Inwonergeluk
-FavCimsNameColText_text,Inwonernaam
-FavCimsNameColText_tooltip,Inwonernaam
-FavCimsEduColText_text,Opleiding
-FavCimsEduColText_tooltip,Opleidingsniveau van de inwoner
-FavCimsWorkingPlaceColText_text,Beroep
-FavCimsWorkingPlaceColText_tooltip,Plaats waar de inwoner werkt of onderwijs geniet
-FavCimsAgePhaseColText_text,Levensfase
-FavCimsAgePhaseColText_tooltip,Levensfase van de inwoner
-FavCimsAgeColText_text,Leeftijd
-FavCimsAgeColText_tooltip,Leeftijf van de inwoner
-FavCimsHomeColText_text,Woning van inwoner
-FavCimsHomeColText_tooltip,Inwoner woont in dit huis
-FavCimsLastActColText_text,Laatste activiteit
-FavCimsLastActColText_tooltip,Wat de inwoner op dit moment aan het doen is
-FavCimsCloseButtonCol_text,Sluiten
-FavCimsCloseButtonCol_tooltip,Klik op de knop Sluiten om de inwoner uit de favorieten te verwijderen :(
+HappinesColText_text,Status
+HappinesColText_tooltip,Inwonergeluk
+NameColText_text,Inwonernaam
+NameColText_tooltip,Inwonernaam
+EduColText_text,Opleiding
+EduColText_tooltip,Opleidingsniveau van de inwoner
+WorkingPlaceColText_text,Beroep
+WorkingPlaceColText_tooltip,Plaats waar de inwoner werkt of onderwijs geniet
+AgePhaseColText_text,Levensfase
+AgePhaseColText_tooltip,Levensfase van de inwoner
+AgeColText_text,Leeftijd
+AgeColText_tooltip,Leeftijf van de inwoner
+HomeColText_text,Woning van inwoner
+HomeColText_tooltip,Inwoner woont in dit huis
+LastActColText_text,Laatste activiteit
+LastActColText_tooltip,Wat de inwoner op dit moment aan het doen is
+CloseButtonCol_text,Sluiten
+CloseButtonCol_tooltip,Klik op de knop Sluiten om de inwoner uit de favorieten te verwijderen :(
 Male,Mannelijk
 Female,Vrouwelijk
 AgePhase_Child_Male,Jongetje
