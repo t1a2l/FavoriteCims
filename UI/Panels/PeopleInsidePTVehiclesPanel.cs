@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace FavoriteCims.UI.Panels
 {
-    public class FavCimsVehiclePanel : UIPanel
+    public class PeopleInsidePTVehiclesPanel : UIPanel
 	{
         private float seconds = 0.5f;
 
@@ -28,7 +28,7 @@ namespace FavoriteCims.UI.Panels
 
         private Vehicle vehicle;
 
-        public static Dictionary<uint, uint> CimsOnVeh = [];
+        public static Dictionary<uint, uint> CimsOnPTVeh = [];
 
         private readonly FastList<object> fastList = new();
 
@@ -59,28 +59,28 @@ namespace FavoriteCims.UI.Panels
                 base.Awake();
                 width = 250f;
 				height = 0f;
-				name = "FavCimsVehiclePanel";
+				name = "FavCimsVehiclePanelPT";
 				absolutePosition = new Vector3(0f, 0f);
 				Hide();
 				Title = AddUIComponent<UIPanel>();
-				Title.name = "FavCimsVehiclePanelTitle";
+				Title.name = "FavCimsVehiclePanelPTTitle";
 				Title.width = width;
 				Title.height = 41f;
 				Title.relativePosition = Vector3.zero;
 				TitleSpriteBg = Title.AddUIComponent<UITextureSprite>();
-				TitleSpriteBg.name = "FavCimsVehiclePanelTitleBG";
+				TitleSpriteBg.name = "FavCimsVehiclePanelPTTitleBG";
 				TitleSpriteBg.width = Title.width;
 				TitleSpriteBg.height = Title.height;
 				TitleSpriteBg.texture = TextureDB.VehiclePanelTitleBackground;
 				TitleSpriteBg.relativePosition = Vector3.zero;
 				TitleVehicleName = Title.AddUIComponent<UIButton>();
-				TitleVehicleName.name = "TitleVehicleName";
+				TitleVehicleName.name = "TitleVehiclePTName";
 				TitleVehicleName.width = Title.width;
 				TitleVehicleName.height = Title.height;
 				TitleVehicleName.textVerticalAlignment = UIVerticalAlignment.Middle;
 				TitleVehicleName.textHorizontalAlignment = UIHorizontalAlignment.Center;
 				TitleVehicleName.playAudioEvents = false;
-				TitleVehicleName.font = UIFonts.Regular;
+				TitleVehicleName.font = UIDynamicFont.FindByName("OpenSans-Regular");
 				TitleVehicleName.font.size = 15;
 				TitleVehicleName.textScale = 1f;
 				TitleVehicleName.wordWrap = true;
@@ -95,7 +95,7 @@ namespace FavoriteCims.UI.Panels
 				TitleVehicleName.dropShadowColor = new Color32(0, 0, 0, 0);
 				TitleVehicleName.relativePosition = Vector3.zero;
 				Body = AddUIComponent<UIPanel>();
-				Body.name = "VehiclePanelBody";
+				Body.name = "VehiclePanelPTBody";
 				Body.width = width;
 				Body.autoLayoutDirection = LayoutDirection.Vertical;
 				Body.autoLayout = true;
@@ -103,7 +103,7 @@ namespace FavoriteCims.UI.Panels
 				Body.height = 0f;
 				Body.relativePosition = new Vector3(0f, Title.height);
 				BodySpriteBg = Body.AddUIComponent<UITextureSprite>();
-				BodySpriteBg.name = "VehiclePanelDataContainer";
+				BodySpriteBg.name = "VehiclePanelPTDataContainer";
 				BodySpriteBg.width = Body.width;
 				BodySpriteBg.height = Body.height;
 				BodySpriteBg.texture = TextureDB.VehiclePanelBackground;
@@ -111,7 +111,7 @@ namespace FavoriteCims.UI.Panels
                 BodyList = UIList.AddUIList<MultiTypeRow>(BodySpriteBg, 12f, 0f, BodySpriteBg.width - 24f, Body.height);
                 BodyList.EventSelectionChanged += (_, obj) => BodyList.SelectedIndex = -1;
                 BodyList.name = "BodyList";
-                Footer = AddUIComponent<UIPanel>();
+				Footer = AddUIComponent<UIPanel>();
 				Footer.name = "VehiclePanelPTFooter";
 				Footer.width = width;
 				Footer.height = 12f;
@@ -136,8 +136,8 @@ namespace FavoriteCims.UI.Panels
 			}
 		}
 
-        public override void Update()
-        {
+		public override void Update()
+		{
             if (FavCimsMainClass.UnLoading)
             {
                 return;
@@ -171,7 +171,7 @@ namespace FavoriteCims.UI.Panels
 
         public void UpdateList()
 		{
-            CimsOnVeh.Clear();
+            CimsOnPTVeh.Clear();
             fastList.Clear();
 
             TitleVehicleName.text = Translations.Translate("Vehicle_Passengers");
@@ -180,58 +180,44 @@ namespace FavoriteCims.UI.Panels
             int totalVehicleUnitsCount = 0;
             CountCitizenUnits(ref vehicle, ref totalVehicleUnitsCount);
 
-			VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
+            VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
 
-			int unitnum = 0;
-
-			while (VehicleUnits != 0U && unitnum < totalVehicleUnitsCount)
-			{
-				uint nextUnit = MyCitizen.m_units.m_buffer[(int)VehicleUnits].m_nextUnit;
-				for (int k = 0; k < 5; k++)
-				{
-					uint citizen = CitizenUnit.GetCitizen(k);
-					if (citizen != 0U && !CimsOnVeh.ContainsKey(citizen))
-					{
-						if (k == 0)
-						{
-                            fastList.Add(new TitleRowInfo
-                            {
-                                atlas = null,
-                                spriteName = "driverIcon",
-                                text = Translations.Translate("Vehicle_DriverIconText")
-                            });
-                            CimsOnVeh.Add(citizen, VehicleUnits);
-                            fastList.Add(citizen);
-                        }
-						else
-						{
-                            if (k == 1)
-                            {
-                                fastList.Add(new TitleRowInfo
-                                {
-                                    atlas = null,
-                                    spriteName = "passengerIcon",
-                                    text = Translations.Translate("Vehicle_PasssengerIconText")
-                                });
-                            }
-                            CimsOnVeh.Add(citizen, VehicleUnits);
-                            fastList.Add(citizen);
-                        }
-					}
-				}
-				VehicleUnits = nextUnit;
-				if (++unitnum > Singleton<CitizenManager>.instance.m_units.m_size)
-				{
-					break;
-				}	
-			}
-            if (CimsOnVeh.Count == 0)
+            int unitnum = 0;
+            fastList.Add(new TitleRowInfo
             {
+                atlas = null,
+                spriteName = "passengerIcon",
+                text = Translations.Translate("Vehicle_PasssengerIconText")
+            });
+
+            while (VehicleUnits != 0U && unitnum < totalVehicleUnitsCount)
+           {
+                uint nextUnit = MyCitizen.m_units.m_buffer[VehicleUnits].m_nextUnit;
+                for (int k = 0; k < 5; k++)
+                {
+                    uint citizen = CitizenUnit.GetCitizen(k);
+                    if (citizen != 0U && !CimsOnPTVeh.ContainsKey(citizen) && CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Vehicle))
+                    {
+                        CimsOnPTVeh.Add(citizen, VehicleUnits);
+                        fastList.Add(citizen);
+                    }
+                }
+                VehicleUnits = nextUnit;
+                if (++unitnum > Singleton<CitizenManager>.instance.m_units.m_size)
+                {
+                    break;
+                }
+            }
+
+            if (CimsOnPTVeh.Count == 0)
+            {
+                fastList.RemoveAt(0);
                 fastList.Add(new TitleRowInfo
                 {
                     text = Translations.Translate("View_NoPassengers")
                 });
             }
+
             BodyList.Data = fastList;
             BodyList.Refresh();
         }
@@ -240,19 +226,19 @@ namespace FavoriteCims.UI.Panels
         {
             absolutePosition = new Vector3(RefPanel.absolutePosition.x + RefPanel.width + 5f, RefPanel.absolutePosition.y);
             height = RefPanel.height - 15f;
-            if (50f + CimsOnVeh.Count * 25f < height - Title.height - Footer.height)
+            if (25f + CimsOnPTVeh.Count * 25f < height - Title.height - Footer.height)
             {
                 Body.height = height - Title.height - Footer.height;
             }
             else
             {
-                if (50f + CimsOnVeh.Count * 25f > 400f)
+                if (25f + CimsOnPTVeh.Count * 25f > 400f)
                 {
                     Body.height = 400f;
                 }
                 else
                 {
-                    Body.height = 50f + CimsOnVeh.Count * 25f;
+                    Body.height = 25f + CimsOnPTVeh.Count * 25f;
                 }
             }
             BodySpriteBg.height = Body.height;

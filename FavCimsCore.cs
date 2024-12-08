@@ -73,12 +73,12 @@ namespace FavoriteCims
 					{
 						if (!RowID.ContainsKey(citizenINT))
 						{
-							if (!FavoriteCimsMainPanel.RowsAlreadyExist(MyInstanceID))
+							if (!MainPanel.RowsAlreadyExist(MyInstanceID))
 							{
 								try
 								{
 									instance.SetName(MyInstanceID, citizenName);
-									CitizenRow citizenRow = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
+									CitizenRow citizenRow = MainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
 									if (citizenRow != null)
 									{
 										citizenRow.MyInstanceID = MyInstanceID;

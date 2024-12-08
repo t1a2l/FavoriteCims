@@ -6,8 +6,11 @@ namespace FavoriteCims.UI.PanelsRows
     public class MultiTypeRow : UIListRow
     {
         private TitleRow _cachedTitleRow;
-        private BuildingCitizenRow _cachedCitizenRow;
+
+        private ItemRow _cachedCitizenRow;
+
         private object _cachedObject;
+
         public override void Awake()
         {
             base.Awake();
@@ -21,7 +24,7 @@ namespace FavoriteCims.UI.PanelsRows
             }
             if (_cachedCitizenRow == null)
             {
-                _cachedCitizenRow = AddUIComponent<BuildingCitizenRow>();
+                _cachedCitizenRow = AddUIComponent<ItemRow>();
                 _cachedCitizenRow.size = size;
                 _cachedCitizenRow.relativePosition = new Vector3(0f, 0f);
                 _cachedCitizenRow.enabled = false;
@@ -53,13 +56,27 @@ namespace FavoriteCims.UI.PanelsRows
                 Deselect(rowIndex);
             }
         }
-        public override void Select() { }
+
+        public override void Select() 
+        { 
+
+        }
+
         public override void Deselect(int rowIndex)
         {
             if (_cachedTitleRow is not null)
+            {
                 if (_cachedObject is uint)
+                {
                     _cachedCitizenRow?.Deselect(rowIndex);
-                else _cachedTitleRow?.Deselect(rowIndex);
+
+                }
+                else
+                {
+                    _cachedTitleRow?.Deselect(rowIndex);
+                }
+            }
+               
         }
     }
 }

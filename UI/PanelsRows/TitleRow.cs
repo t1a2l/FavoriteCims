@@ -9,21 +9,40 @@ namespace FavoriteCims.UI.PanelsRows
     public class TitleRow : UIListRow
     {
         private UISprite icon;
+
         private UILabel text;
+
         public override void Awake()
         {
             base.Awake();
-
+            width = 226f;
+            height = 25f;
+            atlas = MyAtlas.FavCimsAtlas;
+            BackgroundSpriteName = "bg_row2";
+            name = "Title";
+            relativePosition = new Vector3(0f, 0f);
             icon = AddUIComponent<UISprite>();
+            icon.name = "TitleIcon";
             icon.size = new Vector2(17f, 17f);
             icon.atlas = MyAtlas.FavCimsAtlas;
             icon.relativePosition = new Vector3(Margin, 4f);
             text = AddLabel(icon.relativePosition.x + icon.width, 200f);
+            text.name = "TitleText";
+            text.size = new Vector2(200f, 25f);
+            text.verticalAlignment = UIVerticalAlignment.Middle;
+            text.playAudioEvents = true;
+            text.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            text.font.size = 15;
+            text.textScale = 0.80f;
             text.useDropShadow = true;
-            text.dropShadowOffset = new Vector2(1f, -1f);
+            text.dropShadowOffset = new Vector2(1, -1);
             text.dropShadowColor = new Color32(0, 0, 0, 0);
-            text.textColor = Color.white;
+            text.padding.left = 5;
+            text.padding.right = 5;
+            text.textColor = new Color32(51, 51, 51, 160); //r,g,b,a
+            text.isInteractive = false;
         }
+
         public override void Display(object data, int rowIndex)
         {
             var info = (TitleRowInfo)data;
@@ -35,6 +54,7 @@ namespace FavoriteCims.UI.PanelsRows
 
             Deselect(rowIndex);
         }
+
         public override void Deselect(int rowIndex)
         {
             //Always use darker background
@@ -42,6 +62,7 @@ namespace FavoriteCims.UI.PanelsRows
             BackgroundColor = new Color32(0, 0, 0, 128);
         }
     }
+
     public struct TitleRowInfo(Func<bool> isEmpty, string text, string emptyText, string spriteName, UITextureAtlas atlas = null)
     {
         public Func<bool> isEmpty = isEmpty;

@@ -36,11 +36,11 @@ namespace FavoriteCims
 
         public static UIPanel FavCimsHumanPassengerPanel;
 
-        private VehiclePassengersButton PassengerButton;
+        private PassengersInsideVehiclesButton PassengerButton;
 
         public static UIPanel FavCimsHumanPublicTransportPanel;
 
-        private VehiclePassengersButtonPT PublicTransportPassengersButton;
+        private PassengersInsidePTVehiclesButton PublicTransportPassengersButton;
 
         public static UIButton mainButton;
 
@@ -244,7 +244,7 @@ namespace FavoriteCims
                     }
                 }
                 FullScreenContainer = UIView.Find<UIPanel>("FullScreenContainer");
-                FavCimsPanel = FullScreenContainer.AddUIComponent<FavoriteCimsMainPanel>();
+                FavCimsPanel = FullScreenContainer.AddUIComponent<MainPanel>();
                 FavCimsPanel.Hide();
                 FullScreenContainer.eventMouseDown += delegate
                 {
@@ -288,13 +288,13 @@ namespace FavoriteCims
                 FavCimsHumanPassengerPanel = FullScreenContainer.Find<UIPanel>("(Library) CitizenVehicleWorldInfoPanel");
                 if (FavCimsHumanPassengerPanel != null)
                 {
-                    if (FavCimsHumanPassengerPanel.GetComponentInChildren<VehiclePassengersButton>() != null)
+                    if (FavCimsHumanPassengerPanel.GetComponentInChildren<PassengersInsideVehiclesButton>() != null)
                     {
-                        PassengerButton = FavCimsHumanPassengerPanel.GetComponentInChildren<VehiclePassengersButton>();
+                        PassengerButton = FavCimsHumanPassengerPanel.GetComponentInChildren<PassengersInsideVehiclesButton>();
                     }
                     else
                     {
-                        PassengerButton = FavCimsHumanPassengerPanel.AddUIComponent(typeof(VehiclePassengersButton)) as VehiclePassengersButton;
+                        PassengerButton = FavCimsHumanPassengerPanel.AddUIComponent(typeof(PassengersInsideVehiclesButton)) as PassengersInsideVehiclesButton;
                     }
                     PassengerButton.RefPanel = FavCimsHumanPassengerPanel;
                     PassengerButton.Alignment = UIAlignAnchor.BottomRight;
@@ -302,13 +302,13 @@ namespace FavoriteCims
                 FavCimsHumanPublicTransportPanel = FullScreenContainer.Find<UIPanel>("(Library) PublicTransportVehicleWorldInfoPanel");
                 if (FavCimsHumanPublicTransportPanel != null)
                 {
-                    if (FavCimsHumanPublicTransportPanel.GetComponentInChildren<VehiclePassengersButtonPT>() != null)
+                    if (FavCimsHumanPublicTransportPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>() != null)
                     {
-                        PublicTransportPassengersButton = FavCimsHumanPublicTransportPanel.GetComponentInChildren<VehiclePassengersButtonPT>();
+                        PublicTransportPassengersButton = FavCimsHumanPublicTransportPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>();
                     }
                     else
                     {
-                        PublicTransportPassengersButton = FavCimsHumanPublicTransportPanel.AddUIComponent(typeof(VehiclePassengersButtonPT)) as VehiclePassengersButtonPT;
+                        PublicTransportPassengersButton = FavCimsHumanPublicTransportPanel.AddUIComponent(typeof(PassengersInsidePTVehiclesButton)) as PassengersInsidePTVehiclesButton;
                     }
                     PublicTransportPassengersButton.RefPanel = FavCimsHumanPublicTransportPanel;
                     PublicTransportPassengersButton.Alignment = UIAlignAnchor.BottomRight;
@@ -316,13 +316,13 @@ namespace FavoriteCims
                 FavCimsPublicTransportTaxiPanel = FullScreenContainer.Find<UIPanel>("(Library) CityServiceVehicleWorldInfoPanel");
                 if (FavCimsPublicTransportTaxiPanel != null)
                 {
-                    if (FavCimsPublicTransportTaxiPanel.GetComponentInChildren<VehiclePassengersButtonPT>() != null)
+                    if (FavCimsPublicTransportTaxiPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>() != null)
                     {
-                        PublicTransportPassengersButton = FavCimsPublicTransportTaxiPanel.GetComponentInChildren<VehiclePassengersButtonPT>();
+                        PublicTransportPassengersButton = FavCimsPublicTransportTaxiPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>();
                     }
                     else
                     {
-                        PublicTransportPassengersButton = FavCimsPublicTransportTaxiPanel.AddUIComponent(typeof(VehiclePassengersButtonPT)) as VehiclePassengersButtonPT;
+                        PublicTransportPassengersButton = FavCimsPublicTransportTaxiPanel.AddUIComponent(typeof(PassengersInsidePTVehiclesButton)) as PassengersInsidePTVehiclesButton;
                     }
                     PublicTransportPassengersButton.RefPanel = FavCimsPublicTransportTaxiPanel;
                     PublicTransportPassengersButton.Alignment = UIAlignAnchor.BottomRight;
