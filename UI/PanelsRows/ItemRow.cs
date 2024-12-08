@@ -1,4 +1,5 @@
-﻿using AlgernonCommons.UI;
+﻿using AlgernonCommons.Translation;
+using AlgernonCommons.UI;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
@@ -91,6 +92,16 @@ namespace FavoriteCims.UI.PanelsRows
             star.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
                 FavCimsCore.AddToFavorites(citizenInstanceID);
+                if (FavCimsCore.RowID.ContainsKey((int)citizenId))
+                {
+                    (component as UIButton).normalBgSprite = "icon_fav_subscribed";
+                    (component as UIButton).tooltip = Translations.Translate("FavStarButton_disable_tooltip");
+                }
+                else
+                {
+                    (component as UIButton).normalBgSprite = "icon_fav_unsubscribed";
+                    component.tooltip = Translations.Translate("FavStarButton_enable_tooltip");
+                }
             };
         }
 

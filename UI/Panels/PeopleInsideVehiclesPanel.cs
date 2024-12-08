@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AlgernonCommons.Translation;
 using AlgernonCommons.UI;
 using ColossalFramework;
 using ColossalFramework.UI;
@@ -181,13 +182,6 @@ namespace FavoriteCims.UI.Panels
             int totalVehicleUnitsCount = 0;
             CountCitizenUnits(ref vehicle, ref totalVehicleUnitsCount);
 
-            fastList.Add(new TitleRowInfo(
-                           () => CimsOnVeh.Count == 0,
-                           FavCimsLang.Text("Vehicle_Passengers"),
-                           FavCimsLang.Text("View_NoPassengers"),
-                           "TitleVehiclePTName",
-                           UITextures.InGameAtlas));
-
 			VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
 
 			int unitnum = 0;
@@ -209,8 +203,8 @@ namespace FavoriteCims.UI.Panels
                                 text = FavCimsLang.Text("Vehicle_DriverIconText")
                             });
                         }
-						else
-						{
+						else if (k == 1)
+                        {
                             fastList.Add(new TitleRowInfo
                             {
                                 atlas = null,
@@ -228,6 +222,13 @@ namespace FavoriteCims.UI.Panels
 					break;
 				}	
 			}
+            if (CimsOnVeh.Count == 0)
+            {
+                fastList.Add(new TitleRowInfo
+                {
+                    text = Translations.Translate("View_NoPassengers")
+                });
+            }
             BodyList.Data = fastList;
             BodyList.CurrentPosition = 0;
         }

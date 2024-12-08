@@ -1,3 +1,4 @@
+using AlgernonCommons.Translation;
 using AlgernonCommons.UI;
 using ColossalFramework;
 using ColossalFramework.UI;
@@ -210,11 +211,24 @@ namespace FavoriteCims.UI.Panels
             Utils.Debug.Log("totalUnitsCount = " + totalUnitsCount);
 
             UpdateBuildingTitles();
-            AddSubtitles();
+
             BuildingUnits = MyBuilding.m_buildings.m_buffer[BuildingID.Building].m_citizenUnits;
             int unitnum = 0;
 
             total_workers = 0;
+
+            bool isSubtitleAdded = false;
+
+            if (!(buildingInfo.m_class.m_service == ItemClass.Service.Residential ||
+                IsAreaResidentalBuilding ||
+                IsCimCareBuilding))
+            {
+                fastList.Add(new TitleRowInfo(
+                 () => WorkersCount == 0,
+                 Translations.Translate("OnBuilding_Workers"),
+                 $"{Translations.Translate("OnBuilding_NoWorkers")} ({Translations.Translate("OnBuilding_TotalWorkers")}{total_workers})",
+                 "BworkingIcon"));
+            }
 
             while (BuildingUnits != 0U && unitnum < totalUnitsCount)
             {
@@ -283,6 +297,11 @@ namespace FavoriteCims.UI.Panels
                                 }
                                 else if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Visit))
                                 {
+                                    if (!isSubtitleAdded)
+                                    {
+                                        AddOtherSubtitles();
+                                        isSubtitleAdded = true;
+                                    }
                                     if (isAtBuilding)
                                     {
                                         GuestsCount++;
@@ -329,6 +348,17 @@ namespace FavoriteCims.UI.Panels
                     break;
                 }
             }
+
+            if (IsHotel && HotelGuestsCount == 0)
+            {
+                fastList.Add(new TitleRowInfo
+                {
+                    atlas = null,
+                    spriteName = "BapartmentIcon",
+                    text = Translations.Translate("OnBuilding_noHotelGuests")
+                });
+            }
+
             BodyList.Data = fastList;
             BodyList.CurrentPosition = 0;
         }
@@ -400,101 +430,48 @@ namespace FavoriteCims.UI.Panels
             }
         }
 
-        public void AddSubtitles()
+        public void AddOtherSubtitles()
         {
-            if(buildingInfo.m_class.m_service == ItemClass.Service.Residential)
+            switch (buildingInfo.m_class.m_service)
             {
-                return;
-            }
-
-            if(IsHotel)
-            {
-                fastList.Add(new TitleRowInfo(
-                () => WorkersCount == 0,
-                FavCimsLang.Text("OnBuilding_Workers"),
-                $"{FavCimsLang.Text("OnBuilding_NoWorkers")} ({FavCimsLang.Text("OnBuilding_TotalWorkers")}{total_workers})",
-                "BworkingIcon"));
-
-                fastList.Add(new TitleRowInfo(
-                () => HotelGuestsCount == 0,
-                "",
-                FavCimsLang.Text("OnBuilding_noHotelGuests"),
-                "BapartmentIcon"));
-
-                fastList.Add(new TitleRowInfo(
-                () => GuestsCount == 0,
-                FavCimsLang.Text("OnBuilding_Guests"),
-                FavCimsLang.Text("OnBuilding_NoGuests"),
-                "BcommercialIcon"));
-            }
-
-            else if (buildingInfo.m_class.m_service == ItemClass.Service.Commercial || 
-                buildingInfo.m_class.m_service == ItemClass.Service.Industrial ||
-                buildingInfo.m_class.m_service == ItemClass.Service.Office ||
-                IsInternationalTradeOfficeBuilding ||
-                IsCimCareBuilding)
-            {
-                fastList.Add(new TitleRowInfo(
-                 () => WorkersCount == 0,
-                 FavCimsLang.Text("OnBuilding_Workers"),
-                 $"{FavCimsLang.Text("OnBuilding_NoWorkers")} ({FavCimsLang.Text("OnBuilding_TotalWorkers")}{total_workers})",
-                 "BworkingIcon"));
-
-                fastList.Add(new TitleRowInfo(
-                () => GuestsCount == 0,
-                FavCimsLang.Text("OnBuilding_Guests"),
-                FavCimsLang.Text("OnBuilding_NoGuests"),
-                "BcommercialIcon"));
-            }
-            else
-            {
-                switch (buildingInfo.m_class.m_service)
-                {
-                    case ItemClass.Service.PoliceDepartment when buildingInfo.m_class.m_subService != ItemClass.SubService.PoliceDepartmentBank:
-                        fastList.Add(new TitleRowInfo(
-                         () => WorkersCount == 0,
-                         FavCimsLang.Text("OnBuilding_Workers"),
-                         $"{FavCimsLang.Text("OnBuilding_NoWorkers")} ({FavCimsLang.Text("OnBuilding_TotalWorkers")}{total_workers})",
-                         "BworkingIcon"));
-                        fastList.Add(new TitleRowInfo(
-                             () => GuestsCount == 0,
-                             FavCimsLang.Text("Citizen_Under_Arrest"),
-                             FavCimsLang.Text("OnBuilding_noArrested"),
-                             "FavCimsCrimeArrested"));
-                        break;
-                    case ItemClass.Service.Education:
-                        fastList.Add(new TitleRowInfo(
-                             () => GuestsCount == 0,
-                             FavCimsLang.Text("Citizen_at_School"),
-                             FavCimsLang.Text("OnBuilding_noStudents"),
-                             "IconPolicySchoolsOut",
-                             UITextures.InGameAtlas));
-                        break;
-                    case ItemClass.Service.PlayerEducation when !IsAreaResidentalBuilding:
-                        fastList.Add(new TitleRowInfo(
-                         () => GuestsCount == 0,
-                         FavCimsLang.Text("Citizen_at_University"),
-                         FavCimsLang.Text("OnBuilding_noStudents"),
-                         "IconPolicySchoolsOut",
-                         UITextures.InGameAtlas));
-                        break;
-                    case ItemClass.Service.HealthCare when !IsCimCareBuilding:
-                        fastList.Add(new TitleRowInfo(
-                           () => GuestsCount == 0,
-                           FavCimsLang.Text("Citizen_at_Clinic"),
-                           FavCimsLang.Text("OnBuilding_noPatients"),
-                           "SubBarHealthcareDefault",
-                           UITextures.InGameAtlas));
-                        break;
-                    default:
-                        fastList.Add(new TitleRowInfo(
-                           () => GuestsCount == 0,
-                           FavCimsLang.Text("OnBuilding_Guests"),
-                           FavCimsLang.Text("OnBuilding_NoGuests"),
-                           "BcommercialIcon",
-                           UITextures.InGameAtlas));
-                        break;
-                }
+                case ItemClass.Service.PoliceDepartment when buildingInfo.m_class.m_subService != ItemClass.SubService.PoliceDepartmentBank:
+                    fastList.Add(new TitleRowInfo(
+                            () => GuestsCount == 0,
+                            Translations.Translate("Citizen_Under_Arrest"),
+                            Translations.Translate("OnBuilding_noArrested"),
+                            "FavCimsCrimeArrested"));
+                    break;
+                case ItemClass.Service.Education:
+                    fastList.Add(new TitleRowInfo(
+                            () => GuestsCount == 0,
+                            Translations.Translate("Citizen_at_School"),
+                            Translations.Translate("OnBuilding_noStudents"),
+                            "IconPolicySchoolsOut",
+                            UITextures.InGameAtlas));
+                    break;
+                case ItemClass.Service.PlayerEducation when !IsAreaResidentalBuilding:
+                    fastList.Add(new TitleRowInfo(
+                        () => GuestsCount == 0,
+                        Translations.Translate("Citizen_at_University"),
+                        Translations.Translate("OnBuilding_noStudents"),
+                        "IconPolicySchoolsOut",
+                        UITextures.InGameAtlas));
+                    break;
+                case ItemClass.Service.HealthCare when !IsCimCareBuilding:
+                    fastList.Add(new TitleRowInfo(
+                        () => GuestsCount == 0,
+                        Translations.Translate("Citizen_at_Clinic"),
+                        Translations.Translate("OnBuilding_noPatients"),
+                        "SubBarHealthcareDefault",
+                        UITextures.InGameAtlas));
+                    break;
+                default:
+                    fastList.Add(new TitleRowInfo(
+                        () => GuestsCount == 0,
+                        Translations.Translate("OnBuilding_Guests"),
+                        Translations.Translate("OnBuilding_NoGuests"),
+                        "BcommercialIcon"));
+                    break;
             }
         }
 

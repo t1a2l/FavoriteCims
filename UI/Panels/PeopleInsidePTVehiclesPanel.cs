@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AlgernonCommons.Translation;
 using AlgernonCommons.UI;
 using ColossalFramework;
 using ColossalFramework.UI;
@@ -181,13 +182,6 @@ namespace FavoriteCims.UI.Panels
             int totalVehicleUnitsCount = 0;
             CountCitizenUnits(ref vehicle, ref totalVehicleUnitsCount);
 
-            fastList.Add(new TitleRowInfo(
-                           () => CimsOnPTVeh.Count == 0,
-                           FavCimsLang.Text("Vehicle_Passengers"),
-                           FavCimsLang.Text("View_NoPassengers"),
-                           "TitleVehiclePTName",
-                           UITextures.InGameAtlas));
-
             VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
 
             int unitnum = 0;
@@ -200,12 +194,15 @@ namespace FavoriteCims.UI.Panels
                     uint citizen = CitizenUnit.GetCitizen(k);
                     if (citizen != 0U && !CimsOnPTVeh.ContainsKey(citizen) && CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Vehicle))
                     {
-                        fastList.Add(new TitleRowInfo
+                        if (k == 0)
                         {
-                            atlas = null,
-                            spriteName = "passengerIcon",
-                            text = FavCimsLang.Text("Vehicle_PasssengerIconText")
-                        });
+                            fastList.Add(new TitleRowInfo
+                            {
+                                atlas = null,
+                                spriteName = "passengerIcon",
+                                text = FavCimsLang.Text("Vehicle_PasssengerIconText")
+                            });
+                        }
                         CimsOnPTVeh.Add(citizen, VehicleUnits);
                         fastList.Add(citizen);
                     }
@@ -215,6 +212,13 @@ namespace FavoriteCims.UI.Panels
                 {
                     break;
                 }
+            }
+            if (CimsOnPTVeh.Count == 0)
+            {
+                fastList.Add(new TitleRowInfo
+                {
+                    text = Translations.Translate("View_NoPassengers")
+                });
             }
             BodyList.Data = fastList;
             BodyList.CurrentPosition = 0;
