@@ -485,7 +485,7 @@ namespace FavoriteCims
                 }
             }
 
-            private void Update()
+            public void Update()
             {
                 if (Input.GetMouseButton(2) && Input.GetKeyDown(KeyCode.F))
                 {
