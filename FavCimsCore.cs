@@ -68,10 +68,10 @@ namespace FavoriteCims
 					CitizenManager instance2 = Singleton<CitizenManager>.instance;
 					uint citizen = MyInstanceID.Citizen;
 					string citizenName = instance2.GetCitizenName(citizen);
-					int citizenINT = (int)(UIntPtr)citizen;
+					int citizenINT = (int)citizen;
 					if (citizenName != null && citizenName.Length > 0)
 					{
-						if (RowID.ContainsKey(citizenINT))
+						if (!RowID.ContainsKey(citizenINT))
 						{
 							if (!FavoriteCimsMainPanel.RowsAlreadyExist(MyInstanceID))
 							{

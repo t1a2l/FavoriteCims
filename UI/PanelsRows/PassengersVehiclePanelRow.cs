@@ -1,3 +1,4 @@
+using AlgernonCommons.Translation;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
@@ -243,12 +244,12 @@ namespace FavoriteCims.UI.PanelsRows
                                     if (FavCimsCore.RowID.ContainsKey(citizenINT))
                                     {
                                         Star.normalBgSprite = "icon_fav_subscribed";
-                                        Star.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                                        Star.tooltip = Translations.Translate("FavStarButton_disable_tooltip");
                                     }
                                     else
                                     {
                                         Star.normalBgSprite = "icon_fav_unsubscribed";
-                                        Star.tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
+                                        Star.tooltip = Translations.Translate("FavStarButton_enable_tooltip");
                                     }
                                     if (MyCitizen.m_citizens.m_buffer[(int)citizen].m_vehicle == 0 || MyCitizen.m_citizens.m_buffer[(int)citizen].m_vehicle != OnVehicle)
                                     {

@@ -1,25 +1,17 @@
+using AlgernonCommons;
+using AlgernonCommons.Translation;
+using FavoriteCims.UI.Panels;
 using ICities;
 
 namespace FavoriteCims
 {
-	public class FavoriteCimsModMain : IUserMod
-	{
-        public const string Version = "v0.5";
+    public sealed class FavoriteCimsModMain : OptionsMod<OptionsPanel>, IUserMod
+    {
+        public override string BaseName => "Favorite Cims";
+        public override string LogName => "FavoriteCimsMod";
+        public string Description => Translations.Translate("MOD_DESCRIPTION");
+        public override void LoadSettings() => FavCimsSettings.Load();
 
-        public string Name
-		{
-			get
-			{
-				return "Favorite Cims v0.5";
-			}
-		}
-
-		public string Description
-		{
-			get
-			{
-				return "Allows you to add and show favorite citizens in a list.";
-			}
-		}		
-	}
+        public override void SaveSettings() => FavCimsSettings.Save();
+    }
 }

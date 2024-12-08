@@ -1,3 +1,4 @@
+using AlgernonCommons.Translation;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
@@ -59,7 +60,7 @@ namespace FavoriteCims.UI.Buttons
             }
             if (isVisible)
             {
-                tooltip = FavCimsLang.Text("View_NoPassengers");
+                tooltip = Translations.Translate("View_NoPassengers");
                 if (WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty)
                 {
                     VehicleID = WorldInfoPanel.GetCurrentInstanceID();
@@ -85,7 +86,7 @@ namespace FavoriteCims.UI.Buttons
                 else if (!VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle)
                 {
                     isEnabled = true;
-                    tooltip = FavCimsLang.Text("View_PassengersList");
+                    tooltip = Translations.Translate("View_PassengersList");
                 }
                 else
                 {

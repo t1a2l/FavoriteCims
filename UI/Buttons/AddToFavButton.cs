@@ -1,9 +1,10 @@
-using System;
-using System.Threading;
+using AlgernonCommons.Translation;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
+using System;
+using System.Threading;
 using UnityEngine;
 
 namespace FavoriteCims.UI.Buttons
@@ -51,7 +52,7 @@ namespace FavoriteCims.UI.Buttons
                         string name = MyInstance.GetName(ThisHuman);
                         if (name != null && name.Length > 0)
                         {
-                            tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                            tooltip = Translations.Translate("FavStarButton_disable_tooltip");
                             normalBgSprite = "icon_fav_subscribed";
                             if (!FavCimsCore.RowID.ContainsKey(num) && !FavoriteCimsMainPanel.RowsAlreadyExist(ThisHuman))
                             {
@@ -79,12 +80,12 @@ namespace FavoriteCims.UI.Buttons
                             if (num != 0 && FavCimsCore.RowID.ContainsKey(num))
                             {
                                 MyInstance.SetName(ThisHuman, MyCitizen.GetCitizenName(ThisHuman.Citizen));
-                                tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                                tooltip = Translations.Translate("FavStarButton_disable_tooltip");
                                 normalBgSprite = "icon_fav_subscribed";
                             }
                             else
                             {
-                                tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
+                                tooltip = Translations.Translate("FavStarButton_enable_tooltip");
                                 normalBgSprite = "icon_fav_unsubscribed";
                             }
                         }

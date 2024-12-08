@@ -1,3 +1,4 @@
+using AlgernonCommons.Translation;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
@@ -88,7 +89,7 @@ namespace FavoriteCims.UI.Buttons
                             case ItemClass.Service.Residential:
                             case ItemClass.Service.PlayerEducation when FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
                             case ItemClass.Service.PlayerIndustry when FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
-                                tooltip = FavCimsLang.Text("Citizens_HouseHolds");
+                                tooltip = Translations.Translate("Citizens_HouseHolds");
                                 normalBgSprite = "BuildingButtonIcon";
                                 hoveredBgSprite = "BuildingButtonIconHovered";
                                 focusedBgSprite = "BuildingButtonIconHovered";
@@ -96,7 +97,7 @@ namespace FavoriteCims.UI.Buttons
                                 disabledBgSprite = "BuildingButtonIconDisabled";
                                 break;
                             case ItemClass.Service.Commercial:
-                                tooltip = FavCimsLang.Text("CitizenOnBuilding");
+                                tooltip = Translations.Translate("CitizenOnBuilding");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
                                 hoveredBgSprite = "CommercialBuildingButtonIconHovered";
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
@@ -104,7 +105,7 @@ namespace FavoriteCims.UI.Buttons
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
                                 break;
                             case ItemClass.Service.Office:
-                                tooltip = FavCimsLang.Text("WorkersOnBuilding");
+                                tooltip = Translations.Translate("WorkersOnBuilding");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
                                 hoveredBgSprite = "CommercialBuildingButtonIconHovered";
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
@@ -112,7 +113,7 @@ namespace FavoriteCims.UI.Buttons
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
                                 break;
                             case ItemClass.Service.Industrial:
-                                tooltip = FavCimsLang.Text("WorkersOnBuilding");
+                                tooltip = Translations.Translate("WorkersOnBuilding");
                                 normalBgSprite = "IndustrialBuildingButtonIcon";
                                 hoveredBgSprite = "IndustrialBuildingButtonIconHovered";
                                 focusedBgSprite = "IndustrialBuildingButtonIconHovered";
@@ -126,7 +127,7 @@ namespace FavoriteCims.UI.Buttons
                             case ItemClass.Service.PublicTransport:
                             case ItemClass.Service.PlayerIndustry when !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
                             case ItemClass.Service.Fishing:
-                                tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
+                                tooltip = Translations.Translate("View_List") + " " + Translations.Translate("OnBuilding_Workers");
                                 normalBgSprite = "IndustrialBuildingButtonIcon";
                                 hoveredBgSprite = "IndustrialBuildingButtonIconHovered";
                                 focusedBgSprite = "IndustrialBuildingButtonIconHovered";
@@ -134,7 +135,7 @@ namespace FavoriteCims.UI.Buttons
                                 disabledBgSprite = "IndustrialBuildingButtonIconDisabled";
                                 break;
                             case ItemClass.Service.Beautification:
-                                tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Guests");
+                                tooltip = Translations.Translate("View_List") + " " + Translations.Translate("OnBuilding_Guests");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
                                 hoveredBgSprite = "CommercialBuildingButtonIconHovered";
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
@@ -151,7 +152,7 @@ namespace FavoriteCims.UI.Buttons
                             case ItemClass.Service.VarsitySports:
                             case ItemClass.Service.ServicePoint:
                             case ItemClass.Service.Hotel:
-                                tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("OnBuilding_Workers");
+                                tooltip = Translations.Translate("View_List") + " " + Translations.Translate("OnBuilding_Workers");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
                                 hoveredBgSprite = "CommercialBuildingButtonIconHovered";
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
@@ -159,7 +160,7 @@ namespace FavoriteCims.UI.Buttons
                                 disabledBgSprite = "CommercialBuildingButtonIconDisabled";
                                 break;
                             case ItemClass.Service.Monument:
-                                tooltip = FavCimsLang.Text("View_List") + " " + FavCimsLang.Text("CitizenOnBuilding");
+                                tooltip = Translations.Translate("View_List") + " " + Translations.Translate("CitizenOnBuilding");
                                 normalBgSprite = "CommercialBuildingButtonIcon";
                                 hoveredBgSprite = "CommercialBuildingButtonIconHovered";
                                 focusedBgSprite = "CommercialBuildingButtonIconHovered";
@@ -171,7 +172,7 @@ namespace FavoriteCims.UI.Buttons
                         if (Convert.ToInt32(MyBuilding.m_buildings.m_buffer[BuildingID.Building].m_citizenCount) == 0)
                         {
                             BuildingPanel.Hide();
-                            tooltip = FavCimsLang.Text("BuildingIsEmpty");
+                            tooltip = Translations.Translate("BuildingIsEmpty");
                             isEnabled = false;
                         }
                         else

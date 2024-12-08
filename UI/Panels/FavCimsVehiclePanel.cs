@@ -1,10 +1,11 @@
-using System;
-using System.Collections.Generic;
+using AlgernonCommons.Translation;
 using AlgernonCommons.UI;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.PanelsRows;
 using FavoriteCims.Utils;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FavoriteCims.UI.Panels
@@ -79,7 +80,7 @@ namespace FavoriteCims.UI.Panels
 				TitleVehicleName.textVerticalAlignment = UIVerticalAlignment.Middle;
 				TitleVehicleName.textHorizontalAlignment = UIHorizontalAlignment.Center;
 				TitleVehicleName.playAudioEvents = false;
-				TitleVehicleName.font = UIDynamicFont.FindByName("OpenSans-Regular");
+				TitleVehicleName.font = UIFonts.Regular;
 				TitleVehicleName.font.size = 15;
 				TitleVehicleName.textScale = 1f;
 				TitleVehicleName.wordWrap = true;
@@ -157,14 +158,13 @@ namespace FavoriteCims.UI.Panels
                 }
                 if (execute)
                 {
-                    if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty && WorldInfoPanel.GetCurrentInstanceID() != VehicleID)
+                    if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty &&
+                        WorldInfoPanel.GetCurrentInstanceID().Type == InstanceType.Vehicle &&
+                        WorldInfoPanel.GetCurrentInstanceID() != VehicleID)
                     {
                         VehicleID = WorldInfoPanel.GetCurrentInstanceID();
-                        if (!VehicleID.IsEmpty)
-                        {
-                            UpdateList();
-                        }
                     }
+                    UpdateList();
                 }
             }
         }
@@ -173,20 +173,12 @@ namespace FavoriteCims.UI.Panels
 		{
             CimsOnVeh.Clear();
             fastList.Clear();
-            BodyList.Clear();
 
-            TitleVehicleName.text = FavCimsLang.Text("Vehicle_Passengers");
+            TitleVehicleName.text = Translations.Translate("Vehicle_Passengers");
 
             vehicle = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle];
             int totalVehicleUnitsCount = 0;
             CountCitizenUnits(ref vehicle, ref totalVehicleUnitsCount);
-
-            fastList.Add(new TitleRowInfo(
-                           () => CimsOnVeh.Count == 0,
-                           FavCimsLang.Text("Vehicle_Passengers"),
-                           FavCimsLang.Text("View_NoPassengers"),
-                           "TitleVehiclePTName",
-                           UITextures.InGameAtlas));
 
 			VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
 
@@ -206,19 +198,22 @@ namespace FavoriteCims.UI.Panels
                             {
                                 atlas = null,
                                 spriteName = "driverIcon",
-                                text = FavCimsLang.Text("Vehicle_DriverIconText")
+                                text = Translations.Translate("Vehicle_DriverIconText")
                             });
                             CimsOnVeh.Add(citizen, VehicleUnits);
                             fastList.Add(citizen);
                         }
 						else
 						{
-                            fastList.Add(new TitleRowInfo
+                            if (k == 1)
                             {
-                                atlas = null,
-                                spriteName = "passengerIcon",
-                                text = FavCimsLang.Text("Vehicle_PasssengerIconText")
-                            });
+                                fastList.Add(new TitleRowInfo
+                                {
+                                    atlas = null,
+                                    spriteName = "passengerIcon",
+                                    text = Translations.Translate("Vehicle_PasssengerIconText")
+                                });
+                            }
                             CimsOnVeh.Add(citizen, VehicleUnits);
                             fastList.Add(citizen);
                         }
@@ -230,8 +225,15 @@ namespace FavoriteCims.UI.Panels
 					break;
 				}	
 			}
+            if (CimsOnVeh.Count == 0)
+            {
+                fastList.Add(new TitleRowInfo
+                {
+                    text = Translations.Translate("View_NoPassengers")
+                });
+            }
             BodyList.Data = fastList;
-            BodyList.CurrentPosition = 0;
+            BodyList.Refresh();
         }
 
         private void UpdatePanelLayout()

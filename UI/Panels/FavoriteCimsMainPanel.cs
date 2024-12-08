@@ -1,9 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
+using AlgernonCommons.Translation;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.Utils;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 namespace FavoriteCims.UI.Panels
@@ -124,29 +125,29 @@ namespace FavoriteCims.UI.Panels
 			}
 		}
 
-		public void Change_Visibility_Event()
-		{
-			FavCimsBCMenuButton.text = FavCimsLang.Text("FavCimsBCMenuButton_text");
-			FavCimsBCMenuButton.tooltip = FavCimsLang.Text("FavCimsBCMenuButton_tooltip");
-			FavCimsHappinesColText.text = FavCimsLang.Text("FavCimsHappinesColText_text");
-			FavCimsHappinesColText.tooltip = FavCimsLang.Text("FavCimsHappinesColText_tooltip");
-			FavCimsNameColText.text = FavCimsLang.Text("FavCimsNameColText_text");
-			FavCimsNameColText.tooltip = FavCimsLang.Text("FavCimsNameColText_tooltip");
-			FavCimsAgePhaseColText.text = FavCimsLang.Text("FavCimsAgePhaseColText_text");
-			FavCimsAgePhaseColText.tooltip = FavCimsLang.Text("FavCimsAgePhaseColText_tooltip");
-			FavCimsAgeColText.text = FavCimsLang.Text("FavCimsAgeColText_text");
-			FavCimsAgeColText.tooltip = FavCimsLang.Text("FavCimsAgeColText_tooltip");
-			FavCimsEduColText.text = FavCimsLang.Text("FavCimsEduColText_text");
-			FavCimsEduColText.tooltip = FavCimsLang.Text("FavCimsEduColText_tooltip");
-			FavCimsHomeColText.text = FavCimsLang.Text("FavCimsHomeColText_text");
-			FavCimsHomeColText.tooltip = FavCimsLang.Text("FavCimsHomeColText_tooltip");
-			FavCimsWorkingPlaceColText.text = FavCimsLang.Text("FavCimsWorkingPlaceColText_text");
-			FavCimsWorkingPlaceColText.tooltip = FavCimsLang.Text("FavCimsWorkingPlaceColText_tooltip");
-			FavCimsLastActColText.text = FavCimsLang.Text("FavCimsLastActColText_text");
-			FavCimsLastActColText.tooltip = FavCimsLang.Text("FavCimsLastActColText_tooltip");
-			FavCimsCloseButtonCol.text = FavCimsLang.Text("FavCimsCloseButtonCol_text");
-			FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("FavCimsCloseButtonCol_tooltip");
-		}
+        public void Change_Visibility_Event()
+        {
+            FavCimsBCMenuButton.text = Translations.Translate("FavCimsBCMenuButton_text");
+            FavCimsBCMenuButton.tooltip = Translations.Translate("FavCimsBCMenuButton_tooltip");
+            FavCimsHappinesColText.text = Translations.Translate("FavCimsHappinesColText_text");
+            FavCimsHappinesColText.tooltip = Translations.Translate("FavCimsHappinesColText_tooltip");
+            FavCimsNameColText.text = Translations.Translate("FavCimsNameColText_text");
+            FavCimsNameColText.tooltip = Translations.Translate("FavCimsNameColText_tooltip");
+            FavCimsAgePhaseColText.text = Translations.Translate("FavCimsAgePhaseColText_text");
+            FavCimsAgePhaseColText.tooltip = Translations.Translate("FavCimsAgePhaseColText_tooltip");
+            FavCimsAgeColText.text = Translations.Translate("FavCimsAgeColText_text");
+            FavCimsAgeColText.tooltip = Translations.Translate("FavCimsAgeColText_tooltip");
+            FavCimsEduColText.text = Translations.Translate("FavCimsEduColText_text");
+            FavCimsEduColText.tooltip = Translations.Translate("FavCimsEduColText_tooltip");
+            FavCimsHomeColText.text = Translations.Translate("FavCimsHomeColText_text");
+            FavCimsHomeColText.tooltip = Translations.Translate("FavCimsHomeColText_tooltip");
+            FavCimsWorkingPlaceColText.text = Translations.Translate("FavCimsWorkingPlaceColText_text");
+            FavCimsWorkingPlaceColText.tooltip = Translations.Translate("FavCimsWorkingPlaceColText_tooltip");
+            FavCimsLastActColText.text = Translations.Translate("FavCimsLastActColText_text");
+            FavCimsLastActColText.tooltip = Translations.Translate("FavCimsLastActColText_tooltip");
+            FavCimsCloseButtonCol.text = Translations.Translate("FavCimsCloseButtonCol_text");
+            FavCimsCloseButtonCol.tooltip = Translations.Translate("FavCimsCloseButtonCol_tooltip");
+        }
 
 		public override void Start()
 		{

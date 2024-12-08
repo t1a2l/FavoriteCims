@@ -1,5 +1,4 @@
-using System;
-using System.Reflection;
+using AlgernonCommons;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
@@ -7,15 +6,17 @@ using FavoriteCims.UI.Buttons;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
 using ICities;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace FavoriteCims
 {
-    public class FavCimsMainClass : LoadingExtensionBase
+    public sealed class FavCimsMainClass : LoadingBase<OptionsPanel>
     {
         public UIView uiView;
-
-        public static bool UnLoading = false;
+        public static bool UnLoading => !IsLoaded;
 
         private readonly MyAtlas Atlas = new();
 
@@ -93,13 +94,10 @@ namespace FavoriteCims
 
         public static UIPanel FavCimsPanel;
 
+        protected override List<AppMode> PermittedModes => new List<AppMode>() { AppMode.Game };
         public override void OnLevelLoaded(LoadMode mode)
         {
-            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
-            {
-                return;
-            }
-            UnLoading = false;
+            base.OnLevelLoaded(mode);
             CreateGraphics();
         }
 
@@ -451,7 +449,6 @@ namespace FavoriteCims
 
         internal void DestroyGraphics()
         {
-            UnLoading = true;
             FavCimsCore.ClearIdArray();
             try
             {
@@ -472,6 +469,7 @@ namespace FavoriteCims
 
         public override void OnLevelUnloading()
         {
+            base.OnLevelUnloading();
             DestroyGraphics();
         }
 

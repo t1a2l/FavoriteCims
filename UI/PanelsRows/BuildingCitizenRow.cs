@@ -1,4 +1,5 @@
-﻿using AlgernonCommons.UI;
+﻿using AlgernonCommons.Translation;
+using AlgernonCommons.UI;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using FavoriteCims.Utils;
@@ -31,7 +32,6 @@ namespace FavoriteCims.UI.PanelsRows
             width = 226f;
             height = 25f;
             atlas = MyAtlas.FavCimsAtlas;
-            BackgroundSpriteName = "bg_row1";
             relativePosition = new Vector3(0f, 0f);
             gender = AddUIComponent<UIButton>();
             gender.name = "Gender";
@@ -86,6 +86,16 @@ namespace FavoriteCims.UI.PanelsRows
             star.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
                 FavCimsCore.AddToFavorites(citizenInstanceID);
+                if (FavCimsCore.RowID.ContainsKey((int)citizenId))
+                {
+                    (component as UIButton).normalBgSprite = "icon_fav_subscribed";
+                    (component as UIButton).tooltip = Translations.Translate("FavStarButton_disable_tooltip");
+                }
+                else
+                {
+                    (component as UIButton).normalBgSprite = "icon_fav_unsubscribed";
+                    component.tooltip = Translations.Translate("FavStarButton_enable_tooltip");
+                }
             };
         }
         /*
@@ -150,7 +160,7 @@ namespace FavoriteCims.UI.PanelsRows
                     _name.textColor = new Color32(204, 204, 51, 40);
                     gender.normalBgSprite = "Male";
                 }
-                _name.tooltip = citizen.Arrested ? FavCimsLang.Text("Jailed_into") + " " + buildingName : localizedStatus + " " + buildingName;
+                _name.tooltip = citizen.Arrested ? Translations.Translate("Jailed_into") + " " + buildingName : localizedStatus + " " + buildingName;
             }
 
 
@@ -188,14 +198,13 @@ namespace FavoriteCims.UI.PanelsRows
             if (FavCimsCore.RowID.ContainsKey((int)citizenId))
             {
                 star.normalBgSprite = "icon_fav_subscribed";
-                star.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                star.tooltip = Translations.Translate("FavStarButton_disable_tooltip");
             }
             else
             {
                 star.normalBgSprite = "icon_fav_unsubscribed";
-                star.tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
+                star.tooltip = Translations.Translate("FavStarButton_enable_tooltip");
             }
-
             Deselect(rowIndex);
         }
         public override void Deselect(int rowIndex)

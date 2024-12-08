@@ -15,3 +15,161 @@ HARMONY_NOT_INSTALLED,此模组所需的必需物品 Harmony 2 未订阅或未�
 HARMONY_MOD_ERROR,存在一个过时/损坏的模组导致 Harmony 2 模组无法正常运行,Possible cause of Harmony error - a broken mod (not this one) can cause things to stop working.
 HARMONY_MOD_CONFLICT,另一个模组可能在尝试调用冲突的 Harmony 库,Possible cause of Harmony error - two mods trying to patch the same thing at once.
 DETAIL_LOGGING,启用详细的调试日志记录,Option to record more detail in game log
+MOD_DESCRIPTION,在列表中添加和追踪喜爱的市民
+FavCimsButton_tooltip,我喜爱的市民
+FavCimsBCMenuButton_text,市民
+FavCimsBCMenuButton_tooltip,关注的人
+FavCimsBBMenuButton_text,楼房
+FavCimsBBMenuButton_tooltip,喜爱的建筑物
+FavCimsBSMenuButton_text,统计
+FavCimsBSMenuButton_tooltip,信息和统计
+FavStarButton_enable_tooltip,点击以喜爱
+FavStarButton_disable_tooltip,点击以取消喜爱
+FavCimsHappinesColText_text,状态
+FavCimsHappinesColText_tooltip,市民幸福度
+FavCimsNameColText_text,市民名称
+FavCimsNameColText_tooltip,市民名称
+FavCimsEduColText_text,教育
+FavCimsEduColText_tooltip,市民的教育水平
+FavCimsWorkingPlaceColText_text,职业
+FavCimsWorkingPlaceColText_tooltip,市民的工作或学习地点
+FavCimsAgePhaseColText_text,年龄阶段
+FavCimsAgePhaseColText_tooltip,市民的年龄阶段
+FavCimsAgeColText_text,年龄
+FavCimsAgeColText_tooltip,市民年龄
+FavCimsHomeColText_text,市民家庭
+FavCimsHomeColText_tooltip,市民住在哪个家庭
+FavCimsLastActColText_text,最后活动
+FavCimsLastActColText_tooltip,市民正在做什么
+FavCimsCloseButtonCol_text,关闭
+FavCimsCloseButtonCol_tooltip,点击以取消喜爱
+Male,男
+Female,女
+AgePhase_Child_Male,儿童
+AgePhase_Teen_Male,少年
+AgePhase_Young_Male,年轻男子
+AgePhase_Adult_Male,成年男子
+AgePhase_Senior_Male,老年男子
+Education_Uneducated_Male,未接受教育
+Education_OneSchool_Male,受普通教育
+Education_TwoSchools_Male,受中等教育
+Education_ThreeSchools_Male,受高等教育
+AgePhase_Child_Female,儿童
+AgePhase_Teen_Female,少女
+AgePhase_Young_Female,年轻女性
+AgePhase_Adult_Female,成年女性
+AgePhase_Senior_Female,老年女性
+Education_Uneducated_Female,未接受教育
+Education_OneSchool_Female,受普通教育
+Education_TwoSchools_Female,受中等教育
+Education_ThreeSchools_Female,受高等教育
+AgePhaseDead_Male,已死亡
+AgePhaseDead_Female,已死亡
+People_Life_Status_Alive,市民活着
+People_Life_Status_Dead,市民已死亡
+People_Life_Status_Dead_date,在这个日期
+People_Life_Status_Dead_time,在这个时间
+NotificationIconVeryUnhappy,非常不快乐
+NotificationIconUnhappy,不快乐
+NotificationIconHappy,快乐
+NotificationIconVeryHappy,非常快乐
+NotificationIconExtremelyHappy,极度快乐
+time_format,yyyy-mm-dd
+People_Life_Status_IsGone,市民已离开城市
+Citizen_HomeLess,无家可归
+Citizen_HomeLess_tooltip,市民无家可归
+HomeOutsideTheCity,远在他方
+Home_Location_Dead,墓地
+Citizen_Retired,退休
+Citizen_Retired_tooltip,市民已退休
+Unemployed_tooltip,市民目前有很多空闲时间……
+Government_job,政府建筑
+Electricity_job,电力厂
+Water_job,水厂
+Generic_job_place,市民在此工作
+Vehicle_on_foot,市民步行
+Citizen_Details,市民详情
+Citizen_Details_fullTemplate,打开的家庭窗口太多，请先关闭一个
+Status_static_label,状态：
+Citizen_Family_unit,家庭
+NowInThisDistrict,目前所在区域：
+DistrictLabel,区域：
+DistrictNameNoDistrict,无区域
+Citizen_Details_No_Partner,没有伴侣
+Citizen_Details_No_Childs,没有孩子
+Right_click_to_swith_tooltip,右键切换市民
+Home_Bubble_panel_Label,家庭：
+Low_Wealth_Male,贫困
+Mid_Wealth_Male,小康
+High_Wealth_Male,富有
+Low_Wealth_Female,贫困
+Mid_Wealth_Female,小康
+High_Wealth_Female,富有
+WellBeingLabel,幸福感：
+HappinessLabel,幸福度：
+Wealth_Label,财富
+Health_Level_VerySick_Male,病入膏肓
+Health_Level_Sick_Male,生病
+Health_Level_PoorHealth_Male,健康状况差
+Health_Level_Healthy_Male,健康
+Health_Level_VeryHealthy_Male,非常健康
+Health_Level_ExcellentHealth_Male,健康状况极佳
+Health_Level_VerySick_Female,非常生病
+Health_Level_Sick_Female,生病
+Health_Level_PoorHealth_Female,健康状况差
+Health_Level_Healthy_Female,健康
+Health_Level_VeryHealthy_Female,非常健康
+Health_Level_ExcellentHealth_Female,健康状况极佳
+District_Label,区域：
+District_Label_tooltip,目前所在区域
+Citizen_Details_NoUnit,市民已死亡或无家可归
+Citizen_wait_hearse,等待灵车
+Citizen_on_hearse,在灵车上
+Citizen_hisfuneral,葬礼仪式
+Citizen_buried,埋葬
+Citizen_Tourist_tooltip,该市民正在城市旅游
+View_PassengersList,查看乘客列表
+View_NoPassengers,无乘客
+Vehicle_Passengers,乘客
+Vehicle_DriverIconText,驾驶员
+Vehicle_PasssengerIconText,乘客
+Citizens_HouseHolds,查看居民
+Citizens_HouseHoldsTitle,居民
+CitizenOnBuilding,员工和来访者列表
+CitizenOnBuildingTitle,员工和来访者
+CitizenOnHotelBuildingTitle,酒店员工和来访者
+OnBuilding_Residential,公寓
+OnBuilding_HotelRooms,酒店房间
+View_List,查看列表
+OnBuilding_Guests,来访者
+OnBuilding_Workers,员工
+WorkersOnBuilding,在岗员工列表
+OnBuilding_NoWorkers,已打烊
+OnBuilding_NoGuests,暂无来访者
+OnBuilding_NoHotelGuests,暂无宾客
+BuildingIsEmpty,此建筑内无人工作或居住
+OnBuilding_TotalWorkers,总计在职员工：
+Buildings_Type_CommercialEco,本地有机作物建筑
+Buildings_Type_CommercialLeisure,休闲娱乐建筑
+Buildings_Type_CommercialTourist,旅游观光建筑
+Citizen_Arrested,该市民被捕
+Transported_to_Prison,被送往监狱
+Jailed_into,被监禁于
+Citizen_at_School,在校学生
+Citizen_at_University,在校学生
+Citizen_at_Clinic,患者
+Citizen_Under_Arrest,被捕的市民
+OnBuilding_noArrested,暂无被捕的市民
+OnPolice_Building_Service,警察和囚犯
+OnPrison_Building_Service,守卫和囚犯
+OnEducation_Building_Service,教师和学生
+OnHighEducation_Building_Service,教授和学生
+OnMedical_Building_Service,医生和患者
+OnMedicalUniversity_Building_Service,医生、患者和学生
+OnBuilding_noStudents,暂无学生
+OnBuilding_noPatients,暂无患者
+OnHelicopter_Building_Service,飞行员和员工
+OnFire_Building_Service,消防员和员工
+OnRescue_Building_Service,飞行员和救援人员
+OnShelter_Building_Service,避难者和员工
+OnBuilding_noHotelGuests,暂无宾客
