@@ -1,3 +1,4 @@
+using AlgernonCommons.Translation;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
@@ -29,7 +30,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideVehiclesPanel)) as PeopleInsideVehiclesPanel;
+            VehiclePanel = MainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideVehiclesPanel)) as PeopleInsideVehiclesPanel;
             VehiclePanel.VehicleID = InstanceID.Empty;
             VehiclePanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
@@ -50,13 +51,13 @@ namespace FavoriteCims.UI.Buttons
 
         public override void Update()
         {
-            bool unLoading = FavCimsMainClass.UnLoading;
+            bool unLoading = MainClass.UnLoading;
             if (!unLoading)
             {
                 bool isVisible = base.isVisible;
                 if (isVisible)
                 {
-                    tooltip = FavCimsLang.Text("View_NoPassengers");
+                    tooltip = Translations.Translate("View_NoPassengers");
                     if (WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty)
                     {
                         VehicleID = WorldInfoPanel.GetCurrentInstanceID();
@@ -75,7 +76,7 @@ namespace FavoriteCims.UI.Buttons
                     if (!VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle)
                     {
                         isEnabled = true;
-                        tooltip = FavCimsLang.Text("View_PassengersList");
+                        tooltip = Translations.Translate("View_PassengersList");
                     }
                     else
                     {

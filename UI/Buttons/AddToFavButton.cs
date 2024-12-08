@@ -1,7 +1,8 @@
-using System;
-using System.Threading;
+using AlgernonCommons.Translation;
 using ColossalFramework;
 using ColossalFramework.UI;
+using System;
+using System.Threading;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace FavoriteCims.UI.Buttons
 
         public override void Update()
         {
-            bool unLoading = FavCimsMainClass.UnLoading;
+            bool unLoading = MainClass.UnLoading;
             if (!unLoading)
             {
                 bool isVisible = base.isVisible;
@@ -51,7 +52,7 @@ namespace FavoriteCims.UI.Buttons
                         string name = MyInstance.GetName(ThisHuman);
                         if (name != null && name.Length > 0)
                         {
-                            tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                            tooltip = Translations.Translate("FavStarButton_disable_tooltip");
                             normalBgSprite = "icon_fav_subscribed";
                             if (!FavCimsCore.RowID.ContainsKey(num) && !MainPanel.RowsAlreadyExist(ThisHuman))
                             {
@@ -61,7 +62,7 @@ namespace FavoriteCims.UI.Buttons
                                 }
                                 try
                                 {
-                                    CitizenRow citizenRow = MainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
+                                    CitizenRow citizenRow = MainPanel.CitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
                                     if (citizenRow != null)
                                     {
                                         citizenRow.MyInstanceID = ThisHuman;
@@ -79,12 +80,12 @@ namespace FavoriteCims.UI.Buttons
                             if (num != 0 && FavCimsCore.RowID.ContainsKey(num))
                             {
                                 MyInstance.SetName(ThisHuman, MyCitizen.GetCitizenName(ThisHuman.Citizen));
-                                tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                                tooltip = Translations.Translate("FavStarButton_disable_tooltip");
                                 normalBgSprite = "icon_fav_subscribed";
                             }
                             else
                             {
-                                tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
+                                tooltip = Translations.Translate("FavStarButton_enable_tooltip");
                                 normalBgSprite = "icon_fav_unsubscribed";
                             }
                         }

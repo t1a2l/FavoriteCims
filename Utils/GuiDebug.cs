@@ -11,17 +11,17 @@ namespace FavoriteCims.Utils
 			if (uipanel != null)
 			{
 				UILabel uilabel;
-				if (uipanel.Find<UILabel>("FavCimsDebugLabel") == null)
+				if (uipanel.Find<UILabel>("DebugLabel") == null)
 				{
 					uilabel = uipanel.AddUIComponent<UILabel>();
-					uilabel.name = "FavCimsDebugLabel";
+					uilabel.name = "DebugLabel";
 					uilabel.width = 700f;
 					uilabel.height = 300f;
 					uilabel.relativePosition = new Vector3(200f, 20f);
 				}
 				else
 				{
-					uilabel = uipanel.Find<UILabel>("FavCimsDebugLabel");
+					uilabel = uipanel.Find<UILabel>("DebugLabel");
 				}
 				uilabel.text = message;
 			}
@@ -30,9 +30,9 @@ namespace FavoriteCims.Utils
 		public static void Destroy()
 		{
 			UIPanel uipanel = UIView.Find<UIPanel>("FullScreenContainer");
-			if (uipanel.Find<UILabel>("FavCimsDebugLabel") != null)
+			if (uipanel.Find<UILabel>("DebugLabel") != null)
 			{
-                Object.Destroy(uipanel.Find<UILabel>("FavCimsDebugLabel").gameObject);
+                Object.Destroy(uipanel.Find<UILabel>("DebugLabel").gameObject);
 			}
 		}
 	}

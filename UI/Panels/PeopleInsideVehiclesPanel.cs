@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
 using AlgernonCommons.Translation;
 using AlgernonCommons.UI;
 using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.PanelsRows;
 using FavoriteCims.Utils;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace FavoriteCims.UI.Panels
@@ -80,7 +80,7 @@ namespace FavoriteCims.UI.Panels
 				TitleVehicleName.textVerticalAlignment = UIVerticalAlignment.Middle;
 				TitleVehicleName.textHorizontalAlignment = UIHorizontalAlignment.Center;
 				TitleVehicleName.playAudioEvents = false;
-				TitleVehicleName.font = UIDynamicFont.FindByName("OpenSans-Regular");
+				TitleVehicleName.font = UIFonts.Regular;
 				TitleVehicleName.font.size = 15;
 				TitleVehicleName.textScale = 1f;
 				TitleVehicleName.wordWrap = true;
@@ -138,7 +138,7 @@ namespace FavoriteCims.UI.Panels
 
         public override void Update()
         {
-            if (FavCimsMainClass.UnLoading)
+            if (MainClass.UnLoading)
             {
                 return;
             }
@@ -158,14 +158,13 @@ namespace FavoriteCims.UI.Panels
                 }
                 if (execute)
                 {
-                    if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty && WorldInfoPanel.GetCurrentInstanceID() != VehicleID)
+                    if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty &&
+                       WorldInfoPanel.GetCurrentInstanceID().Type == InstanceType.Vehicle &&
+                       WorldInfoPanel.GetCurrentInstanceID() != VehicleID)
                     {
                         VehicleID = WorldInfoPanel.GetCurrentInstanceID();
-                        if (!VehicleID.IsEmpty)
-                        {
-                            UpdateList();
-                        }
                     }
+                    UpdateList();
                 }
             }
         }
@@ -176,7 +175,7 @@ namespace FavoriteCims.UI.Panels
             fastList.Clear();
             BodyList.Clear();
 
-            TitleVehicleName.text = FavCimsLang.Text("Vehicle_Passengers");
+            TitleVehicleName.text = Translations.Translate("Vehicle_Passengers");
 
             vehicle = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle];
             int totalVehicleUnitsCount = 0;
@@ -200,7 +199,7 @@ namespace FavoriteCims.UI.Panels
                             {
                                 atlas = null,
                                 spriteName = "driverIcon",
-                                text = FavCimsLang.Text("Vehicle_DriverIconText")
+                                text = Translations.Translate("Vehicle_DriverIconText")
                             });
                         }
 						else if (k == 1)
@@ -209,7 +208,7 @@ namespace FavoriteCims.UI.Panels
                             {
                                 atlas = null,
                                 spriteName = "passengerIcon",
-                                text = FavCimsLang.Text("Vehicle_PasssengerIconText")
+                                text = Translations.Translate("Vehicle_PasssengerIconText")
                             });
                         }
                         CimsOnVeh.Add(citizen, VehicleUnits);
@@ -230,7 +229,7 @@ namespace FavoriteCims.UI.Panels
                 });
             }
             BodyList.Data = fastList;
-            BodyList.CurrentPosition = 0;
+            BodyList.Refresh();
         }
 
         private void UpdatePanelLayout()

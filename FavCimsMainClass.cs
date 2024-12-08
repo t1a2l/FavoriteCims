@@ -1,5 +1,4 @@
-using System;
-using System.Reflection;
+using AlgernonCommons;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
@@ -7,15 +6,18 @@ using FavoriteCims.UI.Buttons;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
 using ICities;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 namespace FavoriteCims
 {
-    public class FavCimsMainClass : LoadingExtensionBase
+    public sealed class MainClass : LoadingBase<OptionsPanel>
     {
         public UIView uiView;
 
-        public static bool UnLoading = false;
+        public static bool UnLoading => !IsLoaded;
 
         private readonly MyAtlas Atlas = new();
 
@@ -25,19 +27,19 @@ namespace FavoriteCims
 
         public static UIPanel FullScreenContainer;
 
-        public static UIPanel FavCimsHumanPanel;
+        public static UIPanel HumanPanel;
 
-        public static UIPanel FavCimsTouristHumanPanel;
+        public static UIPanel TouristHumanPanel;
 
         private AddToFavButton FavStarButton;
 
         private AddToFavButton FavStarTouristButton;
 
-        public static UIPanel FavCimsHumanPassengerPanel;
+        public static UIPanel HumanPassengerPanel;
 
         private PassengersInsideVehiclesButton PassengerButton;
 
-        public static UIPanel FavCimsHumanPublicTransportPanel;
+        public static UIPanel HumanPublicTransportPanel;
 
         private PassengersInsidePTVehiclesButton PublicTransportPassengersButton;
 
@@ -45,21 +47,21 @@ namespace FavoriteCims
 
         private UIGroupPanel m_groupPanel;
 
-        public static UIPanel FavCimsPeopleZonedBuildingPanel;
+        public static UIPanel PeopleZonedBuildingPanel;
 
-        public static UIPanel FavCimsPeopleServiceBuildingPanel;
+        public static UIPanel PeopleServiceBuildingPanel;
 
-        public static UIPanel FavCimsPeopleFootballEventBuildingPanel;
+        public static UIPanel PeopleFootballEventBuildingPanel;
 
-        public static UIPanel FavCimsPeopleVarsitySportsArenaBuildingPanel;
+        public static UIPanel PeopleVarsitySportsArenaBuildingPanel;
 
-        public static UIPanel FavCimsPeopleWarehouseBuildingPanel;
+        public static UIPanel PeopleWarehouseBuildingPanel;
 
-        public static UIPanel FavCimsPeopleShelterBuildingPanel;
+        public static UIPanel PeopleShelterBuildingPanel;
 
-        public static UIPanel FavCimsPeopleUniqueFactoryBuildingPanel;
+        public static UIPanel PeopleUniqueFactoryBuildingPanel;
 
-        public static UIPanel FavCimsPeopleHotelBuildingPanel;
+        public static UIPanel PeopleHotelBuildingPanel;
 
         private PeopleInsideBuildingsButton PeopleZonedBuildingButton;
 
@@ -77,29 +79,27 @@ namespace FavoriteCims
 
         private PeopleInsideBuildingsButton PeopleHotelBuildingButton;
 
-        public static UIPanel FavCimsPublicTransportTaxiPanel;
+        public static UIPanel PublicTransportTaxiPanel;
 
-        public static UIPanel FavCimsPeopleServiceResidentBuildingPanel;
+        public static UIPanel PeopleServiceResidentBuildingPanel;
 
-        private UIComponent FavCimsPanelTrigger_paneltime;
+        private UIComponent PanelTrigger_paneltime;
 
-        private UIComponent FavCimsPanelTrigger_chirper;
+        private UIComponent PanelTrigger_chirper;
 
-        private UIComponent FavCimsPanelTrigger_esc;
+        private UIComponent PanelTrigger_esc;
 
-        private UIComponent FavCimsPanelTrigger_infopanel;
+        private UIComponent PanelTrigger_infopanel;
 
-        private UIComponent FavCimsPanelTrigger_bottombars;
+        private UIComponent PanelTrigger_bottombars;
 
-        public static UIPanel FavCimsPanel;
+        public static UIPanel Panel;
+
+        protected override List<AppMode> PermittedModes => [AppMode.Game];
 
         public override void OnLevelLoaded(LoadMode mode)
         {
-            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
-            {
-                return;
-            }
-            UnLoading = false;
+            base.OnLevelLoaded(mode);
             CreateGraphics();
         }
 
@@ -107,40 +107,40 @@ namespace FavoriteCims
         {
             for (int i = 0; i < 5; i++)
             {
-                if (FullScreenContainer.Find<FamilyPanelTemplate>("FavCimsFamilyTemplate_" + i.ToString()) != null)
+                if (FullScreenContainer.Find<FamilyPanelTemplate>("FamilyTemplate_" + i.ToString()) != null)
                 {
-                    Templates[i] = FullScreenContainer.Find<FamilyPanelTemplate>("FavCimsFamilyTemplate_" + i.ToString());
+                    Templates[i] = FullScreenContainer.Find<FamilyPanelTemplate>("FamilyTemplate_" + i.ToString());
                     Templates[i].MyInstanceID = InstanceID.Empty;
                     Templates[i].Hide();
                 }
                 else
                 {
                     Templates[i] = FullScreenContainer.AddUIComponent(typeof(FamilyPanelTemplate)) as FamilyPanelTemplate;
-                    Templates[i].name = "FavCimsFamilyTemplate_" + i.ToString();
+                    Templates[i].name = "FamilyTemplate_" + i.ToString();
                     Templates[i].MyInstanceID = InstanceID.Empty;
                     Templates[i].Hide();
                 }
             }
         }
 
-        public static void FavCimsPanelToggle()
+        public static void PanelToggle()
         {
-            if (!FavCimsPanel.isVisible)
+            if (!Panel.isVisible)
             {
-                FavCimsPanel.CenterTo(FullScreenContainer);
-                FavCimsPanel.Show();
+                Panel.CenterTo(FullScreenContainer);
+                Panel.Show();
             }
             else
             {
-                FavCimsPanel.Hide();
+                Panel.Hide();
             }
         }
 
-        public void FavCimsPanelOff()
+        public void PanelOff()
         {
-            if (FavCimsPanel.isVisible && !FavCimsPanel.containsMouse && !mainButton.containsMouse && FavCimsPanelTrigger_paneltime != null && !FavCimsPanelTrigger_paneltime.containsMouse)
+            if (Panel.isVisible && !Panel.containsMouse && !mainButton.containsMouse && PanelTrigger_paneltime != null && !PanelTrigger_paneltime.containsMouse)
             {
-                FavCimsPanel.Hide();
+                Panel.Hide();
             }
         }
 
@@ -148,68 +148,68 @@ namespace FavoriteCims
         {
             try
             {
-                GameObject gameObject = GameObject.Find("FavCimsMenuPanel");
+                GameObject gameObject = GameObject.Find("MenuPanel");
                 if (gameObject != null)
                 {
                     return;
                 }
-                FavCimsPanelTrigger_chirper = UIView.Find<UIPanel>("ChirperPanel");
-                FavCimsPanelTrigger_esc = UIView.Find<UIButton>("Esc");
-                FavCimsPanelTrigger_infopanel = UIView.Find<UIPanel>("InfoPanel");
-                FavCimsPanelTrigger_bottombars = UIView.Find<UISlicedSprite>("TSBar");
-                FavCimsPanelTrigger_paneltime = UIView.Find<UIPanel>("PanelTime");
-                if (FavCimsPanelTrigger_chirper != null && FavCimsPanelTrigger_paneltime != null)
+                PanelTrigger_chirper = UIView.Find<UIPanel>("ChirperPanel");
+                PanelTrigger_esc = UIView.Find<UIButton>("Esc");
+                PanelTrigger_infopanel = UIView.Find<UIPanel>("InfoPanel");
+                PanelTrigger_bottombars = UIView.Find<UISlicedSprite>("TSBar");
+                PanelTrigger_paneltime = UIView.Find<UIPanel>("PanelTime");
+                if (PanelTrigger_chirper != null && PanelTrigger_paneltime != null)
                 {
-                    FavCimsPanelTrigger_chirper.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+                    PanelTrigger_chirper.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
                     {
-                        FavCimsPanelOff();
+                        PanelOff();
                     };
                 }
-                if (FavCimsPanelTrigger_esc != null && FavCimsPanelTrigger_paneltime != null)
+                if (PanelTrigger_esc != null && PanelTrigger_paneltime != null)
                 {
-                    FavCimsPanelTrigger_esc.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+                    PanelTrigger_esc.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
                     {
-                        FavCimsPanelOff();
+                        PanelOff();
                     };
                 }
-                if (FavCimsPanelTrigger_infopanel != null && FavCimsPanelTrigger_paneltime != null)
+                if (PanelTrigger_infopanel != null && PanelTrigger_paneltime != null)
                 {
-                    FavCimsPanelTrigger_infopanel.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+                    PanelTrigger_infopanel.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
                     {
-                        FavCimsPanelOff();
+                        PanelOff();
                     };
                 }
-                if (FavCimsPanelTrigger_bottombars != null && FavCimsPanelTrigger_paneltime != null)
+                if (PanelTrigger_bottombars != null && PanelTrigger_paneltime != null)
                 {
-                    FavCimsPanelTrigger_bottombars.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+                    PanelTrigger_bottombars.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
                     {
-                        FavCimsPanelOff();
+                        PanelOff();
                     };
                 }
                 UIView aview = UIView.GetAView();
-                TextureDB.LoadFavCimsTextures();
+                TextureDB.LoadTextures();
                 Atlas.LoadAtlasIcons();
                 UITabstrip tabstrip = ToolsModifierControl.mainToolbar.GetComponentInChildren<UITabstrip>();
-                if (tabstrip.Find("FavCimsMenuPanel") || GameObject.Find("MainToolbarButtonTemplate") || GameObject.Find("ScrollableSubPanelTemplate"))
+                if (tabstrip.Find("MenuPanel") || GameObject.Find("MainToolbarButtonTemplate") || GameObject.Find("ScrollableSubPanelTemplate"))
                 {
                     return;
                 }
 
                 GameObject asGameObject = UITemplateManager.GetAsGameObject("MainToolbarButtonTemplate");
                 GameObject asGameObject2 = UITemplateManager.GetAsGameObject("ScrollableSubPanelTemplate");
-                mainButton = tabstrip.AddTab("FavCimsMenuPanel", asGameObject, asGameObject2, [typeof(UIGroupPanel)]) as UIButton;
+                mainButton = tabstrip.AddTab("MenuPanel", asGameObject, asGameObject2, [typeof(UIGroupPanel)]) as UIButton;
                 mainButton.normalBgSprite = "FavoriteCimsButton";
                 mainButton.hoveredBgSprite = "FavoriteCimsButtonHovered";
                 mainButton.focusedBgSprite = "FavoriteCimsButtonFocused";
                 mainButton.pressedBgSprite = "FavoriteCimsButtonPressed";
                 mainButton.playAudioEvents = true;
-                mainButton.name = "FavCimsButton";
+                mainButton.name = "Button";
                 mainButton.tooltipBox = aview.defaultTooltipBox;
                 mainButton.atlas = MyAtlas.FavCimsAtlas;
                 mainButton.size = new Vector2(49f, 49f);
                 mainButton.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
                 {
-                    FavCimsPanelToggle();
+                    PanelToggle();
                 };
                 mainButton.tooltip = "Favorite Cims v0.4a";
                 Locale locale = (Locale)typeof(LocaleManager).GetField("m_Locale", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(SingletonLite<LocaleManager>.instance);
@@ -234,7 +234,7 @@ namespace FavoriteCims
                 m_groupPanel = tabstrip.GetComponentInContainer(mainButton, typeof(UIGroupPanel)) as UIGroupPanel;
                 if (m_groupPanel != null)
                 {
-                    m_groupPanel.name = "FavCimsTabMenuPanel";
+                    m_groupPanel.name = "TabMenuPanel";
                     m_groupPanel.enabled = true;
                     m_groupPanel.component.isInteractive = true;
                     m_groupPanel.m_OptionsBar = ToolsModifierControl.mainToolbar.m_OptionsBar;
@@ -246,199 +246,199 @@ namespace FavoriteCims
                     }
                 }
                 FullScreenContainer = UIView.Find<UIPanel>("FullScreenContainer");
-                FavCimsPanel = FullScreenContainer.AddUIComponent<MainPanel>();
-                FavCimsPanel.Hide();
+                Panel = FullScreenContainer.AddUIComponent<MainPanel>();
+                Panel.Hide();
                 FullScreenContainer.eventMouseDown += delegate
                 {
-                    if (!FavCimsPanel.containsMouse)
+                    if (!Panel.containsMouse)
                     {
-                        FavCimsPanel.SendToBack();
+                        Panel.SendToBack();
                     }
                     else
                     {
-                        FavCimsPanel.BringToFront();
+                        Panel.BringToFront();
                     }
                 };
-                FavCimsHumanPanel = FullScreenContainer.Find<UIPanel>("(Library) CitizenWorldInfoPanel");
-                if (FavCimsHumanPanel != null)
+                HumanPanel = FullScreenContainer.Find<UIPanel>("(Library) CitizenWorldInfoPanel");
+                if (HumanPanel != null)
                 {
-                    if (FavCimsHumanPanel.GetComponentInChildren<AddToFavButton>() != null)
+                    if (HumanPanel.GetComponentInChildren<AddToFavButton>() != null)
                     {
-                        FavStarButton = FavCimsHumanPanel.GetComponentInChildren<AddToFavButton>();
+                        FavStarButton = HumanPanel.GetComponentInChildren<AddToFavButton>();
                     }
                     else
                     {
-                        FavStarButton = FavCimsHumanPanel.AddUIComponent(typeof(AddToFavButton)) as AddToFavButton;
+                        FavStarButton = HumanPanel.AddUIComponent(typeof(AddToFavButton)) as AddToFavButton;
                     }
-                    FavStarButton.RefPanel = FavCimsHumanPanel;
+                    FavStarButton.RefPanel = HumanPanel;
                     FavStarButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsTouristHumanPanel = FullScreenContainer.Find<UIPanel>("(Library) TouristWorldInfoPanel");
-                if (FavCimsTouristHumanPanel != null)
+                TouristHumanPanel = FullScreenContainer.Find<UIPanel>("(Library) TouristWorldInfoPanel");
+                if (TouristHumanPanel != null)
                 {
-                    if (FavCimsTouristHumanPanel.GetComponentInChildren<AddToFavButton>() != null)
+                    if (TouristHumanPanel.GetComponentInChildren<AddToFavButton>() != null)
                     {
-                        FavStarTouristButton = FavCimsTouristHumanPanel.GetComponentInChildren<AddToFavButton>();
+                        FavStarTouristButton = TouristHumanPanel.GetComponentInChildren<AddToFavButton>();
                     }
                     else
                     {
-                        FavStarTouristButton = FavCimsTouristHumanPanel.AddUIComponent(typeof(AddToFavButton)) as AddToFavButton;
+                        FavStarTouristButton = TouristHumanPanel.AddUIComponent(typeof(AddToFavButton)) as AddToFavButton;
                     }
-                    FavStarTouristButton.RefPanel = FavCimsTouristHumanPanel;
+                    FavStarTouristButton.RefPanel = TouristHumanPanel;
                     FavStarTouristButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsHumanPassengerPanel = FullScreenContainer.Find<UIPanel>("(Library) CitizenVehicleWorldInfoPanel");
-                if (FavCimsHumanPassengerPanel != null)
+                HumanPassengerPanel = FullScreenContainer.Find<UIPanel>("(Library) CitizenVehicleWorldInfoPanel");
+                if (HumanPassengerPanel != null)
                 {
-                    if (FavCimsHumanPassengerPanel.GetComponentInChildren<PassengersInsideVehiclesButton>() != null)
+                    if (HumanPassengerPanel.GetComponentInChildren<PassengersInsideVehiclesButton>() != null)
                     {
-                        PassengerButton = FavCimsHumanPassengerPanel.GetComponentInChildren<PassengersInsideVehiclesButton>();
+                        PassengerButton = HumanPassengerPanel.GetComponentInChildren<PassengersInsideVehiclesButton>();
                     }
                     else
                     {
-                        PassengerButton = FavCimsHumanPassengerPanel.AddUIComponent(typeof(PassengersInsideVehiclesButton)) as PassengersInsideVehiclesButton;
+                        PassengerButton = HumanPassengerPanel.AddUIComponent(typeof(PassengersInsideVehiclesButton)) as PassengersInsideVehiclesButton;
                     }
-                    PassengerButton.RefPanel = FavCimsHumanPassengerPanel;
+                    PassengerButton.RefPanel = HumanPassengerPanel;
                     PassengerButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsHumanPublicTransportPanel = FullScreenContainer.Find<UIPanel>("(Library) PublicTransportVehicleWorldInfoPanel");
-                if (FavCimsHumanPublicTransportPanel != null)
+                HumanPublicTransportPanel = FullScreenContainer.Find<UIPanel>("(Library) PublicTransportVehicleWorldInfoPanel");
+                if (HumanPublicTransportPanel != null)
                 {
-                    if (FavCimsHumanPublicTransportPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>() != null)
+                    if (HumanPublicTransportPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>() != null)
                     {
-                        PublicTransportPassengersButton = FavCimsHumanPublicTransportPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>();
+                        PublicTransportPassengersButton = HumanPublicTransportPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>();
                     }
                     else
                     {
-                        PublicTransportPassengersButton = FavCimsHumanPublicTransportPanel.AddUIComponent(typeof(PassengersInsidePTVehiclesButton)) as PassengersInsidePTVehiclesButton;
+                        PublicTransportPassengersButton = HumanPublicTransportPanel.AddUIComponent(typeof(PassengersInsidePTVehiclesButton)) as PassengersInsidePTVehiclesButton;
                     }
-                    PublicTransportPassengersButton.RefPanel = FavCimsHumanPublicTransportPanel;
+                    PublicTransportPassengersButton.RefPanel = HumanPublicTransportPanel;
                     PublicTransportPassengersButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPublicTransportTaxiPanel = FullScreenContainer.Find<UIPanel>("(Library) CityServiceVehicleWorldInfoPanel");
-                if (FavCimsPublicTransportTaxiPanel != null)
+                PublicTransportTaxiPanel = FullScreenContainer.Find<UIPanel>("(Library) CityServiceVehicleWorldInfoPanel");
+                if (PublicTransportTaxiPanel != null)
                 {
-                    if (FavCimsPublicTransportTaxiPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>() != null)
+                    if (PublicTransportTaxiPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>() != null)
                     {
-                        PublicTransportPassengersButton = FavCimsPublicTransportTaxiPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>();
+                        PublicTransportPassengersButton = PublicTransportTaxiPanel.GetComponentInChildren<PassengersInsidePTVehiclesButton>();
                     }
                     else
                     {
-                        PublicTransportPassengersButton = FavCimsPublicTransportTaxiPanel.AddUIComponent(typeof(PassengersInsidePTVehiclesButton)) as PassengersInsidePTVehiclesButton;
+                        PublicTransportPassengersButton = PublicTransportTaxiPanel.AddUIComponent(typeof(PassengersInsidePTVehiclesButton)) as PassengersInsidePTVehiclesButton;
                     }
-                    PublicTransportPassengersButton.RefPanel = FavCimsPublicTransportTaxiPanel;
+                    PublicTransportPassengersButton.RefPanel = PublicTransportTaxiPanel;
                     PublicTransportPassengersButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleZonedBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) ZonedBuildingWorldInfoPanel");
-                if (FavCimsPeopleZonedBuildingPanel != null)
+                PeopleZonedBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) ZonedBuildingWorldInfoPanel");
+                if (PeopleZonedBuildingPanel != null)
                 {
-                    if (FavCimsPeopleZonedBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (PeopleZonedBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleZonedBuildingButton = FavCimsPeopleZonedBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleZonedBuildingButton = PeopleZonedBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleZonedBuildingButton = FavCimsPeopleZonedBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleZonedBuildingButton = PeopleZonedBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleZonedBuildingButton.RefPanel = FavCimsPeopleZonedBuildingPanel;
+                    PeopleZonedBuildingButton.RefPanel = PeopleZonedBuildingPanel;
                     PeopleZonedBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleServiceBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) CityServiceWorldInfoPanel");
-                if (FavCimsPeopleServiceBuildingPanel != null)
+                PeopleServiceBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) CityServiceWorldInfoPanel");
+                if (PeopleServiceBuildingPanel != null)
                 {
-                    if (FavCimsPeopleServiceBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (PeopleServiceBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleServiceBuildingButton = FavCimsPeopleServiceBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleServiceBuildingButton = PeopleServiceBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleServiceBuildingButton = FavCimsPeopleServiceBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleServiceBuildingButton = PeopleServiceBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleServiceBuildingButton.RefPanel = FavCimsPeopleServiceBuildingPanel;
+                    PeopleServiceBuildingButton.RefPanel = PeopleServiceBuildingPanel;
                     PeopleServiceBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleVarsitySportsArenaBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) VarsitySportsArenaPanel");
-                if (FavCimsPeopleVarsitySportsArenaBuildingPanel != null)
+                PeopleVarsitySportsArenaBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) VarsitySportsArenaPanel");
+                if (PeopleVarsitySportsArenaBuildingPanel != null)
                 {
-                    if (FavCimsPeopleVarsitySportsArenaBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (PeopleVarsitySportsArenaBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleVarsitySportsArenaBuildingButton = FavCimsPeopleVarsitySportsArenaBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleVarsitySportsArenaBuildingButton = PeopleVarsitySportsArenaBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleVarsitySportsArenaBuildingButton = FavCimsPeopleVarsitySportsArenaBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleVarsitySportsArenaBuildingButton = PeopleVarsitySportsArenaBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleVarsitySportsArenaBuildingButton.RefPanel = FavCimsPeopleVarsitySportsArenaBuildingPanel;
+                    PeopleVarsitySportsArenaBuildingButton.RefPanel = PeopleVarsitySportsArenaBuildingPanel;
                     PeopleVarsitySportsArenaBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleFootballEventBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) FootballPanel");
-                if (FavCimsPeopleFootballEventBuildingPanel != null)
+                PeopleFootballEventBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) FootballPanel");
+                if (PeopleFootballEventBuildingPanel != null)
                 {
-                    if (FavCimsPeopleFootballEventBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (PeopleFootballEventBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleFootballEventBuildingButton = FavCimsPeopleFootballEventBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleFootballEventBuildingButton = PeopleFootballEventBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleFootballEventBuildingButton = FavCimsPeopleFootballEventBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleFootballEventBuildingButton = PeopleFootballEventBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleFootballEventBuildingButton.RefPanel = FavCimsPeopleFootballEventBuildingPanel;
+                    PeopleFootballEventBuildingButton.RefPanel = PeopleFootballEventBuildingPanel;
                     PeopleFootballEventBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleUniqueFactoryBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) UniqueFactoryWorldInfoPanel");
-                if (FavCimsPeopleUniqueFactoryBuildingPanel != null)
+                PeopleUniqueFactoryBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) UniqueFactoryWorldInfoPanel");
+                if (PeopleUniqueFactoryBuildingPanel != null)
                 {
-                    if (FavCimsPeopleUniqueFactoryBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (PeopleUniqueFactoryBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleUniqueFactoryBuildingButton = FavCimsPeopleUniqueFactoryBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleUniqueFactoryBuildingButton = PeopleUniqueFactoryBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleUniqueFactoryBuildingButton = FavCimsPeopleUniqueFactoryBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleUniqueFactoryBuildingButton = PeopleUniqueFactoryBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleUniqueFactoryBuildingButton.RefPanel = FavCimsPeopleUniqueFactoryBuildingPanel;
+                    PeopleUniqueFactoryBuildingButton.RefPanel = PeopleUniqueFactoryBuildingPanel;
                     PeopleUniqueFactoryBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleShelterBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) ShelterWorldInfoPanel");
-                if (FavCimsPeopleShelterBuildingPanel != null)
+                PeopleShelterBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) ShelterWorldInfoPanel");
+                if (PeopleShelterBuildingPanel != null)
                 {
-                    if (FavCimsPeopleShelterBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (PeopleShelterBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleShelterBuildingButton = FavCimsPeopleShelterBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleShelterBuildingButton = PeopleShelterBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleShelterBuildingButton = FavCimsPeopleShelterBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleShelterBuildingButton = PeopleShelterBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleShelterBuildingButton.RefPanel = FavCimsPeopleShelterBuildingPanel;
+                    PeopleShelterBuildingButton.RefPanel = PeopleShelterBuildingPanel;
                     PeopleShelterBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleHotelBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) HotelWorldInfoPanel");
-                if (FavCimsPeopleHotelBuildingPanel != null)
+                PeopleHotelBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) HotelWorldInfoPanel");
+                if (PeopleHotelBuildingPanel != null)
                 {
-                    if (FavCimsPeopleHotelBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (PeopleHotelBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleHotelBuildingButton = FavCimsPeopleHotelBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleHotelBuildingButton = PeopleHotelBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleHotelBuildingButton = FavCimsPeopleHotelBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleHotelBuildingButton = PeopleHotelBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleHotelBuildingButton.RefPanel = FavCimsPeopleHotelBuildingPanel;
+                    PeopleHotelBuildingButton.RefPanel = PeopleHotelBuildingPanel;
                     PeopleHotelBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
-                FavCimsPeopleWarehouseBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) WarehouseWorldInfoPanel");
-                if (FavCimsPeopleWarehouseBuildingPanel != null)
+                PeopleWarehouseBuildingPanel = FullScreenContainer.Find<UIPanel>("(Library) WarehouseWorldInfoPanel");
+                if (PeopleWarehouseBuildingPanel != null)
                 {
-                    if (FavCimsPeopleWarehouseBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
+                    if (PeopleWarehouseBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>() != null)
                     {
-                        PeopleWarehouseBuildingButton = FavCimsPeopleWarehouseBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
+                        PeopleWarehouseBuildingButton = PeopleWarehouseBuildingPanel.GetComponentInChildren<PeopleInsideBuildingsButton>();
                     }
                     else
                     {
-                        PeopleWarehouseBuildingButton = FavCimsPeopleWarehouseBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
+                        PeopleWarehouseBuildingButton = PeopleWarehouseBuildingPanel.AddUIComponent(typeof(PeopleInsideBuildingsButton)) as PeopleInsideBuildingsButton;
                     }
-                    PeopleWarehouseBuildingButton.RefPanel = FavCimsPeopleWarehouseBuildingPanel;
+                    PeopleWarehouseBuildingButton.RefPanel = PeopleWarehouseBuildingPanel;
                     PeopleWarehouseBuildingButton.Alignment = UIAlignAnchor.BottomRight;
                 }
                 GenerateFamilyDetailsTpl();
@@ -451,13 +451,12 @@ namespace FavoriteCims
 
         internal void DestroyGraphics()
         {
-            UnLoading = true;
             FavCimsCore.ClearIdArray();
             try
             {
-                if (FavCimsPanel != null)
+                if (Panel != null)
                 {
-                    UnityEngine.Object.Destroy(FavCimsPanel.gameObject);
+                    UnityEngine.Object.Destroy(Panel.gameObject);
                 }
                 if (mainButton != null)
                 {
@@ -472,6 +471,7 @@ namespace FavoriteCims
 
         public override void OnLevelUnloading()
         {
+            base.OnLevelUnloading();
             DestroyGraphics();
         }
 
@@ -489,9 +489,9 @@ namespace FavoriteCims
             {
                 if (Input.GetMouseButton(2) && Input.GetKeyDown(KeyCode.F))
                 {
-                    FavCimsPanelToggle();
+                    PanelToggle();
                 }
-                GameObject gameObject = GameObject.Find("FavCimsTabMenuPanel");
+                GameObject gameObject = GameObject.Find("TabMenuPanel");
                 if (gameObject != null)
                 {
                     UIPanel component = gameObject.GetComponent<UIPanel>();

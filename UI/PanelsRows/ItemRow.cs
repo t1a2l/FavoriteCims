@@ -155,7 +155,7 @@ namespace FavoriteCims.UI.PanelsRows
                     _name.textColor = new Color32(204, 204, 51, 40);
                     gender.normalBgSprite = "Male";
                 }
-                _name.tooltip = citizen.Arrested ? FavCimsLang.Text("Jailed_into") + " " + buildingName : localizedStatus + " " + buildingName;
+                _name.tooltip = citizen.Arrested ? Translations.Translate("Jailed_into") + " " + buildingName : localizedStatus + " " + buildingName;
             }
 
             if (citizen.GetBuildingByLocation() == target.Building)
@@ -210,12 +210,12 @@ namespace FavoriteCims.UI.PanelsRows
             if (FavCimsCore.RowID.ContainsKey((int)citizenId))
             {
                 star.normalBgSprite = "icon_fav_subscribed";
-                star.tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
+                star.tooltip = Translations.Translate("FavStarButton_disable_tooltip");
             }
             else
             {
                 star.normalBgSprite = "icon_fav_unsubscribed";
-                star.tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
+                star.tooltip = Translations.Translate("FavStarButton_enable_tooltip");
             }
 
             Deselect(rowIndex);

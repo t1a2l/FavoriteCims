@@ -3,7 +3,7 @@
 		<TargetFramework>net35</TargetFramework>
 		<Deterministic>false</Deterministic>
 		<AssemblyTitle>FacoriteCims</AssemblyTitle>
-		<AssemblyVersion>1.0.*</AssemblyVersion>
+		<AssemblyVersion>0.5</AssemblyVersion>
 		<GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
 		<LangVersion>preview</LangVersion>
 		<AssemblyName>FavoriteCims</AssemblyName>

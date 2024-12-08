@@ -33,7 +33,7 @@ namespace FavoriteCims.UI.PanelsRows
             text.size = new Vector2(200f, 25f);
             text.verticalAlignment = UIVerticalAlignment.Middle;
             text.playAudioEvents = true;
-            text.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            text.font = UIFonts.Regular;
             text.font.size = 15;
             text.textScale = 0.80f;
             text.useDropShadow = true;
