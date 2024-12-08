@@ -204,13 +204,17 @@ namespace FavoriteCims.UI.Panels
             CountCitizenUnits(ref building, ref homeCount, ref workCount, ref visitCount, ref studentCount, ref hotelCount);
             int totalUnitsCount = homeCount + workCount + visitCount + studentCount + hotelCount;
 
+            Utils.Debug.Log("buildingInfoName = " + buildingInfo.name);
+            Utils.Debug.Log("visitCount = " + visitCount);
+            Utils.Debug.Log("workCount = " + workCount);
+            Utils.Debug.Log("totalUnitsCount = " + totalUnitsCount);
+
             UpdateBuildingTitles();
             AddSubtitles();
             BuildingUnits = MyBuilding.m_buildings.m_buffer[BuildingID.Building].m_citizenUnits;
             int unitnum = 0;
 
             total_workers = 0;
-            int hotel_guest_unit = 0;
 
             while (BuildingUnits != 0U && unitnum < totalUnitsCount)
             {
@@ -277,27 +281,6 @@ namespace FavoriteCims.UI.Panels
                                     CimsOnBuilding.Add(citizenId, BuildingUnits);
                                     fastList.Add(citizenId);
                                 }
-                                else if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Hotel) && isAtBuilding)
-                                {
-                                    fastList.Add(new TitleRowInfo
-                                    {
-                                        atlas = null,
-                                        spriteName = "BapartmentIcon",
-                                        text = FavCimsLang.Text("OnBuilding_HotelRooms") + " " + (hotel_guest_unit + 1),
-                                    });
-                                    CimsOnBuilding.Add(citizenId, BuildingUnits);
-                                    fastList.Add(citizenId);
-                                    hotel_guest_unit++;
-                                    if (hotel_guest_unit == 0)
-                                    {
-                                        fastList.Add(new TitleRowInfo
-                                        {
-                                            atlas = null,
-                                            spriteName = "BapartmentIcon",
-                                            text = FavCimsLang.Text("OnBuilding_noHotelGuests")
-                                        });
-                                    }
-                                }
                                 else if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Visit))
                                 {
                                     if (isAtBuilding)
@@ -306,16 +289,19 @@ namespace FavoriteCims.UI.Panels
                                         CimsOnBuilding.Add(citizenId, BuildingUnits);
                                         fastList.Add(citizenId);
                                     }
-                                    if (GuestsCount == 0)
-                                    {
-                                        fastList.Add(new TitleRowInfo
-                                        {
-                                            atlas = null,
-                                            spriteName = "BcommercialIcon",
-                                            text = FavCimsLang.Text("OnBuilding_NoGuests")
-                                        });
-                                    }
                                 }
+                                else if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Hotel) && isAtBuilding)
+                                {
+                                    HotelGuestsCount++;
+                                    fastList.Add(new TitleRowInfo
+                                    {
+                                        atlas = null,
+                                        spriteName = "BapartmentIcon",
+                                        text = FavCimsLang.Text("OnBuilding_HotelRooms") + " " + (HotelGuestsCount + 1),
+                                    });
+                                    CimsOnBuilding.Add(citizenId, BuildingUnits);
+                                    fastList.Add(citizenId);
+                                } 
                             }
                             else
                             {
@@ -416,23 +402,60 @@ namespace FavoriteCims.UI.Panels
 
         public void AddSubtitles()
         {
-            if (buildingInfo.m_class.m_service == ItemClass.Service.Industrial ||
+            if(buildingInfo.m_class.m_service == ItemClass.Service.Residential)
+            {
+                return;
+            }
+
+            if(IsHotel)
+            {
+                fastList.Add(new TitleRowInfo(
+                () => WorkersCount == 0,
+                FavCimsLang.Text("OnBuilding_Workers"),
+                $"{FavCimsLang.Text("OnBuilding_NoWorkers")} ({FavCimsLang.Text("OnBuilding_TotalWorkers")}{total_workers})",
+                "BworkingIcon"));
+
+                fastList.Add(new TitleRowInfo(
+                () => HotelGuestsCount == 0,
+                "",
+                FavCimsLang.Text("OnBuilding_noHotelGuests"),
+                "BapartmentIcon"));
+
+                fastList.Add(new TitleRowInfo(
+                () => GuestsCount == 0,
+                FavCimsLang.Text("OnBuilding_Guests"),
+                FavCimsLang.Text("OnBuilding_NoGuests"),
+                "BcommercialIcon"));
+            }
+
+            else if (buildingInfo.m_class.m_service == ItemClass.Service.Commercial || 
+                buildingInfo.m_class.m_service == ItemClass.Service.Industrial ||
                 buildingInfo.m_class.m_service == ItemClass.Service.Office ||
                 IsInternationalTradeOfficeBuilding ||
-                IsCimCareBuilding ||
-                IsHotel)
+                IsCimCareBuilding)
             {
                 fastList.Add(new TitleRowInfo(
                  () => WorkersCount == 0,
                  FavCimsLang.Text("OnBuilding_Workers"),
                  $"{FavCimsLang.Text("OnBuilding_NoWorkers")} ({FavCimsLang.Text("OnBuilding_TotalWorkers")}{total_workers})",
                  "BworkingIcon"));
+
+                fastList.Add(new TitleRowInfo(
+                () => GuestsCount == 0,
+                FavCimsLang.Text("OnBuilding_Guests"),
+                FavCimsLang.Text("OnBuilding_NoGuests"),
+                "BcommercialIcon"));
             }
             else
             {
                 switch (buildingInfo.m_class.m_service)
                 {
                     case ItemClass.Service.PoliceDepartment when buildingInfo.m_class.m_subService != ItemClass.SubService.PoliceDepartmentBank:
+                        fastList.Add(new TitleRowInfo(
+                         () => WorkersCount == 0,
+                         FavCimsLang.Text("OnBuilding_Workers"),
+                         $"{FavCimsLang.Text("OnBuilding_NoWorkers")} ({FavCimsLang.Text("OnBuilding_TotalWorkers")}{total_workers})",
+                         "BworkingIcon"));
                         fastList.Add(new TitleRowInfo(
                              () => GuestsCount == 0,
                              FavCimsLang.Text("Citizen_Under_Arrest"),

@@ -19,7 +19,9 @@ namespace FavoriteCims.UI.PanelsRows
             height = 25f;
             atlas = MyAtlas.FavCimsAtlas;
             BackgroundSpriteName = "bg_row2";
-            name = "Title";
+            SelectedSpriteName = "bg_row2";
+            backgroundSprite = "bg_row2";
+            name = "TitleRow";
             relativePosition = new Vector3(0f, 0f);
             icon = AddUIComponent<UISprite>();
             icon.name = "TitleIcon";
