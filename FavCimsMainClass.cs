@@ -93,7 +93,7 @@ namespace FavoriteCims
 
         private UIComponent PanelTrigger_bottombars;
 
-        public static UIPanel Panel;
+        public static MainPanel Panel;
 
         protected override List<AppMode> PermittedModes => [AppMode.Game];
 

@@ -3027,7 +3027,7 @@ namespace FavoriteCims.UI.Panels
                                             break;
                                     }
 
-                                    if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                    if (FavCimsCore.RowID.Contains(CitizenPartnerINT))
                                     {
                                         BubblePartnerFollowToggler.normalBgSprite = "icon_fav_subscribed";
                                     }
@@ -3104,7 +3104,7 @@ namespace FavoriteCims.UI.Panels
                                                 break;
                                         }
 
-                                        if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                        if (FavCimsCore.RowID.Contains(CitizenPartnerINT))
                                         {
                                             BubbleParent1FollowToggler.normalBgSprite = "icon_fav_subscribed";
                                         }
@@ -3185,7 +3185,7 @@ namespace FavoriteCims.UI.Panels
                                             break;
                                     }
 
-                                    if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                    if (FavCimsCore.RowID.Contains(CitizenPartnerINT))
                                     {
                                         BubbleFamilyMember2FollowToggler.normalBgSprite = "icon_fav_subscribed";
                                     }
@@ -3276,7 +3276,7 @@ namespace FavoriteCims.UI.Panels
                                             break;
                                     }
 
-                                    if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                    if (FavCimsCore.RowID.Contains(CitizenPartnerINT))
                                     {
                                         BubbleFamilyMember3FollowToggler.normalBgSprite = "icon_fav_subscribed";
                                     }
@@ -3367,7 +3367,7 @@ namespace FavoriteCims.UI.Panels
                                             break;
                                     }
 
-                                    if (FavCimsCore.RowID.ContainsKey(CitizenPartnerINT))
+                                    if (FavCimsCore.RowID.Contains(CitizenPartnerINT))
                                     {
                                         BubbleFamilyMember4FollowToggler.normalBgSprite = "icon_fav_subscribed";
                                     }

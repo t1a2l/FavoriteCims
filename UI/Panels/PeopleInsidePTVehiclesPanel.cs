@@ -173,7 +173,6 @@ namespace FavoriteCims.UI.Panels
 		{
             CimsOnPTVeh.Clear();
             fastList.Clear();
-            BodyList.Clear();
 
             TitleVehicleName.text = Translations.Translate("Vehicle_Passengers");
 
@@ -220,6 +219,7 @@ namespace FavoriteCims.UI.Panels
             }
             BodyList.Data = fastList;
             BodyList.Refresh();
+            BodyList.Data = fastList;
         }
 
         private void UpdatePanelLayout()
