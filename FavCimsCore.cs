@@ -1,20 +1,19 @@
+using ColossalFramework;
+using ColossalFramework.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using ColossalFramework;
-using ColossalFramework.UI;
-using FavoriteCims.UI.Panels;
 using UnityEngine;
 
 namespace FavoriteCims
 {
     public class FavCimsCore : MonoBehaviour
-	{
+    {
         public static InstanceID ThisHuman;
 
-        public static Dictionary<int, int> RowID = [];
+        public static List<int> RowID = [];
 
         private static readonly string[] Hotel_Names =
         [
@@ -53,56 +52,48 @@ namespace FavoriteCims
 			return dictionary;
 		}
 
-		public static void AddToFavorites(InstanceID MyInstanceID)
-		{
-			bool isEmpty = MyInstanceID.IsEmpty;
-			if (!isEmpty)
-			{
-				object privateVariable = GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
-				while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
-				{
-				}
-				try
-				{
-					InstanceManager instance = Singleton<InstanceManager>.instance;
-					CitizenManager instance2 = Singleton<CitizenManager>.instance;
-					uint citizen = MyInstanceID.Citizen;
-					string citizenName = instance2.GetCitizenName(citizen);
-					int citizenINT = (int)citizen;
-					if (citizenName != null && citizenName.Length > 0)
-					{
-						if (!RowID.ContainsKey(citizenINT))
-						{
-							if (!MainPanel.RowsAlreadyExist(MyInstanceID))
-							{
-								try
-								{
-									instance.SetName(MyInstanceID, citizenName);
-									CitizenRow citizenRow = MainPanel.CitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
-									if (citizenRow != null)
-									{
-										citizenRow.MyInstanceID = MyInstanceID;
-										citizenRow.MyInstancedName = citizenName;
-									}
-								}
-								catch (Exception ex)
-								{
-									Utils.Debug.Error("Add To Favorites Fail : " + ex.ToString());
-								}
-							}
-						}
-						else
-						{
-							RemoveRowAndRemoveFav(MyInstanceID, citizenINT);
-						}
-					}
-				}
-				finally
-				{
-					Monitor.Exit(privateVariable);
-				}
-			}
-		}
+        public static void AddToFavorites(InstanceID MyInstanceID)
+        {
+            bool isEmpty = MyInstanceID.IsEmpty;
+            if (!isEmpty)
+            {
+                object privateVariable = GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
+                while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
+                {
+                }
+                try
+                {
+                    InstanceManager instance = Singleton<InstanceManager>.instance;
+                    CitizenManager instance2 = Singleton<CitizenManager>.instance;
+                    uint citizen = MyInstanceID.Citizen;
+                    string citizenName = instance2.GetCitizenName(citizen);
+                    int citizenINT = (int)citizen;
+                    if (citizenName != null && citizenName.Length > 0)
+                    {
+                        if (!RowID.Contains(citizenINT))
+                        {
+                            try
+                            {
+                                InsertIdIntoArray(citizenINT);
+                                instance.SetName(MyInstanceID, citizenName);
+                            }
+                            catch (Exception ex)
+                            {
+                                Utils.Debug.Error("Add To Favorites Fail : " + ex.ToString());
+                            }
+                        }
+                        else
+                        {
+                            RemoveRowAndRemoveFav(MyInstanceID, citizenINT);
+                        }
+                    }
+                }
+                finally
+                {
+                    Monitor.Exit(privateVariable);
+                }
+            }
+        }
 
 		public static void RemoveRowAndRemoveFav(InstanceID citizenInstanceID, int citizenID)
 		{
@@ -173,10 +164,10 @@ namespace FavoriteCims
 			}
 		}
 
-		public static void InsertIdIntoArray(int citID)
-		{
-			RowID[citID] = citID;
-		}
+        public static void InsertIdIntoArray(int citID)
+        {
+            RowID.Add(citID);
+        }
 
 		public static void RemoveIdFromArray(int citID)
 		{

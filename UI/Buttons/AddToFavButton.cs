@@ -5,9 +5,8 @@ using System;
 using System.Threading;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
-using System;
-using System.Threading;
 using UnityEngine;
+using static RenderManager;
 
 namespace FavoriteCims.UI.Buttons
 {
@@ -50,13 +49,13 @@ namespace FavoriteCims.UI.Buttons
                     if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty)
                     {
                         ThisHuman = WorldInfoPanel.GetCurrentInstanceID();
-                        int num = (int)(uint)(UIntPtr)ThisHuman.Citizen;
+                        int num = (int)ThisHuman.Citizen;
                         string name = MyInstance.GetName(ThisHuman);
                         if (name != null && name.Length > 0)
                         {
                             tooltip = Translations.Translate("FavStarButton_disable_tooltip");
                             normalBgSprite = "icon_fav_subscribed";
-                            if (!FavCimsCore.RowID.ContainsKey(num) && !MainPanel.RowsAlreadyExist(ThisHuman))
+                            if (!FavCimsCore.RowID.Contains(num))
                             {
                                 object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
                                 while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
@@ -64,12 +63,7 @@ namespace FavoriteCims.UI.Buttons
                                 }
                                 try
                                 {
-                                    CitizenRow citizenRow = MainPanel.CitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
-                                    if (citizenRow != null)
-                                    {
-                                        citizenRow.MyInstanceID = ThisHuman;
-                                        citizenRow.MyInstancedName = name;
-                                    }
+                                    FavCimsCore.InsertIdIntoArray(num);
                                 }
                                 finally
                                 {
@@ -79,7 +73,7 @@ namespace FavoriteCims.UI.Buttons
                         }
                         else
                         {
-                            if (num != 0 && FavCimsCore.RowID.ContainsKey(num))
+                            if (num != 0 && FavCimsCore.RowID.Contains(num))
                             {
                                 MyInstance.SetName(ThisHuman, MyCitizen.GetCitizenName(ThisHuman.Citizen));
                                 tooltip = Translations.Translate("FavStarButton_disable_tooltip");

@@ -92,7 +92,7 @@ namespace FavoriteCims.UI.PanelsRows
             star.eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
                 FavCimsCore.AddToFavorites(citizenInstanceID);
-                if (FavCimsCore.RowID.ContainsKey((int)citizenId))
+                if (FavCimsCore.RowID.Contains((int)citizenId))
                 {
                     (component as UIButton).normalBgSprite = "icon_fav_subscribed";
                     (component as UIButton).tooltip = Translations.Translate("FavStarButton_disable_tooltip");
@@ -207,7 +207,7 @@ namespace FavoriteCims.UI.PanelsRows
                     age.textColor = new Color32(byte.MaxValue, 0, 0, 0);
                     break;
             }
-            if (FavCimsCore.RowID.ContainsKey((int)citizenId))
+            if (FavCimsCore.RowID.Contains((int)citizenId))
             {
                 star.normalBgSprite = "icon_fav_subscribed";
                 star.tooltip = Translations.Translate("FavStarButton_disable_tooltip");

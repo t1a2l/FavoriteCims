@@ -12,6 +12,7 @@ namespace FavoriteCims.UI.Panels
             {
                 Translations.Index = index;
                 OptionsPanelManager<OptionsPanel>.LocaleChanged();
+                MainClass.Panel?.LocaleChanged();
             };
         }
     }
