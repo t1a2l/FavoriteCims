@@ -38,8 +38,6 @@ namespace FavoriteCims.UI.Panels
 
         public static int HotelGuestsCount = 0;
 
-        private int total_workers = 0;
-
         private uint BuildingUnits;
 
         private CitizenUnit CitizenUnit => MyCitizen.m_units.m_buffer[BuildingUnits];
@@ -208,9 +206,7 @@ namespace FavoriteCims.UI.Panels
 
             UpdateBuildingTitles();
 
-            int unitnum = 0;  
-            total_workers = 0;
-
+            int unitnum = 0;
             bool isSubtitleAdded = false;
 
             if (!(buildingInfo.m_class.m_service == ItemClass.Service.Residential ||
@@ -219,8 +215,8 @@ namespace FavoriteCims.UI.Panels
             {
                 fastList.Add(new TitleRowInfo(
                  () => WorkersCount == 0,
-                 Translations.Translate("OnBuilding_Workers"),
-                 $"{Translations.Translate("OnBuilding_NoWorkers")} ({Translations.Translate("OnBuilding_TotalWorkers")}{total_workers})",
+                $"{Translations.Translate("OnBuilding_Workers")} ({Translations.Translate("OnBuilding_TotalWorkers")}{CountTotalWorkers()})",
+                 $"{Translations.Translate("OnBuilding_NoWorkers")} ({Translations.Translate("OnBuilding_TotalWorkers")}{CountTotalWorkers()})",
                  "BworkingIcon"));
             }
 
@@ -257,11 +253,6 @@ namespace FavoriteCims.UI.Panels
                         {
                             forcedToGuest = true;
                         }
-                        if (BuildingID.Building == citizen.m_workBuilding && !forcedToGuest)
-                        {
-                            total_workers++;
-                        }
-
                         if ((buildingInfo.m_class.m_service == ItemClass.Service.Residential ||
                             IsAreaResidentalBuilding ||
                             IsCimCareBuilding)
@@ -336,7 +327,7 @@ namespace FavoriteCims.UI.Panels
                                 fastList.Add(citizenId);
                             }
                         }
-                        
+
                     }
                 }
                 BuildingUnits = nextUnit;
@@ -356,9 +347,9 @@ namespace FavoriteCims.UI.Panels
                     text = Translations.Translate("OnBuilding_noHotelGuests")
                 });
             }
-
             BodyList.Data = fastList;
             BodyList.Refresh();
+            BodyList.Data = fastList;
         }
 
         private void UpdateBuildingTitles()
@@ -522,6 +513,38 @@ namespace FavoriteCims.UI.Panels
                 }
                 currentUnit = instance.m_units.m_buffer[currentUnit].m_nextUnit;
             }
+        }
+        private int CountTotalWorkers()
+        {
+            if ((building.m_flags & (Building.Flags.Abandoned | Building.Flags.Collapsed)) != 0)
+            {
+                return 0;
+            }
+            uint unit = building.m_citizenUnits;
+            int total = 0, unitnum = 0;
+            while (unit != 0)
+            {
+                uint nextUnit = MyCitizen.m_units.m_buffer[unit].m_nextUnit;
+                if ((MyCitizen.m_units.m_buffer[unit].m_flags & CitizenUnit.Flags.Work) != 0)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+                        uint citizen = MyCitizen.m_units.m_buffer[unit].GetCitizen(i);
+                        if (citizen != 0 && !MyCitizen.m_citizens.m_buffer[citizen].Dead && (MyCitizen.m_citizens.m_buffer[citizen].m_flags & Citizen.Flags.MovingIn) == 0)
+                        {
+                            total++;
+                        }
+                    }
+                }
+
+                unit = nextUnit;
+                if (++unitnum > 524288)
+                {
+                    CODebugBase<LogChannel>.Error(LogChannel.Core, "Invalid list detected!\n" + Environment.StackTrace);
+                    break;
+                }
+            }
+            return total;
         }
     }
 }
