@@ -78,7 +78,7 @@ namespace FavoriteCims
 								try
 								{
 									instance.SetName(MyInstanceID, citizenName);
-									CitizenRow citizenRow = MainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
+									CitizenRow citizenRow = MainPanel.CitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
 									if (citizenRow != null)
 									{
 										citizenRow.MyInstanceID = MyInstanceID;
@@ -351,7 +351,6 @@ namespace FavoriteCims
                 return false;
             }
 
-            // Here we need to check if the mod is active
             var buildingInfo = BuildingManager.instance.m_buildings.m_buffer[buildingId].Info;
             var buildinAI = buildingInfo?.m_buildingAI;
             if (buildinAI is AuxiliaryBuildingAI && buildinAI.GetType().Name.Contains("BarracksAI") || buildinAI is CampusBuildingAI && buildinAI.GetType().Name.Contains("DormsAI"))
@@ -369,7 +368,6 @@ namespace FavoriteCims
                 return false;
             }
 
-            // Here we need to check if the mod is active
             var buildingInfo = BuildingManager.instance.m_buildings.m_buffer[buildingId].Info;
             var buildinAI = buildingInfo?.m_buildingAI;
             if (buildinAI.GetType().Name.Contains("NursingHomeAI") || buildinAI.GetType().Name.Contains("OrphanageAI"))
@@ -387,7 +385,6 @@ namespace FavoriteCims
                 return false;
             }
 
-            // Here we need to check if the mod is active
             var buildingInfo = BuildingManager.instance.m_buildings.m_buffer[buildingId].Info;
             var buildinAI = buildingInfo?.m_buildingAI;
             if (buildinAI.GetType().Name.Contains("InternationalTradeOfficeBuildingAI"))

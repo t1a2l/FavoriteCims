@@ -15,33 +15,33 @@ HARMONY_NOT_INSTALLED,Требуемый мод Harmony 2 не был устан
 HARMONY_MOD_ERROR,Старый и/или сломанный мод мешает правильной работе Harmony 2,Possible cause of Harmony error - a broken mod (not this one) can cause things to stop working.
 HARMONY_MOD_CONFLICT,Другой мод, возможно, пытается применить конфликтующее исправление Harmony,Possible cause of Harmony error - two mods trying to patch the same thing at once.
 DETAIL_LOGGING,Включить расширенный лог,Option to record more detail in game log
-FavCimsButton_tooltip,My Favorite Cims
-FavCimsBCMenuButton_text,Жители
-FavCimsBCMenuButton_tooltip,Люди
-FavCimsBBMenuButton_text,Здания
-FavCimsBBMenuButton_tooltip,Избранные здания
-FavCimsBSMenuButton_text,Показатели
-FavCimsBSMenuButton_tooltip,Инфо и показатели
+Button_tooltip,My Favorite Cims
+BCMenuButton_text,Жители
+BCMenuButton_tooltip,Люди
+BBMenuButton_text,Здания
+BBMenuButton_tooltip,Избранные здания
+BSMenuButton_text,Показатели
+BSMenuButton_tooltip,Инфо и показатели
 FavStarButton_enable_tooltip,Кликни, чтобы добавить в Избранные!
 FavStarButton_disable_tooltip,Кликни, чтобы удалить из Избранных :(
-FavCimsHappinesColText_text,Статус
-FavCimsHappinesColText_tooltip,Статус счастья
-FavCimsNameColText_text,Имя жителя
-FavCimsNameColText_tooltip,Имя жителя
-FavCimsEduColText_text,Образование
-FavCimsEduColText_tooltip,Уровень образования
-FavCimsWorkingPlaceColText_text,Место учебы/работы
-FavCimsWorkingPlaceColText_tooltip,Место где учится/работает житель
-FavCimsAgePhaseColText_text,Возрастная категория
-FavCimsAgePhaseColText_tooltip,Категория возраста жителя
-FavCimsAgeColText_text,Возраст
-FavCimsAgeColText_tooltip,Возраст жителя
-FavCimsHomeColText_text,Место жительства
-FavCimsHomeColText_tooltip,Горожанин живет здесь
-FavCimsLastActColText_text,Последняя активность
-FavCimsLastActColText_tooltip,Чем житель занят в данный момент
-FavCimsCloseButtonCol_text,Закрыть
-FavCimsCloseButtonCol_tooltip,Нажми Закрыть, чтобы убрать жителя из Избранных :(
+HappinesColText_text,Статус
+HappinesColText_tooltip,Статус счастья
+NameColText_text,Имя жителя
+NameColText_tooltip,Имя жителя
+EduColText_text,Образование
+EduColText_tooltip,Уровень образования
+WorkingPlaceColText_text,Место учебы/работы
+WorkingPlaceColText_tooltip,Место где учится/работает житель
+AgePhaseColText_text,Возрастная категория
+AgePhaseColText_tooltip,Категория возраста жителя
+AgeColText_text,Возраст
+AgeColText_tooltip,Возраст жителя
+HomeColText_text,Место жительства
+HomeColText_tooltip,Горожанин живет здесь
+LastActColText_text,Последняя активность
+LastActColText_tooltip,Чем житель занят в данный момент
+CloseButtonCol_text,Закрыть
+CloseButtonCol_tooltip,Нажми Закрыть, чтобы убрать жителя из Избранных :(
 Male,Мужчина
 Female,Женщина
 AgePhase_Child_Male,Ребенок

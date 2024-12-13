@@ -59,16 +59,16 @@ namespace FavoriteCims.UI.Panels
                 base.Awake();
                 width = 250f;
 				height = 0f;
-				name = "FavCimsVehiclePanel";
+				name = "PeopleInsideVehiclesPanel";
 				absolutePosition = new Vector3(0f, 0f);
 				Hide();
 				Title = AddUIComponent<UIPanel>();
-				Title.name = "FavCimsVehiclePanelTitle";
+				Title.name = "PeopleInsideVehiclesPanelTitle";
 				Title.width = width;
 				Title.height = 41f;
 				Title.relativePosition = Vector3.zero;
 				TitleSpriteBg = Title.AddUIComponent<UITextureSprite>();
-				TitleSpriteBg.name = "FavCimsVehiclePanelTitleBG";
+				TitleSpriteBg.name = "PeopleInsideVehiclesPanelTitleBG";
 				TitleSpriteBg.width = Title.width;
 				TitleSpriteBg.height = Title.height;
 				TitleSpriteBg.texture = TextureDB.VehiclePanelTitleBackground;
@@ -138,7 +138,7 @@ namespace FavoriteCims.UI.Panels
 
         public override void Update()
         {
-            if (FavCimsMainClass.UnLoading)
+            if (MainClass.UnLoading)
             {
                 return;
             }
@@ -159,8 +159,8 @@ namespace FavoriteCims.UI.Panels
                 if (execute)
                 {
                     if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty &&
-                        WorldInfoPanel.GetCurrentInstanceID().Type == InstanceType.Vehicle &&
-                        WorldInfoPanel.GetCurrentInstanceID() != VehicleID)
+                       WorldInfoPanel.GetCurrentInstanceID().Type == InstanceType.Vehicle &&
+                       WorldInfoPanel.GetCurrentInstanceID() != VehicleID)
                     {
                         VehicleID = WorldInfoPanel.GetCurrentInstanceID();
                     }
@@ -173,6 +173,7 @@ namespace FavoriteCims.UI.Panels
 		{
             CimsOnVeh.Clear();
             fastList.Clear();
+            BodyList.Clear();
 
             TitleVehicleName.text = Translations.Translate("Vehicle_Passengers");
 
@@ -200,24 +201,19 @@ namespace FavoriteCims.UI.Panels
                                 spriteName = "driverIcon",
                                 text = Translations.Translate("Vehicle_DriverIconText")
                             });
-                            CimsOnVeh.Add(citizen, VehicleUnits);
-                            fastList.Add(citizen);
                         }
-						else
-						{
-                            if (k == 1)
+						else if (k == 1)
+                        {
+                            fastList.Add(new TitleRowInfo
                             {
-                                fastList.Add(new TitleRowInfo
-                                {
-                                    atlas = null,
-                                    spriteName = "passengerIcon",
-                                    text = Translations.Translate("Vehicle_PasssengerIconText")
-                                });
-                            }
-                            CimsOnVeh.Add(citizen, VehicleUnits);
-                            fastList.Add(citizen);
+                                atlas = null,
+                                spriteName = "passengerIcon",
+                                text = Translations.Translate("Vehicle_PasssengerIconText")
+                            });
                         }
-					}
+                        CimsOnVeh.Add(citizen, VehicleUnits);
+                        fastList.Add(citizen);
+                    }
 				}
 				VehicleUnits = nextUnit;
 				if (++unitnum > Singleton<CitizenManager>.instance.m_units.m_size)

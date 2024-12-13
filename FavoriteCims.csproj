@@ -12,15 +12,15 @@
 		<DebugType>none</DebugType>
 		<DebugSymbols>false</DebugSymbols>
 	</PropertyGroup>
+	<ItemGroup>
+		<_Translations Include="$(ProjectDir)/Translations/*.csv" />
+	</ItemGroup>
 	<Target Name="DeployToModDirectory" AfterTargets="Build">
 		<PropertyGroup>
-			<ModDirectory>$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\</ModDirectory>
+			<DeployDir>$(LOCALAPPDATA)\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\</DeployDir>
 		</PropertyGroup>
-		<ItemGroup>
-			<ModFiles Include="$(TargetDir)*.*" />
-		</ItemGroup>
-		<RemoveDir Directories="$(ModDirectory)" />
-		<Copy SourceFiles="@(ModFiles)" DestinationFolder="$(ModDirectory)" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployDir)" />
+		<Copy SourceFiles="@(_Translations)" DestinationFolder="$(DeployDir)/Translations" />
 	</Target>
 	<ItemGroup>
 	  <None Remove="Utils\Resources\BuildingPanels\BapartmentIcon.png" />
@@ -262,22 +262,5 @@
 	    <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
 	    <Private>False</Private>
 	  </Reference>
-	</ItemGroup>
-	<ItemGroup>
-	  <None Update="Translations\en-EN.csv">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Translations\it-IT.csv">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Translations\nl-NL.csv">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Translations\ru-RU.csv">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="Translations\zh-CN.csv">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
 	</ItemGroup>
 </Project>

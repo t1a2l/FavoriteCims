@@ -1,4 +1,4 @@
-using AlgernonCommons.Translation;
+﻿using AlgernonCommons.Translation;
 using AlgernonCommons.UI;
 using ColossalFramework;
 using ColossalFramework.Globalization;
@@ -33,17 +33,20 @@ namespace FavoriteCims.UI.PanelsRows
             base.Awake();
             width = 226f;
             height = 25f;
-            name = "BuildingCitizenRow";
+            name = "ItemRow";
             atlas = MyAtlas.FavCimsAtlas;
+            BackgroundSpriteName = "bg_row1";
+            SelectedSpriteName = "bg_row1";
+            backgroundSprite = "bg_row1";
             relativePosition = new Vector3(0f, 0f);
             gender = AddUIComponent<UIButton>();
-            gender.name = "Gender";
+            gender.name = "ItemGender";
             gender.width = 17f;
             gender.height = 17f;
             gender.atlas = MyAtlas.FavCimsAtlas;
             gender.relativePosition = new Vector3(5f, 4f);
             _name = AddUIComponent<UIButton>();
-            _name.name = "Name";
+            _name.name = "ItemName";
             _name.width = 131f;
             _name.height = 25f;
             _name.textVerticalAlignment = UIVerticalAlignment.Middle;
@@ -68,7 +71,7 @@ namespace FavoriteCims.UI.PanelsRows
                 FavCimsCore.GoToCitizen(position, citizenInstanceID, isTourist, eventParam);
             };
             age = AddUIComponent<UIButton>();
-            age.name = "Age";
+            age.name = "ItemAge";
             age.width = 23f;
             age.height = 19f;
             age.textHorizontalAlignment = UIHorizontalAlignment.Center;
@@ -81,7 +84,7 @@ namespace FavoriteCims.UI.PanelsRows
             age.isInteractive = false;
             age.relativePosition = new Vector3(_name.relativePosition.x + _name.width + 10f, 4f);
             star = AddUIComponent<UIButton>();
-            star.name = "Star";
+            star.name = "ItemStar";
             star.atlas = MyAtlas.FavCimsAtlas;
             star.size = new Vector2(16f, 16f);
             star.playAudioEvents = true;
@@ -214,6 +217,7 @@ namespace FavoriteCims.UI.PanelsRows
                 star.normalBgSprite = "icon_fav_unsubscribed";
                 star.tooltip = Translations.Translate("FavStarButton_enable_tooltip");
             }
+
             Deselect(rowIndex);
         }
 

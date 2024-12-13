@@ -33,7 +33,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aView.defaultTooltipBox;
-            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsidePTVehiclesPanel)) as PeopleInsidePTVehiclesPanel;
+            VehiclePanel = MainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsidePTVehiclesPanel)) as PeopleInsidePTVehiclesPanel;
             VehiclePanel.VehicleID = InstanceID.Empty;
             VehiclePanel.Hide();
             eventClick += delegate
@@ -54,7 +54,7 @@ namespace FavoriteCims.UI.Buttons
 
         public override void Update()
         {
-            if (FavCimsMainClass.UnLoading)
+            if (MainClass.UnLoading)
             {
                 return;
             }

@@ -30,7 +30,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideVehiclesPanel)) as PeopleInsideVehiclesPanel;
+            VehiclePanel = MainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideVehiclesPanel)) as PeopleInsideVehiclesPanel;
             VehiclePanel.VehicleID = InstanceID.Empty;
             VehiclePanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
@@ -51,7 +51,7 @@ namespace FavoriteCims.UI.Buttons
 
         public override void Update()
         {
-            bool unLoading = FavCimsMainClass.UnLoading;
+            bool unLoading = MainClass.UnLoading;
             if (!unLoading)
             {
                 bool isVisible = base.isVisible;

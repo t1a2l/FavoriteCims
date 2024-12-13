@@ -1,6 +1,8 @@
 using AlgernonCommons.Translation;
 using ColossalFramework;
 using ColossalFramework.UI;
+using System;
+using System.Threading;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
 using System;
@@ -39,7 +41,7 @@ namespace FavoriteCims.UI.Buttons
 
         public override void Update()
         {
-            bool unLoading = FavCimsMainClass.UnLoading;
+            bool unLoading = MainClass.UnLoading;
             if (!unLoading)
             {
                 bool isVisible = base.isVisible;
@@ -62,7 +64,7 @@ namespace FavoriteCims.UI.Buttons
                                 }
                                 try
                                 {
-                                    CitizenRow citizenRow = MainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
+                                    CitizenRow citizenRow = MainPanel.CitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
                                     if (citizenRow != null)
                                     {
                                         citizenRow.MyInstanceID = ThisHuman;

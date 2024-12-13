@@ -19,7 +19,9 @@ namespace FavoriteCims.UI.PanelsRows
             height = 25f;
             atlas = MyAtlas.FavCimsAtlas;
             BackgroundSpriteName = "bg_row2";
-            name = "Title";
+            SelectedSpriteName = "bg_row2";
+            backgroundSprite = "bg_row2";
+            name = "TitleRow";
             relativePosition = new Vector3(0f, 0f);
             icon = AddUIComponent<UISprite>();
             icon.name = "TitleIcon";
@@ -31,7 +33,7 @@ namespace FavoriteCims.UI.PanelsRows
             text.size = new Vector2(200f, 25f);
             text.verticalAlignment = UIVerticalAlignment.Middle;
             text.playAudioEvents = true;
-            text.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            text.font = UIFonts.Regular;
             text.font.size = 15;
             text.textScale = 0.80f;
             text.useDropShadow = true;

@@ -1,4 +1,3 @@
-using FavoriteCims.Utils;
 using System;
 using System.IO;
 using System.Reflection;
@@ -103,7 +102,7 @@ namespace FavoriteCims.Utils
 						}
 						if (!done && i < height - 1)
 						{
-                            done = TryAdjacent(ref color, pixels[num + width]);
+                            TryAdjacent(ref color, pixels[num + width]);
 						}
 						pixels[num] = color;
 					}

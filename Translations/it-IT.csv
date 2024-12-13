@@ -15,33 +15,33 @@ HARMONY_NOT_INSTALLED,La mod condizionale Harmony 2 non è stata installata,Poss
 HARMONY_MOD_ERROR,Una mod vecchia e/o fuori uso non consente ad Harmony 2 di funzionare correttamente,Possible cause of Harmony error - a broken mod (not this one) can cause things to stop working.
 HARMONY_MOD_CONFLICT,Un'altra mod potrebbe provare ad applicare una patch conflittuale di Harmony,Possible cause of Harmony error - two mods trying to patch the same thing at once.
 DETAIL_LOGGING,Abilita registrazione dettagliata di debug,Option to record more detail in game log
-FavCimsButton_tooltip,I Miei Cims Preferiti
-FavCimsBCMenuButton_text,Abitanti
-FavCimsBCMenuButton_tooltip,Persone che segui
-FavCimsBBMenuButton_text,Edifici
-FavCimsBBMenuButton_tooltip,Edifici Preferiti
-FavCimsBSMenuButton_text,Stats
-FavCimsBSMenuButton_tooltip,Info e Statistiche
+Button_tooltip,I Miei Cims Preferiti
+BCMenuButton_text,Abitanti
+BCMenuButton_tooltip,Persone che segui
+BBMenuButton_text,Edifici
+BBMenuButton_tooltip,Edifici Preferiti
+BSMenuButton_text,Stats
+BSMenuButton_tooltip,Info e Statistiche
 FavStarButton_enable_tooltip,Clicca per aggiungere ai preferiti!
 FavStarButton_disable_tooltip,Clicca per rimuovere dai preferiti :(
-FavCimsHappinesColText_text,Stato
-FavCimsHappinesColText_tooltip,Felicita' cittadino
-FavCimsNameColText_text,Nome Abitante
-FavCimsNameColText_tooltip,Nome del Cittadino
-FavCimsEduColText_text,Istruzione
-FavCimsEduColText_tooltip,Livello di educazione del Cittadino
-FavCimsWorkingPlaceColText_text,Posto di Lavoro / Studio
-FavCimsWorkingPlaceColText_tooltip,Edificio in cui lavora o studia il Cittadino
-FavCimsAgePhaseColText_text,Fase di vita
-FavCimsAgePhaseColText_tooltip,Fase della vita in cui si trova il cittadino
-FavCimsAgeColText_text,Eta'
-FavCimsAgeColText_tooltip,L'Eta' del Cittadino
-FavCimsHomeColText_text,Abitazione
-FavCimsHomeColText_tooltip,Il cittadino abita in questa casa
-FavCimsLastActColText_text,Ultima Attivita'
-FavCimsLastActColText_tooltip,Quello che sta' facendo il cittadino in questo momento
-FavCimsCloseButtonCol_text,Chiudi
-FavCimsCloseButtonCol_tooltip,Clicca sul pulsante chiudi per rimuovere il cittadino dai preferiti :(
+HappinesColText_text,Stato
+HappinesColText_tooltip,Felicita' cittadino
+NameColText_text,Nome Abitante
+NameColText_tooltip,Nome del Cittadino
+EduColText_text,Istruzione
+EduColText_tooltip,Livello di educazione del Cittadino
+WorkingPlaceColText_text,Posto di Lavoro / Studio
+WorkingPlaceColText_tooltip,Edificio in cui lavora o studia il Cittadino
+AgePhaseColText_text,Fase di vita
+AgePhaseColText_tooltip,Fase della vita in cui si trova il cittadino
+AgeColText_text,Eta'
+AgeColText_tooltip,L'Eta' del Cittadino
+HomeColText_text,Abitazione
+HomeColText_tooltip,Il cittadino abita in questa casa
+LastActColText_text,Ultima Attivita'
+LastActColText_tooltip,Quello che sta' facendo il cittadino in questo momento
+CloseButtonCol_text,Chiudi
+CloseButtonCol_tooltip,Clicca sul pulsante chiudi per rimuovere il cittadino dai preferiti :(
 Male,Maschio
 Female,Femmina
 AgePhase_Child_Male,Bambino

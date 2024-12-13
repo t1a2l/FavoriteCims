@@ -154,7 +154,7 @@ namespace FavoriteCims.UI.Panels
 
         public override void Update()
         {
-            if (FavCimsMainClass.UnLoading)
+            if (MainClass.UnLoading)
             {
                 return;
             }
@@ -175,8 +175,8 @@ namespace FavoriteCims.UI.Panels
                 if (execute)
                 {
                     if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty &&
-                        WorldInfoPanel.GetCurrentInstanceID().Type == InstanceType.Building &&
-                        WorldInfoPanel.GetCurrentInstanceID() != BuildingID)
+                       WorldInfoPanel.GetCurrentInstanceID().Type == InstanceType.Building &&
+                       WorldInfoPanel.GetCurrentInstanceID() != BuildingID)
                     {
                         BuildingID = WorldInfoPanel.GetCurrentInstanceID();
                     }
@@ -208,7 +208,7 @@ namespace FavoriteCims.UI.Panels
 
             UpdateBuildingTitles();
 
-            int unitnum = 0, hotel_guest_unit = 0;
+            int unitnum = 0;  
             total_workers = 0;
 
             bool isSubtitleAdded = false;
@@ -294,12 +294,12 @@ namespace FavoriteCims.UI.Panels
                                 {
                                     atlas = null,
                                     spriteName = "BapartmentIcon",
-                                    text = Translations.Translate("OnBuilding_HotelRooms") + " " + (hotel_guest_unit + 1),
+                                    text = Translations.Translate("OnBuilding_HotelRooms") + " " + (HotelGuestsCount + 1),
                                 });
+                                HotelGuestsCount++;
                                 CimsOnBuilding.Add(citizenId, BuildingUnits);
                                 fastList.Add(citizenId);
-                                hotel_guest_unit++;
-                            }   
+                            }
                             else if (CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Visit))
                             {
                                 if (!isSubtitleAdded)
@@ -324,8 +324,7 @@ namespace FavoriteCims.UI.Panels
                                     WorkersCount++;
                                 }
                                 else
-                                {//Here, it seems that adding workers always comes first.
-                                 //We need to move the subtitle here to avoid confusion
+                                {
                                     if (!isSubtitleAdded)
                                     {
                                         AddOtherSubtitles();
@@ -337,7 +336,7 @@ namespace FavoriteCims.UI.Panels
                                 fastList.Add(citizenId);
                             }
                         }
-
+                        
                     }
                 }
                 BuildingUnits = nextUnit;
@@ -348,7 +347,7 @@ namespace FavoriteCims.UI.Panels
                 }
             }
 
-            if (IsHotel && hotel_guest_unit == 0)
+            if (IsHotel && HotelGuestsCount == 0)
             {
                 fastList.Add(new TitleRowInfo
                 {

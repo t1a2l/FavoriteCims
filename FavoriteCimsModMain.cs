@@ -1,7 +1,7 @@
-using AlgernonCommons;
 using AlgernonCommons.Translation;
-using FavoriteCims.UI.Panels;
+using AlgernonCommons;
 using ICities;
+using FavoriteCims.UI.Panels;
 
 namespace FavoriteCims
 {

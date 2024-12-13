@@ -14,7 +14,8 @@ namespace FavoriteCims.UI.PanelsRows
         public override void Awake()
         {
             base.Awake();
-            BackgroundOpacity = 0f;//We don't need background for this "row".
+            BackgroundOpacity = 0f;// We don't need background for this "row".
+
             if (_cachedTitleRow == null)
             {
                 _cachedTitleRow = AddUIComponent<TitleRow>();
@@ -30,6 +31,7 @@ namespace FavoriteCims.UI.PanelsRows
                 _cachedCitizenRow.enabled = false;
             }
         }
+
         public override void Display(object data, int rowIndex)
         {
             if (data is not null)
@@ -37,18 +39,18 @@ namespace FavoriteCims.UI.PanelsRows
                 if (data is uint)
                 {
                     _cachedCitizenRow.Display(data, rowIndex);
-                    _cachedCitizenRow.enabled = true;
                     _cachedCitizenRow.size = size;
                     _cachedCitizenRow.Show();
+                    _cachedCitizenRow.enabled = true;
                     _cachedTitleRow.Hide();
                     _cachedTitleRow.enabled = false;
                 }
                 else
                 {
                     _cachedTitleRow.Display(data, rowIndex);
-                    _cachedTitleRow.enabled = true;
                     _cachedTitleRow.size = size;
                     _cachedTitleRow.Show();
+                    _cachedTitleRow.enabled = true;
                     _cachedCitizenRow.Hide();
                     _cachedCitizenRow.enabled = false;
                 }
@@ -75,8 +77,7 @@ namespace FavoriteCims.UI.PanelsRows
                 {
                     _cachedTitleRow?.Deselect(rowIndex);
                 }
-            }
-               
+            }  
         }
     }
 }

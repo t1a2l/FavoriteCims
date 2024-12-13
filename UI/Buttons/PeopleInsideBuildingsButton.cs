@@ -29,7 +29,7 @@ namespace FavoriteCims.UI.Buttons
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
             tooltipBox = aview.defaultTooltipBox;
-            BuildingPanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideBuildingsPanel)) as PeopleInsideBuildingsPanel;
+            BuildingPanel = MainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideBuildingsPanel)) as PeopleInsideBuildingsPanel;
             BuildingPanel.BuildingID = InstanceID.Empty;
             BuildingPanel.Hide();
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
@@ -51,7 +51,7 @@ namespace FavoriteCims.UI.Buttons
 
         public override void Update()
         {
-            bool unLoading = FavCimsMainClass.UnLoading;
+            bool unLoading = MainClass.UnLoading;
             if (!unLoading)
             {
                 bool isVisible = base.isVisible;

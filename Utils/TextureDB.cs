@@ -5,7 +5,7 @@ namespace FavoriteCims.Utils
 {
     public class TextureDB : Texture
 	{
-        public static Texture FavCimsOtherInfoTexture;
+        public static Texture OtherInfoTexture;
 
         public static Texture BubbleHeaderIconSpriteTextureFemale;
 
@@ -55,69 +55,69 @@ namespace FavoriteCims.Utils
 
         public static Texture VehiclePanelFooterBackground;
 
-        public static Texture FavCimsSeparator;
+        public static Texture Separator;
 
-        public static Texture FavCimsHappyOverride_texture;
+        public static Texture HappyOverride_texture;
 
-        public static Texture FavCimsNameBgOverride_texture;
+        public static Texture NameBgOverride_texture;
 
-        public static Texture FavCimsCitizenHomeTexture;
+        public static Texture CitizenHomeTexture;
 
-        public static Texture FavCimsCitizenHomeTextureHigh;
+        public static Texture CitizenHomeTextureHigh;
 
-        public static Texture FavCimsWorkingPlaceTexture;
+        public static Texture WorkingPlaceTexture;
 
-        public static Texture FavCimsCitizenHomeTextureDead;
+        public static Texture CitizenHomeTextureDead;
 
-        public static Texture FavCimsCitizenHomeTextureHomeless;
+        public static Texture CitizenHomeTextureHomeless;
 
-        public static Texture FavCimsWorkingPlaceTextureStudent;
+        public static Texture WorkingPlaceTextureStudent;
 
-        public static Texture FavCimsWorkingPlaceTextureRetired;
+        public static Texture WorkingPlaceTextureRetired;
 
-        public static Texture FavCimsCitizenCommercialLowTexture;
+        public static Texture CitizenCommercialLowTexture;
 
-        public static Texture FavCimsCitizenCommercialHighTexture;
+        public static Texture CitizenCommercialHighTexture;
 
-        public static Texture FavCimsCitizenIndustrialGenericTexture;
+        public static Texture CitizenIndustrialGenericTexture;
 
-        public static Texture FavCimsCitizenOfficeTexture;
+        public static Texture CitizenOfficeTexture;
 
-        public static Texture[] FavCimsResidentialLevel = new Texture[6];
+        public static Texture[] ResidentialLevel = new Texture[6];
 
-        public static Texture[] FavCimsIndustrialLevel = new Texture[6];
+        public static Texture[] IndustrialLevel = new Texture[6];
 
-        public static Texture[] FavCimsCommercialLevel = new Texture[6];
+        public static Texture[] CommercialLevel = new Texture[6];
 
-        public static Texture[] FavCimsOfficeLevel = new Texture[6];
+        public static Texture[] OfficeLevel = new Texture[6];
 
-        public static void LoadFavCimsTextures()
+        public static void LoadTextures()
 		{
 			try
 			{
-				FavCimsResidentialLevel[0] = null;
+				ResidentialLevel[0] = null;
 				for (int i = 1; i <= 5; i++)
 				{
-					FavCimsResidentialLevel[i] = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.levels.ResidentialLevel" + i.ToString() + ".png");
-					FavCimsResidentialLevel[i].wrapMode = TextureWrapMode.Clamp;
-					FavCimsResidentialLevel[i].filterMode = FilterMode.Bilinear;
-					FavCimsResidentialLevel[i].mipMapBias = -0.5f;
-					FavCimsResidentialLevel[i].name = "FavCimsResidentialLevel" + i.ToString();
-					FavCimsIndustrialLevel[i] = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.levels.IndustrialLevel" + i.ToString() + ".png");
-					FavCimsIndustrialLevel[i].wrapMode = TextureWrapMode.Clamp;
-					FavCimsIndustrialLevel[i].filterMode = FilterMode.Bilinear;
-					FavCimsIndustrialLevel[i].mipMapBias = -0.5f;
-					FavCimsIndustrialLevel[i].name = "FavCimsIndustrialLevel" + i.ToString();
-					FavCimsCommercialLevel[i] = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.levels.CommercialLevel" + i.ToString() + ".png");
-					FavCimsCommercialLevel[i].wrapMode = TextureWrapMode.Clamp;
-					FavCimsCommercialLevel[i].filterMode = FilterMode.Bilinear;
-					FavCimsCommercialLevel[i].mipMapBias = -0.5f;
-					FavCimsCommercialLevel[i].name = "FavCimsCommercialLevel" + i.ToString();
-					FavCimsOfficeLevel[i] = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.levels.OfficeLevel" + i.ToString() + ".png");
-					FavCimsOfficeLevel[i].wrapMode = TextureWrapMode.Clamp;
-					FavCimsOfficeLevel[i].filterMode = FilterMode.Bilinear;
-					FavCimsOfficeLevel[i].mipMapBias = -0.5f;
-					FavCimsOfficeLevel[i].name = "FavCimsOfficeLevel" + i.ToString();
+					ResidentialLevel[i] = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.levels.ResidentialLevel" + i.ToString() + ".png");
+					ResidentialLevel[i].wrapMode = TextureWrapMode.Clamp;
+					ResidentialLevel[i].filterMode = FilterMode.Bilinear;
+					ResidentialLevel[i].mipMapBias = -0.5f;
+					ResidentialLevel[i].name = "ResidentialLevel" + i.ToString();
+					IndustrialLevel[i] = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.levels.IndustrialLevel" + i.ToString() + ".png");
+					IndustrialLevel[i].wrapMode = TextureWrapMode.Clamp;
+					IndustrialLevel[i].filterMode = FilterMode.Bilinear;
+					IndustrialLevel[i].mipMapBias = -0.5f;
+					IndustrialLevel[i].name = "IndustrialLevel" + i.ToString();
+					CommercialLevel[i] = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.levels.CommercialLevel" + i.ToString() + ".png");
+					CommercialLevel[i].wrapMode = TextureWrapMode.Clamp;
+					CommercialLevel[i].filterMode = FilterMode.Bilinear;
+					CommercialLevel[i].mipMapBias = -0.5f;
+					CommercialLevel[i].name = "CommercialLevel" + i.ToString();
+					OfficeLevel[i] = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.levels.OfficeLevel" + i.ToString() + ".png");
+					OfficeLevel[i].wrapMode = TextureWrapMode.Clamp;
+					OfficeLevel[i].filterMode = FilterMode.Bilinear;
+					OfficeLevel[i].mipMapBias = -0.5f;
+					OfficeLevel[i].name = "OfficeLevel" + i.ToString();
 				}
 			}
 			catch (Exception ex)
@@ -126,74 +126,74 @@ namespace FavoriteCims.Utils
 			}
 			try
 			{
-				FavCimsSeparator = ResourceLoader.LoadTexture(1, 40, "UIMainPanel.Rows.col_separator.png");
-				FavCimsSeparator.wrapMode = TextureWrapMode.Clamp;
-				FavCimsSeparator.filterMode = FilterMode.Bilinear;
-				FavCimsSeparator.name = "FavCimsSeparator";
-				FavCimsHappyOverride_texture = ResourceLoader.LoadTexture(30, 30, "UIMainPanel.Rows.icon_citisenisgone.png");
-				FavCimsHappyOverride_texture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsHappyOverride_texture.filterMode = FilterMode.Bilinear;
-				FavCimsHappyOverride_texture.name = "FavCimsHappyOverride_texture";
-				FavCimsHappyOverride_texture.mipMapBias = -0.5f;
-				FavCimsNameBgOverride_texture = ResourceLoader.LoadTexture(180, 40, "UIMainPanel.submenubar.png");
-				FavCimsNameBgOverride_texture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsNameBgOverride_texture.filterMode = FilterMode.Bilinear;
-				FavCimsNameBgOverride_texture.name = "FavCimsNameOverride_texture";
-				FavCimsNameBgOverride_texture.mipMapBias = -0.5f;
-				FavCimsCitizenHomeTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.homeIconLow.png");
-				FavCimsCitizenHomeTexture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsCitizenHomeTexture.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenHomeTexture.mipMapBias = -0.5f;
-				FavCimsCitizenHomeTexture.name = "FavCimsCitizenHomeTexture";
-				FavCimsCitizenHomeTextureHigh = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.homeIconHigh.png");
-				FavCimsCitizenHomeTextureHigh.wrapMode = TextureWrapMode.Clamp;
-				FavCimsCitizenHomeTextureHigh.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenHomeTextureHigh.mipMapBias = -0.5f;
-				FavCimsCitizenHomeTextureHigh.name = "FavCimsCitizenHomeTexture";
-				FavCimsCitizenHomeTextureDead = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.houseofthedead.png");
-				FavCimsCitizenHomeTextureDead.wrapMode = TextureWrapMode.Clamp;
-				FavCimsCitizenHomeTextureDead.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenHomeTextureDead.mipMapBias = -0.5f;
-				FavCimsCitizenHomeTextureDead.name = "FavCimsCitizenHomeTextureDead";
-				FavCimsCitizenHomeTextureHomeless = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.homelessIcon.png");
-				FavCimsCitizenHomeTextureHomeless.wrapMode = TextureWrapMode.Clamp;
-				FavCimsCitizenHomeTextureHomeless.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenHomeTextureHomeless.mipMapBias = -0.5f;
-				FavCimsCitizenHomeTextureHomeless.name = "FavCimsCitizenHomeTextureHomeless";
-				FavCimsWorkingPlaceTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.nojob.png");
-				FavCimsWorkingPlaceTextureStudent = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.workstudy.png");
-				FavCimsWorkingPlaceTextureRetired = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.workretired.png");
-				FavCimsCitizenCommercialLowTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.CommercialLow.png");
-				FavCimsCitizenCommercialHighTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.CommercialHigh.png");
-				FavCimsCitizenIndustrialGenericTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.IndustrialIcon.png");
-				FavCimsCitizenOfficeTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.OfficeIcon.png");
-				FavCimsWorkingPlaceTexture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsWorkingPlaceTextureStudent.wrapMode = TextureWrapMode.Clamp;
-				FavCimsWorkingPlaceTextureRetired.wrapMode = TextureWrapMode.Clamp;
-				FavCimsWorkingPlaceTexture.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenCommercialLowTexture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsCitizenCommercialHighTexture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsCitizenIndustrialGenericTexture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsCitizenOfficeTexture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsWorkingPlaceTextureStudent.filterMode = FilterMode.Bilinear;
-				FavCimsWorkingPlaceTextureRetired.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenCommercialLowTexture.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenCommercialHighTexture.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenIndustrialGenericTexture.filterMode = FilterMode.Bilinear;
-				FavCimsCitizenOfficeTexture.filterMode = FilterMode.Bilinear;
-				FavCimsWorkingPlaceTextureStudent.mipMapBias = -0.5f;
-				FavCimsWorkingPlaceTextureRetired.mipMapBias = -0.5f;
-				FavCimsCitizenCommercialLowTexture.mipMapBias = -0.5f;
-				FavCimsCitizenCommercialHighTexture.mipMapBias = -0.5f;
-				FavCimsCitizenIndustrialGenericTexture.mipMapBias = -0.5f;
-				FavCimsCitizenOfficeTexture.mipMapBias = -0.5f;
-				FavCimsWorkingPlaceTexture.name = "FavCimsWorkingPlaceTexture";
-				FavCimsWorkingPlaceTextureStudent.name = "FavCimsWorkingPlaceTextureStudent";
-				FavCimsWorkingPlaceTextureRetired.name = "FavCimsWorkingPlaceTextureRetired";
-				FavCimsCitizenCommercialLowTexture.name = "FavCimsCitizenCommercialLowTexture";
-				FavCimsCitizenCommercialHighTexture.name = "FavCimsCitizenCommercialHighTexture";
-				FavCimsCitizenIndustrialGenericTexture.name = "FavCimsCitizenIndustrialHighTexture";
-				FavCimsCitizenOfficeTexture.name = "FavCimsCitizenOfficeTexture";
+				Separator = ResourceLoader.LoadTexture(1, 40, "UIMainPanel.Rows.col_separator.png");
+				Separator.wrapMode = TextureWrapMode.Clamp;
+				Separator.filterMode = FilterMode.Bilinear;
+				Separator.name = "Separator";
+				HappyOverride_texture = ResourceLoader.LoadTexture(30, 30, "UIMainPanel.Rows.icon_citisenisgone.png");
+				HappyOverride_texture.wrapMode = TextureWrapMode.Clamp;
+				HappyOverride_texture.filterMode = FilterMode.Bilinear;
+				HappyOverride_texture.name = "HappyOverride_texture";
+				HappyOverride_texture.mipMapBias = -0.5f;
+				NameBgOverride_texture = ResourceLoader.LoadTexture(180, 40, "UIMainPanel.submenubar.png");
+				NameBgOverride_texture.wrapMode = TextureWrapMode.Clamp;
+				NameBgOverride_texture.filterMode = FilterMode.Bilinear;
+				NameBgOverride_texture.name = "NameOverride_texture";
+				NameBgOverride_texture.mipMapBias = -0.5f;
+				CitizenHomeTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.homeIconLow.png");
+				CitizenHomeTexture.wrapMode = TextureWrapMode.Clamp;
+				CitizenHomeTexture.filterMode = FilterMode.Bilinear;
+				CitizenHomeTexture.mipMapBias = -0.5f;
+				CitizenHomeTexture.name = "CitizenHomeTexture";
+				CitizenHomeTextureHigh = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.homeIconHigh.png");
+				CitizenHomeTextureHigh.wrapMode = TextureWrapMode.Clamp;
+				CitizenHomeTextureHigh.filterMode = FilterMode.Bilinear;
+				CitizenHomeTextureHigh.mipMapBias = -0.5f;
+				CitizenHomeTextureHigh.name = "CitizenHomeTexture";
+				CitizenHomeTextureDead = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.houseofthedead.png");
+				CitizenHomeTextureDead.wrapMode = TextureWrapMode.Clamp;
+				CitizenHomeTextureDead.filterMode = FilterMode.Bilinear;
+				CitizenHomeTextureDead.mipMapBias = -0.5f;
+				CitizenHomeTextureDead.name = "CitizenHomeTextureDead";
+				CitizenHomeTextureHomeless = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.homelessIcon.png");
+				CitizenHomeTextureHomeless.wrapMode = TextureWrapMode.Clamp;
+				CitizenHomeTextureHomeless.filterMode = FilterMode.Bilinear;
+				CitizenHomeTextureHomeless.mipMapBias = -0.5f;
+				CitizenHomeTextureHomeless.name = "CitizenHomeTextureHomeless";
+				WorkingPlaceTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.nojob.png");
+				WorkingPlaceTextureStudent = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.workstudy.png");
+				WorkingPlaceTextureRetired = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.workretired.png");
+				CitizenCommercialLowTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.CommercialLow.png");
+				CitizenCommercialHighTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.CommercialHigh.png");
+				CitizenIndustrialGenericTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.IndustrialIcon.png");
+				CitizenOfficeTexture = ResourceLoader.LoadTexture(20, 40, "UIMainPanel.Rows.OfficeIcon.png");
+				WorkingPlaceTexture.wrapMode = TextureWrapMode.Clamp;
+				WorkingPlaceTextureStudent.wrapMode = TextureWrapMode.Clamp;
+				WorkingPlaceTextureRetired.wrapMode = TextureWrapMode.Clamp;
+				WorkingPlaceTexture.filterMode = FilterMode.Bilinear;
+				CitizenCommercialLowTexture.wrapMode = TextureWrapMode.Clamp;
+				CitizenCommercialHighTexture.wrapMode = TextureWrapMode.Clamp;
+				CitizenIndustrialGenericTexture.wrapMode = TextureWrapMode.Clamp;
+				CitizenOfficeTexture.wrapMode = TextureWrapMode.Clamp;
+				WorkingPlaceTextureStudent.filterMode = FilterMode.Bilinear;
+				WorkingPlaceTextureRetired.filterMode = FilterMode.Bilinear;
+				CitizenCommercialLowTexture.filterMode = FilterMode.Bilinear;
+				CitizenCommercialHighTexture.filterMode = FilterMode.Bilinear;
+				CitizenIndustrialGenericTexture.filterMode = FilterMode.Bilinear;
+				CitizenOfficeTexture.filterMode = FilterMode.Bilinear;
+				WorkingPlaceTextureStudent.mipMapBias = -0.5f;
+				WorkingPlaceTextureRetired.mipMapBias = -0.5f;
+				CitizenCommercialLowTexture.mipMapBias = -0.5f;
+				CitizenCommercialHighTexture.mipMapBias = -0.5f;
+				CitizenIndustrialGenericTexture.mipMapBias = -0.5f;
+				CitizenOfficeTexture.mipMapBias = -0.5f;
+				WorkingPlaceTexture.name = "WorkingPlaceTexture";
+				WorkingPlaceTextureStudent.name = "WorkingPlaceTextureStudent";
+				WorkingPlaceTextureRetired.name = "WorkingPlaceTextureRetired";
+				CitizenCommercialLowTexture.name = "CitizenCommercialLowTexture";
+				CitizenCommercialHighTexture.name = "CitizenCommercialHighTexture";
+				CitizenIndustrialGenericTexture.name = "CitizenIndustrialHighTexture";
+				CitizenOfficeTexture.name = "CitizenOfficeTexture";
 				BubbleHeaderIconSpriteTextureFemale = ResourceLoader.LoadTexture(28, 26, "UIMainPanel.BubblePanel.Female.png");
 				BubbleHeaderIconSpriteTextureFemale.wrapMode = TextureWrapMode.Clamp;
 				BubbleHeaderIconSpriteTextureFemale.filterMode = FilterMode.Bilinear;
@@ -284,10 +284,10 @@ namespace FavoriteCims.Utils
 				LittleStarGold.wrapMode = TextureWrapMode.Clamp;
 				LittleStarGold.filterMode = FilterMode.Bilinear;
 				LittleStarGold.mipMapBias = -0.5f;
-				FavCimsOtherInfoTexture = ResourceLoader.LoadTexture(250, 500, "UIMainPanel.panel_middle.png");
-				FavCimsOtherInfoTexture.wrapMode = TextureWrapMode.Clamp;
-				FavCimsOtherInfoTexture.filterMode = FilterMode.Bilinear;
-				FavCimsOtherInfoTexture.name = "FavCimsOtherInfoTexture";
+				OtherInfoTexture = ResourceLoader.LoadTexture(250, 500, "UIMainPanel.panel_middle.png");
+				OtherInfoTexture.wrapMode = TextureWrapMode.Clamp;
+				OtherInfoTexture.filterMode = FilterMode.Bilinear;
+				OtherInfoTexture.name = "OtherInfoTexture";
 				VehiclePanelTitleBackground = ResourceLoader.LoadTexture(250, 41, "VehiclePanel.VehiclePanelTitleBg.png");
 				VehiclePanelTitleBackground.wrapMode = TextureWrapMode.Clamp;
 				VehiclePanelTitleBackground.filterMode = FilterMode.Bilinear;
