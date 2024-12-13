@@ -16,33 +16,33 @@ HARMONY_MOD_ERROR,存在一个过时/损坏的模组导致 Harmony 2 模组无�
 HARMONY_MOD_CONFLICT,另一个模组可能在尝试调用冲突的 Harmony 库,Possible cause of Harmony error - two mods trying to patch the same thing at once.
 DETAIL_LOGGING,启用详细的调试日志记录,Option to record more detail in game log
 MOD_DESCRIPTION,在列表中添加和追踪喜爱的市民
-FavCimsButton_tooltip,我喜爱的市民
-FavCimsBCMenuButton_text,市民
-FavCimsBCMenuButton_tooltip,关注的市民
-FavCimsBBMenuButton_text,建筑
-FavCimsBBMenuButton_tooltip,关注的建筑
-FavCimsBSMenuButton_text,统计
-FavCimsBSMenuButton_tooltip,信息和统计
+Button_tooltip,我喜爱的市民
+BCMenuButton_text,市民
+BCMenuButton_tooltip,喜爱的市民
+BBMenuButton_text,楼房
+BBMenuButton_tooltip,喜爱的建筑物
+BSMenuButton_text,统计
+BSMenuButton_tooltip,信息和统计
 FavStarButton_enable_tooltip,点击以喜爱
 FavStarButton_disable_tooltip,点击以取消喜爱
-FavCimsHappinesColText_text,状态
-FavCimsHappinesColText_tooltip,市民幸福度
-FavCimsNameColText_text,市民名称
-FavCimsNameColText_tooltip,市民名称
-FavCimsEduColText_text,教育
-FavCimsEduColText_tooltip,市民的教育水平
-FavCimsWorkingPlaceColText_text,职业
-FavCimsWorkingPlaceColText_tooltip,市民的工作或学习地点
-FavCimsAgePhaseColText_text,年龄阶段
-FavCimsAgePhaseColText_tooltip,市民的年龄阶段
-FavCimsAgeColText_text,年龄
-FavCimsAgeColText_tooltip,市民年龄
-FavCimsHomeColText_text,家庭
-FavCimsHomeColText_tooltip,市民住址
-FavCimsLastActColText_text,活动
-FavCimsLastActColText_tooltip,市民正在做什么
-FavCimsCloseButtonCol_text,取消喜爱
-FavCimsCloseButtonCol_tooltip,点击以取消喜爱
+HappinesColText_text,状态
+HappinesColText_tooltip,市民幸福度
+NameColText_text,市民名称
+NameColText_tooltip,市民名称
+EduColText_text,教育
+EduColText_tooltip,市民的教育水平
+WorkingPlaceColText_text,职业
+WorkingPlaceColText_tooltip,市民的工作或学习地点
+AgePhaseColText_text,年龄阶段
+AgePhaseColText_tooltip,市民的年龄阶段
+AgeColText_text,年龄
+AgeColText_tooltip,市民年龄
+HomeColText_text,住址
+HomeColText_tooltip,市民住址
+LastActColText_text,活动
+LastActColText_tooltip,市民正在做什么
+CloseButtonCol_text,取消喜爱
+CloseButtonCol_tooltip,点击以取消喜爱
 Male,男
 Female,女
 AgePhase_Child_Male,儿童
