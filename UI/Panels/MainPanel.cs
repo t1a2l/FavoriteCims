@@ -12,6 +12,8 @@ namespace FavoriteCims.UI.Panels
 
         private bool execute = false;
 
+        private bool executing = false;
+
         public static UIButton HappinesColText;
 
         public static UIButton NameColText;
@@ -50,83 +52,11 @@ namespace FavoriteCims.UI.Panels
 
         private UIList BodyList;
 
-        private FastList<object> fastList = new();
+        private readonly FastList<object> fastList = new();
 
         public static bool RowAlternateBackground;
 
         public static bool ColumnSpecialBackground;
-
-        /*
-        public static bool RowsAlreadyExist(InstanceID instanceID)
-		{
-			CitizenRow[] componentsInChildren = CitizenRowsPanel.GetComponentsInChildren<CitizenRow>();
-			foreach (CitizenRow citizenRow in componentsInChildren)
-			{
-				if (citizenRow.MyInstanceID == instanceID)
-				{
-					return true;
-				}
-			}
-			return false;
-		}
-
-		private void ReorderRowsBackgrounds()
-		{
-			object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
-			while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
-			{
-			}
-			try
-			{
-				CitizenRow[] componentsInChildren = CitizenRowsPanel.GetComponentsInChildren<CitizenRow>();
-				CitizenRow[] array = componentsInChildren;
-				for (int i = 0; i < array.Length; i++)
-				{
-					CitizenRow Rows = array[i];
-					if (Rows != null && Rows.Find<UITextureSprite>("CitizenSingleRowBGSprite") != null)
-					{
-						if (Rows.Find<UITextureSprite>("CitizenSingleRowBGSprite").texture != null)
-						{
-							if (Rows.Find<UITextureSprite>("CitizenSingleRowBGSprite").texture.name.Length > 0)
-							{
-								Texture FavDot;
-								if (!RowAlternateBackground)
-								{
-									FavDot = ResourceLoader.LoadTexture((int)Rows.width, 40, "UIMainPanel.Rows.bgrow_1.png");
-									FavDot.name = "FavDot_1";
-									Rows.Find<UITextureSprite>("CitizenSingleRowBGSprite").texture = FavDot;
-									RowAlternateBackground = true;
-								}
-								else
-								{
-									FavDot = ResourceLoader.LoadTexture((int)Rows.width, 40, "UIMainPanel.Rows.bgrow_2.png");
-									FavDot.name = "FavDot_2";
-									Rows.Find<UITextureSprite>("CitizenSingleRowBGSprite").texture = FavDot;
-									RowAlternateBackground = false;
-								}
-								Rows.eventMouseLeave -= delegate(UIComponent component, UIMouseEventParameter eventParam)
-								{
-									Rows.Find<UITextureSprite>("CitizenSingleRowBGSprite").texture = FavDot;
-								};
-								Rows.eventMouseLeave += delegate(UIComponent component, UIMouseEventParameter eventParam)
-								{
-									Rows.Find<UITextureSprite>("CitizenSingleRowBGSprite").texture = FavDot;
-								};
-							}
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-                Utils.Debug.Error("Reorder Background Error " + ex.ToString());
-			}
-			finally
-			{
-				Monitor.Exit(privateVariable);
-			}
-		}
-		*/
 
 		public void LocaleChanged()
 		{
@@ -221,7 +151,7 @@ namespace FavoriteCims.UI.Panels
             {
                 MainClass.PanelToggle();
             };
-            uibutton.relativePosition = new Vector3(width - uibutton.width * 1.5f, texture2.height / 2f - uibutton.height / 2f);
+            uibutton.relativePosition = new Vector3(width - (uibutton.width * 1.5f), (texture2.height / 2f) - uibutton.height / 2f);
             Texture texture3 = ResourceLoader.LoadTexture((int)width - 10, 70, "UIMainPanel.submenubar.png");
             texture3.wrapMode = TextureWrapMode.Clamp;
             texture3.filterMode = FilterMode.Bilinear;
@@ -430,57 +360,6 @@ namespace FavoriteCims.UI.Panels
             BodyList = UIList.AddUIList<MainPanel_ItemRow>(CitizensPanel, uitextureSprite3.relativePosition.x + 6f, uitextureSprite3.relativePosition.y + uitextureSprite3.height, uitextureSprite3.width - 12f, 500f, 40f);
             BodyList.EventSelectionChanged += (_, obj) => BodyList.SelectedIndex = -1;
             BodyList.name = "BodyList";
-            /*	CitizenRowsPanel = CitizensPanel.AddUIComponent<UIScrollablePanel>();
-			CitizenRowsPanel.name = "CitizenRowsPanel";
-			CitizenRowsPanel.width = uitextureSprite3.width - 12f;
-			CitizenRowsPanel.height = 500f;
-			CitizenRowsPanel.autoLayoutDirection = LayoutDirection.Vertical;
-			CitizenRowsPanel.autoLayout = true;
-			CitizenRowsPanel.clipChildren = true;
-			CitizenRowsPanel.autoLayoutPadding = new RectOffset(0, 0, 0, 0);
-			CitizenRowsPanel.relativePosition = new Vector3(uitextureSprite3.relativePosition.x + 6f, uitextureSprite3.relativePosition.y + uitextureSprite3.height);
-			UIScrollablePanel uiscrollablePanel = CitizensPanel.AddUIComponent<UIScrollablePanel>();
-			uiscrollablePanel.name = "CitizenRowsPanelScrollBar";
-			uiscrollablePanel.width = 10f;
-			uiscrollablePanel.height = 500f;
-			uiscrollablePanel.relativePosition = new Vector3(uitextureSprite3.relativePosition.x + uitextureSprite3.width, CitizenRowsPanel.relativePosition.y);
-			UIScrollbar MainPanelScrollBar = uiscrollablePanel.AddUIComponent<UIScrollbar>();
-			MainPanelScrollBar.width = 10f;
-			MainPanelScrollBar.height = CitizenRowsPanel.height;
-			MainPanelScrollBar.orientation = UIOrientation.Vertical;
-			MainPanelScrollBar.pivot = UIPivotPoint.TopRight;
-			MainPanelScrollBar.AlignTo(MainPanelScrollBar.parent, 0);
-			MainPanelScrollBar.minValue = 0f;
-			MainPanelScrollBar.value = 0f;
-			MainPanelScrollBar.incrementAmount = 40f;
-			UISlicedSprite uislicedSprite = MainPanelScrollBar.AddUIComponent<UISlicedSprite>();
-			uislicedSprite.relativePosition = MainPanelScrollBar.relativePosition;
-			uislicedSprite.autoSize = true;
-			uislicedSprite.size = uislicedSprite.parent.size;
-			uislicedSprite.fillDirection = UIFillDirection.Vertical;
-			uislicedSprite.spriteName = "ScrollbarTrack";
-			MainPanelScrollBar.trackObject = uislicedSprite;
-			UISlicedSprite uislicedSprite2 = MainPanelScrollBar.AddUIComponent<UISlicedSprite>();
-			uislicedSprite2.relativePosition = MainPanelScrollBar.relativePosition;
-			uislicedSprite2.autoSize = true;
-			uislicedSprite2.width = uislicedSprite2.parent.width;
-			uislicedSprite2.fillDirection = UIFillDirection.Vertical;
-			uislicedSprite2.spriteName = "ScrollbarThumb";
-			MainPanelScrollBar.thumbObject = uislicedSprite2;
-			CitizenRowsPanel.verticalScrollbar = MainPanelScrollBar;
-			CitizenRowsPanel.eventMouseWheel += delegate(UIComponent component, UIMouseEventParameter eventParam)
-			{
-				int sign = Math.Sign(eventParam.wheelDelta);
-				CitizenRowsPanel.scrollPosition += new Vector2(0f, (sign * -1) * MainPanelScrollBar.incrementAmount);
-			};
-			CitizenRowsPanel.eventComponentAdded += delegate(UIComponent component, UIComponent eventParam)
-			{
-				ReorderRowsBackgrounds();
-			};
-			CitizenRowsPanel.eventComponentRemoved += delegate(UIComponent component, UIComponent eventParam)
-			{
-				ReorderRowsBackgrounds();
-			};*/
             UITextureSprite uitextureSprite4 = CitizensPanel.AddUIComponent<UITextureSprite>();
             uitextureSprite4.name = "FooterBgBarSprite";
             uitextureSprite4.width = uitextureSprite3.width;
@@ -508,7 +387,7 @@ namespace FavoriteCims.UI.Panels
                 {
                     execute = false;
                 }
-                if (execute)
+                if (execute && !executing)
                 {
                     UpdateList();
                 }
@@ -516,6 +395,7 @@ namespace FavoriteCims.UI.Panels
         }
         public void UpdateList()
         {
+            executing = true;
             fastList.Clear();
             foreach (var keyValuePair in FavCimsCore.FavoriteCimsList())
             {
@@ -527,6 +407,7 @@ namespace FavoriteCims.UI.Panels
             BodyList.Data = fastList;
             BodyList.Refresh();
             BodyList.Data = fastList;
+            executing = false;
         }
     }
 }

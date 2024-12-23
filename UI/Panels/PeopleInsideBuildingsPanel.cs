@@ -16,6 +16,8 @@ namespace FavoriteCims.UI.Panels
 
         private bool execute = false;
 
+        private bool executing = false;
+
         public InstanceID BuildingID;
 
         public UIPanel RefPanel;
@@ -170,7 +172,7 @@ namespace FavoriteCims.UI.Panels
                 {
                     execute = false;
                 }
-                if (execute)
+                if (execute && !executing)
                 {
                     if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty &&
                        WorldInfoPanel.GetCurrentInstanceID().Type == InstanceType.Building &&
@@ -185,6 +187,7 @@ namespace FavoriteCims.UI.Panels
 
         public void UpdateList()
         {
+            executing = true;
             CimsOnBuilding.Clear();
             fastList.Clear();
 
@@ -350,6 +353,7 @@ namespace FavoriteCims.UI.Panels
             BodyList.Data = fastList;
             BodyList.Refresh();
             BodyList.Data = fastList;
+            executing = false;
         }
 
         private void UpdateBuildingTitles()

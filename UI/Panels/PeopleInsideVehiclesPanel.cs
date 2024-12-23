@@ -16,7 +16,7 @@ namespace FavoriteCims.UI.Panels
 
         private bool execute = false;
 
-        public static bool Wait = false;
+        private bool executing = false;
 
         public InstanceID VehicleID;
 
@@ -156,7 +156,7 @@ namespace FavoriteCims.UI.Panels
                 {
                     execute = false;
                 }
-                if (execute)
+                if (execute && !executing)
                 {
                     if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty &&
                        WorldInfoPanel.GetCurrentInstanceID().Type == InstanceType.Vehicle &&
@@ -171,6 +171,7 @@ namespace FavoriteCims.UI.Panels
 
         public void UpdateList()
 		{
+            executing = true;
             CimsOnVeh.Clear();
             fastList.Clear();
 
@@ -230,6 +231,7 @@ namespace FavoriteCims.UI.Panels
             BodyList.Data = fastList;
             BodyList.Refresh();
             BodyList.Data = fastList;
+            executing = false;
         }
 
         private void UpdatePanelLayout()
