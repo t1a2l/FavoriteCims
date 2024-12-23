@@ -78,10 +78,17 @@ namespace FavoriteCims.UI.Buttons
                 }
                 var service = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.m_class.m_service;
                 var sub_service = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.m_class.m_subService;
-                if (service != ItemClass.Service.PublicTransport || (service == ItemClass.Service.PublicTransport && sub_service == ItemClass.SubService.PublicTransportPost))
+                var vehicleAI = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.GetAI();
+
+                if (service == ItemClass.Service.PublicTransport && sub_service != ItemClass.SubService.PublicTransportPost)
                 {
-                    isEnabled = false;
-                    VehiclePanel.Hide();
+                    isEnabled = true;
+                    tooltip = Translations.Translate("View_PassengersList");
+                }
+                else if (service == ItemClass.Service.HealthCare && (vehicleAI is AmbulanceAI || vehicleAI is AmbulanceCopterAI))
+                {
+                    isEnabled = true;
+                    tooltip = Translations.Translate("View_PassengersList");
                 }
                 else if (!VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle)
                 {
@@ -90,9 +97,9 @@ namespace FavoriteCims.UI.Buttons
                 }
                 else
                 {
-                    VehiclePanel.Hide();
-                    Unfocus();
                     isEnabled = false;
+                    VehiclePanel.Hide();
+                    Unfocus(); 
                 }
             }
             else
