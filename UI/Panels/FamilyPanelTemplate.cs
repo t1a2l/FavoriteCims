@@ -408,7 +408,6 @@ namespace FavoriteCims.UI.Panels
                             {
                                 MyInstanceID = Target;
                                 execute = true;
-                                LateUpdate();
                             }
                             else
                             {

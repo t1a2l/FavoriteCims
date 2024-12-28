@@ -11,7 +11,7 @@ using UnityEngine;
 namespace FavoriteCims.UI.Panels
 {
     public class PeopleInsideVehiclesPanel : UIPanel
-	{
+    {
         private float seconds = 0.5f;
 
         private bool execute = false;
@@ -21,6 +21,8 @@ namespace FavoriteCims.UI.Panels
         public InstanceID VehicleID;
 
         public UIPanel RefPanel;
+
+        public bool IsPTVehicle = false;
 
         private readonly VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
 
@@ -163,14 +165,20 @@ namespace FavoriteCims.UI.Panels
                        WorldInfoPanel.GetCurrentInstanceID() != VehicleID)
                     {
                         VehicleID = WorldInfoPanel.GetCurrentInstanceID();
+                        OnVehicleChanged();
                     }
-                    UpdateList();
+                    if (IsPTVehicle) UpdateListForPTVehicle();
+                    else UpdateList();
                 }
             }
         }
-
+        private void OnVehicleChanged()
+        {
+            BodyList.Clear();
+            BodyList.CurrentPosition = 0;
+        }
         public void UpdateList()
-		{
+        {
             executing = true;
             CimsOnVeh.Clear();
             fastList.Clear();
@@ -181,20 +189,20 @@ namespace FavoriteCims.UI.Panels
             int totalVehicleUnitsCount = 0;
             CountCitizenUnits(ref vehicle, ref totalVehicleUnitsCount);
 
-			VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
+            VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
 
-			int unitnum = 0;
-
-			while (VehicleUnits != 0U && unitnum < totalVehicleUnitsCount)
-			{
-				uint nextUnit = MyCitizen.m_units.m_buffer[(int)VehicleUnits].m_nextUnit;
-				for (int k = 0; k < 5; k++)
-				{
-					uint citizen = CitizenUnit.GetCitizen(k);
-					if (citizen != 0U && !CimsOnVeh.ContainsKey(citizen))
-					{
-						if (k == 0)
-						{
+            int unitnum = 0;
+            bool isTitleAdded = false;
+            while (VehicleUnits != 0U && unitnum < totalVehicleUnitsCount)
+            {
+                uint nextUnit = MyCitizen.m_units.m_buffer[(int)VehicleUnits].m_nextUnit;
+                for (int k = 0; k < 5; k++)
+                {
+                    uint citizen = CitizenUnit.GetCitizen(k);
+                    if (citizen != 0U && !CimsOnVeh.ContainsKey(citizen))
+                    {
+                        if (k == 0 && !isTitleAdded)
+                        {
                             fastList.Add(new TitleRowInfo
                             {
                                 atlas = null,
@@ -202,7 +210,7 @@ namespace FavoriteCims.UI.Panels
                                 text = Translations.Translate("Vehicle_DriverIconText")
                             });
                         }
-						else if (k == 1)
+                        else if (k == 1 && !isTitleAdded)
                         {
                             fastList.Add(new TitleRowInfo
                             {
@@ -210,17 +218,18 @@ namespace FavoriteCims.UI.Panels
                                 spriteName = "passengerIcon",
                                 text = Translations.Translate("Vehicle_PasssengerIconText")
                             });
+                            isTitleAdded = true;
                         }
                         CimsOnVeh.Add(citizen, VehicleUnits);
                         fastList.Add(citizen);
                     }
-				}
-				VehicleUnits = nextUnit;
-				if (++unitnum > Singleton<CitizenManager>.instance.m_units.m_size)
-				{
-					break;
-				}	
-			}
+                }
+                VehicleUnits = nextUnit;
+                if (++unitnum > Singleton<CitizenManager>.instance.m_units.m_size)
+                {
+                    break;
+                }
+            }
             if (CimsOnVeh.Count == 0)
             {
                 fastList.Add(new TitleRowInfo
@@ -230,7 +239,62 @@ namespace FavoriteCims.UI.Panels
             }
             BodyList.Data = fastList;
             BodyList.Refresh();
+            BodyList.UpdateScrollbar();
+            executing = false;
+        }
+
+        public void UpdateListForPTVehicle()
+        {
+            executing = true;
+            CimsOnVeh.Clear();
+            fastList.Clear();
+
+            TitleVehicleName.text = Translations.Translate("Vehicle_Passengers");
+
+            vehicle = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle];
+            int totalVehicleUnitsCount = 0;
+            CountCitizenUnits(ref vehicle, ref totalVehicleUnitsCount);
+
+            VehicleUnits = MyVehicle.m_vehicles.m_buffer[VehicleID.Vehicle].m_citizenUnits;
+
+            int unitnum = 0;
+
+            fastList.Add(new TitleRowInfo
+            {
+                atlas = null,
+                spriteName = "passengerIcon",
+                text = Translations.Translate("Vehicle_PasssengerIconText")
+            });
+
+            while (VehicleUnits != 0U && unitnum < totalVehicleUnitsCount)
+            {
+                uint nextUnit = MyCitizen.m_units.m_buffer[VehicleUnits].m_nextUnit;
+                for (int k = 0; k < 5; k++)
+                {
+                    uint citizen = CitizenUnit.GetCitizen(k);
+                    if (citizen != 0U && !CimsOnVeh.ContainsKey(citizen) && CitizenUnit.m_flags.IsFlagSet(CitizenUnit.Flags.Vehicle))
+                    {
+                        CimsOnVeh.Add(citizen, VehicleUnits);
+                        fastList.Add(citizen);
+                    }
+                }
+                VehicleUnits = nextUnit;
+                if (++unitnum > Singleton<CitizenManager>.instance.m_units.m_size)
+                {
+                    break;
+                }
+            }
+            if (CimsOnVeh.Count == 0)
+            {
+                fastList.RemoveAt(0);
+                fastList.Add(new TitleRowInfo
+                {
+                    text = Translations.Translate("View_NoPassengers")
+                });
+            }
             BodyList.Data = fastList;
+            BodyList.Refresh();
+            BodyList.UpdateScrollbar();
             executing = false;
         }
 

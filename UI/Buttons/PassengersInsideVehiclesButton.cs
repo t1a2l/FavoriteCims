@@ -1,4 +1,5 @@
 using AlgernonCommons.Translation;
+using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
@@ -16,9 +17,11 @@ namespace FavoriteCims.UI.Buttons
 
         private PeopleInsideVehiclesPanel VehiclePanel;
 
+        private readonly VehicleManager VehicleManager = Singleton<VehicleManager>.instance;
+
         public override void Start()
         {
-            UIView aview = UIView.GetAView();
+            UIView aView = UIView.GetAView();
             name = "FavCimsVehPassButton";
             normalBgSprite = "vehicleButton";
             hoveredBgSprite = "vehicleButtonHovered";
@@ -26,71 +29,86 @@ namespace FavoriteCims.UI.Buttons
             pressedBgSprite = "vehicleButtonHovered";
             disabledBgSprite = "vehicleButtonDisabled";
             atlas = MyAtlas.FavCimsAtlas;
-            size = new Vector2(36f, 36f);
+            size = new Vector2(36f, 32f);
             playAudioEvents = true;
             AlignTo(RefPanel, Alignment);
-            tooltipBox = aview.defaultTooltipBox;
+            tooltipBox = aView.defaultTooltipBox;
             VehiclePanel = MainClass.FullScreenContainer.AddUIComponent(typeof(PeopleInsideVehiclesPanel)) as PeopleInsideVehiclesPanel;
             VehiclePanel.VehicleID = InstanceID.Empty;
             VehiclePanel.Hide();
-            eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
+            eventClick += delegate
             {
                 if (!VehicleID.IsEmpty && !VehiclePanel.isVisible)
                 {
                     VehiclePanel.VehicleID = VehicleID;
                     VehiclePanel.RefPanel = RefPanel;
+                    VehiclePanel.enabled = true;
                     VehiclePanel.Show();
                 }
                 else
                 {
                     VehiclePanel.VehicleID = InstanceID.Empty;
                     VehiclePanel.Hide();
+                    VehiclePanel.enabled = false;
                 }
             };
         }
 
         public override void Update()
         {
-            bool unLoading = MainClass.UnLoading;
-            if (!unLoading)
+            if (MainClass.UnLoading)
             {
-                bool isVisible = base.isVisible;
-                if (isVisible)
+                return;
+            }
+            if (!isVisible)
+            {
+                VehiclePanel.Hide();
+                VehiclePanel.enabled = false;
+                VehicleID = InstanceID.Empty;
+                Unfocus();
+                return;
+            }
+
+            tooltip = Translations.Translate("View_NoPassengers");
+            if (WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty)
+            {
+                VehicleID = WorldInfoPanel.GetCurrentInstanceID();
+            }
+            if (VehiclePanel != null)
+            {
+                if (!VehiclePanel.isVisible)
                 {
-                    tooltip = Translations.Translate("View_NoPassengers");
-                    if (WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty)
-                    {
-                        VehicleID = WorldInfoPanel.GetCurrentInstanceID();
-                    }
-                    if (VehiclePanel != null)
-                    {
-                        if (!VehiclePanel.isVisible)
-                        {
-                            Unfocus();
-                        }
-                        else
-                        {
-                            Focus();
-                        }
-                    }
-                    if (!VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle)
-                    {
-                        isEnabled = true;
-                        tooltip = Translations.Translate("View_PassengersList");
-                    }
-                    else
-                    {
-                        VehiclePanel.Hide();
-                        Unfocus();
-                        isEnabled = false;
-                    }
+                    Unfocus();
                 }
                 else
                 {
-                    isEnabled = false;
-                    VehiclePanel.Hide();
-                    VehicleID = InstanceID.Empty;
+                    Focus();
                 }
+            }
+            var service = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.m_class.m_service;
+            var sub_service = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.m_class.m_subService;
+            var vehicleAI = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.GetAI();
+
+            if ((service == ItemClass.Service.PublicTransport && sub_service != ItemClass.SubService.PublicTransportPost) ||
+                (service == ItemClass.Service.HealthCare && (vehicleAI is AmbulanceAI || vehicleAI is AmbulanceCopterAI)) ||
+                (service == ItemClass.Service.PoliceDepartment))
+            {
+                isEnabled = true;
+                VehiclePanel.IsPTVehicle = true;
+                tooltip = Translations.Translate("View_PassengersList");
+            }
+            else if (!VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle)
+            {
+                isEnabled = true;
+                VehiclePanel.IsPTVehicle = false;
+                tooltip = Translations.Translate("View_PassengersList");
+            }
+            else
+            {
+                isEnabled = false;
+                VehiclePanel.Hide();
+                VehiclePanel.enabled = false;
+                Unfocus();
             }
         }
     }
