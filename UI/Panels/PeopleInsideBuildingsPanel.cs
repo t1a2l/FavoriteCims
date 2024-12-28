@@ -179,13 +179,18 @@ namespace FavoriteCims.UI.Panels
                        WorldInfoPanel.GetCurrentInstanceID() != BuildingID)
                     {
                         BuildingID = WorldInfoPanel.GetCurrentInstanceID();
+                        OnBuildingChanged();
                     }
                     UpdateList();
                 }
             }
         }
-
-        public void UpdateList()
+        private void OnBuildingChanged()
+        {
+            BodyList.Clear();
+            BodyList.CurrentPosition = 0;
+        }
+        private void UpdateList()
         {
             executing = true;
             CimsOnBuilding.Clear();
@@ -352,7 +357,7 @@ namespace FavoriteCims.UI.Panels
             }
             BodyList.Data = fastList;
             BodyList.Refresh();
-            BodyList.Data = fastList;
+            BodyList.UpdateScrollbar();
             executing = false;
         }
 

@@ -406,7 +406,7 @@ namespace FavoriteCims.UI.Panels
             }
             BodyList.Data = fastList;
             BodyList.Refresh();
-            BodyList.Data = fastList;
+            BodyList.UpdateScrollbar();
             executing = false;
         }
     }
