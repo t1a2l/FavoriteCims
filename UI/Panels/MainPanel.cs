@@ -127,7 +127,7 @@ namespace FavoriteCims.UI.Panels
                 }
                 opacity = 1f;
             };
-            Texture texture2 = ResourceLoader.LoadTexture((int)width, 58, "UIMainPanel.title.png");
+            Texture texture2 = ResourceLoader.LoadTexture((int)width, 58, "UIMainPanel.favcimstitle.png");
             texture2.wrapMode = TextureWrapMode.Clamp;
             texture2.filterMode = FilterMode.Bilinear;
             texture2.mipMapBias = -0.5f;
