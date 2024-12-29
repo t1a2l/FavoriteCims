@@ -91,7 +91,7 @@ namespace FavoriteCims.UI.Buttons
 
             if ((service == ItemClass.Service.PublicTransport && sub_service != ItemClass.SubService.PublicTransportPost) ||
                 (service == ItemClass.Service.HealthCare && (vehicleAI is AmbulanceAI || vehicleAI is AmbulanceCopterAI)) ||
-                (service == ItemClass.Service.PoliceDepartment))
+                (service == ItemClass.Service.PoliceDepartment && sub_service != ItemClass.SubService.PoliceDepartmentBank))
             {
                 isEnabled = true;
                 VehiclePanel.IsPTVehicle = true;
