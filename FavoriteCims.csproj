@@ -245,6 +245,7 @@
 	<ItemGroup>
 	  <Reference Include="AlgernonCommons">
 	    <HintPath>..\AlgernonCommons\bin\Debug\net35\AlgernonCommons.dll</HintPath>
+	    <Private>True</Private>
 	  </Reference>
 	  <Reference Include="Assembly-CSharp">
 	    <HintPath>..\..\..\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
