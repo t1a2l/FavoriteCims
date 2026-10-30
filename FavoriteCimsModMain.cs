@@ -18,8 +18,8 @@ namespace FavoriteCims
 		{
 			get
 			{
-				return "Allows you to add and show favorite citizens in a list.";
-			}
+				return "Keep track of your favorite citizens, explore their families, and see who lives, works, or visits your city's buildings.";
+            }
 		}		
 	}
 }
