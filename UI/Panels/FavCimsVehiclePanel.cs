@@ -8,453 +8,530 @@ using UnityEngine;
 
 namespace FavoriteCims.UI.Panels
 {
-    public class FavCimsVehiclePanel : UIPanel
-	{
-        private float seconds = 0.5f;
+    public partial class FavCimsVehiclePanel : UIPanel
+    {
+        private const float RefreshInterval = 0.5f;
+        private const int PassengerSlotCount = 5;
 
-        private bool execute = false;
+        private float refreshTimer = RefreshInterval;
 
-        private bool firstRun = true;
+        private bool hasActiveVehicle;
 
-        public static bool Wait = false;
-
-        private bool Garbage = false;
+        public bool Wait
+        {
+            get => rowContext.IsUpdating;
+            set => rowContext.IsUpdating = value;
+        }
 
         public InstanceID VehicleID;
 
         public UIPanel RefPanel;
 
-        private readonly VehicleManager MyVehicle = Singleton<VehicleManager>.instance;
+        public Dictionary<uint, uint> CimsOnVeh => rowContext.Citizens;
 
-        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
+        private readonly VehicleManager vehicleManager = Singleton<VehicleManager>.instance;
+        private readonly CitizenManager citizenManager = Singleton<CitizenManager>.instance;
 
-        public static Dictionary<uint, uint> CimsOnVeh = [];
+        private UIPanel title;
+        private UITextureSprite titleBackground;
+        private UIButton titleVehicleName;
 
-        private UIPanel DriverPanel;
+        private UIPanel body;
+        private UITextureSprite bodyBackground;
+        private UIScrollablePanel bodyRows;
 
-        private UIPanel DriverPanelSubRow;
+        private UIPanel footer;
+        private UITextureSprite footerBackground;
 
-        private UIButton DriverPanelIcon;
+        private UIScrollablePanel scrollPanel;
+        private UIScrollbar scrollbar;
+        private UISlicedSprite scrollbarTrack;
+        private UISlicedSprite scrollbarThumb;
 
-        private UIButton DriverPanelText;
+        private UIPanel driverPanel;
+        private UIPanel driverPanelSubRow;
+        private UIButton driverPanelIcon;
+        private UIButton driverPanelText;
 
-        private DriverPrivateVehiclePanelRow DriverPrivateBodyRow;
+        private UIPanel passengersPanel;
+        private UIPanel passengersPanelSubRow;
+        private UIButton passengersPanelIcon;
+        private UIButton passengersPanelText;
 
-        private UIPanel PassengersPanel;
+        private DriverPrivateVehiclePanelRow driverRow;
+        private readonly PassengersPrivateVehiclePanelRow[] passengerRows = new PassengersPrivateVehiclePanelRow[PassengerSlotCount];
 
-        private UIPanel PassengersPanelSubRow;
+        private UIComponent escButton;
+        private MouseEventHandler escClickHandler;
 
-        private UIButton PassengersPanelIcon;
-
-        private UIButton PassengersPanelText;
-
-        private readonly PassengersPrivateVehiclePanelRow[] PassengersPrivateBodyRow = new PassengersPrivateVehiclePanelRow[5];
-
-        private uint VehicleUnits;
-
-        private UIPanel Title;
-
-        private UITextureSprite TitleSpriteBg;
-
-        private UIButton TitleVehicleName;
-
-        private UIPanel Body;
-
-        private UITextureSprite BodySpriteBg;
-
-        private UIScrollablePanel BodyRows;
-
-        private UIPanel Footer;
-
-        private UITextureSprite FooterSpriteBg;
-
-        private UIScrollablePanel BodyPanelScrollBar;
-
-        private UIScrollbar BodyScrollBar;
-
-        private UISlicedSprite BodyPanelTrackSprite;
-
-        private UISlicedSprite thumbSprite;
+        private readonly CompactCitizenRowContext rowContext = new();
 
         public override void Start()
-		{
-			try
-			{
-				width = 250f;
-				height = 0f;
-				name = "FavCimsVehiclePanel";
-				absolutePosition = new Vector3(0f, 0f);
-				Hide();
-				Title = AddUIComponent<UIPanel>();
-				Title.name = "FavCimsVehiclePanelTitle";
-				Title.width = width;
-				Title.height = 41f;
-				Title.relativePosition = Vector3.zero;
-				TitleSpriteBg = Title.AddUIComponent<UITextureSprite>();
-				TitleSpriteBg.name = "FavCimsVehiclePanelTitleBG";
-				TitleSpriteBg.width = Title.width;
-				TitleSpriteBg.height = Title.height;
-				TitleSpriteBg.texture = TextureDB.VehiclePanelTitleBackground;
-				TitleSpriteBg.relativePosition = Vector3.zero;
-				TitleVehicleName = Title.AddUIComponent<UIButton>();
-				TitleVehicleName.name = "TitleVehicleName";
-				TitleVehicleName.width = Title.width;
-				TitleVehicleName.height = Title.height;
-				TitleVehicleName.textVerticalAlignment = UIVerticalAlignment.Middle;
-				TitleVehicleName.textHorizontalAlignment = UIHorizontalAlignment.Center;
-				TitleVehicleName.playAudioEvents = false;
-				TitleVehicleName.font = UIDynamicFont.FindByName("OpenSans-Regular");
-				TitleVehicleName.font.size = 15;
-				TitleVehicleName.textScale = 1f;
-				TitleVehicleName.wordWrap = true;
-				TitleVehicleName.textPadding.left = 5;
-				TitleVehicleName.textPadding.right = 5;
-				TitleVehicleName.textColor = new Color32(204, 204, 51, 40);
-				TitleVehicleName.hoveredTextColor = new Color32(204, 204, 51, 40);
-				TitleVehicleName.pressedTextColor = new Color32(204, 204, 51, 40);
-				TitleVehicleName.focusedTextColor = new Color32(204, 204, 51, 40);
-				TitleVehicleName.useDropShadow = true;
-				TitleVehicleName.dropShadowOffset = new Vector2(1f, -1f);
-				TitleVehicleName.dropShadowColor = new Color32(0, 0, 0, 0);
-				TitleVehicleName.relativePosition = Vector3.zero;
-				Body = AddUIComponent<UIPanel>();
-				Body.name = "VehiclePanelBody";
-				Body.width = width;
-				Body.autoLayoutDirection = LayoutDirection.Vertical;
-				Body.autoLayout = true;
-				Body.clipChildren = true;
-				Body.height = 0f;
-				Body.relativePosition = new Vector3(0f, Title.height);
-				BodySpriteBg = Body.AddUIComponent<UITextureSprite>();
-				BodySpriteBg.name = "VehiclePanelDataContainer";
-				BodySpriteBg.width = Body.width;
-				BodySpriteBg.height = Body.height;
-				BodySpriteBg.texture = TextureDB.VehiclePanelBackground;
-				BodySpriteBg.relativePosition = Vector3.zero;
-				BodyRows = BodySpriteBg.AddUIComponent<UIScrollablePanel>();
-				BodyRows.name = "BodyRows";
-				BodyRows.width = BodySpriteBg.width - 24f;
-				BodyRows.autoLayoutDirection = LayoutDirection.Vertical;
-				BodyRows.autoLayout = true;
-				BodyRows.relativePosition = new Vector3(12f, 0f);
-				DriverPanel = BodyRows.AddUIComponent<UIPanel>();
-				DriverPanel.width = 226f;
-				DriverPanel.height = 25f;
-				DriverPanel.name = "LabelPanel_Driver";
-				DriverPanel.autoLayoutDirection = LayoutDirection.Vertical;
-				DriverPanel.autoLayout = true;
-				DriverPanel.Hide();
-				DriverPanelSubRow = DriverPanel.AddUIComponent<UIPanel>();
-				DriverPanelSubRow.width = 226f;
-				DriverPanelSubRow.height = 25f;
-				DriverPanelSubRow.name = "TitlePanel_Driver";
-				DriverPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
-				DriverPanelSubRow.backgroundSprite = "bg_row2";
-				DriverPanelIcon = DriverPanelSubRow.AddUIComponent<UIButton>();
-				DriverPanelIcon.name = "LabelPanelIcon_Driver";
-				DriverPanelIcon.width = 17f;
-				DriverPanelIcon.height = 17f;
-				DriverPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-				DriverPanelIcon.normalFgSprite = "driverIcon";
-				DriverPanelIcon.relativePosition = new Vector3(5f, 4f);
-				DriverPanelText = DriverPanelSubRow.AddUIComponent<UIButton>();
-				DriverPanelText.name = "LabelPanelText_Driver";
-				DriverPanelText.width = 200f;
-				DriverPanelText.height = 25f;
-				DriverPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
-				DriverPanelText.textHorizontalAlignment = 0;
-				DriverPanelText.playAudioEvents = true;
-				DriverPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-				DriverPanelText.font.size = 15;
-				DriverPanelText.textScale = 0.8f;
-				DriverPanelText.useDropShadow = true;
-				DriverPanelText.dropShadowOffset = new Vector2(1f, -1f);
-				DriverPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
-				DriverPanelText.textPadding.left = 5;
-				DriverPanelText.textPadding.right = 5;
-				DriverPanelText.textColor = new Color32(51, 51, 51, 160);
-				DriverPanelText.isInteractive = false;
-				DriverPanelText.relativePosition = new Vector3(DriverPanelIcon.relativePosition.x + DriverPanelIcon.width, 1f);
-				DriverPrivateBodyRow = BodyRows.AddUIComponent(typeof(DriverPrivateVehiclePanelRow)) as DriverPrivateVehiclePanelRow;
-				DriverPrivateBodyRow.name = "RowPanel_Driver";
-				DriverPrivateBodyRow.OnVehicle = 0;
-				DriverPrivateBodyRow.citizen = 0U;
-				DriverPrivateBodyRow.Hide();
-				PassengersPanel = BodyRows.AddUIComponent<UIPanel>();
-				PassengersPanel.width = 226f;
-				PassengersPanel.height = 25f;
-				PassengersPanel.name = "LabelPanel_Passengers";
-				PassengersPanel.autoLayoutDirection = LayoutDirection.Vertical;
-				PassengersPanel.autoLayout = true;
-				PassengersPanel.Hide();
-				PassengersPanelSubRow = PassengersPanel.AddUIComponent<UIPanel>();
-				PassengersPanelSubRow.width = 226f;
-				PassengersPanelSubRow.height = 25f;
-				PassengersPanelSubRow.name = "TitlePanel_Passengers";
-				PassengersPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
-				PassengersPanelSubRow.backgroundSprite = "bg_row2";
-				PassengersPanelIcon = PassengersPanelSubRow.AddUIComponent<UIButton>();
-				PassengersPanelIcon.name = "LabelPanelIcon_Passengers";
-				PassengersPanelIcon.width = 17f;
-				PassengersPanelIcon.height = 17f;
-				PassengersPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-				PassengersPanelIcon.normalFgSprite = "passengerIcon";
-				PassengersPanelIcon.relativePosition = new Vector3(5f, 4f);
-				PassengersPanelText = PassengersPanelSubRow.AddUIComponent<UIButton>();
-				PassengersPanelText.name = "LabelPanelText_Passengers";
-				PassengersPanelText.width = 200f;
-				PassengersPanelText.height = 25f;
-				PassengersPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
-				PassengersPanelText.textHorizontalAlignment = 0;
-				PassengersPanelText.playAudioEvents = true;
-				PassengersPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
-				PassengersPanelText.font.size = 15;
-				PassengersPanelText.textScale = 0.8f;
-				PassengersPanelText.useDropShadow = true;
-				PassengersPanelText.dropShadowOffset = new Vector2(1f, -1f);
-				PassengersPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
-				PassengersPanelText.textPadding.left = 5;
-				PassengersPanelText.textPadding.right = 5;
-				PassengersPanelText.textColor = new Color32(51, 51, 51, 160);
-				PassengersPanelText.isInteractive = false;
-				PassengersPanelText.relativePosition = new Vector3(PassengersPanelIcon.relativePosition.x + PassengersPanelIcon.width, 1f);
-				for (int i = 1; i < 5; i++)
-				{
-					PassengersPrivateBodyRow[i] = BodyRows.AddUIComponent(typeof(PassengersPrivateVehiclePanelRow)) as PassengersPrivateVehiclePanelRow;
-					PassengersPrivateBodyRow[i].name = "RowPanel_Passengers_" + i.ToString();
-					PassengersPrivateBodyRow[i].OnVehicle = 0;
-					PassengersPrivateBodyRow[i].citizen = 0U;
-					PassengersPrivateBodyRow[i].Hide();
-				}
-				BodyPanelScrollBar = BodySpriteBg.AddUIComponent<UIScrollablePanel>();
-				BodyPanelScrollBar.name = "BodyPanelScrollBar";
-				BodyPanelScrollBar.width = 10f;
-				BodyPanelScrollBar.relativePosition = new Vector3(BodyRows.width + 12f, 0f);
-				BodyScrollBar = BodyPanelScrollBar.AddUIComponent<UIScrollbar>();
-				BodyScrollBar.width = 10f;
-				BodyScrollBar.name = "BodyScrollBar";
-				BodyScrollBar.orientation = UIOrientation.Vertical;
-				BodyScrollBar.pivot = UIPivotPoint.TopRight;
-				BodyScrollBar.AlignTo(BodyScrollBar.parent, 0);
-				BodyScrollBar.minValue = 0f;
-				BodyScrollBar.value = 0f;
-				BodyScrollBar.incrementAmount = 25f;
-				BodyPanelTrackSprite = BodyScrollBar.AddUIComponent<UISlicedSprite>();
-				BodyPanelTrackSprite.autoSize = true;
-				BodyPanelTrackSprite.name = "BodyScrollBarTrackSprite";
-				BodyPanelTrackSprite.fillDirection = UIFillDirection.Vertical;
-				BodyPanelTrackSprite.atlas = MyAtlas.FavCimsAtlas;
-				BodyPanelTrackSprite.spriteName = "scrollbartrack";
-				BodyPanelTrackSprite.relativePosition = BodyScrollBar.relativePosition;
-				BodyScrollBar.trackObject = BodyPanelTrackSprite;
-				thumbSprite = BodyScrollBar.AddUIComponent<UISlicedSprite>();
-				thumbSprite.name = "BodyScrollBarThumbSprite";
-				thumbSprite.autoSize = true;
-				thumbSprite.width = thumbSprite.parent.width;
-				thumbSprite.fillDirection = UIFillDirection.Vertical;
-				thumbSprite.atlas = MyAtlas.FavCimsAtlas;
-				thumbSprite.spriteName = "scrollbarthumb";
-				thumbSprite.relativePosition = BodyScrollBar.relativePosition;
-				BodyScrollBar.thumbObject = thumbSprite;
-				BodyRows.verticalScrollbar = BodyScrollBar;
-				BodyRows.eventMouseWheel += delegate(UIComponent component, UIMouseEventParameter eventParam)
-				{
-					int sign = Math.Sign(eventParam.wheelDelta);
-					BodyRows.scrollPosition += new Vector2(0f, (sign * -1) * BodyScrollBar.incrementAmount);
-				};
-				Footer = AddUIComponent<UIPanel>();
-				Footer.name = "VehiclePanelPTFooter";
-				Footer.width = width;
-				Footer.height = 12f;
-				Footer.relativePosition = new Vector3(0f, Title.height + Body.height);
-				FooterSpriteBg = Footer.AddUIComponent<UITextureSprite>();
-				FooterSpriteBg.width = Footer.width;
-				FooterSpriteBg.height = Footer.height;
-				FooterSpriteBg.texture = TextureDB.VehiclePanelFooterBackground;
-				FooterSpriteBg.relativePosition = Vector3.zero;
-				UIComponent uicomponent = UIView.Find<UIButton>("Esc");
-				if (uicomponent != null)
-				{
-					uicomponent.eventClick += delegate(UIComponent component, UIMouseEventParameter eventParam)
-					{
-						Hide();
-					};
-				}
-			}
-			catch (Exception ex)
-			{
-                Utils.Debug.Error(" Passengers Panel Start() : " + ex.ToString());
-			}
-		}
+        {
+            try
+            {
+                width = 250f;
+                height = 0f;
+                name = "FavCimsVehiclePanel";
+                absolutePosition = Vector3.zero;
+                Hide();
 
-		public override void Update()
-		{
-			bool unLoading = FavCimsMainClass.UnLoading;
-			if (!unLoading)
-			{
-				bool isEmpty = VehicleID.IsEmpty;
-				if (isEmpty)
-				{
-					bool garbage = Garbage;
-					if (garbage)
-					{
-                        Wait = true;
-                        CimsOnVeh.Clear();
-						try
-						{
-							DriverPanel.Hide();
-							PassengersPanel.Hide();
-							DriverPrivateBodyRow.Hide();
-							DriverPrivateBodyRow.citizen = 0U;
-							DriverPrivateBodyRow.OnVehicle = 0;
-							DriverPrivateBodyRow.firstRun = true;
-							for (int i = 1; i < 5; i++)
-							{
-								PassengersPrivateBodyRow[i].Hide();
-								PassengersPrivateBodyRow[i].citizen = 0U;
-								PassengersPrivateBodyRow[i].OnVehicle = 0;
-								PassengersPrivateBodyRow[i].firstRun = true;
-							}
-                            Wait = false;
-						}
-						catch
-						{
-						}
-						Garbage = false;
-					}
-					firstRun = true;
-				}
-				else
-				{
-					try
-					{
-						if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty && WorldInfoPanel.GetCurrentInstanceID() != VehicleID)
-						{
-                            Wait = true;
-                            CimsOnVeh.Clear();
-							try
-							{
-								DriverPanel.Hide();
-								PassengersPanel.Hide();
-								DriverPrivateBodyRow.Hide();
-								DriverPrivateBodyRow.citizen = 0U;
-								DriverPrivateBodyRow.OnVehicle = 0;
-								DriverPrivateBodyRow.firstRun = true;
-								for (int j = 1; j < 5; j++)
-								{
-									PassengersPrivateBodyRow[j].Hide();
-									PassengersPrivateBodyRow[j].citizen = 0U;
-									PassengersPrivateBodyRow[j].OnVehicle = 0;
-									PassengersPrivateBodyRow[j].firstRun = true;
-								}
-								VehicleID = WorldInfoPanel.GetCurrentInstanceID();
-								bool isEmpty2 = VehicleID.IsEmpty;
-								if (isEmpty2)
-								{
-									return;
-								}
-                                Wait = false;
-							}
-							catch
-							{
-							}
-						}
-						if (isVisible && !VehicleID.IsEmpty)
-						{
-							Garbage = true;
-							TitleVehicleName.text = FavCimsLang.Text("Vehicle_Passengers");
-							absolutePosition = new Vector3(RefPanel.absolutePosition.x + RefPanel.width + 5f, RefPanel.absolutePosition.y);
-							height = RefPanel.height - 15f;
-							if (50f + CimsOnVeh.Count * 25f < height - Title.height - Footer.height)
-							{
-								Body.height = height - Title.height - Footer.height;
-							}
-							else
-							{
-								if (50f + CimsOnVeh.Count * 25f > 400f)
-								{
-									Body.height = 400f;
-								}
-								else
-								{
-									Body.height = 50f + CimsOnVeh.Count * 25f;
-								}
-							}
-							BodySpriteBg.height = Body.height;
-							Footer.relativePosition = new Vector3(0f, Title.height + Body.height);
-							BodyRows.height = Body.height;
-							BodyPanelScrollBar.height = Body.height;
-							BodyScrollBar.height = Body.height;
-							BodyPanelTrackSprite.size = BodyPanelTrackSprite.parent.size;
-							seconds -= 1f * Time.deltaTime;
-							if (seconds <= 0f || firstRun)
-							{
-								execute = true;
-								seconds = 0.5f;
-							}
-							else
-							{
-								execute = false;
-							}
-							if (execute)
-							{
-								firstRun = false;
-								VehicleUnits = MyVehicle.m_vehicles.m_buffer[(int)VehicleID.Vehicle].m_citizenUnits;
-								int unitnum = 0;
-								if (CimsOnVeh.Count == 0)
-								{
-									PassengersPanelText.text = FavCimsLang.Text("View_NoPassengers");
-								}
-								DriverPanel.Show();
-								DriverPanelText.text = FavCimsLang.Text("Vehicle_DriverIconText");
-								PassengersPanel.Show();
-								while (VehicleUnits > 0U)
-								{
-									uint nextUnit = MyCitizen.m_units.m_buffer[(int)VehicleUnits].m_nextUnit;
-									for (int k = 0; k < 5; k++)
-									{
-										uint citizen = MyCitizen.m_units.m_buffer[(int)VehicleUnits].GetCitizen(k);
-										if (citizen != 0U && !CimsOnVeh.ContainsKey(citizen))
-										{
-											if (k == 0)
-											{
-												if (DriverPanel != null && DriverPrivateBodyRow != null)
-												{
-                                                    CimsOnVeh.Add(citizen, VehicleUnits);
-													DriverPrivateBodyRow.citizen = citizen;
-													DriverPrivateBodyRow.OnVehicle = VehicleID.Vehicle;
-													DriverPrivateBodyRow.firstRun = true;
-													DriverPrivateBodyRow.Show();
-												}
-											}
-											else
-											{
-												PassengersPanelText.text = FavCimsLang.Text("Vehicle_PasssengerIconText");
-												if (PassengersPanel != null && PassengersPrivateBodyRow[k] != null)
-												{
-                                                    CimsOnVeh.Add(citizen, VehicleUnits);
-													PassengersPrivateBodyRow[k].citizen = citizen;
-													PassengersPrivateBodyRow[k].OnVehicle = VehicleID.Vehicle;
-													PassengersPrivateBodyRow[k].firstRun = true;
-													PassengersPrivateBodyRow[k].Show();
-												}
-											}
-										}
-									}
-									VehicleUnits = nextUnit;
-									if (++unitnum > 524288)
-									{
-										break;
-									}
-								}
-							}
-						}
-					}
-					catch
-					{
-					}
-				}
-			}
-		}
-	}
+                CreateTitle();
+                CreateBody();
+                CreateDriverSection();
+                CreatePassengerSection();
+                CreateScrollbar();
+                CreateFooter();
+
+                SubscribeEscHandler();
+            }
+            catch (Exception ex)
+            {
+                Utils.Debug.Error("Passengers Panel Start(): " + ex);
+            }
+        }
+
+        private void CreateTitle()
+        {
+            title = AddUIComponent<UIPanel>();
+            title.name = "FavCimsVehiclePanelTitle";
+            title.width = width;
+            title.height = 41f;
+            title.relativePosition = Vector3.zero;
+
+            titleBackground = title.AddUIComponent<UITextureSprite>();
+            titleBackground.name = "FavCimsVehiclePanelTitleBG";
+            titleBackground.width = title.width;
+            titleBackground.height = title.height;
+            titleBackground.texture = TextureDB.VehiclePanelTitleBackground;
+            titleBackground.relativePosition = Vector3.zero;
+
+            titleVehicleName = title.AddUIComponent<UIButton>();
+            titleVehicleName.name = "TitleVehicleName";
+            titleVehicleName.width = title.width;
+            titleVehicleName.height = title.height;
+            titleVehicleName.textVerticalAlignment = UIVerticalAlignment.Middle;
+            titleVehicleName.textHorizontalAlignment = UIHorizontalAlignment.Center;
+            titleVehicleName.playAudioEvents = false;
+            titleVehicleName.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            titleVehicleName.font.size = 15;
+            titleVehicleName.textScale = 1f;
+            titleVehicleName.wordWrap = true;
+            titleVehicleName.textPadding = new RectOffset(5, 5, 0, 0);
+            titleVehicleName.textColor = new Color32(204, 204, 51, 40);
+            titleVehicleName.useDropShadow = true;
+            titleVehicleName.dropShadowOffset = new Vector2(1f, -1f);
+            titleVehicleName.dropShadowColor = new Color32(0, 0, 0, 0);
+            titleVehicleName.relativePosition = Vector3.zero;
+        }
+
+        private void CreateBody()
+        {
+            body = AddUIComponent<UIPanel>();
+            body.name = "VehiclePanelBody";
+            body.width = width;
+            body.height = 0f;
+            body.autoLayoutDirection = LayoutDirection.Vertical;
+            body.autoLayout = true;
+            body.clipChildren = true;
+            body.relativePosition = new Vector3(0f, title.height);
+
+            bodyBackground = body.AddUIComponent<UITextureSprite>();
+            bodyBackground.name = "VehiclePanelDataContainer";
+            bodyBackground.width = body.width;
+            bodyBackground.height = body.height;
+            bodyBackground.texture = TextureDB.VehiclePanelBackground;
+            bodyBackground.relativePosition = Vector3.zero;
+
+            bodyRows = bodyBackground.AddUIComponent<UIScrollablePanel>();
+            bodyRows.name = "BodyRows";
+            bodyRows.width = bodyBackground.width - 24f;
+            bodyRows.autoLayoutDirection = LayoutDirection.Vertical;
+            bodyRows.autoLayout = true;
+            bodyRows.relativePosition = new Vector3(12f, 0f);
+        }
+
+        private void CreateDriverSection()
+        {
+            driverPanel = bodyRows.AddUIComponent<UIPanel>();
+            driverPanel.name = "LabelPanelDriver";
+            driverPanel.width = 226f;
+            driverPanel.height = 25f;
+            driverPanel.autoLayoutDirection = LayoutDirection.Vertical;
+            driverPanel.autoLayout = true;
+            driverPanel.Hide();
+
+            driverPanelSubRow = driverPanel.AddUIComponent<UIPanel>();
+            driverPanelSubRow.name = "TitlePanelDriver";
+            driverPanelSubRow.width = 226f;
+            driverPanelSubRow.height = 25f;
+            driverPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
+            driverPanelSubRow.backgroundSprite = "BgRow2";
+
+            driverPanelIcon = driverPanelSubRow.AddUIComponent<UIButton>();
+            driverPanelIcon.name = "LabelPanelIconDriver";
+            driverPanelIcon.width = 17f;
+            driverPanelIcon.height = 17f;
+            driverPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+            driverPanelIcon.normalFgSprite = "DriverIcon";
+            driverPanelIcon.relativePosition = new Vector3(5f, 4f);
+
+            driverPanelText = driverPanelSubRow.AddUIComponent<UIButton>();
+            driverPanelText.name = "LabelPanelTextDriver";
+            driverPanelText.width = 200f;
+            driverPanelText.height = 25f;
+            driverPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
+            driverPanelText.textHorizontalAlignment = UIHorizontalAlignment.Left;
+            driverPanelText.playAudioEvents = true;
+            driverPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            driverPanelText.font.size = 15;
+            driverPanelText.textScale = 0.8f;
+            driverPanelText.useDropShadow = true;
+            driverPanelText.dropShadowOffset = new Vector2(1f, -1f);
+            driverPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
+            driverPanelText.textPadding = new RectOffset(5, 5, 0, 0);
+            driverPanelText.textColor = new Color32(51, 51, 51, 160);
+            driverPanelText.isInteractive = false;
+            driverPanelText.relativePosition = new Vector3(driverPanelIcon.relativePosition.x + driverPanelIcon.width, 1f);
+
+            driverRow = CreateOwnedRow<DriverPrivateVehiclePanelRow>();
+            driverRow.name = "RowPanelDriver";
+            driverRow.OnVehicle = 0;
+            driverRow.citizen = 0;
+            driverRow.Hide();
+        }
+
+        private void CreatePassengerSection()
+        {
+            passengersPanel = bodyRows.AddUIComponent<UIPanel>();
+            passengersPanel.name = "LabelPanelPassengers";
+            passengersPanel.width = 226f;
+            passengersPanel.height = 25f;
+            passengersPanel.autoLayoutDirection = LayoutDirection.Vertical;
+            passengersPanel.autoLayout = true;
+            passengersPanel.Hide();
+
+            passengersPanelSubRow = passengersPanel.AddUIComponent<UIPanel>();
+            passengersPanelSubRow.name = "TitlePanelPassengers";
+            passengersPanelSubRow.width = 226f;
+            passengersPanelSubRow.height = 25f;
+            passengersPanelSubRow.atlas = MyAtlas.FavCimsAtlas;
+            passengersPanelSubRow.backgroundSprite = "BgRow2";
+
+            passengersPanelIcon = passengersPanelSubRow.AddUIComponent<UIButton>();
+            passengersPanelIcon.name = "LabelPanelIconPassengers";
+            passengersPanelIcon.width = 17f;
+            passengersPanelIcon.height = 17f;
+            passengersPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+            passengersPanelIcon.normalFgSprite = "PassengerIcon";
+            passengersPanelIcon.relativePosition = new Vector3(5f, 4f);
+
+            passengersPanelText = passengersPanelSubRow.AddUIComponent<UIButton>();
+            passengersPanelText.name = "LabelPanelTextPassengers";
+            passengersPanelText.width = 200f;
+            passengersPanelText.height = 25f;
+            passengersPanelText.textVerticalAlignment = UIVerticalAlignment.Middle;
+            passengersPanelText.textHorizontalAlignment = UIHorizontalAlignment.Left;
+            passengersPanelText.playAudioEvents = true;
+            passengersPanelText.font = UIDynamicFont.FindByName("OpenSans-Regular");
+            passengersPanelText.font.size = 15;
+            passengersPanelText.textScale = 0.8f;
+            passengersPanelText.useDropShadow = true;
+            passengersPanelText.dropShadowOffset = new Vector2(1f, -1f);
+            passengersPanelText.dropShadowColor = new Color32(0, 0, 0, 0);
+            passengersPanelText.textPadding = new RectOffset(5, 5, 0, 0);
+            passengersPanelText.textColor = new Color32(51, 51, 51, 160);
+            passengersPanelText.isInteractive = false;
+            passengersPanelText.relativePosition = new Vector3(passengersPanelIcon.relativePosition.x + passengersPanelIcon.width, 1f);
+
+            for (int i = 1; i < PassengerSlotCount; i++)
+            {
+                passengerRows[i] = CreateOwnedRow<PassengersPrivateVehiclePanelRow>();
+                passengerRows[i].name = "RowPanelPassengers" + i;
+                passengerRows[i].OnVehicle = 0;
+                passengerRows[i].citizen = 0;
+                passengerRows[i].Hide();
+            }
+        }
+
+        private void CreateScrollbar()
+        {
+            scrollPanel = bodyBackground.AddUIComponent<UIScrollablePanel>();
+            scrollPanel.name = "BodyPanelScrollBar";
+            scrollPanel.width = 10f;
+            scrollPanel.relativePosition = new Vector3(bodyRows.width + 12f, 0f);
+
+            scrollbar = scrollPanel.AddUIComponent<UIScrollbar>();
+            scrollbar.name = "BodyScrollBar";
+            scrollbar.width = 10f;
+            scrollbar.orientation = UIOrientation.Vertical;
+            scrollbar.pivot = UIPivotPoint.TopRight;
+            scrollbar.AlignTo(scrollbar.parent, UIAlignAnchor.TopRight);
+            scrollbar.minValue = 0f;
+            scrollbar.value = 0f;
+            scrollbar.incrementAmount = 25f;
+
+            scrollbarTrack = scrollbar.AddUIComponent<UISlicedSprite>();
+            scrollbarTrack.name = "BodyScrollBarTrackSprite";
+            scrollbarTrack.autoSize = true;
+            scrollbarTrack.fillDirection = UIFillDirection.Vertical;
+            scrollbarTrack.atlas = MyAtlas.FavCimsAtlas;
+            scrollbarTrack.spriteName = "ScrollbarTrack";
+            scrollbarTrack.relativePosition = scrollbar.relativePosition;
+
+            scrollbar.trackObject = scrollbarTrack;
+
+            scrollbarThumb = scrollbar.AddUIComponent<UISlicedSprite>();
+            scrollbarThumb.name = "BodyScrollBarThumbSprite";
+            scrollbarThumb.autoSize = true;
+            scrollbarThumb.width = scrollbarThumb.parent.width;
+            scrollbarThumb.fillDirection = UIFillDirection.Vertical;
+            scrollbarThumb.atlas = MyAtlas.FavCimsAtlas;
+            scrollbarThumb.spriteName = "ScrollbarThumb";
+            scrollbarThumb.relativePosition = scrollbar.relativePosition;
+
+            scrollbar.thumbObject = scrollbarThumb;
+            bodyRows.verticalScrollbar = scrollbar;
+
+            bodyRows.eventMouseWheel += OnBodyRowsMouseWheel;
+        }
+
+        private void CreateFooter()
+        {
+            footer = AddUIComponent<UIPanel>();
+            footer.name = "VehiclePanelFooter";
+            footer.width = width;
+            footer.height = 12f;
+            footer.relativePosition = new Vector3(0f, title.height + body.height);
+
+            footerBackground = footer.AddUIComponent<UITextureSprite>();
+            footerBackground.name = "VehiclePanelFooterBackground";
+            footerBackground.width = footer.width;
+            footerBackground.height = footer.height;
+            footerBackground.texture = TextureDB.VehiclePanelFooterBackground;
+            footerBackground.relativePosition = Vector3.zero;
+        }
+
+        private void SubscribeEscHandler()
+        {
+            escButton = UIView.Find("Esc");
+
+            if (escButton == null)
+            {
+                return;
+            }
+
+            escClickHandler = OnEscClicked;
+            escButton.eventClick += escClickHandler;
+        }
+
+        private void OnBodyRowsMouseWheel(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            int direction = Math.Sign(eventParam.wheelDelta);
+            bodyRows.scrollPosition += new Vector2(0f, direction * -1 * scrollbar.incrementAmount);
+        }
+
+        private void OnEscClicked(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            Hide();
+        }
+
+        public override void Update()
+        {
+            if (FavCimsMainClass.UnLoading)
+            {
+                return;
+            }
+
+            if (!isVisible)
+            {
+                ClearOccupants();
+                return;
+            }
+
+            if (RefPanel == null || !RefPanel.isVisible || VehicleID.IsEmpty || VehicleID.Type != InstanceType.Vehicle || VehicleID.Vehicle == 0)
+            {
+                ClosePanel();
+                return;
+            }
+
+            var current = WorldInfoPanel.GetCurrentInstanceID();
+
+            if (current.IsEmpty || current.Type != InstanceType.Vehicle || current != VehicleID)
+            {
+                ClosePanel();
+                return;
+            }
+
+            UpdateLayout();
+
+            refreshTimer -= Time.deltaTime;
+
+            if (refreshTimer > 0f && hasActiveVehicle)
+            {
+                return;
+            }
+
+            refreshTimer = RefreshInterval;
+            hasActiveVehicle = true;
+
+            RunWithRowsPaused(RefreshOccupants);
+        }
+
+        private void UpdateLayout()
+        {
+            titleVehicleName.text = FavCimsLang.Text("VehiclePassengers");
+
+            absolutePosition = new Vector3(
+                RefPanel.absolutePosition.x + RefPanel.width + 5f,
+                RefPanel.absolutePosition.y);
+
+            height = RefPanel.height - 15f;
+
+            float preferredHeight = 50f + CimsOnVeh.Count * 25f;
+            float availableHeight = height - title.height - footer.height;
+
+            body.height = preferredHeight < availableHeight ? availableHeight : Math.Min(preferredHeight, 400f);
+
+            bodyBackground.height = body.height;
+            footer.relativePosition = new Vector3(0f, title.height + body.height);
+            bodyRows.height = body.height;
+            scrollPanel.height = body.height;
+            scrollbar.height = body.height;
+            scrollbarTrack.size = scrollbarTrack.parent.size;
+        }
+
+        private void AssignDriver(uint citizenId)
+        {
+            CimsOnVeh[citizenId] = VehicleID.Vehicle;
+
+            driverRow.citizen = citizenId;
+            driverRow.OnVehicle = VehicleID.Vehicle;
+            driverRow.firstRun = true;
+            driverRow.Show();
+        }
+
+        private void AssignPassenger(int slot, uint citizenId)
+        {
+            var row = passengerRows[slot];
+
+            if (row == null)
+            {
+                return;
+            }
+
+            CimsOnVeh[citizenId] = VehicleID.Vehicle;
+
+            row.citizen = citizenId;
+            row.OnVehicle = VehicleID.Vehicle;
+            row.firstRun = true;
+            row.Show();
+        }
+
+        private void ClearOccupants()
+        {
+            if (!hasActiveVehicle)
+            {
+                return;
+            }
+
+            Wait = true;
+
+            try
+            {
+                CimsOnVeh.Clear();
+
+                ResetDriverRow();
+
+                for (int i = 1; i < PassengerSlotCount; i++)
+                {
+                    if (passengerRows[i] != null)
+                    {
+                        ResetPassengerRow(passengerRows[i]);
+                    }
+                }
+
+                driverPanel?.Hide();
+                passengersPanel?.Hide();
+            }
+            catch (Exception ex)
+            {
+                Utils.Debug.Error("Failed to clear vehicle occupants: " + ex);
+            }
+            finally
+            {
+                hasActiveVehicle = false;
+                Wait = false;
+            }
+        }
+
+        private void ResetDriverRow()
+        {
+            if (driverRow == null)
+            {
+                return;
+            }
+
+            driverRow.Hide();
+            driverRow.citizen = 0;
+            driverRow.OnVehicle = 0;
+            driverRow.firstRun = true;
+        }
+
+        private void ResetPassengerRow(PassengersPrivateVehiclePanelRow row)
+        {
+            row.Hide();
+            row.citizen = 0;
+            row.OnVehicle = 0;
+            row.firstRun = true;
+        }
+
+        public override void OnDestroy()
+        {
+            if (escButton != null && escClickHandler != null)
+            {
+                escButton.eventClick -= escClickHandler;
+            }
+
+            escButton = null;
+            escClickHandler = null;
+
+            base.OnDestroy();
+        }
+
+        private void ClosePanel()
+        {
+            Hide();
+            VehicleID = InstanceID.Empty;
+
+            ClearOccupants();
+
+            refreshTimer = RefreshInterval;
+        }
+
+        private TRow CreateOwnedRow<TRow>() where TRow : CompactCitizenPanelRow
+        {
+            var row = bodyRows.AddUIComponent<TRow>();
+
+            row.BindOwner(rowContext);
+
+            return row;
+        }
+
+        private void RunWithRowsPaused(Action action)
+        {
+            bool previouslyUpdating = Wait;
+
+            Wait = true;
+
+            try
+            {
+                action();
+            }
+            finally
+            {
+                Wait = previouslyUpdating;
+            }
+        }
+    }
 }

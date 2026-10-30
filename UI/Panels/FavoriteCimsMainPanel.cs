@@ -1,14 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Threading;
-using ColossalFramework;
 using ColossalFramework.UI;
 using FavoriteCims.Utils;
 using UnityEngine;
 
 namespace FavoriteCims.UI.Panels
 {
-    public class FavoriteCimsMainPanel : UIPanel
+    public partial class FavoriteCimsMainPanel : UIPanel
 	{
 		public static UIButton FavCimsHappinesColText;
 
@@ -50,8 +47,6 @@ namespace FavoriteCims.UI.Panels
 
         public static UIScrollablePanel FavCimsCitizenRowsPanel;
 
-        public static bool RowAlternateBackground;
-
         public static bool ColumnSpecialBackground;
 
         public static bool RowsAlreadyExist(InstanceID instanceID)
@@ -67,85 +62,32 @@ namespace FavoriteCims.UI.Panels
 			return false;
 		}
 
-		private void ReorderRowsBackgrounds()
-		{
-			object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
-			while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
-			{
-			}
-			try
-			{
-				CitizenRow[] componentsInChildren = FavCimsCitizenRowsPanel.GetComponentsInChildren<CitizenRow>();
-				CitizenRow[] array = componentsInChildren;
-				for (int i = 0; i < array.Length; i++)
-				{
-					CitizenRow Rows = array[i];
-					if (Rows != null && Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite") != null)
-					{
-						if (Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture != null)
-						{
-							if (Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture.name.Length > 0)
-							{
-								Texture FavDot;
-								if (!RowAlternateBackground)
-								{
-									FavDot = ResourceLoader.LoadTexture((int)Rows.width, 40, "UIMainPanel.Rows.bgrow_1.png");
-									FavDot.name = "FavDot_1";
-									Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture = FavDot;
-									RowAlternateBackground = true;
-								}
-								else
-								{
-									FavDot = ResourceLoader.LoadTexture((int)Rows.width, 40, "UIMainPanel.Rows.bgrow_2.png");
-									FavDot.name = "FavDot_2";
-									Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture = FavDot;
-									RowAlternateBackground = false;
-								}
-								Rows.eventMouseLeave -= delegate(UIComponent component, UIMouseEventParameter eventParam)
-								{
-									Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture = FavDot;
-								};
-								Rows.eventMouseLeave += delegate(UIComponent component, UIMouseEventParameter eventParam)
-								{
-									Rows.Find<UITextureSprite>("FavCimsCitizenSingleRowBGSprite").texture = FavDot;
-								};
-							}
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-                Utils.Debug.Error("Reorder Background Error " + ex.ToString());
-			}
-			finally
-			{
-				Monitor.Exit(privateVariable);
-			}
-		}
-
 		public void Change_Visibility_Event()
 		{
-			FavCimsBCMenuButton.text = FavCimsLang.Text("FavCimsBCMenuButton_text");
-			FavCimsBCMenuButton.tooltip = FavCimsLang.Text("FavCimsBCMenuButton_tooltip");
-			FavCimsHappinesColText.text = FavCimsLang.Text("FavCimsHappinesColText_text");
-			FavCimsHappinesColText.tooltip = FavCimsLang.Text("FavCimsHappinesColText_tooltip");
-			FavCimsNameColText.text = FavCimsLang.Text("FavCimsNameColText_text");
-			FavCimsNameColText.tooltip = FavCimsLang.Text("FavCimsNameColText_tooltip");
-			FavCimsAgePhaseColText.text = FavCimsLang.Text("FavCimsAgePhaseColText_text");
-			FavCimsAgePhaseColText.tooltip = FavCimsLang.Text("FavCimsAgePhaseColText_tooltip");
-			FavCimsAgeColText.text = FavCimsLang.Text("FavCimsAgeColText_text");
-			FavCimsAgeColText.tooltip = FavCimsLang.Text("FavCimsAgeColText_tooltip");
-			FavCimsEduColText.text = FavCimsLang.Text("FavCimsEduColText_text");
-			FavCimsEduColText.tooltip = FavCimsLang.Text("FavCimsEduColText_tooltip");
-			FavCimsHomeColText.text = FavCimsLang.Text("FavCimsHomeColText_text");
-			FavCimsHomeColText.tooltip = FavCimsLang.Text("FavCimsHomeColText_tooltip");
-			FavCimsWorkingPlaceColText.text = FavCimsLang.Text("FavCimsWorkingPlaceColText_text");
-			FavCimsWorkingPlaceColText.tooltip = FavCimsLang.Text("FavCimsWorkingPlaceColText_tooltip");
-			FavCimsLastActColText.text = FavCimsLang.Text("FavCimsLastActColText_text");
-			FavCimsLastActColText.tooltip = FavCimsLang.Text("FavCimsLastActColText_tooltip");
-			FavCimsCloseButtonCol.text = FavCimsLang.Text("FavCimsCloseButtonCol_text");
-			FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("FavCimsCloseButtonCol_tooltip");
+			FavCimsBCMenuButton.text = FavCimsLang.Text("FavCimsBCMenuButtonText");
+			FavCimsBCMenuButton.tooltip = FavCimsLang.Text("FavCimsBCMenuButtonTooltip");
+			FavCimsHappinesColText.text = FavCimsLang.Text("FavCimsHappinesColText");
+			FavCimsHappinesColText.tooltip = FavCimsLang.Text("FavCimsHappinesColTooltip");
+			Utils.Debug.Log("1");
+			FavCimsNameColText.text = FavCimsLang.Text("FavCimsNameColText");
+			FavCimsNameColText.tooltip = FavCimsLang.Text("FavCimsNameColTooltip");
+			FavCimsAgePhaseColText.text = FavCimsLang.Text("FavCimsAgePhaseColText");
+			FavCimsAgePhaseColText.tooltip = FavCimsLang.Text("FavCimsAgePhaseColTooltip");
+            Utils.Debug.Log("2");
+            FavCimsAgeColText.text = FavCimsLang.Text("FavCimsAgeColText");
+			FavCimsAgeColText.tooltip = FavCimsLang.Text("FavCimsAgeColTooltip");
+			FavCimsEduColText.text = FavCimsLang.Text("FavCimsEduColText");
+			FavCimsEduColText.tooltip = FavCimsLang.Text("FavCimsEduColTooltip");
+            Utils.Debug.Log("3");
+            FavCimsHomeColText.text = FavCimsLang.Text("FavCimsHomeColText");
+			FavCimsHomeColText.tooltip = FavCimsLang.Text("FavCimsHomeColTooltip");
+			FavCimsWorkingPlaceColText.text = FavCimsLang.Text("FavCimsWorkingPlaceColText");
+            Utils.Debug.Log("4");
+            FavCimsWorkingPlaceColText.tooltip = FavCimsLang.Text("FavCimsWorkingPlaceColTooltip");
+			FavCimsLastActColText.text = FavCimsLang.Text("FavCimsLastActColText");
+			FavCimsLastActColText.tooltip = FavCimsLang.Text("FavCimsLastActColTooltip");
+			FavCimsCloseButtonCol.text = FavCimsLang.Text("FavCimsCloseButtonColText");
+			FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("FavCimsCloseButtonColTooltip");
 		}
 
 		public override void Start()
@@ -159,7 +101,7 @@ namespace FavoriteCims.UI.Panels
 			{
                 Change_Visibility_Event();
 			};
-			Texture texture = ResourceLoader.LoadTexture((int)width, (int)height, "UIMainPanel.mainbg.png");
+			Texture texture = ResourceLoader.LoadTexture((int)width, (int)height, "UIMainPanel.MainBg.png");
 			texture.wrapMode = TextureWrapMode.Clamp;
 			texture.filterMode = FilterMode.Bilinear;
 			texture.name = "FavCimsMainBGTexture";
@@ -167,9 +109,14 @@ namespace FavoriteCims.UI.Panels
 			uitextureSprite.name = "FavCimsMainBGSprite";
 			uitextureSprite.texture = texture;
 			uitextureSprite.relativePosition = new Vector3(0f, 0f);
-			uitextureSprite.eventMouseDown += delegate
-			{
-				bool mouseButton = Input.GetMouseButton(0);
+			uitextureSprite.eventMouseDown += delegate(UIComponent component, UIMouseEventParameter eventParam)
+            {
+                if (eventParam.used || resizeDragging)
+                {
+                    return;
+                }
+
+                bool mouseButton = Input.GetMouseButton(0);
 				if (mouseButton)
 				{
 					if (GetComponentInChildren<WindowController>() != null)
@@ -197,7 +144,7 @@ namespace FavoriteCims.UI.Panels
 				}
 				opacity = 1f;
 			};
-			Texture texture2 = ResourceLoader.LoadTexture((int)width, 58, "UIMainPanel.favcimstitle.png");
+			Texture texture2 = ResourceLoader.LoadTexture((int)width, 58, "UIMainPanel.MainTitle.png");
 			texture2.wrapMode = TextureWrapMode.Clamp;
 			texture2.filterMode = FilterMode.Bilinear;
 			texture2.mipMapBias = -0.5f;
@@ -212,7 +159,7 @@ namespace FavoriteCims.UI.Panels
 			uibutton.width = 32f;
 			uibutton.height = 32f;
 			uibutton.normalBgSprite = "buttonclose";
-			uibutton.hoveredBgSprite = "buttonclosehover";
+			uibutton.hoveredBgSprite = "buttonclosehovered";
 			uibutton.pressedBgSprite = "buttonclosepressed";
 			uibutton.opacity = 1f;
 			uibutton.useOutline = true;
@@ -222,7 +169,7 @@ namespace FavoriteCims.UI.Panels
 				FavCimsMainClass.FavCimsPanelToggle();
 			};
 			uibutton.relativePosition = new Vector3(width - uibutton.width * 1.5f, texture2.height / 2f - uibutton.height / 2f);
-			Texture texture3 = ResourceLoader.LoadTexture((int)width - 10, 70, "UIMainPanel.submenubar.png");
+			Texture texture3 = ResourceLoader.LoadTexture((int)width - 10, 70, "UIMainPanel.SubMenuBar.png");
 			texture3.wrapMode = TextureWrapMode.Clamp;
 			texture3.filterMode = FilterMode.Bilinear;
 			texture3.name = "FavCimsBGMenuTexture";
@@ -231,8 +178,8 @@ namespace FavoriteCims.UI.Panels
 			uitextureSprite2.texture = texture3;
 			float num2 = width / 2f - texture3.width / 2f;
 			uitextureSprite2.relativePosition = new Vector3(num2, 58f);
-			FavCimsCBETexture = ResourceLoader.LoadTexture(200, 59, "UIMainPanel.citizenbuttonenabled.png");
-			FavCimsCBDTexture = ResourceLoader.LoadTexture(200, 59, "UIMainPanel.citizenbuttondisabled.png");
+			FavCimsCBETexture = ResourceLoader.LoadTexture(200, 59, "UIMainPanel.CitizenButtonEnabled.png");
+			FavCimsCBDTexture = ResourceLoader.LoadTexture(200, 59, "UIMainPanel.CitizenButtonDisabled.png");
 			FavCimsCBETexture.wrapMode = TextureWrapMode.Clamp;
 			FavCimsCBETexture.filterMode = FilterMode.Bilinear;
 			FavCimsCBETexture.name = "FavCimsCBETexture";
@@ -266,7 +213,7 @@ namespace FavoriteCims.UI.Panels
 			CitizensPanel.width = 1190f;
 			CitizensPanel.height = 558f;
 			CitizensPanel.relativePosition = new Vector3(width / 2f - CitizensPanel.width / 2f, 128f);
-			FavCimsMainBodyTexture = ResourceLoader.LoadTexture(1190, 558, "UIMainPanel.bodybg.png");
+			FavCimsMainBodyTexture = ResourceLoader.LoadTexture(1190, 558, "UIMainPanel.BodyBg.png");
 			FavCimsMainBodyTexture.wrapMode = TextureWrapMode.Clamp;
 			FavCimsMainBodyTexture.filterMode = FilterMode.Bilinear;
 			FavCimsMainBodyTexture.name = "FavCimsMainBodyTexture";
@@ -274,7 +221,7 @@ namespace FavoriteCims.UI.Panels
 			FavCimsBodySprite.name = "FavCimsCBGBodySprite";
 			FavCimsBodySprite.texture = FavCimsMainBodyTexture;
 			FavCimsBodySprite.relativePosition = Vector3.zero;
-			Texture texture4 = ResourceLoader.LoadTexture(1146, 26, "UIMainPanel.indexerbgbar.png");
+			Texture texture4 = ResourceLoader.LoadTexture(1146, 26, "UIMainPanel.IndexerBgBar.png");
 			texture4.wrapMode = TextureWrapMode.Clamp;
 			texture4.filterMode = FilterMode.Bilinear;
 			texture4.name = "FavCimsIndexBgBar";
@@ -470,29 +417,60 @@ namespace FavoriteCims.UI.Panels
 				int sign = Math.Sign(eventParam.wheelDelta);
 				FavCimsCitizenRowsPanel.scrollPosition += new Vector2(0f, (sign * -1) * FavCimsMainPanelScrollBar.incrementAmount);
 			};
-			FavCimsCitizenRowsPanel.eventComponentAdded += delegate(UIComponent component, UIComponent eventParam)
-			{
-				ReorderRowsBackgrounds();
-			};
-			FavCimsCitizenRowsPanel.eventComponentRemoved += delegate(UIComponent component, UIComponent eventParam)
-			{
-				ReorderRowsBackgrounds();
-			};
 			UITextureSprite uitextureSprite4 = CitizensPanel.AddUIComponent<UITextureSprite>();
 			uitextureSprite4.name = "FavCimsFooterBgBarSprite";
 			uitextureSprite4.width = uitextureSprite3.width;
 			uitextureSprite4.height = 15f;
 			uitextureSprite4.texture = texture4;
 			uitextureSprite4.relativePosition = new Vector3(21f, FavCimsCitizenRowsPanel.relativePosition.y + FavCimsCitizenRowsPanel.height);
-			foreach (KeyValuePair<InstanceID, string> keyValuePair in FavCimsCore.FavoriteCimsList())
-			{
-				if (keyValuePair.Key.Type == InstanceType.Citizen)
-				{
-					CitizenRow citizenRow = FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
-					citizenRow.MyInstanceID = keyValuePair.Key;
-					citizenRow.MyInstancedName = keyValuePair.Value;
-				}
-			}
-		}
-	}
+
+            InitializeMainWindowResize(uitextureSprite, uitextureSprite2, uitextureSprite3, uitextureSprite4, uibutton, uiscrollablePanel, FavCimsMainPanelScrollBar);
+
+            var savedFavorites = FavCimsCore.FavoriteCimsList();
+
+            if (savedFavorites != null)
+            {
+                foreach (var savedFavorite in savedFavorites)
+                {
+                    var instance = savedFavorite.Key;
+
+                    if (instance.Type != InstanceType.Citizen || instance.Citizen == 0 || string.IsNullOrEmpty(savedFavorite.Value))
+                    {
+                        continue;
+                    }
+
+                    FavCimsCore.InsertIdIntoArray(instance.Citizen);
+
+                    if (RowsAlreadyExist(instance))
+                    {
+                        continue;
+                    }
+
+                    var row = FavCimsCitizenRowsPanel.AddUIComponent<CitizenRow>();
+
+                    if (row == null)
+                    {
+                        continue;
+                    }
+
+                    row.MyInstanceID = instance;
+                    row.MyInstancedName = savedFavorite.Value;
+                }
+            }
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            UpdateMainWindowResize();
+        }
+
+        public override void OnDestroy()
+        {
+            ReleaseMainWindowResize();
+
+            base.OnDestroy();
+        }
+    }
 }

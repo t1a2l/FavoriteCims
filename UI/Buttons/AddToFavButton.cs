@@ -1,8 +1,4 @@
-using System;
-using System.Threading;
-using ColossalFramework;
 using ColossalFramework.UI;
-using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
 using UnityEngine;
 
@@ -12,10 +8,6 @@ namespace FavoriteCims.UI.Buttons
     {
         private InstanceID ThisHuman = InstanceID.Empty;
 
-        private readonly InstanceManager MyInstance = Singleton<InstanceManager>.instance;
-
-        private readonly CitizenManager MyCitizen = Singleton<CitizenManager>.instance;
-
         public UIAlignAnchor Alignment;
 
         public UIPanel RefPanel;
@@ -24,7 +16,7 @@ namespace FavoriteCims.UI.Buttons
         {
             UIView aview = UIView.GetAView();
             name = "FavCimsStarButton";
-            normalBgSprite = "icon_fav_unsubscribed";
+            normalBgSprite = "IconFavUnsubscribed";
             atlas = MyAtlas.FavCimsAtlas;
             size = new Vector2(32f, 32f);
             playAudioEvents = true;
@@ -32,65 +24,45 @@ namespace FavoriteCims.UI.Buttons
             tooltipBox = aview.defaultTooltipBox;
             eventClick += delegate (UIComponent component, UIMouseEventParameter eventParam)
             {
-                FavCimsCore.UpdateMyCitizen("toggle", RefPanel);
+                if (FavCimsMainClass.UnLoading || !isVisible)
+                {
+                    return;
+                }
+
+                ThisHuman = WorldInfoPanel.GetCurrentInstanceID();
+
+                if (ThisHuman.IsEmpty || ThisHuman.Type != InstanceType.Citizen || ThisHuman.Citizen == 0)
+                {
+                    ThisHuman = InstanceID.Empty;
+                    return;
+                }
+
+                FavCimsCore.ToggleCitizenFavorite(ThisHuman);
             };
         }
 
         public override void Update()
         {
-            bool unLoading = FavCimsMainClass.UnLoading;
-            if (!unLoading)
-            {
-                bool isVisible = base.isVisible;
-                if (isVisible)
-                {
-                    if (!WorldInfoPanel.GetCurrentInstanceID().IsEmpty)
-                    {
-                        ThisHuman = WorldInfoPanel.GetCurrentInstanceID();
-                        int num = (int)(uint)(UIntPtr)ThisHuman.Citizen;
-                        string name = MyInstance.GetName(ThisHuman);
-                        if (name != null && name.Length > 0)
-                        {
-                            tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
-                            normalBgSprite = "icon_fav_subscribed";
-                            if (!FavCimsCore.RowID.ContainsKey(num) && !FavoriteCimsMainPanel.RowsAlreadyExist(ThisHuman))
-                            {
-                                object privateVariable = FavCimsCore.GetPrivateVariable<object>(Singleton<InstanceManager>.instance, "m_lock");
-                                while (!Monitor.TryEnter(privateVariable, SimulationManager.SYNCHRONIZE_TIMEOUT))
-                                {
-                                }
-                                try
-                                {
-                                    CitizenRow citizenRow = FavoriteCimsMainPanel.FavCimsCitizenRowsPanel.AddUIComponent(typeof(CitizenRow)) as CitizenRow;
-                                    if (citizenRow != null)
-                                    {
-                                        citizenRow.MyInstanceID = ThisHuman;
-                                        citizenRow.MyInstancedName = name;
-                                    }
-                                }
-                                finally
-                                {
-                                    Monitor.Exit(privateVariable);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (num != 0 && FavCimsCore.RowID.ContainsKey(num))
-                            {
-                                MyInstance.SetName(ThisHuman, MyCitizen.GetCitizenName(ThisHuman.Citizen));
-                                tooltip = FavCimsLang.Text("FavStarButton_disable_tooltip");
-                                normalBgSprite = "icon_fav_subscribed";
-                            }
-                            else
-                            {
-                                tooltip = FavCimsLang.Text("FavStarButton_enable_tooltip");
-                                normalBgSprite = "icon_fav_unsubscribed";
-                            }
-                        }
-                    }
-                }
+            base.Update();
+
+            if (FavCimsMainClass.UnLoading || !isVisible)
+            { 
+                return; 
             }
+
+            var current = WorldInfoPanel.GetCurrentInstanceID();
+
+            bool validCitizen = !current.IsEmpty && current.Type == InstanceType.Citizen && current.Citizen != 0;
+
+            ThisHuman = validCitizen ? current : InstanceID.Empty;
+
+            isEnabled = validCitizen;
+
+            bool isFavorite = validCitizen && FavCimsCore.IsFavorite(current.Citizen);
+
+            normalBgSprite = isFavorite ? "IconFavSubscribed" : "IconFavUnsubscribed";
+
+            tooltip = validCitizen ? FavCimsLang.Text(isFavorite ? "FavStarButtonDisableTooltip" : "FavStarButtonEnableTooltip") : string.Empty;             
         }
     }
 }

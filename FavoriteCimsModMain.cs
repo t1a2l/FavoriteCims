@@ -4,13 +4,13 @@ namespace FavoriteCims
 {
 	public class FavoriteCimsModMain : IUserMod
 	{
-        public const string Version = "v0.5";
+        public const string Version = "v2.0";
 
         public string Name
 		{
 			get
 			{
-				return "Favorite Cims v0.5";
+				return "Favorite Cims v2.0";
 			}
 		}
 

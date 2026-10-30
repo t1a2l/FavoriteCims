@@ -8,98 +8,206 @@ namespace FavoriteCims.UI.Buttons
 {
     public class VehiclePassengersButtonPT : UIButton
     {
-        private InstanceID VehicleID = InstanceID.Empty;
+        private InstanceID vehicleId = InstanceID.Empty;
 
         public UIAlignAnchor Alignment;
 
         public UIPanel RefPanel;
 
-        private FavCimsVehiclePanelPT VehiclePanel;
+        private FavCimsVehiclePanelPT vehiclePanel;
+        private bool initialized;
 
-        private readonly VehicleManager VehicleManager = Singleton<VehicleManager>.instance;
+        private readonly VehicleManager vehicleManager = Singleton<VehicleManager>.instance;
 
         public override void Start()
         {
-            UIView aView = UIView.GetAView();
-            name = "FavCimsVehPassButton";
-            normalBgSprite = "vehicleButton";
-            hoveredBgSprite = "vehicleButtonHovered";
-            focusedBgSprite = "vehicleButtonHovered";
-            pressedBgSprite = "vehicleButtonHovered";
-            disabledBgSprite = "vehicleButtonDisabled";
+            base.Start();
+
+            name = "FavCimsVehPassButtonPT";
+            normalBgSprite = "VehicleButton";
+            hoveredBgSprite = "VehicleButtonHovered";
+            focusedBgSprite = "VehicleButtonHovered";
+            pressedBgSprite = "VehicleButtonHovered";
+            disabledBgSprite = "VehicleButtonDisabled";
             atlas = MyAtlas.FavCimsAtlas;
             size = new Vector2(36f, 32f);
             playAudioEvents = true;
-            AlignTo(RefPanel, Alignment);
-            tooltipBox = aView.defaultTooltipBox;
-            VehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent(typeof(FavCimsVehiclePanelPT)) as FavCimsVehiclePanelPT;
-            VehiclePanel.VehicleID = InstanceID.Empty;
-            VehiclePanel.Hide();
-            eventClick += delegate
+            tooltipBox = UIView.GetAView().defaultTooltipBox;
+            isEnabled = false;
+
+            if (RefPanel == null || FavCimsMainClass.FullScreenContainer == null)
             {
-                if (!VehicleID.IsEmpty && !VehiclePanel.isVisible)
-                {
-                    VehiclePanel.VehicleID = VehicleID;
-                    VehiclePanel.RefPanel = RefPanel;
-                    VehiclePanel.Show();
-                }
-                else
-                {
-                    VehiclePanel.VehicleID = InstanceID.Empty;
-                    VehiclePanel.Hide();
-                }
-            };
+                Utils.Debug.Warning("Cannot initialize VehiclePassengersButtonPT: source panel or fullscreen container is missing.");
+                return;
+            }
+
+            AlignTo(RefPanel, Alignment);
+
+            vehiclePanel = FavCimsMainClass.FullScreenContainer.AddUIComponent<FavCimsVehiclePanelPT>();
+
+            if (vehiclePanel == null)
+            {
+                Utils.Debug.Warning("Cannot initialize VehiclePassengersButtonPT: public-transport panel could not be created.");
+                return;
+            }
+
+            vehiclePanel.VehicleID = InstanceID.Empty;
+            vehiclePanel.RefPanel = RefPanel;
+            vehiclePanel.Hide();
+
+            eventClick += OnButtonClicked;
+
+            initialized = true;
+            RefreshState();
         }
 
         public override void Update()
         {
-            if (FavCimsMainClass.UnLoading)
+            base.Update();
+
+            if (!initialized)
             {
                 return;
             }
-            if (isVisible)
+
+            RefreshState();
+        }
+
+        private void RefreshState()
+        {
+            if (FavCimsMainClass.UnLoading || !isVisible || RefPanel == null || vehiclePanel == null)
             {
-                tooltip = FavCimsLang.Text("View_NoPassengers");
-                if (WorldInfoPanel.GetCurrentInstanceID() != InstanceID.Empty)
+                DisableButton();
+                return;
+            }
+
+            var current = WorldInfoPanel.GetCurrentInstanceID();
+
+            if (current.IsEmpty || current.Type != InstanceType.Vehicle || current.Vehicle == 0)
+            {
+                DisableButton();
+                return;
+            }
+
+            if (vehiclePanel.isVisible && vehiclePanel.VehicleID != current)
+            {
+                CloseVehiclePanel();
+            }
+
+            vehicleId = current;
+
+            if (!IsPublicTransportVehicle(vehicleId.Vehicle, out string tooltipKey))
+            {
+                DisableButton();
+                return;
+            }
+
+            isEnabled = true;
+            tooltip = tooltipKey;
+
+            if (vehiclePanel.isVisible)
+            {
+                if (!hasFocus)
                 {
-                    VehicleID = WorldInfoPanel.GetCurrentInstanceID();
-                }
-                if (VehiclePanel != null)
-                {
-                    if (!VehiclePanel.isVisible)
-                    {
-                        Unfocus();
-                    }
-                    else
-                    {
-                        Focus();
-                    }
-                }
-                var service = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.m_class.m_service;
-                var sub_service = VehicleManager.m_vehicles.m_buffer[VehicleID.Vehicle].Info.m_class.m_subService;
-                if (service != ItemClass.Service.PublicTransport || (service == ItemClass.Service.PublicTransport && sub_service == ItemClass.SubService.PublicTransportPost))
-                {
-                    isEnabled = false;
-                    VehiclePanel.Hide();
-                }
-                else if (!VehicleID.IsEmpty && VehicleID.Type == InstanceType.Vehicle)
-                {
-                    isEnabled = true;
-                    tooltip = FavCimsLang.Text("View_PassengersList");
-                }
-                else
-                {
-                    VehiclePanel.Hide();
-                    Unfocus();
-                    isEnabled = false;
+                    Focus();
                 }
             }
-            else
+            else if (hasFocus)
             {
-                isEnabled = false;
-                VehiclePanel.Hide();
-                VehicleID = InstanceID.Empty;
+                Unfocus();
             }
+        }
+
+        private bool IsPublicTransportVehicle(ushort vehicleId, out string tooltipKey)
+        {
+            tooltipKey = FavCimsLang.Text("ViewNoPassengers");
+
+            if (vehicleId == 0 || vehicleId >= vehicleManager.m_vehicles.m_buffer.Length)
+            {
+                return false;
+            }
+
+            var vehicleInfo = vehicleManager.m_vehicles.m_buffer[vehicleId].Info;
+
+            if (vehicleInfo?.m_class == null)
+            {
+                return false;
+            }
+
+            bool isPublicTransport = vehicleInfo.m_class.m_service == ItemClass.Service.PublicTransport
+                && vehicleInfo.m_class.m_subService != ItemClass.SubService.PublicTransportPost;
+
+            if (!isPublicTransport)
+            {
+                return false;
+            }
+
+            tooltipKey = FavCimsLang.Text("ViewPassengersList");
+            return true;
+        }
+
+        private void OnButtonClicked(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            if (!initialized || FavCimsMainClass.UnLoading || !isVisible)
+            {
+                return;
+            }
+
+            RefreshState();
+
+            if (!isEnabled || vehicleId.IsEmpty || vehiclePanel == null)
+            {
+                return;
+            }
+
+            if (vehiclePanel.isVisible)
+            {
+                CloseVehiclePanel();
+                return;
+            }
+
+            vehiclePanel.VehicleID = vehicleId;
+            vehiclePanel.RefPanel = RefPanel;
+            vehiclePanel.Show();
+
+            Focus();
+        }
+
+        private void CloseVehiclePanel()
+        {
+            if (vehiclePanel != null)
+            {
+                vehiclePanel.Hide();
+                vehiclePanel.VehicleID = InstanceID.Empty;
+            }
+
+            if (hasFocus)
+            {
+                Unfocus();
+            }
+        }
+
+        private void DisableButton()
+        {
+            vehicleId = InstanceID.Empty;
+            isEnabled = false;
+            tooltip = string.Empty;
+
+            CloseVehiclePanel();
+        }
+
+        public override void OnDestroy()
+        {
+            initialized = false;
+            eventClick -= OnButtonClicked;
+
+            if (vehiclePanel != null)
+            {
+                Object.Destroy(vehiclePanel.gameObject);
+                vehiclePanel = null;
+            }
+
+            base.OnDestroy();
         }
     }
 }
