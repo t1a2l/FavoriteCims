@@ -50,7 +50,7 @@ namespace FavoriteCims.UI.Panels
             resizeHandle.text = "//";
             resizeHandle.textScale = 1.2f;
             resizeHandle.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            resizeHandle.tooltip = FavCimsLang.Text("MainResizeHandleTooltip");
+            resizeHandle.tooltip = FavCimsLang.Text("MainWindowResizeTooltip");
             resizeHandle.eventMouseDown += BeginMainResize;
 
             resetSizeButton = AddUIComponent<UIButton>();
@@ -58,9 +58,9 @@ namespace FavoriteCims.UI.Panels
             resetSizeButton.size = new Vector2(100f, 20f);
             resetSizeButton.font = UIDynamicFont.FindByName("OpenSans-Regular");
             resetSizeButton.textScale = 0.8f;
-            resetSizeButton.text = FavCimsLang.Text("MainResetSizeText");
+            resetSizeButton.text = FavCimsLang.Text("MainWindowResetSizeText");
             resetSizeButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
-            resetSizeButton.tooltip = FavCimsLang.Text("MainResetSizeTooltip");
+            resetSizeButton.tooltip = FavCimsLang.Text("MainWindowResetSizeTooltip");
             resetSizeButton.eventClick += ResetMainSize;
             ApplyMainWindowSize(new Vector2(width, height));
         }
@@ -173,8 +173,8 @@ namespace FavoriteCims.UI.Panels
             resizeFooter.width = rowWidth + 12f;
             resizeFooter.relativePosition = new Vector3(21f, 33f + viewportHeight);
 
-            float[] minimum = { 60f, 110f, 90f, 40f, 100f, 120f, 120f, 140f, 50f };
-            float[] flexible = { 0f, 0.20f, 0f, 0f, 0f, 0.25f, 0.25f, 0.30f, 0f };
+            float[] minimum = [60f, 110f, 90f, 40f, 100f, 120f, 120f, 140f, 50f];
+            float[] flexible = [0f, 0.20f, 0f, 0f, 0f, 0.25f, 0.25f, 0.30f, 0f];
             float scale = Mathf.Min(1f, rowWidth / 830f);
             float extra = Mathf.Max(0f, rowWidth - 830f);
             float x = 27f;

@@ -12,8 +12,8 @@ namespace FavoriteCims.UI.Panels
         {
             if (!IsReady) return;
             RenderActivityControls(activity, FavCimsLastActivityVehicleButton, FavCimsLastActivity);
-            FavCimsDistrictValue.text = activity == null || !activity.HasCurrentPosition ? string.Empty : activity.CurrentDistrictId == 0 ? FavCimsLang.Text("DistrictNameNoDistrict") : activity.CurrentDistrictName;
-            FavCimsDistrictValue.tooltip = activity != null && activity.HasCurrentPosition ? FavCimsLang.Text("DistrictLabelTooltip") : string.Empty;
+            FavCimsDistrictValue.text = activity == null || !activity.HasCurrentPosition ? string.Empty : activity.CurrentDistrictId == 0 ? FavCimsLang.Text("DistrictNoneText") : activity.CurrentDistrictName;
+            FavCimsDistrictValue.tooltip = activity != null && activity.HasCurrentPosition ? FavCimsLang.Text("CitizenCurrentDistrictTooltip") : string.Empty;
         }
 
         public void RenderPersonalVehicle(FamilyCitizenData citizen)
@@ -49,7 +49,7 @@ namespace FavoriteCims.UI.Panels
             destinationButton.isEnabled = !activity.TargetId.IsEmpty;
             if (activity.TargetId.Type == InstanceType.Building && !activity.TargetId.IsEmpty)
             { 
-                destinationButton.tooltip = FavCimsLang.Text("DistrictLabel") + " " + (string.IsNullOrEmpty(activity.TargetDistrictName) ? FavCimsLang.Text("DistrictNameNoDistrict") : activity.TargetDistrictName); 
+                destinationButton.tooltip = FavCimsLang.Text("DistrictLabel") + " " + (string.IsNullOrEmpty(activity.TargetDistrictName) ? FavCimsLang.Text("DistrictNoneText") : activity.TargetDistrictName); 
             }
 
             if (activity.HasVehicle)
@@ -66,7 +66,7 @@ namespace FavoriteCims.UI.Panels
             }
             else
             {
-                vehicleButton.tooltip = FavCimsLang.Text("OnFoot");
+                vehicleButton.tooltip = FavCimsLang.Text("CitizenWalkingTooltip");
             }
 
             if (activity.IsPrisonTransport)
@@ -77,13 +77,13 @@ namespace FavoriteCims.UI.Panels
                 vehicleButton.focusedBgSprite = "PoliceVehicleIcon";
                 vehicleButton.pressedBgSprite = "PoliceVehicleIcon";
                 vehicleButton.tooltip = activity.VehicleName + " - " + Locale.Get("VEHICLE_STATUS_PRISON_RETURN");
-                destinationButton.text = FavCimsLang.Text("TransportedToPrison");
+                destinationButton.text = FavCimsLang.Text("CitizenTransportedToPrisonStatus");
                 destinationButton.tooltip = string.Empty;
                 destinationButton.isEnabled = false;
             }
             else if (activity.IsJailed)
             {
-                destinationButton.text = FavCimsLang.Text("JailedInto") + " " + activity.TargetName;
+                destinationButton.text = FavCimsLang.Text("CitizenDetainedAtLabel") + " " + activity.TargetName;
             }
 
             AddActivityNavigationHints(vehicleButton, destinationButton);

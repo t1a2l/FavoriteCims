@@ -94,7 +94,7 @@ namespace FavoriteCims.UI.Buttons
             vehicleId = current;
 
             isEnabled = true;
-            tooltip = FavCimsLang.Text("ViewPassengersList");
+            tooltip = FavCimsLang.Text("VehiclePassengersButtonTooltip");
 
             if (vehiclePanel.isVisible)
             {

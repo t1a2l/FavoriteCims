@@ -151,7 +151,7 @@ namespace FavoriteCims.UI.Panels
             if (arrested)
             {
                 BubbleDetailsCrime.normalFgSprite = "tutorialglow";
-                BubbleDetailsCrime.tooltip = FavCimsLang.Text("CitizenArrested");
+                BubbleDetailsCrime.tooltip = FavCimsLang.Text("CitizenArrestedStatus");
             }
             else
             {

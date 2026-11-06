@@ -368,7 +368,7 @@ namespace FavoriteCims.UI.Panels
         {
             var districtManager = Singleton<DistrictManager>.instance;
 
-            return districtId == 0 ? FavCimsLang.Text("DistrictNameNoDistrict") : districtManager.GetDistrictName(districtId);
+            return districtId == 0 ? FavCimsLang.Text("DistrictNoneText") : districtManager.GetDistrictName(districtId);
         }
 
         private void OnCitizenClicked(UIMouseEventParameter eventParam)

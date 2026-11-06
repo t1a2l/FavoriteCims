@@ -380,7 +380,7 @@ namespace FavoriteCims.UI.Panels
 
         private void UpdateLayout()
         {
-            titleVehicleName.text = FavCimsLang.Text("VehiclePassengers");
+            titleVehicleName.text = FavCimsLang.Text("VehiclePassengersTitle");
 
             absolutePosition = new Vector3(
                 RefPanel.absolutePosition.x + RefPanel.width + 5f,

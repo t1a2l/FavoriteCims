@@ -120,7 +120,7 @@ namespace FavoriteCims.UI.Buttons
 
         private bool IsPublicTransportVehicle(ushort vehicleId, out string tooltipKey)
         {
-            tooltipKey = FavCimsLang.Text("ViewNoPassengers");
+            tooltipKey = FavCimsLang.Text("VehicleNoPassengersStatus");
 
             if (vehicleId == 0 || vehicleId >= vehicleManager.m_vehicles.m_buffer.Length)
             {
@@ -142,7 +142,7 @@ namespace FavoriteCims.UI.Buttons
                 return false;
             }
 
-            tooltipKey = FavCimsLang.Text("ViewPassengersList");
+            tooltipKey = FavCimsLang.Text("VehiclePassengersButtonTooltip");
             return true;
         }
 

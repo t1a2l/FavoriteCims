@@ -62,35 +62,40 @@ namespace FavoriteCims.UI.Panels
 			return false;
 		}
 
-		public void Change_Visibility_Event()
-		{
-			FavCimsBCMenuButton.text = FavCimsLang.Text("FavCimsBCMenuButtonText");
-			FavCimsBCMenuButton.tooltip = FavCimsLang.Text("FavCimsBCMenuButtonTooltip");
-			FavCimsHappinesColText.text = FavCimsLang.Text("FavCimsHappinesColText");
-			FavCimsHappinesColText.tooltip = FavCimsLang.Text("FavCimsHappinesColTooltip");
-			Utils.Debug.Log("1");
-			FavCimsNameColText.text = FavCimsLang.Text("FavCimsNameColText");
-			FavCimsNameColText.tooltip = FavCimsLang.Text("FavCimsNameColTooltip");
-			FavCimsAgePhaseColText.text = FavCimsLang.Text("FavCimsAgePhaseColText");
-			FavCimsAgePhaseColText.tooltip = FavCimsLang.Text("FavCimsAgePhaseColTooltip");
-            Utils.Debug.Log("2");
-            FavCimsAgeColText.text = FavCimsLang.Text("FavCimsAgeColText");
-			FavCimsAgeColText.tooltip = FavCimsLang.Text("FavCimsAgeColTooltip");
-			FavCimsEduColText.text = FavCimsLang.Text("FavCimsEduColText");
-			FavCimsEduColText.tooltip = FavCimsLang.Text("FavCimsEduColTooltip");
-            Utils.Debug.Log("3");
-            FavCimsHomeColText.text = FavCimsLang.Text("FavCimsHomeColText");
-			FavCimsHomeColText.tooltip = FavCimsLang.Text("FavCimsHomeColTooltip");
-			FavCimsWorkingPlaceColText.text = FavCimsLang.Text("FavCimsWorkingPlaceColText");
-            Utils.Debug.Log("4");
-            FavCimsWorkingPlaceColText.tooltip = FavCimsLang.Text("FavCimsWorkingPlaceColTooltip");
-			FavCimsLastActColText.text = FavCimsLang.Text("FavCimsLastActColText");
-			FavCimsLastActColText.tooltip = FavCimsLang.Text("FavCimsLastActColTooltip");
-			FavCimsCloseButtonCol.text = FavCimsLang.Text("FavCimsCloseButtonColText");
-			FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("FavCimsCloseButtonColTooltip");
-		}
+        public void Change_Visibility_Event()
+        {
+            FavCimsBCMenuButton.text = FavCimsLang.Text("MainCitizensTabText");
+            FavCimsBCMenuButton.tooltip = FavCimsLang.Text("MainCitizensTabTooltip");
 
-		public override void Start()
+            FavCimsHappinesColText.text = FavCimsLang.Text("CitizenStatusColumnTitle");
+            FavCimsHappinesColText.tooltip = FavCimsLang.Text("CitizenStatusColumnTooltip");
+
+            FavCimsNameColText.text = FavCimsLang.Text("CitizenNameColumnTitle");
+            FavCimsNameColText.tooltip = FavCimsLang.Text("CitizenNameColumnTooltip");
+
+            FavCimsAgePhaseColText.text = FavCimsLang.Text("CitizenLifeStageColumnTitle");
+            FavCimsAgePhaseColText.tooltip = FavCimsLang.Text("CitizenLifeStageColumnTooltip");
+
+            FavCimsAgeColText.text = FavCimsLang.Text("CitizenAgeColumnTitle");
+            FavCimsAgeColText.tooltip = FavCimsLang.Text("CitizenAgeColumnTooltip");
+
+            FavCimsEduColText.text = FavCimsLang.Text("CitizenEducationColumnTitle");
+            FavCimsEduColText.tooltip = FavCimsLang.Text("CitizenEducationColumnTooltip");
+
+            FavCimsHomeColText.text = FavCimsLang.Text("CitizenHomeColumnTitle");
+            FavCimsHomeColText.tooltip = FavCimsLang.Text("CitizenHomeColumnTooltip");
+
+            FavCimsWorkingPlaceColText.text = FavCimsLang.Text("CitizenOccupationColumnTitle");
+            FavCimsWorkingPlaceColText.tooltip = FavCimsLang.Text("CitizenOccupationColumnTooltip");
+
+            FavCimsLastActColText.text = FavCimsLang.Text("CitizenActivityColumnTitle");
+            FavCimsLastActColText.tooltip = FavCimsLang.Text("CitizenActivityColumnTooltip");
+
+            FavCimsCloseButtonCol.text = FavCimsLang.Text("CitizenRemoveColumnTitle");
+            FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("CitizenRemoveColumnTooltip");
+        }
+
+        public override void Start()
 		{
 			UIView aview = UIView.GetAView();
 			name = "FavCimsPanel";

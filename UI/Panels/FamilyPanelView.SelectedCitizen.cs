@@ -23,10 +23,10 @@ namespace FavoriteCims.UI.Panels
             if (!IsReady || citizen == null) return;
 
             string gender = citizen.Gender.ToString();
-            BubbleCitizenAge.text = FavCimsLang.Text("FavCimsAgeColText");
-            BubbleCitizenAgePhase.text = FavCimsLang.Text("FavCimsAgePhaseColText");
-            BubbleCitizenEducation.text = FavCimsLang.Text("FavCimsEduColText");
-            BubbleWealthSprite.tooltip = FavCimsLang.Text("WealthLabel");
+            BubbleCitizenAge.text = FavCimsLang.Text("CitizenAgeColumnTitle");
+            BubbleCitizenAgePhase.text = FavCimsLang.Text("CitizenLifeStageColumnTitle");
+            BubbleCitizenEducation.text = FavCimsLang.Text("CitizenEducationColumnTitle");
+            BubbleWealthSprite.tooltip = FavCimsLang.Text("CitizenWealthLabel");
 
             BubbleHeaderCitizenName.text = citizen.Name;
             bool female = citizen.Gender == Citizen.Gender.Female;
@@ -38,12 +38,12 @@ namespace FavoriteCims.UI.Panels
             BubbleHeaderCitizenName.focusedTextColor = nameColor;
 
             BubbleCitizenAgeVal.text = citizen.RealAge.ToString();
-            BubbleCitizenAgePhaseVal.text = FavCimsLang.Text("AgePhase" + Citizen.GetAgeGroup(citizen.GameAge) + gender);
+            BubbleCitizenAgePhaseVal.text = FavCimsLang.Text("CitizenLifeStage" + Citizen.GetAgeGroup(citizen.GameAge) + gender);
             Color32 ageColor = GetFamilyMemberAgeColor(citizen.RealAge);
             BubbleCitizenAgeVal.textColor = ageColor;
             BubbleCitizenAgePhaseVal.textColor = ageColor;
 
-            BubbleRow1EducationTooltipArea.tooltip = FavCimsLang.Text("Education" + citizen.Education + gender);
+            BubbleRow1EducationTooltipArea.tooltip = FavCimsLang.Text("CitizenEducation" + citizen.Education + gender);
             BubbleEduLevel1.isEnabled = citizen.Education == Citizen.Education.OneSchool || citizen.Education == Citizen.Education.TwoSchools || citizen.Education == Citizen.Education.ThreeSchools;
             BubbleEduLevel2.isEnabled = citizen.Education == Citizen.Education.TwoSchools || citizen.Education == Citizen.Education.ThreeSchools;
             BubbleEduLevel3.isEnabled = citizen.Education == Citizen.Education.ThreeSchools;
@@ -52,14 +52,14 @@ namespace FavoriteCims.UI.Panels
             string healthName = DetailHealthNames[healthIndex];
             BubbleHealthSprite.normalBgSprite = "NotificationIcon" + healthName;
             BubbleHealthSprite.tooltip = Locale.Get("INFO_HEALTH_TITLE");
-            BubbleHealthValue.text = FavCimsLang.Text("HealthLevel" + healthName + gender);
+            BubbleHealthValue.text = FavCimsLang.Text("CitizenHealth" + healthName + gender);
             BubbleHealthValue.textColor = GetDetailHealthColor(healthIndex);
 
             string wellbeingSprite = GetDetailHappinessSprite(citizen.Wellbeing);
             BubbleRow2WellbeingIcon.normalBgSprite = wellbeingSprite;
-            BubbleRow2WellbeingIcon.tooltip = FavCimsLang.Text("WellBeingLabel") + " " + FavCimsLang.Text(wellbeingSprite);
+            BubbleRow2WellbeingIcon.tooltip = FavCimsLang.Text("CitizenWellbeingLabel") + " " + FavCimsLang.Text(wellbeingSprite);
 
-            BubbleRow2WealthValueVal.tooltip = FavCimsLang.Text("WealthLabel");
+            BubbleRow2WealthValueVal.tooltip = FavCimsLang.Text("CitizenWealthLabel");
             string wealthKey;
             Color32 wealthColor;
             if (citizen.Wealth == 0)
@@ -84,14 +84,14 @@ namespace FavoriteCims.UI.Panels
             {
                 BubbleRow1HappyIcon.atlas = MyAtlas.FavCimsAtlas;
                 BubbleRow1HappyIcon.normalBgSprite = "CitizenArrestedIcon";
-                BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("CitizenArrested");
+                BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("CitizenArrestedStatus");
             }
             else
             {
                 string happinessSprite = GetDetailHappinessSprite(citizen.Happiness);
                 BubbleRow1HappyIcon.atlas = UIView.GetAView().defaultAtlas;
                 BubbleRow1HappyIcon.normalBgSprite = happinessSprite;
-                BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("HappinessLabel") + " " + FavCimsLang.Text(happinessSprite);
+                BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("CitizenHappinessLabel") + " " + FavCimsLang.Text(happinessSprite);
             }
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using FavoriteCims.UI.Panels;
 using FavoriteCims.Utils;
@@ -376,14 +375,14 @@ namespace FavoriteCims.UI.PanelsRows
 
         public void SetCurrentDistrict(string districtName)
         {
-            nameButton.tooltip = FavCimsLang.Text("NowInThisDistrict") + districtName;
+            nameButton.tooltip = FavCimsLang.Text("CitizenCurrentDistrictLabel") + districtName;
         }
 
         public void SetEducation(Citizen.Education education, Citizen.Gender gender)
         {
             string genderSuffix = gender == Citizen.Gender.Female ? "Female" : "Male";
 
-            educationButton.text = FavCimsLang.Text("Education" + education + genderSuffix);
+            educationButton.text = FavCimsLang.Text("CitizenEducation" + education + genderSuffix);
 
             switch (education)
             {
@@ -426,7 +425,7 @@ namespace FavoriteCims.UI.PanelsRows
 
             string ageGroup = Citizen.GetAgeGroup(gameAge).ToString();
 
-            agePhaseButton.text = FavCimsLang.Text("AgePhase" + ageGroup + genderSuffix);
+            agePhaseButton.text = FavCimsLang.Text("CitizenLifeStage" + ageGroup + genderSuffix);
 
             realAgeButton.text = realAge.ToString();
 
@@ -471,16 +470,6 @@ namespace FavoriteCims.UI.PanelsRows
             homeCell.Bind(data.Home);
         }
 
-        public void SetHomeless()
-        {
-            string CitizenHomeLess = FavCimsLang.Text("CitizenHomeLess");
-            string CitizenHomeLessTooltip = FavCimsLang.Text("CitizenHomeLessTooltip");
-            BuildingIconData HomelessIcon = BuildingIconData.FromSprite(MyAtlas.FavCimsAtlas, "HomelessIcon");
-            string DistrictNameNoDistrict = FavCimsLang.Text("DistrictNameNoDistrict");
-
-            homeCell.ShowState(CitizenHomeLess, CitizenHomeLessTooltip, HomelessIcon, DistrictNameNoDistrict);
-        }
-
         public void SetWorkplace(CitizenRowData data)
         {
             workplaceCell.Bind(data.Workplace);
@@ -501,12 +490,12 @@ namespace FavoriteCims.UI.PanelsRows
 
         public void SetRetiredWorkplace()
         {
-            workplaceCell.ShowState(FavCimsLang.Text("CitizenRetired"), FavCimsLang.Text("CitizenRetiredTooltip"), BuildingIconData.FromTexture(TextureDB.FavCimsWorkingPlaceTextureRetired));
+            workplaceCell.ShowState(FavCimsLang.Text("CitizenRetiredStatus"), FavCimsLang.Text("CitizenRetiredTooltip"), BuildingIconData.FromTexture(TextureDB.FavCimsWorkingPlaceTextureRetired));
         }
 
         public void SetUnemployedWorkplace()
         {
-            workplaceCell.ShowState(Locale.Get("CITIZEN_OCCUPATION_UNEMPLOYED"), FavCimsLang.Text("UnemployedTooltip"), BuildingIconData.FromTexture(TextureDB.FavCimsWorkingPlaceTexture));
+            workplaceCell.ShowState(FavCimsLang.Text("CitizenUnemployedStatus"), FavCimsLang.Text("CitizenUnemployedTooltip"), BuildingIconData.FromTexture(TextureDB.FavCimsWorkingPlaceTexture));
         }
 
         public void SetActivity(CitizenRowData data)
@@ -543,7 +532,7 @@ namespace FavoriteCims.UI.PanelsRows
         {
             happinessIcon.atlas = MyAtlas.FavCimsAtlas;
             happinessIcon.normalBgSprite = "CitizenArrestedIcon";
-            happinessIcon.tooltip = FavCimsLang.Text("CitizenArrested");
+            happinessIcon.tooltip = FavCimsLang.Text("CitizenArrestedStatus");
 
             activityButton.text = data.ActivityText;
             activityButton.isEnabled = data.ActivityEnabled;
@@ -559,17 +548,16 @@ namespace FavoriteCims.UI.PanelsRows
         public void SetDead(CitizenRowData data)
         {
             happinessIcon.normalBgSprite = "NotificationIconDead";
-            happinessIcon.tooltip = FavCimsLang.Text("PeopleLifeStatusDead");
+            happinessIcon.tooltip = FavCimsLang.Text("CitizenDeceasedStatus");
 
             realAgeButton.text = data.DeathRealAge > 0 ? data.DeathRealAge.ToString() : data.RealAge.ToString();
 
             nameButton.text = data.Name;
             nameButton.tooltip = data.NameTooltip;
 
-            agePhaseButton.text = FavCimsLang.Text("AgePhaseDead" + (data.Gender == Citizen.Gender.Female ? "Female" : "Male"));
+            agePhaseButton.text = FavCimsLang.Text("CitizenLifeStageDeceased" + (data.Gender == Citizen.Gender.Female ? "Female" : "Male"));
 
-            homeCell.ShowState(FavCimsLang.Text("HomeLocationDead"), null,
-                BuildingIconData.FromSprite(MyAtlas.FavCimsAtlas, "GraveIcon"));
+            homeCell.ShowState(FavCimsLang.Text("CitizenHomeCemeteryStatus"), null, BuildingIconData.FromSprite(MyAtlas.FavCimsAtlas, "GraveIcon"));
             workplaceCell.DisableNavigationAndDetails();
 
             activityButton.text = data.ActivityText;
@@ -591,13 +579,12 @@ namespace FavoriteCims.UI.PanelsRows
             happinessOverride.texture = TextureDB.FavCimsHappyOverride_texture;
 
             happinessOverride.relativePosition = Vector3.zero;
-            happinessOverride.tooltip = FavCimsLang.Text("PeopleLifeStatusIsGone");
+            happinessOverride.tooltip = FavCimsLang.Text("CitizenLeftCityStatus");
 
             nameButton.text = data.Name;
             nameButton.tooltip = data.NameTooltip;
 
-            homeCell.ShowState(FavCimsLang.Text("HomeOutsideTheCity"), null,
-                BuildingIconData.FromSprite(MyAtlas.FavCimsAtlas, "HomelessIcon"));
+            homeCell.ShowState(FavCimsLang.Text("CitizenHomeOutsideCityStatus"), null, BuildingIconData.FromSprite(MyAtlas.FavCimsAtlas, "HomelessIcon"));
             workplaceCell.DisableNavigationAndDetails();
 
             activityButton.isEnabled = false;
@@ -613,7 +600,7 @@ namespace FavoriteCims.UI.PanelsRows
         {
             familyButton.isEnabled = enabled;
 
-            familyButton.tooltip = FavCimsLang.Text(enabled ? "CitizenDetails" : "CitizenDetailsNoUnit");
+            familyButton.tooltip = FavCimsLang.Text(enabled ? "CitizenDetailsTitle" : "CitizenNoHouseholdStatus");
 
             familyButton.normalBgSprite = isOpen ? "CityInfoFocused" : "CityInfo";
         }
@@ -646,7 +633,7 @@ namespace FavoriteCims.UI.PanelsRows
 
         public void SetHomeOutsideCity()
         {
-            SetUnavailableHome(FavCimsLang.Text("HomeOutsideTheCity"));
+            SetUnavailableHome(FavCimsLang.Text("CitizenHomeOutsideCityStatus"));
         }
 
         public void SetNoLocalHome()

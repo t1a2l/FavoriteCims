@@ -95,7 +95,7 @@ namespace FavoriteCims.UI.Buttons
             if (!hasCitizens)
             {
                 isEnabled = false;
-                tooltip = FavCimsLang.Text("BuildingIsEmpty");
+                tooltip = FavCimsLang.Text("BuildingNoOccupantsStatus");
                 CloseBuildingPanel();
                 return;
             }
@@ -157,7 +157,7 @@ namespace FavoriteCims.UI.Buttons
             if (service == ItemClass.Service.Residential || isAreaResidential)
             {
                 SetButtonStyle("ResidentialBuildingButton");
-                tooltip = FavCimsLang.Text("CitizensHouseHolds");
+                tooltip = FavCimsLang.Text("BuildingViewResidentsText");
                 return true;
             }
 
@@ -165,17 +165,13 @@ namespace FavoriteCims.UI.Buttons
             {
                 case ItemClass.Service.Commercial:
                     SetButtonStyle("CommercialBuildingButton");
-                    tooltip = FavCimsLang.Text("CitizenOnBuilding");
+                    tooltip = FavCimsLang.Text("BuildingViewOccupantsText");
                     return true;
 
                 case ItemClass.Service.Office:
-                    SetButtonStyle("CommercialBuildingButton");
-                    tooltip = FavCimsLang.Text("WorkersOnBuilding");
-                    return true;
-
                 case ItemClass.Service.Industrial:
-                    SetButtonStyle("IndustrialBuildingButton");
-                    tooltip = FavCimsLang.Text("WorkersOnBuilding");
+                    SetButtonStyle(service == ItemClass.Service.Industrial ? "IndustrialBuildingButton" : "CommercialBuildingButton");
+                    tooltip = GetListTooltip("BuildingWorkersTitle");
                     return true;
 
                 case ItemClass.Service.Electricity:
@@ -186,12 +182,12 @@ namespace FavoriteCims.UI.Buttons
                 case ItemClass.Service.PlayerIndustry:
                 case ItemClass.Service.Fishing:
                     SetButtonStyle("IndustrialBuildingButton");
-                    tooltip = GetListTooltip("OnBuildingWorkers");
+                    tooltip = GetListTooltip("BuildingWorkersTitle");
                     return true;
 
                 case ItemClass.Service.Beautification:
                     SetButtonStyle("CommercialBuildingButton");
-                    tooltip = GetListTooltip("OnBuildingGuests");
+                    tooltip = GetListTooltip("BuildingVisitorsTitle");
                     return true;
 
                 case ItemClass.Service.HealthCare:
@@ -204,13 +200,9 @@ namespace FavoriteCims.UI.Buttons
                 case ItemClass.Service.VarsitySports:
                 case ItemClass.Service.ServicePoint:
                 case ItemClass.Service.Hotel:
-                    SetButtonStyle("CommercialBuildingButton");
-                    tooltip = GetListTooltip("OnBuildingWorkers");
-                    return true;
-
                 case ItemClass.Service.Monument:
                     SetButtonStyle("CommercialBuildingButton");
-                    tooltip = GetListTooltip("CitizenOnBuilding");
+                    tooltip = GetListTooltip("BuildingOccupantsTitle");
                     return true;
 
                 default:
@@ -229,7 +221,7 @@ namespace FavoriteCims.UI.Buttons
 
         private static string GetListTooltip(string categoryKey)
         {
-            return FavCimsLang.Text("ViewList") + " " + FavCimsLang.Text(categoryKey);
+            return FavCimsLang.Text("MainViewListText") + FavCimsLang.Text(categoryKey);
         }
 
         private void OnButtonClicked(UIComponent component, UIMouseEventParameter eventParam)

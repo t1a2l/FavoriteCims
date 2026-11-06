@@ -79,7 +79,7 @@ namespace FavoriteCims.Utils.Services
 
             home.BuildingId = buildingId;
             home.DisplayName = buildingManager.GetBuildingName(buildingId, citizenInstance);
-            home.TextTooltip = FavCimsLang.Text("HomeBubblePanelLabel") + home.DisplayName;
+            home.TextTooltip = FavCimsLang.Text("CitizenHomeLabel") + home.DisplayName;
             home.TypeTooltip = home.DisplayName;
             home.DistrictId = Singleton<DistrictManager>.instance.GetDistrict(building.m_position);
             home.DistrictTooltip = GetDistrictTooltip(home.DistrictId);
@@ -99,7 +99,7 @@ namespace FavoriteCims.Utils.Services
 
             workplace.BuildingId = buildingId;
             workplace.DisplayName = buildingManager.GetBuildingName(buildingId, citizenInstance);
-            workplace.TextTooltip = FavCimsLang.Text("GenericJobPlace");
+            workplace.TextTooltip = FavCimsLang.Text("CitizenGenericWorkplaceTooltip");
             workplace.TypeTooltip = workplace.DisplayName;
             workplace.DistrictId = Singleton<DistrictManager>.instance.GetDistrict(building.m_position);
             workplace.DistrictTooltip = GetDistrictTooltip(workplace.DistrictId);
@@ -166,7 +166,7 @@ namespace FavoriteCims.Utils.Services
             }
             if (data.IsArrested && data.IsCriminal)
             {
-                data.ActivityText = FavCimsLang.Text("JailedInto") + " " + data.TargetName;
+                data.ActivityText = FavCimsLang.Text("CitizenDetainedAtLabel") + " " + data.TargetName;
                 data.ActivityTooltip = data.ActivityText;
                 return;
             }
@@ -175,7 +175,7 @@ namespace FavoriteCims.Utils.Services
             data.ActivityTooltip = data.ActivityText;
             if (data.Vehicle == 0)
             {
-                data.VehicleTooltip = FavCimsLang.Text("OnFoot");
+                data.VehicleTooltip = FavCimsLang.Text("CitizenWalkingTooltip");
                 return;
             }
             var vehicles = vehicleManager.m_vehicles.m_buffer;
@@ -196,7 +196,7 @@ namespace FavoriteCims.Utils.Services
         private static void ReadDeathState(ref CitizenRowData data)
         {
             data.DeathRealAge = data.RealAge;
-            data.DeathDate = GameTime.FavCimsDate(FavCimsLang.Text("TimeFormat"), "n/a");
+            data.DeathDate = GameTime.FavCimsDate(FavCimsLang.Text("DateDayFirstFormat"), "n/a");
             data.DeathTime = GameTime.FavCimsTime();
             data.ActivityText = string.Empty;
             data.ActivityEnabled = false;
@@ -220,7 +220,7 @@ namespace FavoriteCims.Utils.Services
         private static string GetDistrictTooltip(int districtId)
         {
             var districtManager = Singleton<DistrictManager>.instance;
-            return FavCimsLang.Text("DistrictLabel") + (districtId == 0 ? FavCimsLang.Text("DistrictNameNoDistrict") : districtManager.GetDistrictName(districtId));
+            return FavCimsLang.Text("DistrictLabel") + (districtId == 0 ? FavCimsLang.Text("DistrictNoneText") : districtManager.GetDistrictName(districtId));
         }
 
         /// <summary>Safely selects an existing level-overlay asset.</summary>

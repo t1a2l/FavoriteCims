@@ -26,13 +26,13 @@ namespace FavoriteCims.UI.Panels
                     return;
                 }
                 FavCimsWorkingPlaceSprite.texture = workplace.IsRetired ? TextureDB.FavCimsWorkingPlaceTextureRetired : TextureDB.FavCimsWorkingPlaceTexture;
-                FavCimsWorkingPlace.text = workplace.IsRetired ? FavCimsLang.Text("CitizenRetired") : Locale.Get("CITIZEN_OCCUPATION_UNEMPLOYED");
-                FavCimsWorkingPlace.tooltip = workplace.IsRetired ? FavCimsLang.Text("CitizenRetiredTooltip") : FavCimsLang.Text("UnemployedTooltip");
+                FavCimsWorkingPlace.text = workplace.IsRetired ? FavCimsLang.Text("CitizenRetiredStatus") : FavCimsLang.Text("CitizenUnemployedStatus");
+                FavCimsWorkingPlace.tooltip = workplace.IsRetired ? FavCimsLang.Text("CitizenRetiredTooltip") : FavCimsLang.Text("CitizenUnemployedTooltip");
                 return;
             }
 
             FavCimsWorkingPlace.isEnabled = true;
-            FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + " " + (workplace.DistrictId == 0 ? FavCimsLang.Text("DistrictNameNoDistrict") : workplace.DistrictName);
+            FavCimsWorkingPlaceSprite.tooltip = FavCimsLang.Text("DistrictLabel") + " " + (workplace.DistrictId == 0 ? FavCimsLang.Text("DistrictNoneText") : workplace.DistrictName);
 
             if (workplace.IsStudent)
             {
@@ -80,22 +80,22 @@ namespace FavoriteCims.UI.Panels
                     case ItemClass.SubService.CommercialEco:
                         FavCimsWorkingPlace.textColor = new Color32(0, 150, 136, 116);
                         FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("BuildingsTypeCommercialEco");
+                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("BuildingTypeCommercialEcoTitle");
                         break;
                     case ItemClass.SubService.CommercialLeisure:
                         FavCimsWorkingPlace.textColor = new Color32(219, 68, 55, 3);
                         FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("BuildingsTypeCommercialLeisure");
+                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("BuildingTypeCommercialLeisureTitle");
                         break;
                     case ItemClass.SubService.CommercialTourist:
                         FavCimsWorkingPlace.textColor = new Color32(156, 39, 176, 194);
                         FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("BuildingsTypeCommercialTourist");
+                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("BuildingTypeCommercialTourismTitle");
                         break;
                     case ItemClass.SubService.CommercialWallToWall:
                         FavCimsWorkingPlace.textColor = new Color32(0, 153, 204, 130);
                         FavCimsWorkingPlaceSprite.texture = TextureDB.FavCimsCitizenCommercialHighTexture;
-                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("BuildingsTypeCommercialWallToWall");
+                        FavCimsWorkingPlace.tooltip = FavCimsLang.Text("BuildingTypeCommercialWallToWallTitle");
                         break;
                     default:
                         FavCimsWorkingPlace.textColor = new Color32(0, 153, 204, 130);
@@ -219,12 +219,12 @@ namespace FavoriteCims.UI.Panels
                         {
                             case ItemClass.Service.Electricity:
                                 FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyPowerSaving";
-                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("ElectricityJob");
+                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("CitizenElectricityWorkplaceTooltip");
                                 found_service = true;
                                 break;
                             case ItemClass.Service.Water:
                                 FavCimsWorkingPlaceButtonGamDefImg.normalBgSprite = "IconPolicyWaterSaving";
-                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("WaterJob");
+                                FavCimsWorkingPlace.tooltip = FavCimsLang.Text("CitizenWaterWorkplaceTooltip");
                                 found_service = true;
                                 break;
                             case ItemClass.Service.Beautification:

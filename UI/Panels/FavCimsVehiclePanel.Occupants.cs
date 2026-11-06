@@ -35,8 +35,8 @@ namespace FavoriteCims.UI.Panels
             }
             driverPanel.isVisible = hasDriver;
             passengersPanel.isVisible = passengerSlot > 1;
-            driverPanelText.text = FavCimsLang.Text("VehicleDriverIconText");
-            passengersPanelText.text = FavCimsLang.Text(passengerSlot > 1 ? "VehiclePassengerIconText" : "ViewNoPassengers");
+            driverPanelText.text = FavCimsLang.Text("VehicleDriverTitle");
+            passengersPanelText.text = FavCimsLang.Text(passengerSlot > 1 ? "VehiclePassengersTitle" : "VehicleNoPassengersStatus");
         }
     }
 }

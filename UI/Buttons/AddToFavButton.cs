@@ -62,7 +62,7 @@ namespace FavoriteCims.UI.Buttons
 
             normalBgSprite = isFavorite ? "IconFavSubscribed" : "IconFavUnsubscribed";
 
-            tooltip = validCitizen ? FavCimsLang.Text(isFavorite ? "FavStarButtonDisableTooltip" : "FavStarButtonEnableTooltip") : string.Empty;             
+            tooltip = validCitizen ? FavCimsLang.Text(isFavorite ? "FavoriteRemoveTooltip" : "FavoriteAddTooltip") : string.Empty;             
         }
     }
 }

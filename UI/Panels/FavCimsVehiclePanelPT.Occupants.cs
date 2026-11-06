@@ -28,7 +28,7 @@ namespace FavoriteCims.UI.Panels
                 if (row != null && (row.citizen != 0 || row.isVisible)) ResetPassengerRow(row);
             }
             passengersPanel.isVisible = usedRows > 0;
-            passengersPanelText.text = FavCimsLang.Text(usedRows > 0 ? "VehiclePassengerIconText" : "ViewNoPassengers");
+            passengersPanelText.text = FavCimsLang.Text(usedRows > 0 ? "VehiclePassengersTitle" : "VehicleNoPassengersStatus");
         }
     }
 }

@@ -256,12 +256,12 @@ namespace FavoriteCims.UI.PanelsRows
             if (FavCimsCore.IsFavorite(citizen))
             {
                 Star.normalBgSprite = "IconFavSubscribed";
-                Star.tooltip = FavCimsLang.Text("FavStarButtonDisableTooltip");
+                Star.tooltip = FavCimsLang.Text("FavoriteRemoveTooltip");
             }
             else
             {
                 Star.normalBgSprite = "IconFavUnsubscribed";
-                Star.tooltip = FavCimsLang.Text("FavStarButtonEnableTooltip");
+                Star.tooltip = FavCimsLang.Text("FavoriteAddTooltip");
             }
         }
 

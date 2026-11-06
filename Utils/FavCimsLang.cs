@@ -27,183 +27,456 @@ namespace FavoriteCims.Utils
 					{
 						it = new Dictionary<string, string>
                         {
-                            ["FavCimsButtonTooltip"] = "My Favorite Cims",
-                            ["FavCimsBCMenuButtonText"] = "Citizens",
-                            ["FavCimsBCMenuButtonTooltip"] = "Followed People",
-                            ["FavCimsBBMenuButtonText"] = "Buildings",
-                            ["FavCimsBBMenuButtonTooltip"] = "Favorite Buildings",
-                            ["FavCimsBSMenuButtonText"] = "Stats",
-                            ["FavCimsBSMenuButtonTooltip"] = "Info and Stats",
-                            ["FavStarButtonEnableTooltip"] = "Click here to add to Favorites!",
-                            ["FavStarButtonDisableTooltip"] = "Click here to remove from Favorites :(",
-                            ["FavCimsHappinesColText"] = "Status",
-                            ["FavCimsHappinesColTooltip"] = "Citizen Happiness",
-                            ["FavCimsNameColText"] = "Citizen Name",
-                            ["FavCimsNameColTooltip"] = "Citizen Name",
-                            ["FavCimsEduColText"] = "Education",
-                            ["FavCimsEduColTooltip"] = "Citizen Education Level",
-                            ["FavCimsWorkingPlaceColText"] = "Occupation",
-                            ["FavCimsWorkingPlaceColTooltip"] = "Place where the Citizen Works or Study",
-                            ["FavCimsAgePhaseColText"] = "Age Phase",
-                            ["FavCimsAgePhaseColTooltip"] = "Citizen life Age Phase",
-                            ["FavCimsAgeColText"] = "Age",
-                            ["FavCimsAgeColTooltip"] = "Citizen Age",
-                            ["FavCimsHomeColText"] = "Citizen Home",
-                            ["FavCimsHomeColTooltip"] = "Citizen Living in this House",
-                            ["FavCimsLastActColText"] = "Last Activity",
-                            ["FavCimsLastActColTooltip"] = "What the Citizen is doing at the moment",
-                            ["FavCimsCloseButtonColText"] = "Close",
-                            ["FavCimsCloseButtonColTooltip"] = "Click on close button for remove citizen from favorites :(",
-                            ["Male"] = "Male",
-                            ["Female"] = "Female",
-                            ["AgePhaseChildMale"] = "Child",
-                            ["AgePhaseTeenMale"] = "Boy",
-                            ["AgePhaseYoungMale"] = "Young Man",
-                            ["AgePhaseAdultMale"] = "Man",
-                            ["AgePhaseSeniorMale"] = "Old Man",
-                            ["EducationUneducatedMale"] = "Uneducated",
-                            ["EducationOneSchoolMale"] = "Educated",
-                            ["EducationTwoSchoolsMale"] = "Well Educated",
-                            ["EducationThreeSchoolsMale"] = "Highly Educated",
-                            ["AgePhaseChildFemale"] = "Child",
-                            ["AgePhaseTeenFemale"] = "Girl",
-                            ["AgePhaseYoungFemale"] = "Young Woman",
-                            ["AgePhaseAdultFemale"] = "Woman",
-                            ["AgePhaseSeniorFemale"] = "Old Woman",
-                            ["EducationUneducatedFemale"] = "Uneducated",
-                            ["EducationOneSchoolFemale"] = "Educated",
-                            ["EducationTwoSchoolsFemale"] = "Well Educated",
-                            ["EducationThreeSchoolsFemale"] = "Highly Educated",
-                            ["AgePhaseDeadMale"] = "Dead",
-                            ["AgePhaseDeadFemale"] = "Dead",
-                            ["PeopleLifeStatusAlive"] = "Citizen is alive",
-                            ["PeopleLifeStatusDead"] = "Citizen is dead",
-                            ["PeopleLifeStatusDeadDate"] = "on this date",
-                            ["PeopleLifeStatusDeadTime"] = "at time",
-                            ["NotificationIconVeryUnhappy"] = "Very Unhappy",
-                            ["NotificationIconUnhappy"] = "Unhappy",
-                            ["NotificationIconHappy"] = "Happy",
-                            ["NotificationIconVeryHappy"] = "Very Happy",
-                            ["NotificationIconExtremelyHappy"] = "Extremely Happy",
-                            ["TimeFormat"] = "mm-dd-yyyy",
-                            ["PeopleLifeStatusIsGone"] = "Citizen is gone away from the city",
-                            ["CitizenHomeLess"] = "Homeless",
-                            ["CitizenHomeLessTooltip"] = "Citizen has no home",
-                            ["HomeOutsideTheCity"] = "Far far away",
-                            ["HomeLocationDead"] = "At Cemetery",
-                            ["CitizenRetired"] = "Retired",
-                            ["CitizenRetiredTooltip"] = "Citizen retired from work",
-                            ["UnemployedTooltip"] = "Citizen has much free time at the moment...",
-                            ["GovernmentJob"] = "Government Building",
-                            ["ElectricityJob"] = "Electricity Plant",
-                            ["WaterJob"] = "Water Plant",
-                            ["GenericJobPlace"] = "Citizen Works in this building",
-                            ["OnFoot"] = "Citizen walking on foot",
-                            ["CitizenDetails"] = "Citizen Detail",
-                            ["CitizenDetailsFullTemplate"] = "Too many Family Windows opened, close one before open another",
-                            ["StatusStaticLabel"] = "Status : ",
-                            ["CitizenFamilyUnit"] = "Family",
-                            ["NowInThisDistrict"] = "In this moment is in District: ",
+                            // ============================================================
+                            // Main navigation
+                            // ============================================================
+
+                            ["MainViewListText"] = "View ",
+                            ["MainButtonTooltip"] = "Open Favorite Cims",
+
+                            ["MainCitizensTabText"] = "Citizens",
+                            ["MainCitizensTabTooltip"] = "View favorite citizens",
+
+                            ["MainBuildingsTabText"] = "Buildings",
+                            ["MainBuildingsTabTooltip"] = "View favorite buildings",
+
+                            ["MainStatisticsTabText"] = "Stats",
+                            ["MainStatisticsTabTooltip"] = "View information and statistics",
+
+                            // ============================================================
+                            // Favorite actions
+                            // ============================================================
+
+                            ["FavoriteAddTooltip"] = "Add to favorites",
+                            ["FavoriteRemoveTooltip"] = "Remove from favorites",
+
+                            // ============================================================
+                            // Citizen table columns
+                            // ============================================================
+
+                            ["CitizenStatusColumnTitle"] = "Status",
+                            ["CitizenStatusColumnTooltip"] = "Citizen happiness",
+
+                            ["CitizenNameColumnTitle"] = "Citizen name",
+                            ["CitizenNameColumnTooltip"] = "Citizen name",
+
+                            ["CitizenLifeStageColumnTitle"] = "Life stage",
+                            ["CitizenLifeStageColumnTooltip"] = "Citizen life stage",
+
+                            ["CitizenAgeColumnTitle"] = "Age",
+                            ["CitizenAgeColumnTooltip"] = "Citizen age",
+
+                            ["CitizenEducationColumnTitle"] = "Education",
+                            ["CitizenEducationColumnTooltip"] = "Citizen education level",
+
+                            ["CitizenHomeColumnTitle"] = "Home",
+                            ["CitizenHomeColumnTooltip"] = "Citizen home",
+
+                            ["CitizenOccupationColumnTitle"] = "Occupation",
+                            ["CitizenOccupationColumnTooltip"] = "Workplace, school, or occupation",
+
+                            ["CitizenActivityColumnTitle"] = "Activity",
+                            ["CitizenActivityColumnTooltip"] = "What the citizen is currently doing",
+
+                            ["CitizenRemoveColumnTitle"] = "Remove",
+                            ["CitizenRemoveColumnTooltip"] = "Remove this citizen from favorites",
+
+                            // ============================================================
+                            // Citizen gender
+                            // ============================================================
+
+                            ["CitizenGenderLabelMale"] = "Male",
+                            ["CitizenGenderLabelFemale"] = "Female",
+
+                            // ============================================================
+                            // Citizen life stages
+                            // Keep gender suffixes for languages that require them.
+                            // ============================================================
+
+                            ["CitizenLifeStageChildMale"] = "Child",
+                            ["CitizenLifeStageTeenMale"] = "Teen",
+                            ["CitizenLifeStageYoungAdultMale"] = "Young adult",
+                            ["CitizenLifeStageAdultMale"] = "Adult",
+                            ["CitizenLifeStageSeniorMale"] = "Senior",
+                            ["CitizenLifeStageDeceasedMale"] = "Deceased",
+
+                            ["CitizenLifeStageChildFemale"] = "Child",
+                            ["CitizenLifeStageTeenFemale"] = "Teen",
+                            ["CitizenLifeStageYoungAdultFemale"] = "Young adult",
+                            ["CitizenLifeStageAdultFemale"] = "Adult",
+                            ["CitizenLifeStageSeniorFemale"] = "Senior",
+                            ["CitizenLifeStageDeceasedFemale"] = "Deceased",
+
+                            // ============================================================
+                            // Citizen education
+                            // ============================================================
+
+                            ["CitizenEducationUneducatedMale"] = "Uneducated",
+                            ["CitizenEducationEducatedMale"] = "Educated",
+                            ["CitizenEducationWellEducatedMale"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedMale"] = "Highly educated",
+
+                            ["CitizenEducationUneducatedFemale"] = "Uneducated",
+                            ["CitizenEducationEducatedFemale"] = "Educated",
+                            ["CitizenEducationWellEducatedFemale"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedFemale"] = "Highly educated",
+
+                            // ============================================================
+                            // Citizen life status
+                            // ============================================================
+
+                            ["CitizenAliveStatus"] = "Citizen is alive",
+                            ["CitizenDeceasedStatus"] = "Citizen is deceased",
+                            ["CitizenLeftCityStatus"] = "Citizen has left the city",
+
+                            ["CitizenDeathDateLabel"] = "Date of death: ",
+                            ["CitizenDeathTimeLabel"] = "Time of death: ",
+
+                            // ============================================================
+                            // Date and time formats
+                            // Date order and clock format are independent settings.
+                            // Quoted separators preserve the displayed punctuation.
+                            // ============================================================
+
+                            ["DateMonthFirstFormat"] = "MM'/'dd'/'yyyy",
+                            ["DateDayFirstFormat"] = "dd'/'MM'/'yyyy",
+                            ["DateYearFirstFormat"] = "yyyy'-'MM'-'dd",
+
+                            ["Time12HourFormat"] = "hh':'mm tt",
+                            ["Time24HourFormat"] = "HH':'mm",
+
+                            ["DateFormatSettingLabel"] = "Date format",
+                            ["DateFormatSettingTooltip"] = "Choose the order of the month, day, and year",
+
+                            ["DateMonthFirstOptionText"] = "Month / Day / Year",
+                            ["DateDayFirstOptionText"] = "Day / Month / Year",
+                            ["DateYearFirstOptionText"] = "Year / Month / Day",
+
+                            ["TimeFormatSettingLabel"] = "Time format",
+                            ["TimeFormatSettingTooltip"] = "Choose a 12-hour or 24-hour clock",
+
+                            ["Time12HourOptionText"] = "12-hour clock",
+                            ["Time24HourOptionText"] = "24-hour clock",
+
+                            // ============================================================
+                            // Citizen happiness
+                            // ============================================================
+
+                            ["CitizenHappinessVeryUnhappyStatus"] = "Very unhappy",
+                            ["CitizenHappinessUnhappyStatus"] = "Unhappy",
+                            ["CitizenHappinessHappyStatus"] = "Happy",
+                            ["CitizenHappinessVeryHappyStatus"] = "Very happy",
+                            ["CitizenHappinessExtremelyHappyStatus"] = "Extremely happy",
+
+                            // ============================================================
+                            // Citizen home
+                            // ============================================================
+
+                            ["CitizenHomelessStatus"] = "Homeless",
+                            ["CitizenHomelessTooltip"] = "Citizen has no home",
+
+                            ["CitizenHomeOutsideCityStatus"] = "Outside the city",
+                            ["CitizenHomeOutsideCityTooltip"] = "Citizen lives outside the city",
+
+                            ["CitizenHomeCemeteryStatus"] = "Cemetery",
+
+                            // ============================================================
+                            // Citizen occupation
+                            // ============================================================
+
+                            ["CitizenRetiredStatus"] = "Retired",
+                            ["CitizenRetiredTooltip"] = "Citizen is retired",
+
+                            ["CitizenUnemployedStatus"] = "Unemployed",
+                            ["CitizenUnemployedTooltip"] = "Citizen is unemployed",
+
+                            ["CitizenGovernmentWorkplaceTooltip"] = "Government building",
+                            ["CitizenElectricityWorkplaceTooltip"] = "Electricity facility",
+                            ["CitizenWaterWorkplaceTooltip"] = "Water facility",
+                            ["CitizenGenericWorkplaceTooltip"] = "Citizen works here",
+
+                            ["CitizenWalkingTooltip"] = "Travelling on foot",
+                            ["CitizenTouristTooltip"] = "This citizen is visiting the city",
+
+                            // ============================================================
+                            // Citizen details and family
+                            // ============================================================
+
+                            ["CitizenDetailsTitle"] = "Citizen details",
+                            ["CitizenDetailsUnavailableTooltip"] = "No details window is available. Close an existing window and try again.",
+
+                            ["CitizenStatusLabel"] = "Status: ",
+                            ["CitizenHomeLabel"] = "Home: ",
+
+                            ["CitizenFamilyTitle"] = "Family",
+                            ["CitizenNoPartnerStatus"] = "No partner",
+                            ["CitizenNoChildrenStatus"] = "No children",
+                            ["CitizenNoHouseholdStatus"] = "No household details available",
+
+                            ["CitizenSwitchTooltip"] = "Right-click to view this citizen",
+
+                            // ============================================================
+                            // Districts
+                            // ============================================================
+
+                            ["CitizenCurrentDistrictLabel"] = "Current district: ",
+                            ["CitizenCurrentDistrictTooltip"] = "Citizen's current district",
+
                             ["DistrictLabel"] = "District: ",
-                            ["DistrictNameNoDistrict"] = "None",
-                            ["CitizenDetailsNoPartner"] = "No Partner",
-                            ["CitizenDetailsNoChilds"] = "No Childs",
-                            ["RightClickToSwitchTooltip"] = "Right Click to Switch Citizen",
-                            ["HomeBubblePanelLabel"] = "Home : ",
-                            ["LowWealthMale"] = "Poor",
-                            ["MidWealthMale"] = "Well-off",
-                            ["HighWealthMale"] = "Rich",
-                            ["LowWealthFemale"] = "Poor",
-                            ["MidWealthFemale"] = "Well-off",
-                            ["HighWealthFemale"] = "Rich",
-                            ["WellBeingLabel"] = "Wellbeing: ",
-                            ["HappinessLabel"] = "Happiness : ",
-                            ["WealthLabel"] = "Wealth",
-                            ["HealthLevelVerySickMale"] = "Very Sick",
-                            ["HealthLevelSickMale"] = "Sick",
-                            ["HealthLevelPoorHealthMale"] = "Poor Health",
-                            ["HealthLevelHealthyMale"] = "Healthy",
-                            ["HealthLevelVeryHealthyMale"] = "Very Healthy",
-                            ["HealthLevelExcellentHealthMale"] = "Excellent Health",
-                            ["HealthLevelVerySickFemale"] = "Very Sick",
-                            ["HealthLevelSickFemale"] = "Sick",
-                            ["HealthLevelPoorHealthFemale"] = "Poor Health",
-                            ["HealthLevelHealthyFemale"] = "Healthy",
-                            ["HealthLevelVeryHealthyFemale"] = "Very Healthy",
-                            ["HealthLevelExcellentHealthFemale"] = "Excellent Health",
-                            ["DistrictLabel"] = "District: ",
-                            ["DistrictLabelTooltip"] = "In this District at the moment",
-                            ["CitizenDetailsNoUnit"] = "Citizen is dead or homeless",
-                            ["CitizenWaitHearse"] = "Waiting for funeral car",
-                            ["CitizenOnHearse"] = "On funeral car",
-                            ["CitizenHisFuneral"] = "Funeral ceremony",
-                            ["CitizenBuried"] = "Six Feet Under",
-                            ["CitizenTouristTooltip"] = "This citizen is visiting our City",
-                            ["ViewPassengersList"] = "View passengers list",
-                            ["ViewNoPassengers"] = "No passengers",
-                            ["VehiclePassengers"] = "Passengers on board",
-                            ["VehicleDriverIconText"] = "Vehicle Driver",
-                            ["VehiclePassengerIconText"] = "Passengers",
-                            ["CitizensHouseHolds"] = "View Residents",
-                            ["CitizensHouseHoldsTitle"] = "Residents",
-                            ["CitizenOnBuilding"] = "Employees and Guests List",
-                            ["CitizenOnBuildingTitle"] = "Employees and Guests",
-                            ["CitizenOnHotelBuildingTitle"] = "Employees and Hotel Guests and Visitors",
-                            ["OnBuildingResidential"] = "Apartment ",
-                            ["OnBuildingHotelRooms"] = "Hotel Room ",
-                            ["ViewList"] = "View ",
-                            ["OnBuildingGuests"] = "Guests",
-                            ["OnBuildingWorkers"] = "Employees",
-                            ["OnBuildingWorkersPresent"] = "At work",
-                            ["OnBuildingWorkersAway"] = "Not at work",
-                            ["OnBuildingWorkersUnknown"] = "Presence unavailable",
-                            ["WorkersOnBuilding"] = "List of employees",
-                            ["OnBuildingNoWorkers"] = "Nobody at work",
-                            ["OnBuildingNoGuests"] = "No guests inside",
-                            ["OnBuildingNoHotelGuests"] = "No hotel guests inside",
-                            ["BuildingIsEmpty"] = "Nobody works or lives here",
-                            ["OnBuildingTotalWorkers"] = "Tot :",
-                            ["BuildingsTypeCommercialEco"] = "Ecologic Commercial Building",
-                            ["BuildingsTypeCommercialLeisure"] = "Leisure Commercial Building",
-                            ["BuildingsTypeCommercialTourist"] = "Tourism Commercial Building",
-                            ["BuildingsTypeCommercialWallToWall"] = "Wall-to-Wall Commercial Building",
-                            ["CitizenArrested"] = "This Citizen is in Jail!",
-                            ["TransportedToPrison"] = "Transported to Prison",
-                            ["JailedInto"] = "Jailed into ",
-                            ["CitizenAtSchool"] = "Pupils at school",
-                            ["CitizenAtUniversity"] = "Students at university",
-                            ["CitizenAtClinic"] = "Patients being treated",
-                            ["CitizenUnderArrest"] = "Citizens under arrest",
-                            ["OnBuildingNoArrested"] = "Nobody jailed here",
-                            ["OnPoliceBuildingService"] = "Officers and Prisoners",
-                            ["OnPrisonBuildingService"] = "Guards and Prisoners",
-                            ["OnEducationBuildingService"] = "Teachers and Pupils",
-                            ["OnHighEducationBuildingService"] = "Lecturers and Students",
-                            ["OnMedicalBuildingService"] = "Doctors and Patients",
-                            ["OnMedicalUniversityBuildingService"] = "Doctors and Patients and Students",
-                            ["OnBuildingNoStudents"] = "No Students inside",
-                            ["OnBuildingNoPatients"] = "No Patients inside",
-                            ["OnHelicopterBuildingService"] = "Pilots and Workers",
-                            ["OnFireBuildingService"] = "FireFighters and Workers",
-                            ["OnRescueBuildingService"] = "Pilots and RescueWorkers",
-                            ["OnShelterBuildingService"] = "Survivors and Workers",
-                            ["OnBuildingNoHotelGuests"] = "No Hotel guests inside",
-                            ["MainResizeHandleTooltip"] = "Drag to resize the window",
-                            ["MainResetSizeText"] = "Reset size",
-                            ["MainResetSizeTooltip"] = "Restore the default window size",
-                            ["ResidentialLow"] = "Residential Low",
-                            ["ResidentialHigh"] = "Residential High",
-                            ["ResidentialLowEco"] = "Residential Low Eco",
-                            ["ResidentialHighEco"] = "Residential High Eco",
-                            ["ResidentialWallToWall"] = "Residential Wall-to-Wall",
-                            ["CommercialLow"] = "Commercial Low",
-                            ["CommercialHigh"] = "Commercial High",
-                            ["CommercialLeisure"] = "Commercial Leisure",
-                            ["CommercialTourist"] = "Commercial Tourist",
-                            ["CommercialEco"] = "Commercial Eco",
-                            ["CommercialWallToWall"] = "Commercial Wall-to-Wall",
-                            ["Industrial"] = "Industrial",
-                            ["Office"] = "Office"
+                            ["DistrictNoneText"] = "None",
+
+                            // ============================================================
+                            // Citizen wealth and wellbeing
+                            // ============================================================
+
+                            ["CitizenWealthLowStatusMale"] = "Poor",
+                            ["CitizenWealthMediumStatusMale"] = "Well-off",
+                            ["CitizenWealthHighStatusMale"] = "Rich",
+
+                            ["CitizenWealthLowStatusFemale"] = "Poor",
+                            ["CitizenWealthMediumStatusFemale"] = "Well-off",
+                            ["CitizenWealthHighStatusFemale"] = "Rich",
+
+                            ["CitizenWellbeingLabel"] = "Wellbeing: ",
+                            ["CitizenHappinessLabel"] = "Happiness: ",
+                            ["CitizenWealthLabel"] = "Wealth",
+
+                            // ============================================================
+                            // Citizen health
+                            // ============================================================
+
+                            ["CitizenHealthVerySickStatusMale"] = "Very sick",
+                            ["CitizenHealthSickStatusMale"] = "Sick",
+                            ["CitizenHealthPoorStatusMale"] = "Poor health",
+                            ["CitizenHealthHealthyStatusMale"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatusMale"] = "Very healthy",
+                            ["CitizenHealthExcellentStatusMale"] = "Excellent health",
+
+                            ["CitizenHealthVerySickStatusFemale"] = "Very sick",
+                            ["CitizenHealthSickStatusFemale"] = "Sick",
+                            ["CitizenHealthPoorStatusFemale"] = "Poor health",
+                            ["CitizenHealthHealthyStatusFemale"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatusFemale"] = "Very healthy",
+                            ["CitizenHealthExcellentStatusFemale"] = "Excellent health",
+
+                            // ============================================================
+                            // Death and funeral status
+                            // ============================================================
+
+                            ["CitizenWaitingForHearseStatus"] = "Waiting for a hearse",
+                            ["CitizenInHearseStatus"] = "Being transported by hearse",
+                            ["CitizenFuneralStatus"] = "Funeral service",
+                            ["CitizenBuriedStatus"] = "Buried",
+
+                            // ============================================================
+                            // Vehicles and passengers
+                            // ============================================================
+
+                            ["VehicleViewPassengersText"] = "View passengers",
+                            ["VehicleNoPassengersStatus"] = "No passengers",
+
+                            ["VehiclePassengersTitle"] = "Passengers on board",
+                            ["VehicleDriverTitle"] = "Driver",
+                            ["VehiclePassengerTooltip"] = "Passenger",
+                            ["VehiclePassengersButtonTooltip"] = "View passengers list",
+
+                            // ============================================================
+                            // Building occupant panel actions and titles
+                            // ============================================================
+
+                            ["BuildingViewResidentsText"] = "View residents",
+                            ["BuildingResidentsTitle"] = "Residents",
+
+                            ["BuildingViewOccupantsText"] = "View building occupants",
+                            ["BuildingOccupantsTitle"] = "Building occupants",
+
+                            ["BuildingHotelOccupantsTitle"] = "Workers, hotel guests, and visitors",
+
+                            ["BuildingNoOccupantsStatus"] = "No listed occupants",
+                            ["BuildingOccupantTotalLabel"] = "Total: ",
+
+                            // ============================================================
+                            // Registered resident sections
+                            // Number is appended by the caller.
+                            // ============================================================
+
+                            ["BuildingHouseholdTitle"] = "Household ",
+                            ["BuildingResidentsTooltip"] = "Registered residents",
+
+                            // ============================================================
+                            // Registered worker sections
+                            // Presence and roster membership have separate empty states.
+                            // ============================================================
+
+                            ["BuildingWorkersTitle"] = "Workers",
+                            ["BuildingWorkersPresentTitle"] = "At workplace",
+                            ["BuildingWorkersAwayTitle"] = "Away from workplace",
+                            ["BuildingWorkersUnknownTitle"] = "Presence unavailable",
+
+                            ["BuildingWorkersTooltip"] = "Registered workers",
+                            ["BuildingWorkersPresentTooltip"] = "Registered workers currently present at this building",
+                            ["BuildingWorkersAwayTooltip"] = "Registered workers who are elsewhere or travelling here",
+                            ["BuildingWorkersUnknownTooltip"] = "Registered workers whose current presence could not be determined",
+
+                            ["BuildingNoWorkersStatus"] = "No registered workers",
+                            ["BuildingNoWorkersPresentStatus"] = "No workers on-site",
+
+                            // ============================================================
+                            // Enrolled student sections
+                            // ============================================================
+
+                            ["BuildingStudentsTitle"] = "Students",
+                            ["BuildingStudentsPresentTitle"] = "At school",
+                            ["BuildingStudentsAwayTitle"] = "Away from school",
+                            ["BuildingStudentsUnknownTitle"] = "Presence unavailable",
+
+                            ["BuildingStudentsTooltip"] = "Enrolled students",
+                            ["BuildingStudentsPresentTooltip"] = "Enrolled students currently present at this school",
+                            ["BuildingStudentsAwayTooltip"] = "Enrolled students who are elsewhere or travelling here",
+                            ["BuildingStudentsUnknownTooltip"] = "Enrolled students whose current presence could not be determined",
+
+                            ["BuildingNoStudentsStatus"] = "No enrolled students",
+                            ["BuildingNoStudentsPresentStatus"] = "No students on-site",
+
+                            // ============================================================
+                            // Ordinary visitor sections
+                            // ============================================================
+
+                            ["BuildingVisitorsTitle"] = "Visitors",
+                            ["BuildingVisitorsTooltip"] = "Visitors currently inside or travelling to this building",
+
+                            ["BuildingNoVisitorsStatus"] = "No visitors",
+                            ["BuildingNoVisitorsPresentStatus"] = "No visitors inside",
+
+                            // ============================================================
+                            // Registered hotel guest sections
+                            // Number is appended by the caller.
+                            // ============================================================
+
+                            ["BuildingHotelGuestsTitle"] = "Hotel guests",
+                            ["BuildingHotelRoomTitle"] = "Hotel room ",
+                            ["BuildingHotelGuestsTooltip"] = "Registered hotel guests",
+
+                            ["BuildingNoHotelGuestsStatus"] = "No registered hotel guests",
+                            ["BuildingNoHotelGuestsPresentStatus"] = "No hotel guests inside",
+
+                            // ============================================================
+                            // Building presence indicators
+                            // ============================================================
+
+                            ["BuildingPresencePresentTooltip"] = "Present at this building",
+                            ["BuildingPresenceHeadingHereTooltip"] = "Travelling to this building",
+                            ["BuildingPresenceAwayTooltip"] = "Away from this building",
+                            ["BuildingPresenceUnknownTooltip"] = "Presence could not be determined",
+
+                            ["BuildingResidentPresentTooltip"] = "At home",
+                            ["BuildingResidentHeadingHereTooltip"] = "Travelling home",
+                            ["BuildingResidentAwayTooltip"] = "Away from home",
+
+                            ["BuildingWorkerPresentTooltip"] = "At workplace",
+                            ["BuildingWorkerHeadingHereTooltip"] = "Travelling to work",
+                            ["BuildingWorkerAwayTooltip"] = "Away from workplace",
+
+                            ["BuildingStudentPresentTooltip"] = "At school",
+                            ["BuildingStudentHeadingHereTooltip"] = "Travelling to school",
+                            ["BuildingStudentAwayTooltip"] = "Away from school",
+
+                            ["BuildingHotelGuestPresentTooltip"] = "At hotel",
+                            ["BuildingHotelGuestHeadingHereTooltip"] = "Travelling to hotel",
+                            ["BuildingHotelGuestAwayTooltip"] = "Away from hotel",
+
+                            // ============================================================
+                            // Expand/collapse actions
+                            // ============================================================
+
+                            ["BuildingSectionExpandTooltip"] = "Expand this section",
+                            ["BuildingSectionCollapseTooltip"] = "Collapse this section",
+
+                            // ============================================================
+                            // Building-specific occupant sections
+                            // ============================================================
+
+                            ["BuildingSchoolStudentsTitle"] = "Students at school",
+                            ["BuildingUniversityStudentsTitle"] = "Students at university",
+                            ["BuildingPatientsTitle"] = "Patients",
+                            ["BuildingDetaineesTitle"] = "Detainees",
+
+                            ["BuildingNoDetaineesPresentStatus"] = "No detainees inside",
+                            ["BuildingNoPatientsPresentStatus"] = "No patients inside",
+
+                            // ============================================================
+                            // Building-specific panel titles
+                            // ============================================================
+
+                            ["BuildingPoliceOccupantsTitle"] = "Police staff and detainees",
+                            ["BuildingPrisonOccupantsTitle"] = "Prison staff and prisoners",
+
+                            ["BuildingSchoolOccupantsTitle"] = "School staff and students",
+                            ["BuildingUniversityOccupantsTitle"] = "University staff and students",
+
+                            ["BuildingMedicalOccupantsTitle"] = "Medical staff and patients",
+                            ["BuildingMedicalUniversityOccupantsTitle"] = "Medical staff, patients, and students",
+
+                            ["BuildingHelicopterOccupantsTitle"] = "Pilots and workers",
+                            ["BuildingFireStationOccupantsTitle"] = "Firefighters and workers",
+                            ["BuildingRescueOccupantsTitle"] = "Rescue workers",
+                            ["BuildingShelterOccupantsTitle"] = "Shelter occupants and workers",
+
+                            // ============================================================
+                            // Arrest and detention status
+                            // ============================================================
+
+                            ["CitizenArrestedStatus"] = "Citizen is under arrest",
+                            ["CitizenTransportedToPrisonStatus"] = "Being transported to prison",
+                            ["CitizenDetainedAtLabel"] = "Held at ",
+
+                            // ============================================================
+                            // Main window controls
+                            // ============================================================
+
+                            ["MainWindowResizeTooltip"] = "Drag to resize the window",
+                            ["MainWindowResetSizeText"] = "Reset size",
+                            ["MainWindowResetSizeTooltip"] = "Restore the default window size",
+
+                            // ============================================================
+                            // Building categories: residential
+                            // ============================================================
+
+                            ["BuildingTypeResidentialLowTitle"] = "Low-density residential",
+                            ["BuildingTypeResidentialHighTitle"] = "High-density residential",
+
+                            ["BuildingTypeResidentialLowEcoTitle"] = "Low-density eco residential",
+                            ["BuildingTypeResidentialHighEcoTitle"] = "High-density eco residential",
+
+                            ["BuildingTypeResidentialWallToWallTitle"] = "Wall-to-wall residential",
+
+                            // ============================================================
+                            // Building categories: commercial
+                            // ============================================================
+
+                            ["BuildingTypeCommercialLowTitle"] = "Low-density commercial",
+                            ["BuildingTypeCommercialHighTitle"] = "High-density commercial",
+
+                            ["BuildingTypeCommercialLeisureTitle"] = "Leisure commercial",
+                            ["BuildingTypeCommercialTourismTitle"] = "Tourism commercial",
+                            ["BuildingTypeCommercialEcoTitle"] = "Eco commercial",
+                            ["BuildingTypeCommercialWallToWallTitle"] = "Wall-to-wall commercial",
+
+                            // ============================================================
+                            // Building category tooltips
+                            // ============================================================
+
+                            ["BuildingTypeCommercialEcoTooltip"] = "Eco commercial building",
+                            ["BuildingTypeCommercialLeisureTooltip"] = "Leisure commercial building",
+                            ["BuildingTypeCommercialTourismTooltip"] = "Tourism commercial building",
+                            ["BuildingTypeCommercialWallToWallTooltip"] = "Wall-to-wall commercial building",
+
+                            // ============================================================
+                            // Building categories: other
+                            // ============================================================
+
+                            ["BuildingTypeIndustrialTitle"] = "Industrial",
+                            ["BuildingTypeOfficeTitle"] = "Office"
                         };
 						return it[index];
 					}
@@ -211,183 +484,456 @@ namespace FavoriteCims.Utils
 					{
 						nl = new Dictionary<string, string>
                         {
-                            ["FavCimsButtonTooltip"] = "My Favorite Cims",
-                            ["FavCimsBCMenuButtonText"] = "Citizens",
-                            ["FavCimsBCMenuButtonTooltip"] = "Followed People",
-                            ["FavCimsBBMenuButtonText"] = "Buildings",
-                            ["FavCimsBBMenuButtonTooltip"] = "Favorite Buildings",
-                            ["FavCimsBSMenuButtonText"] = "Stats",
-                            ["FavCimsBSMenuButtonTooltip"] = "Info and Stats",
-                            ["FavStarButtonEnableTooltip"] = "Click here to add to Favorites!",
-                            ["FavStarButtonDisableTooltip"] = "Click here to remove from Favorites :(",
-                            ["FavCimsHappinesColText"] = "Status",
-                            ["FavCimsHappinesColTooltip"] = "Citizen Happiness",
-                            ["FavCimsNameColText"] = "Citizen Name",
-                            ["FavCimsNameColTooltip"] = "Citizen Name",
-                            ["FavCimsEduColText"] = "Education",
-                            ["FavCimsEduColTooltip"] = "Citizen Education Level",
-                            ["FavCimsWorkingPlaceColText"] = "Occupation",
-                            ["FavCimsWorkingPlaceColTooltip"] = "Place where the Citizen Works or Study",
-                            ["FavCimsAgePhaseColText"] = "Age Phase",
-                            ["FavCimsAgePhaseColTooltip"] = "Citizen life Age Phase",
-                            ["FavCimsAgeColText"] = "Age",
-                            ["FavCimsAgeColTooltip"] = "Citizen Age",
-                            ["FavCimsHomeColText"] = "Citizen Home",
-                            ["FavCimsHomeColTooltip"] = "Citizen Living in this House",
-                            ["FavCimsLastActColText"] = "Last Activity",
-                            ["FavCimsLastActColTooltip"] = "What the Citizen is doing at the moment",
-                            ["FavCimsCloseButtonColText"] = "Close",
-                            ["FavCimsCloseButtonColTooltip"] = "Click on close button for remove citizen from favorites :(",
-                            ["Male"] = "Male",
-                            ["Female"] = "Female",
-                            ["AgePhaseChildMale"] = "Child",
-                            ["AgePhaseTeenMale"] = "Boy",
-                            ["AgePhaseYoungMale"] = "Young Man",
-                            ["AgePhaseAdultMale"] = "Man",
-                            ["AgePhaseSeniorMale"] = "Old Man",
-                            ["EducationUneducatedMale"] = "Uneducated",
-                            ["EducationOneSchoolMale"] = "Educated",
-                            ["EducationTwoSchoolsMale"] = "Well Educated",
-                            ["EducationThreeSchoolsMale"] = "Highly Educated",
-                            ["AgePhaseChildFemale"] = "Child",
-                            ["AgePhaseTeenFemale"] = "Girl",
-                            ["AgePhaseYoungFemale"] = "Young Woman",
-                            ["AgePhaseAdultFemale"] = "Woman",
-                            ["AgePhaseSeniorFemale"] = "Old Woman",
-                            ["EducationUneducatedFemale"] = "Uneducated",
-                            ["EducationOneSchoolFemale"] = "Educated",
-                            ["EducationTwoSchoolsFemale"] = "Well Educated",
-                            ["EducationThreeSchoolsFemale"] = "Highly Educated",
-                            ["AgePhaseDeadMale"] = "Dead",
-                            ["AgePhaseDeadFemale"] = "Dead",
-                            ["PeopleLifeStatusAlive"] = "Citizen is alive",
-                            ["PeopleLifeStatusDead"] = "Citizen is dead",
-                            ["PeopleLifeStatusDeadDate"] = "on this date",
-                            ["PeopleLifeStatusDeadTime"] = "at time",
-                            ["NotificationIconVeryUnhappy"] = "Very Unhappy",
-                            ["NotificationIconUnhappy"] = "Unhappy",
-                            ["NotificationIconHappy"] = "Happy",
-                            ["NotificationIconVeryHappy"] = "Very Happy",
-                            ["NotificationIconExtremelyHappy"] = "Extremely Happy",
-                            ["TimeFormat"] = "mm-dd-yyyy",
-                            ["PeopleLifeStatusIsGone"] = "Citizen is gone away from the city",
-                            ["CitizenHomeLess"] = "Homeless",
-                            ["CitizenHomeLessTooltip"] = "Citizen has no home",
-                            ["HomeOutsideTheCity"] = "Far far away",
-                            ["HomeLocationDead"] = "At Cemetery",
-                            ["CitizenRetired"] = "Retired",
-                            ["CitizenRetiredTooltip"] = "Citizen retired from work",
-                            ["UnemployedTooltip"] = "Citizen has much free time at the moment...",
-                            ["GovernmentJob"] = "Government Building",
-                            ["ElectricityJob"] = "Electricity Plant",
-                            ["WaterJob"] = "Water Plant",
-                            ["GenericJobPlace"] = "Citizen Works in this building",
-                            ["OnFoot"] = "Citizen walking on foot",
-                            ["CitizenDetails"] = "Citizen Detail",
-                            ["CitizenDetailsFullTemplate"] = "Too many Family Windows opened, close one before open another",
-                            ["StatusStaticLabel"] = "Status : ",
-                            ["CitizenFamilyUnit"] = "Family",
-                            ["NowInThisDistrict"] = "In this moment is in District: ",
+                            // ============================================================
+                            // Main navigation
+                            // ============================================================
+
+                            ["MainViewListText"] = "View ",
+                            ["MainButtonTooltip"] = "Open Favorite Cims",
+
+                            ["MainCitizensTabText"] = "Citizens",
+                            ["MainCitizensTabTooltip"] = "View favorite citizens",
+
+                            ["MainBuildingsTabText"] = "Buildings",
+                            ["MainBuildingsTabTooltip"] = "View favorite buildings",
+
+                            ["MainStatisticsTabText"] = "Stats",
+                            ["MainStatisticsTabTooltip"] = "View information and statistics",
+
+                            // ============================================================
+                            // Favorite actions
+                            // ============================================================
+
+                            ["FavoriteAddTooltip"] = "Add to favorites",
+                            ["FavoriteRemoveTooltip"] = "Remove from favorites",
+
+                            // ============================================================
+                            // Citizen table columns
+                            // ============================================================
+
+                            ["CitizenStatusColumnTitle"] = "Status",
+                            ["CitizenStatusColumnTooltip"] = "Citizen happiness",
+
+                            ["CitizenNameColumnTitle"] = "Citizen name",
+                            ["CitizenNameColumnTooltip"] = "Citizen name",
+
+                            ["CitizenLifeStageColumnTitle"] = "Life stage",
+                            ["CitizenLifeStageColumnTooltip"] = "Citizen life stage",
+
+                            ["CitizenAgeColumnTitle"] = "Age",
+                            ["CitizenAgeColumnTooltip"] = "Citizen age",
+
+                            ["CitizenEducationColumnTitle"] = "Education",
+                            ["CitizenEducationColumnTooltip"] = "Citizen education level",
+
+                            ["CitizenHomeColumnTitle"] = "Home",
+                            ["CitizenHomeColumnTooltip"] = "Citizen home",
+
+                            ["CitizenOccupationColumnTitle"] = "Occupation",
+                            ["CitizenOccupationColumnTooltip"] = "Workplace, school, or occupation",
+
+                            ["CitizenActivityColumnTitle"] = "Activity",
+                            ["CitizenActivityColumnTooltip"] = "What the citizen is currently doing",
+
+                            ["CitizenRemoveColumnTitle"] = "Remove",
+                            ["CitizenRemoveColumnTooltip"] = "Remove this citizen from favorites",
+
+                            // ============================================================
+                            // Citizen gender
+                            // ============================================================
+
+                            ["CitizenGenderLabelMale"] = "Male",
+                            ["CitizenGenderLabelFemale"] = "Female",
+
+                            // ============================================================
+                            // Citizen life stages
+                            // Keep gender suffixes for languages that require them.
+                            // ============================================================
+
+                            ["CitizenLifeStageChildMale"] = "Child",
+                            ["CitizenLifeStageTeenMale"] = "Teen",
+                            ["CitizenLifeStageYoungAdultMale"] = "Young adult",
+                            ["CitizenLifeStageAdultMale"] = "Adult",
+                            ["CitizenLifeStageSeniorMale"] = "Senior",
+                            ["CitizenLifeStageDeceasedMale"] = "Deceased",
+
+                            ["CitizenLifeStageChildFemale"] = "Child",
+                            ["CitizenLifeStageTeenFemale"] = "Teen",
+                            ["CitizenLifeStageYoungAdultFemale"] = "Young adult",
+                            ["CitizenLifeStageAdultFemale"] = "Adult",
+                            ["CitizenLifeStageSeniorFemale"] = "Senior",
+                            ["CitizenLifeStageDeceasedFemale"] = "Deceased",
+
+                            // ============================================================
+                            // Citizen education
+                            // ============================================================
+
+                            ["CitizenEducationUneducatedMale"] = "Uneducated",
+                            ["CitizenEducationEducatedMale"] = "Educated",
+                            ["CitizenEducationWellEducatedMale"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedMale"] = "Highly educated",
+
+                            ["CitizenEducationUneducatedFemale"] = "Uneducated",
+                            ["CitizenEducationEducatedFemale"] = "Educated",
+                            ["CitizenEducationWellEducatedFemale"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedFemale"] = "Highly educated",
+
+                            // ============================================================
+                            // Citizen life status
+                            // ============================================================
+
+                            ["CitizenAliveStatus"] = "Citizen is alive",
+                            ["CitizenDeceasedStatus"] = "Citizen is deceased",
+                            ["CitizenLeftCityStatus"] = "Citizen has left the city",
+
+                            ["CitizenDeathDateLabel"] = "Date of death: ",
+                            ["CitizenDeathTimeLabel"] = "Time of death: ",
+
+                            // ============================================================
+                            // Date and time formats
+                            // Date order and clock format are independent settings.
+                            // Quoted separators preserve the displayed punctuation.
+                            // ============================================================
+
+                            ["DateMonthFirstFormat"] = "MM'/'dd'/'yyyy",
+                            ["DateDayFirstFormat"] = "dd'/'MM'/'yyyy",
+                            ["DateYearFirstFormat"] = "yyyy'-'MM'-'dd",
+
+                            ["Time12HourFormat"] = "hh':'mm tt",
+                            ["Time24HourFormat"] = "HH':'mm",
+
+                            ["DateFormatSettingLabel"] = "Date format",
+                            ["DateFormatSettingTooltip"] = "Choose the order of the month, day, and year",
+
+                            ["DateMonthFirstOptionText"] = "Month / Day / Year",
+                            ["DateDayFirstOptionText"] = "Day / Month / Year",
+                            ["DateYearFirstOptionText"] = "Year / Month / Day",
+
+                            ["TimeFormatSettingLabel"] = "Time format",
+                            ["TimeFormatSettingTooltip"] = "Choose a 12-hour or 24-hour clock",
+
+                            ["Time12HourOptionText"] = "12-hour clock",
+                            ["Time24HourOptionText"] = "24-hour clock",
+
+                            // ============================================================
+                            // Citizen happiness
+                            // ============================================================
+
+                            ["CitizenHappinessVeryUnhappyStatus"] = "Very unhappy",
+                            ["CitizenHappinessUnhappyStatus"] = "Unhappy",
+                            ["CitizenHappinessHappyStatus"] = "Happy",
+                            ["CitizenHappinessVeryHappyStatus"] = "Very happy",
+                            ["CitizenHappinessExtremelyHappyStatus"] = "Extremely happy",
+
+                            // ============================================================
+                            // Citizen home
+                            // ============================================================
+
+                            ["CitizenHomelessStatus"] = "Homeless",
+                            ["CitizenHomelessTooltip"] = "Citizen has no home",
+
+                            ["CitizenHomeOutsideCityStatus"] = "Outside the city",
+                            ["CitizenHomeOutsideCityTooltip"] = "Citizen lives outside the city",
+
+                            ["CitizenHomeCemeteryStatus"] = "Cemetery",
+
+                            // ============================================================
+                            // Citizen occupation
+                            // ============================================================
+
+                            ["CitizenRetiredStatus"] = "Retired",
+                            ["CitizenRetiredTooltip"] = "Citizen is retired",
+
+                            ["CitizenUnemployedStatus"] = "Unemployed",
+                            ["CitizenUnemployedTooltip"] = "Citizen is unemployed",
+
+                            ["CitizenGovernmentWorkplaceTooltip"] = "Government building",
+                            ["CitizenElectricityWorkplaceTooltip"] = "Electricity facility",
+                            ["CitizenWaterWorkplaceTooltip"] = "Water facility",
+                            ["CitizenGenericWorkplaceTooltip"] = "Citizen works here",
+
+                            ["CitizenWalkingTooltip"] = "Travelling on foot",
+                            ["CitizenTouristTooltip"] = "This citizen is visiting the city",
+
+                            // ============================================================
+                            // Citizen details and family
+                            // ============================================================
+
+                            ["CitizenDetailsTitle"] = "Citizen details",
+                            ["CitizenDetailsUnavailableTooltip"] = "No details window is available. Close an existing window and try again.",
+
+                            ["CitizenStatusLabel"] = "Status: ",
+                            ["CitizenHomeLabel"] = "Home: ",
+
+                            ["CitizenFamilyTitle"] = "Family",
+                            ["CitizenNoPartnerStatus"] = "No partner",
+                            ["CitizenNoChildrenStatus"] = "No children",
+                            ["CitizenNoHouseholdStatus"] = "No household details available",
+
+                            ["CitizenSwitchTooltip"] = "Right-click to view this citizen",
+
+                            // ============================================================
+                            // Districts
+                            // ============================================================
+
+                            ["CitizenCurrentDistrictLabel"] = "Current district: ",
+                            ["CitizenCurrentDistrictTooltip"] = "Citizen's current district",
+
                             ["DistrictLabel"] = "District: ",
-                            ["DistrictNameNoDistrict"] = "None",
-                            ["CitizenDetailsNoPartner"] = "No Partner",
-                            ["CitizenDetailsNoChilds"] = "No Childs",
-                            ["RightClickToSwitchTooltip"] = "Right Click to Switch Citizen",
-                            ["HomeBubblePanelLabel"] = "Home : ",
-                            ["LowWealthMale"] = "Poor",
-                            ["MidWealthMale"] = "Well-off",
-                            ["HighWealthMale"] = "Rich",
-                            ["LowWealthFemale"] = "Poor",
-                            ["MidWealthFemale"] = "Well-off",
-                            ["HighWealthFemale"] = "Rich",
-                            ["WellBeingLabel"] = "Wellbeing: ",
-                            ["HappinessLabel"] = "Happiness : ",
-                            ["WealthLabel"] = "Wealth",
-                            ["HealthLevelVerySickMale"] = "Very Sick",
-                            ["HealthLevelSickMale"] = "Sick",
-                            ["HealthLevelPoorHealthMale"] = "Poor Health",
-                            ["HealthLevelHealthyMale"] = "Healthy",
-                            ["HealthLevelVeryHealthyMale"] = "Very Healthy",
-                            ["HealthLevelExcellentHealthMale"] = "Excellent Health",
-                            ["HealthLevelVerySickFemale"] = "Very Sick",
-                            ["HealthLevelSickFemale"] = "Sick",
-                            ["HealthLevelPoorHealthFemale"] = "Poor Health",
-                            ["HealthLevelHealthyFemale"] = "Healthy",
-                            ["HealthLevelVeryHealthyFemale"] = "Very Healthy",
-                            ["HealthLevelExcellentHealthFemale"] = "Excellent Health",
-                            ["DistrictLabel"] = "District: ",
-                            ["DistrictLabelTooltip"] = "In this District at the moment",
-                            ["CitizenDetailsNoUnit"] = "Citizen is dead or homeless",
-                            ["CitizenWaitHearse"] = "Waiting for funeral car",
-                            ["CitizenOnHearse"] = "On funeral car",
-                            ["CitizenHisFuneral"] = "Funeral ceremony",
-                            ["CitizenBuried"] = "Six Feet Under",
-                            ["CitizenTouristTooltip"] = "This citizen is visiting our City",
-                            ["ViewPassengersList"] = "View passengers list",
-                            ["ViewNoPassengers"] = "No passengers",
-                            ["VehiclePassengers"] = "Passengers on board",
-                            ["VehicleDriverIconText"] = "Vehicle Driver",
-                            ["VehiclePassengerIconText"] = "Passengers",
-                            ["CitizensHouseHolds"] = "View Residents",
-                            ["CitizensHouseHoldsTitle"] = "Residents",
-                            ["CitizenOnBuilding"] = "Employees and Guests List",
-                            ["CitizenOnBuildingTitle"] = "Employees and Guests",
-                            ["CitizenOnHotelBuildingTitle"] = "Employees and Hotel Guests and Visitors",
-                            ["OnBuildingResidential"] = "Apartment ",
-                            ["OnBuildingHotelRooms"] = "Hotel Room ",
-                            ["ViewList"] = "View ",
-                            ["OnBuildingGuests"] = "Guests",
-                            ["OnBuildingWorkers"] = "Employees",
-                            ["OnBuildingWorkersPresent"] = "At work",
-                            ["OnBuildingWorkersAway"] = "Not at work",
-                            ["OnBuildingWorkersUnknown"] = "Presence unavailable",
-                            ["WorkersOnBuilding"] = "List of employees",
-                            ["OnBuildingNoWorkers"] = "Nobody at work",
-                            ["OnBuildingNoGuests"] = "No guests inside",
-                            ["OnBuildingNoHotelGuests"] = "No hotel guests inside",
-                            ["BuildingIsEmpty"] = "Nobody works or lives here",
-                            ["OnBuildingTotalWorkers"] = "Tot :",
-                            ["BuildingsTypeCommercialEco"] = "Ecologic Commercial Building",
-                            ["BuildingsTypeCommercialLeisure"] = "Leisure Commercial Building",
-                            ["BuildingsTypeCommercialTourist"] = "Tourism Commercial Building",
-                            ["BuildingsTypeCommercialWallToWall"] = "Wall-to-Wall Commercial Building",
-                            ["CitizenArrested"] = "This Citizen is in Jail!",
-                            ["TransportedToPrison"] = "Transported to Prison",
-                            ["JailedInto"] = "Jailed into ",
-                            ["CitizenAtSchool"] = "Pupils at school",
-                            ["CitizenAtUniversity"] = "Students at university",
-                            ["CitizenAtClinic"] = "Patients being treated",
-                            ["CitizenUnderArrest"] = "Citizens under arrest",
-                            ["OnBuildingNoArrested"] = "Nobody jailed here",
-                            ["OnPoliceBuildingService"] = "Officers and Prisoners",
-                            ["OnPrisonBuildingService"] = "Guards and Prisoners",
-                            ["OnEducationBuildingService"] = "Teachers and Pupils",
-                            ["OnHighEducationBuildingService"] = "Lecturers and Students",
-                            ["OnMedicalBuildingService"] = "Doctors and Patients",
-                            ["OnMedicalUniversityBuildingService"] = "Doctors and Patients and Students",
-                            ["OnBuildingNoStudents"] = "No Students inside",
-                            ["OnBuildingNoPatients"] = "No Patients inside",
-                            ["OnHelicopterBuildingService"] = "Pilots and Workers",
-                            ["OnFireBuildingService"] = "FireFighters and Workers",
-                            ["OnRescueBuildingService"] = "Pilots and RescueWorkers",
-                            ["OnShelterBuildingService"] = "Survivors and Workers",
-                            ["OnBuildingNoHotelGuests"] = "No Hotel guests inside",
-                            ["MainResizeHandleTooltip"] = "Drag to resize the window",
-                            ["MainResetSizeText"] = "Reset size",
-                            ["MainResetSizeTooltip"] = "Restore the default window size",
-                            ["ResidentialLow"] = "Residential Low",
-                            ["ResidentialHigh"] = "Residential High",
-                            ["ResidentialLowEco"] = "Residential Low Eco",
-                            ["ResidentialHighEco"] = "Residential High Eco",
-                            ["ResidentialWallToWall"] = "Residential Wall-to-Wall",
-                            ["CommercialLow"] = "Commercial Low",
-                            ["CommercialHigh"] = "Commercial High",
-                            ["CommercialLeisure"] = "Commercial Leisure",
-                            ["CommercialTourist"] = "Commercial Tourist",
-                            ["CommercialEco"] = "Commercial Eco",
-                            ["CommercialWallToWall"] = "Commercial Wall-to-Wall",
-                            ["Industrial"] = "Industrial",
-                            ["Office"] = "Office"
+                            ["DistrictNoneText"] = "None",
+
+                            // ============================================================
+                            // Citizen wealth and wellbeing
+                            // ============================================================
+
+                            ["CitizenWealthLowStatusMale"] = "Poor",
+                            ["CitizenWealthMediumStatusMale"] = "Well-off",
+                            ["CitizenWealthHighStatusMale"] = "Rich",
+
+                            ["CitizenWealthLowStatusFemale"] = "Poor",
+                            ["CitizenWealthMediumStatusFemale"] = "Well-off",
+                            ["CitizenWealthHighStatusFemale"] = "Rich",
+
+                            ["CitizenWellbeingLabel"] = "Wellbeing: ",
+                            ["CitizenHappinessLabel"] = "Happiness: ",
+                            ["CitizenWealthLabel"] = "Wealth",
+
+                            // ============================================================
+                            // Citizen health
+                            // ============================================================
+
+                            ["CitizenHealthVerySickStatusMale"] = "Very sick",
+                            ["CitizenHealthSickStatusMale"] = "Sick",
+                            ["CitizenHealthPoorStatusMale"] = "Poor health",
+                            ["CitizenHealthHealthyStatusMale"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatusMale"] = "Very healthy",
+                            ["CitizenHealthExcellentStatusMale"] = "Excellent health",
+
+                            ["CitizenHealthVerySickStatusFemale"] = "Very sick",
+                            ["CitizenHealthSickStatusFemale"] = "Sick",
+                            ["CitizenHealthPoorStatusFemale"] = "Poor health",
+                            ["CitizenHealthHealthyStatusFemale"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatusFemale"] = "Very healthy",
+                            ["CitizenHealthExcellentStatusFemale"] = "Excellent health",
+
+                            // ============================================================
+                            // Death and funeral status
+                            // ============================================================
+
+                            ["CitizenWaitingForHearseStatus"] = "Waiting for a hearse",
+                            ["CitizenInHearseStatus"] = "Being transported by hearse",
+                            ["CitizenFuneralStatus"] = "Funeral service",
+                            ["CitizenBuriedStatus"] = "Buried",
+
+                            // ============================================================
+                            // Vehicles and passengers
+                            // ============================================================
+
+                            ["VehicleViewPassengersText"] = "View passengers",
+                            ["VehicleNoPassengersStatus"] = "No passengers",
+
+                            ["VehiclePassengersTitle"] = "Passengers on board",
+                            ["VehicleDriverTitle"] = "Driver",
+                            ["VehiclePassengerTooltip"] = "Passenger",
+                            ["VehiclePassengersButtonTooltip"] = "View passengers list",
+
+                            // ============================================================
+                            // Building occupant panel actions and titles
+                            // ============================================================
+
+                            ["BuildingViewResidentsText"] = "View residents",
+                            ["BuildingResidentsTitle"] = "Residents",
+
+                            ["BuildingViewOccupantsText"] = "View building occupants",
+                            ["BuildingOccupantsTitle"] = "Building occupants",
+
+                            ["BuildingHotelOccupantsTitle"] = "Workers, hotel guests, and visitors",
+
+                            ["BuildingNoOccupantsStatus"] = "No listed occupants",
+                            ["BuildingOccupantTotalLabel"] = "Total: ",
+
+                            // ============================================================
+                            // Registered resident sections
+                            // Number is appended by the caller.
+                            // ============================================================
+
+                            ["BuildingHouseholdTitle"] = "Household ",
+                            ["BuildingResidentsTooltip"] = "Registered residents",
+
+                            // ============================================================
+                            // Registered worker sections
+                            // Presence and roster membership have separate empty states.
+                            // ============================================================
+
+                            ["BuildingWorkersTitle"] = "Workers",
+                            ["BuildingWorkersPresentTitle"] = "At workplace",
+                            ["BuildingWorkersAwayTitle"] = "Away from workplace",
+                            ["BuildingWorkersUnknownTitle"] = "Presence unavailable",
+
+                            ["BuildingWorkersTooltip"] = "Registered workers",
+                            ["BuildingWorkersPresentTooltip"] = "Registered workers currently present at this building",
+                            ["BuildingWorkersAwayTooltip"] = "Registered workers who are elsewhere or travelling here",
+                            ["BuildingWorkersUnknownTooltip"] = "Registered workers whose current presence could not be determined",
+
+                            ["BuildingNoWorkersStatus"] = "No registered workers",
+                            ["BuildingNoWorkersPresentStatus"] = "No workers on-site",
+
+                            // ============================================================
+                            // Enrolled student sections
+                            // ============================================================
+
+                            ["BuildingStudentsTitle"] = "Students",
+                            ["BuildingStudentsPresentTitle"] = "At school",
+                            ["BuildingStudentsAwayTitle"] = "Away from school",
+                            ["BuildingStudentsUnknownTitle"] = "Presence unavailable",
+
+                            ["BuildingStudentsTooltip"] = "Enrolled students",
+                            ["BuildingStudentsPresentTooltip"] = "Enrolled students currently present at this school",
+                            ["BuildingStudentsAwayTooltip"] = "Enrolled students who are elsewhere or travelling here",
+                            ["BuildingStudentsUnknownTooltip"] = "Enrolled students whose current presence could not be determined",
+
+                            ["BuildingNoStudentsStatus"] = "No enrolled students",
+                            ["BuildingNoStudentsPresentStatus"] = "No students on-site",
+
+                            // ============================================================
+                            // Ordinary visitor sections
+                            // ============================================================
+
+                            ["BuildingVisitorsTitle"] = "Visitors",
+                            ["BuildingVisitorsTooltip"] = "Visitors currently inside or travelling to this building",
+
+                            ["BuildingNoVisitorsStatus"] = "No visitors",
+                            ["BuildingNoVisitorsPresentStatus"] = "No visitors inside",
+
+                            // ============================================================
+                            // Registered hotel guest sections
+                            // Number is appended by the caller.
+                            // ============================================================
+
+                            ["BuildingHotelGuestsTitle"] = "Hotel guests",
+                            ["BuildingHotelRoomTitle"] = "Hotel room ",
+                            ["BuildingHotelGuestsTooltip"] = "Registered hotel guests",
+
+                            ["BuildingNoHotelGuestsStatus"] = "No registered hotel guests",
+                            ["BuildingNoHotelGuestsPresentStatus"] = "No hotel guests inside",
+
+                            // ============================================================
+                            // Building presence indicators
+                            // ============================================================
+
+                            ["BuildingPresencePresentTooltip"] = "Present at this building",
+                            ["BuildingPresenceHeadingHereTooltip"] = "Travelling to this building",
+                            ["BuildingPresenceAwayTooltip"] = "Away from this building",
+                            ["BuildingPresenceUnknownTooltip"] = "Presence could not be determined",
+
+                            ["BuildingResidentPresentTooltip"] = "At home",
+                            ["BuildingResidentHeadingHereTooltip"] = "Travelling home",
+                            ["BuildingResidentAwayTooltip"] = "Away from home",
+
+                            ["BuildingWorkerPresentTooltip"] = "At workplace",
+                            ["BuildingWorkerHeadingHereTooltip"] = "Travelling to work",
+                            ["BuildingWorkerAwayTooltip"] = "Away from workplace",
+
+                            ["BuildingStudentPresentTooltip"] = "At school",
+                            ["BuildingStudentHeadingHereTooltip"] = "Travelling to school",
+                            ["BuildingStudentAwayTooltip"] = "Away from school",
+
+                            ["BuildingHotelGuestPresentTooltip"] = "At hotel",
+                            ["BuildingHotelGuestHeadingHereTooltip"] = "Travelling to hotel",
+                            ["BuildingHotelGuestAwayTooltip"] = "Away from hotel",
+
+                            // ============================================================
+                            // Expand/collapse actions
+                            // ============================================================
+
+                            ["BuildingSectionExpandTooltip"] = "Expand this section",
+                            ["BuildingSectionCollapseTooltip"] = "Collapse this section",
+
+                            // ============================================================
+                            // Building-specific occupant sections
+                            // ============================================================
+
+                            ["BuildingSchoolStudentsTitle"] = "Students at school",
+                            ["BuildingUniversityStudentsTitle"] = "Students at university",
+                            ["BuildingPatientsTitle"] = "Patients",
+                            ["BuildingDetaineesTitle"] = "Detainees",
+
+                            ["BuildingNoDetaineesPresentStatus"] = "No detainees inside",
+                            ["BuildingNoPatientsPresentStatus"] = "No patients inside",
+
+                            // ============================================================
+                            // Building-specific panel titles
+                            // ============================================================
+
+                            ["BuildingPoliceOccupantsTitle"] = "Police staff and detainees",
+                            ["BuildingPrisonOccupantsTitle"] = "Prison staff and prisoners",
+
+                            ["BuildingSchoolOccupantsTitle"] = "School staff and students",
+                            ["BuildingUniversityOccupantsTitle"] = "University staff and students",
+
+                            ["BuildingMedicalOccupantsTitle"] = "Medical staff and patients",
+                            ["BuildingMedicalUniversityOccupantsTitle"] = "Medical staff, patients, and students",
+
+                            ["BuildingHelicopterOccupantsTitle"] = "Pilots and workers",
+                            ["BuildingFireStationOccupantsTitle"] = "Firefighters and workers",
+                            ["BuildingRescueOccupantsTitle"] = "Rescue workers",
+                            ["BuildingShelterOccupantsTitle"] = "Shelter occupants and workers",
+
+                            // ============================================================
+                            // Arrest and detention status
+                            // ============================================================
+
+                            ["CitizenArrestedStatus"] = "Citizen is under arrest",
+                            ["CitizenTransportedToPrisonStatus"] = "Being transported to prison",
+                            ["CitizenDetainedAtLabel"] = "Held at ",
+
+                            // ============================================================
+                            // Main window controls
+                            // ============================================================
+
+                            ["MainWindowResizeTooltip"] = "Drag to resize the window",
+                            ["MainWindowResetSizeText"] = "Reset size",
+                            ["MainWindowResetSizeTooltip"] = "Restore the default window size",
+
+                            // ============================================================
+                            // Building categories: residential
+                            // ============================================================
+
+                            ["BuildingTypeResidentialLowTitle"] = "Low-density residential",
+                            ["BuildingTypeResidentialHighTitle"] = "High-density residential",
+
+                            ["BuildingTypeResidentialLowEcoTitle"] = "Low-density eco residential",
+                            ["BuildingTypeResidentialHighEcoTitle"] = "High-density eco residential",
+
+                            ["BuildingTypeResidentialWallToWallTitle"] = "Wall-to-wall residential",
+
+                            // ============================================================
+                            // Building categories: commercial
+                            // ============================================================
+
+                            ["BuildingTypeCommercialLowTitle"] = "Low-density commercial",
+                            ["BuildingTypeCommercialHighTitle"] = "High-density commercial",
+
+                            ["BuildingTypeCommercialLeisureTitle"] = "Leisure commercial",
+                            ["BuildingTypeCommercialTourismTitle"] = "Tourism commercial",
+                            ["BuildingTypeCommercialEcoTitle"] = "Eco commercial",
+                            ["BuildingTypeCommercialWallToWallTitle"] = "Wall-to-wall commercial",
+
+                            // ============================================================
+                            // Building category tooltips
+                            // ============================================================
+
+                            ["BuildingTypeCommercialEcoTooltip"] = "Eco commercial building",
+                            ["BuildingTypeCommercialLeisureTooltip"] = "Leisure commercial building",
+                            ["BuildingTypeCommercialTourismTooltip"] = "Tourism commercial building",
+                            ["BuildingTypeCommercialWallToWallTooltip"] = "Wall-to-wall commercial building",
+
+                            // ============================================================
+                            // Building categories: other
+                            // ============================================================
+
+                            ["BuildingTypeIndustrialTitle"] = "Industrial",
+                            ["BuildingTypeOfficeTitle"] = "Office"
                         };
 						return nl[index];
 					}
@@ -395,365 +941,911 @@ namespace FavoriteCims.Utils
 					{
 						rus = new Dictionary<string, string>
                         {
-                            ["FavCimsButtonTooltip"] = "My Favorite Cims",
-                            ["FavCimsBCMenuButtonText"] = "Citizens",
-                            ["FavCimsBCMenuButtonTooltip"] = "Followed People",
-                            ["FavCimsBBMenuButtonText"] = "Buildings",
-                            ["FavCimsBBMenuButtonTooltip"] = "Favorite Buildings",
-                            ["FavCimsBSMenuButtonText"] = "Stats",
-                            ["FavCimsBSMenuButtonTooltip"] = "Info and Stats",
-                            ["FavStarButtonEnableTooltip"] = "Click here to add to Favorites!",
-                            ["FavStarButtonDisableTooltip"] = "Click here to remove from Favorites :(",
-                            ["FavCimsHappinesColText"] = "Status",
-                            ["FavCimsHappinesColTooltip"] = "Citizen Happiness",
-                            ["FavCimsNameColText"] = "Citizen Name",
-                            ["FavCimsNameColTooltip"] = "Citizen Name",
-                            ["FavCimsEduColText"] = "Education",
-                            ["FavCimsEduColTooltip"] = "Citizen Education Level",
-                            ["FavCimsWorkingPlaceColText"] = "Occupation",
-                            ["FavCimsWorkingPlaceColTooltip"] = "Place where the Citizen Works or Study",
-                            ["FavCimsAgePhaseColText"] = "Age Phase",
-                            ["FavCimsAgePhaseColTooltip"] = "Citizen life Age Phase",
-                            ["FavCimsAgeColText"] = "Age",
-                            ["FavCimsAgeColTooltip"] = "Citizen Age",
-                            ["FavCimsHomeColText"] = "Citizen Home",
-                            ["FavCimsHomeColTooltip"] = "Citizen Living in this House",
-                            ["FavCimsLastActColText"] = "Last Activity",
-                            ["FavCimsLastActColTooltip"] = "What the Citizen is doing at the moment",
-                            ["FavCimsCloseButtonColText"] = "Close",
-                            ["FavCimsCloseButtonColTooltip"] = "Click on close button for remove citizen from favorites :(",
-                            ["Male"] = "Male",
-                            ["Female"] = "Female",
-                            ["AgePhaseChildMale"] = "Child",
-                            ["AgePhaseTeenMale"] = "Boy",
-                            ["AgePhaseYoungMale"] = "Young Man",
-                            ["AgePhaseAdultMale"] = "Man",
-                            ["AgePhaseSeniorMale"] = "Old Man",
-                            ["EducationUneducatedMale"] = "Uneducated",
-                            ["EducationOneSchoolMale"] = "Educated",
-                            ["EducationTwoSchoolsMale"] = "Well Educated",
-                            ["EducationThreeSchoolsMale"] = "Highly Educated",
-                            ["AgePhaseChildFemale"] = "Child",
-                            ["AgePhaseTeenFemale"] = "Girl",
-                            ["AgePhaseYoungFemale"] = "Young Woman",
-                            ["AgePhaseAdultFemale"] = "Woman",
-                            ["AgePhaseSeniorFemale"] = "Old Woman",
-                            ["EducationUneducatedFemale"] = "Uneducated",
-                            ["EducationOneSchoolFemale"] = "Educated",
-                            ["EducationTwoSchoolsFemale"] = "Well Educated",
-                            ["EducationThreeSchoolsFemale"] = "Highly Educated",
-                            ["AgePhaseDeadMale"] = "Dead",
-                            ["AgePhaseDeadFemale"] = "Dead",
-                            ["PeopleLifeStatusAlive"] = "Citizen is alive",
-                            ["PeopleLifeStatusDead"] = "Citizen is dead",
-                            ["PeopleLifeStatusDeadDate"] = "on this date",
-                            ["PeopleLifeStatusDeadTime"] = "at time",
-                            ["NotificationIconVeryUnhappy"] = "Very Unhappy",
-                            ["NotificationIconUnhappy"] = "Unhappy",
-                            ["NotificationIconHappy"] = "Happy",
-                            ["NotificationIconVeryHappy"] = "Very Happy",
-                            ["NotificationIconExtremelyHappy"] = "Extremely Happy",
-                            ["TimeFormat"] = "mm-dd-yyyy",
-                            ["PeopleLifeStatusIsGone"] = "Citizen is gone away from the city",
-                            ["CitizenHomeLess"] = "Homeless",
-                            ["CitizenHomeLessTooltip"] = "Citizen has no home",
-                            ["HomeOutsideTheCity"] = "Far far away",
-                            ["HomeLocationDead"] = "At Cemetery",
-                            ["CitizenRetired"] = "Retired",
-                            ["CitizenRetiredTooltip"] = "Citizen retired from work",
-                            ["UnemployedTooltip"] = "Citizen has much free time at the moment...",
-                            ["GovernmentJob"] = "Government Building",
-                            ["ElectricityJob"] = "Electricity Plant",
-                            ["WaterJob"] = "Water Plant",
-                            ["GenericJobPlace"] = "Citizen Works in this building",
-                            ["OnFoot"] = "Citizen walking on foot",
-                            ["CitizenDetails"] = "Citizen Detail",
-                            ["CitizenDetailsFullTemplate"] = "Too many Family Windows opened, close one before open another",
-                            ["StatusStaticLabel"] = "Status : ",
-                            ["CitizenFamilyUnit"] = "Family",
-                            ["NowInThisDistrict"] = "In this moment is in District: ",
+                            // ============================================================
+                            // Main navigation
+                            // ============================================================
+
+                            ["MainViewListText"] = "View ",
+                            ["MainButtonTooltip"] = "Open Favorite Cims",
+
+                            ["MainCitizensTabText"] = "Citizens",
+                            ["MainCitizensTabTooltip"] = "View favorite citizens",
+
+                            ["MainBuildingsTabText"] = "Buildings",
+                            ["MainBuildingsTabTooltip"] = "View favorite buildings",
+
+                            ["MainStatisticsTabText"] = "Stats",
+                            ["MainStatisticsTabTooltip"] = "View information and statistics",
+
+                            // ============================================================
+                            // Favorite actions
+                            // ============================================================
+
+                            ["FavoriteAddTooltip"] = "Add to favorites",
+                            ["FavoriteRemoveTooltip"] = "Remove from favorites",
+
+                            // ============================================================
+                            // Citizen table columns
+                            // ============================================================
+
+                            ["CitizenStatusColumnTitle"] = "Status",
+                            ["CitizenStatusColumnTooltip"] = "Citizen happiness",
+
+                            ["CitizenNameColumnTitle"] = "Citizen name",
+                            ["CitizenNameColumnTooltip"] = "Citizen name",
+
+                            ["CitizenLifeStageColumnTitle"] = "Life stage",
+                            ["CitizenLifeStageColumnTooltip"] = "Citizen life stage",
+
+                            ["CitizenAgeColumnTitle"] = "Age",
+                            ["CitizenAgeColumnTooltip"] = "Citizen age",
+
+                            ["CitizenEducationColumnTitle"] = "Education",
+                            ["CitizenEducationColumnTooltip"] = "Citizen education level",
+
+                            ["CitizenHomeColumnTitle"] = "Home",
+                            ["CitizenHomeColumnTooltip"] = "Citizen home",
+
+                            ["CitizenOccupationColumnTitle"] = "Occupation",
+                            ["CitizenOccupationColumnTooltip"] = "Workplace, school, or occupation",
+
+                            ["CitizenActivityColumnTitle"] = "Activity",
+                            ["CitizenActivityColumnTooltip"] = "What the citizen is currently doing",
+
+                            ["CitizenRemoveColumnTitle"] = "Remove",
+                            ["CitizenRemoveColumnTooltip"] = "Remove this citizen from favorites",
+
+                            // ============================================================
+                            // Citizen gender
+                            // ============================================================
+
+                            ["CitizenGenderLabelMale"] = "Male",
+                            ["CitizenGenderLabelFemale"] = "Female",
+
+                            // ============================================================
+                            // Citizen life stages
+                            // Keep gender suffixes for languages that require them.
+                            // ============================================================
+
+                            ["CitizenLifeStageChildMale"] = "Child",
+                            ["CitizenLifeStageTeenMale"] = "Teen",
+                            ["CitizenLifeStageYoungAdultMale"] = "Young adult",
+                            ["CitizenLifeStageAdultMale"] = "Adult",
+                            ["CitizenLifeStageSeniorMale"] = "Senior",
+                            ["CitizenLifeStageDeceasedMale"] = "Deceased",
+
+                            ["CitizenLifeStageChildFemale"] = "Child",
+                            ["CitizenLifeStageTeenFemale"] = "Teen",
+                            ["CitizenLifeStageYoungAdultFemale"] = "Young adult",
+                            ["CitizenLifeStageAdultFemale"] = "Adult",
+                            ["CitizenLifeStageSeniorFemale"] = "Senior",
+                            ["CitizenLifeStageDeceasedFemale"] = "Deceased",
+
+                            // ============================================================
+                            // Citizen education
+                            // ============================================================
+
+                            ["CitizenEducationUneducatedMale"] = "Uneducated",
+                            ["CitizenEducationEducatedMale"] = "Educated",
+                            ["CitizenEducationWellEducatedMale"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedMale"] = "Highly educated",
+
+                            ["CitizenEducationUneducatedFemale"] = "Uneducated",
+                            ["CitizenEducationEducatedFemale"] = "Educated",
+                            ["CitizenEducationWellEducatedFemale"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedFemale"] = "Highly educated",
+
+                            // ============================================================
+                            // Citizen life status
+                            // ============================================================
+
+                            ["CitizenAliveStatus"] = "Citizen is alive",
+                            ["CitizenDeceasedStatus"] = "Citizen is deceased",
+                            ["CitizenLeftCityStatus"] = "Citizen has left the city",
+
+                            ["CitizenDeathDateLabel"] = "Date of death: ",
+                            ["CitizenDeathTimeLabel"] = "Time of death: ",
+
+                            // ============================================================
+                            // Date and time formats
+                            // Date order and clock format are independent settings.
+                            // Quoted separators preserve the displayed punctuation.
+                            // ============================================================
+
+                            ["DateMonthFirstFormat"] = "MM'/'dd'/'yyyy",
+                            ["DateDayFirstFormat"] = "dd'/'MM'/'yyyy",
+                            ["DateYearFirstFormat"] = "yyyy'-'MM'-'dd",
+
+                            ["Time12HourFormat"] = "hh':'mm tt",
+                            ["Time24HourFormat"] = "HH':'mm",
+
+                            ["DateFormatSettingLabel"] = "Date format",
+                            ["DateFormatSettingTooltip"] = "Choose the order of the month, day, and year",
+
+                            ["DateMonthFirstOptionText"] = "Month / Day / Year",
+                            ["DateDayFirstOptionText"] = "Day / Month / Year",
+                            ["DateYearFirstOptionText"] = "Year / Month / Day",
+
+                            ["TimeFormatSettingLabel"] = "Time format",
+                            ["TimeFormatSettingTooltip"] = "Choose a 12-hour or 24-hour clock",
+
+                            ["Time12HourOptionText"] = "12-hour clock",
+                            ["Time24HourOptionText"] = "24-hour clock",
+
+                            // ============================================================
+                            // Citizen happiness
+                            // ============================================================
+
+                            ["CitizenHappinessVeryUnhappyStatus"] = "Very unhappy",
+                            ["CitizenHappinessUnhappyStatus"] = "Unhappy",
+                            ["CitizenHappinessHappyStatus"] = "Happy",
+                            ["CitizenHappinessVeryHappyStatus"] = "Very happy",
+                            ["CitizenHappinessExtremelyHappyStatus"] = "Extremely happy",
+
+                            // ============================================================
+                            // Citizen home
+                            // ============================================================
+
+                            ["CitizenHomelessStatus"] = "Homeless",
+                            ["CitizenHomelessTooltip"] = "Citizen has no home",
+
+                            ["CitizenHomeOutsideCityStatus"] = "Outside the city",
+                            ["CitizenHomeOutsideCityTooltip"] = "Citizen lives outside the city",
+
+                            ["CitizenHomeCemeteryStatus"] = "Cemetery",
+
+                            // ============================================================
+                            // Citizen occupation
+                            // ============================================================
+
+                            ["CitizenRetiredStatus"] = "Retired",
+                            ["CitizenRetiredTooltip"] = "Citizen is retired",
+
+                            ["CitizenUnemployedStatus"] = "Unemployed",
+                            ["CitizenUnemployedTooltip"] = "Citizen is unemployed",
+
+                            ["CitizenGovernmentWorkplaceTooltip"] = "Government building",
+                            ["CitizenElectricityWorkplaceTooltip"] = "Electricity facility",
+                            ["CitizenWaterWorkplaceTooltip"] = "Water facility",
+                            ["CitizenGenericWorkplaceTooltip"] = "Citizen works here",
+
+                            ["CitizenWalkingTooltip"] = "Travelling on foot",
+                            ["CitizenTouristTooltip"] = "This citizen is visiting the city",
+
+                            // ============================================================
+                            // Citizen details and family
+                            // ============================================================
+
+                            ["CitizenDetailsTitle"] = "Citizen details",
+                            ["CitizenDetailsUnavailableTooltip"] = "No details window is available. Close an existing window and try again.",
+
+                            ["CitizenStatusLabel"] = "Status: ",
+                            ["CitizenHomeLabel"] = "Home: ",
+
+                            ["CitizenFamilyTitle"] = "Family",
+                            ["CitizenNoPartnerStatus"] = "No partner",
+                            ["CitizenNoChildrenStatus"] = "No children",
+                            ["CitizenNoHouseholdStatus"] = "No household details available",
+
+                            ["CitizenSwitchTooltip"] = "Right-click to view this citizen",
+
+                            // ============================================================
+                            // Districts
+                            // ============================================================
+
+                            ["CitizenCurrentDistrictLabel"] = "Current district: ",
+                            ["CitizenCurrentDistrictTooltip"] = "Citizen's current district",
+
                             ["DistrictLabel"] = "District: ",
-                            ["DistrictNameNoDistrict"] = "None",
-                            ["CitizenDetailsNoPartner"] = "No Partner",
-                            ["CitizenDetailsNoChilds"] = "No Childs",
-                            ["RightClickToSwitchTooltip"] = "Right Click to Switch Citizen",
-                            ["HomeBubblePanelLabel"] = "Home : ",
-                            ["LowWealthMale"] = "Poor",
-                            ["MidWealthMale"] = "Well-off",
-                            ["HighWealthMale"] = "Rich",
-                            ["LowWealthFemale"] = "Poor",
-                            ["MidWealthFemale"] = "Well-off",
-                            ["HighWealthFemale"] = "Rich",
-                            ["WellBeingLabel"] = "Wellbeing: ",
-                            ["HappinessLabel"] = "Happiness : ",
-                            ["WealthLabel"] = "Wealth",
-                            ["HealthLevelVerySickMale"] = "Very Sick",
-                            ["HealthLevelSickMale"] = "Sick",
-                            ["HealthLevelPoorHealthMale"] = "Poor Health",
-                            ["HealthLevelHealthyMale"] = "Healthy",
-                            ["HealthLevelVeryHealthyMale"] = "Very Healthy",
-                            ["HealthLevelExcellentHealthMale"] = "Excellent Health",
-                            ["HealthLevelVerySickFemale"] = "Very Sick",
-                            ["HealthLevelSickFemale"] = "Sick",
-                            ["HealthLevelPoorHealthFemale"] = "Poor Health",
-                            ["HealthLevelHealthyFemale"] = "Healthy",
-                            ["HealthLevelVeryHealthyFemale"] = "Very Healthy",
-                            ["HealthLevelExcellentHealthFemale"] = "Excellent Health",
-                            ["DistrictLabel"] = "District: ",
-                            ["DistrictLabelTooltip"] = "In this District at the moment",
-                            ["CitizenDetailsNoUnit"] = "Citizen is dead or homeless",
-                            ["CitizenWaitHearse"] = "Waiting for funeral car",
-                            ["CitizenOnHearse"] = "On funeral car",
-                            ["CitizenHisFuneral"] = "Funeral ceremony",
-                            ["CitizenBuried"] = "Six Feet Under",
-                            ["CitizenTouristTooltip"] = "This citizen is visiting our City",
-                            ["ViewPassengersList"] = "View passengers list",
-                            ["ViewNoPassengers"] = "No passengers",
-                            ["VehiclePassengers"] = "Passengers on board",
-                            ["VehicleDriverIconText"] = "Vehicle Driver",
-                            ["VehiclePassengerIconText"] = "Passengers",
-                            ["CitizensHouseHolds"] = "View Residents",
-                            ["CitizensHouseHoldsTitle"] = "Residents",
-                            ["CitizenOnBuilding"] = "Employees and Guests List",
-                            ["CitizenOnBuildingTitle"] = "Employees and Guests",
-                            ["CitizenOnHotelBuildingTitle"] = "Employees and Hotel Guests and Visitors",
-                            ["OnBuildingResidential"] = "Apartment ",
-                            ["OnBuildingHotelRooms"] = "Hotel Room ",
-                            ["ViewList"] = "View ",
-                            ["OnBuildingGuests"] = "Guests",
-                            ["OnBuildingWorkers"] = "Employees",
-                            ["OnBuildingWorkersPresent"] = "At work",
-                            ["OnBuildingWorkersAway"] = "Not at work",
-                            ["OnBuildingWorkersUnknown"] = "Presence unavailable",
-                            ["WorkersOnBuilding"] = "List of employees",
-                            ["OnBuildingNoWorkers"] = "Nobody at work",
-                            ["OnBuildingNoGuests"] = "No guests inside",
-                            ["OnBuildingNoHotelGuests"] = "No hotel guests inside",
-                            ["BuildingIsEmpty"] = "Nobody works or lives here",
-                            ["OnBuildingTotalWorkers"] = "Tot :",
-                            ["BuildingsTypeCommercialEco"] = "Ecologic Commercial Building",
-                            ["BuildingsTypeCommercialLeisure"] = "Leisure Commercial Building",
-                            ["BuildingsTypeCommercialTourist"] = "Tourism Commercial Building",
-                            ["BuildingsTypeCommercialWallToWall"] = "Wall-to-Wall Commercial Building",
-                            ["CitizenArrested"] = "This Citizen is in Jail!",
-                            ["TransportedToPrison"] = "Transported to Prison",
-                            ["JailedInto"] = "Jailed into ",
-                            ["CitizenAtSchool"] = "Pupils at school",
-                            ["CitizenAtUniversity"] = "Students at university",
-                            ["CitizenAtClinic"] = "Patients being treated",
-                            ["CitizenUnderArrest"] = "Citizens under arrest",
-                            ["OnBuildingNoArrested"] = "Nobody jailed here",
-                            ["OnPoliceBuildingService"] = "Officers and Prisoners",
-                            ["OnPrisonBuildingService"] = "Guards and Prisoners",
-                            ["OnEducationBuildingService"] = "Teachers and Pupils",
-                            ["OnHighEducationBuildingService"] = "Lecturers and Students",
-                            ["OnMedicalBuildingService"] = "Doctors and Patients",
-                            ["OnMedicalUniversityBuildingService"] = "Doctors and Patients and Students",
-                            ["OnBuildingNoStudents"] = "No Students inside",
-                            ["OnBuildingNoPatients"] = "No Patients inside",
-                            ["OnHelicopterBuildingService"] = "Pilots and Workers",
-                            ["OnFireBuildingService"] = "FireFighters and Workers",
-                            ["OnRescueBuildingService"] = "Pilots and RescueWorkers",
-                            ["OnShelterBuildingService"] = "Survivors and Workers",
-                            ["OnBuildingNoHotelGuests"] = "No Hotel guests inside",
-                            ["MainResizeHandleTooltip"] = "Drag to resize the window",
-                            ["MainResetSizeText"] = "Reset size",
-                            ["MainResetSizeTooltip"] = "Restore the default window size",
-                            ["ResidentialLow"] = "Residential Low",
-                            ["ResidentialHigh"] = "Residential High",
-                            ["ResidentialLowEco"] = "Residential Low Eco",
-                            ["ResidentialHighEco"] = "Residential High Eco",
-                            ["ResidentialWallToWall"] = "Residential Wall-to-Wall",
-                            ["CommercialLow"] = "Commercial Low",
-                            ["CommercialHigh"] = "Commercial High",
-                            ["CommercialLeisure"] = "Commercial Leisure",
-                            ["CommercialTourist"] = "Commercial Tourist",
-                            ["CommercialEco"] = "Commercial Eco",
-                            ["CommercialWallToWall"] = "Commercial Wall-to-Wall",
-                            ["Industrial"] = "Industrial",
-                            ["Office"] = "Office"
+                            ["DistrictNoneText"] = "None",
+
+                            // ============================================================
+                            // Citizen wealth and wellbeing
+                            // ============================================================
+
+                            ["CitizenWealthLowStatusMale"] = "Poor",
+                            ["CitizenWealthMediumStatusMale"] = "Well-off",
+                            ["CitizenWealthHighStatusMale"] = "Rich",
+
+                            ["CitizenWealthLowStatusFemale"] = "Poor",
+                            ["CitizenWealthMediumStatusFemale"] = "Well-off",
+                            ["CitizenWealthHighStatusFemale"] = "Rich",
+
+                            ["CitizenWellbeingLabel"] = "Wellbeing: ",
+                            ["CitizenHappinessLabel"] = "Happiness: ",
+                            ["CitizenWealthLabel"] = "Wealth",
+
+                            // ============================================================
+                            // Citizen health
+                            // ============================================================
+
+                            ["CitizenHealthVerySickStatusMale"] = "Very sick",
+                            ["CitizenHealthSickStatusMale"] = "Sick",
+                            ["CitizenHealthPoorStatusMale"] = "Poor health",
+                            ["CitizenHealthHealthyStatusMale"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatusMale"] = "Very healthy",
+                            ["CitizenHealthExcellentStatusMale"] = "Excellent health",
+
+                            ["CitizenHealthVerySickStatusFemale"] = "Very sick",
+                            ["CitizenHealthSickStatusFemale"] = "Sick",
+                            ["CitizenHealthPoorStatusFemale"] = "Poor health",
+                            ["CitizenHealthHealthyStatusFemale"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatusFemale"] = "Very healthy",
+                            ["CitizenHealthExcellentStatusFemale"] = "Excellent health",
+
+                            // ============================================================
+                            // Death and funeral status
+                            // ============================================================
+
+                            ["CitizenWaitingForHearseStatus"] = "Waiting for a hearse",
+                            ["CitizenInHearseStatus"] = "Being transported by hearse",
+                            ["CitizenFuneralStatus"] = "Funeral service",
+                            ["CitizenBuriedStatus"] = "Buried",
+
+                            // ============================================================
+                            // Vehicles and passengers
+                            // ============================================================
+
+                            ["VehicleViewPassengersText"] = "View passengers",
+                            ["VehicleNoPassengersStatus"] = "No passengers",
+
+                            ["VehiclePassengersTitle"] = "Passengers on board",
+                            ["VehicleDriverTitle"] = "Driver",
+                            ["VehiclePassengerTooltip"] = "Passenger",
+                            ["VehiclePassengersButtonTooltip"] = "View passengers list",
+
+                            // ============================================================
+                            // Building occupant panel actions and titles
+                            // ============================================================
+
+                            ["BuildingViewResidentsText"] = "View residents",
+                            ["BuildingResidentsTitle"] = "Residents",
+
+                            ["BuildingViewOccupantsText"] = "View building occupants",
+                            ["BuildingOccupantsTitle"] = "Building occupants",
+
+                            ["BuildingHotelOccupantsTitle"] = "Workers, hotel guests, and visitors",
+
+                            ["BuildingNoOccupantsStatus"] = "No listed occupants",
+                            ["BuildingOccupantTotalLabel"] = "Total: ",
+
+                            // ============================================================
+                            // Registered resident sections
+                            // Number is appended by the caller.
+                            // ============================================================
+
+                            ["BuildingHouseholdTitle"] = "Household ",
+                            ["BuildingResidentsTooltip"] = "Registered residents",
+
+                            // ============================================================
+                            // Registered worker sections
+                            // Presence and roster membership have separate empty states.
+                            // ============================================================
+
+                            ["BuildingWorkersTitle"] = "Workers",
+                            ["BuildingWorkersPresentTitle"] = "At workplace",
+                            ["BuildingWorkersAwayTitle"] = "Away from workplace",
+                            ["BuildingWorkersUnknownTitle"] = "Presence unavailable",
+
+                            ["BuildingWorkersTooltip"] = "Registered workers",
+                            ["BuildingWorkersPresentTooltip"] = "Registered workers currently present at this building",
+                            ["BuildingWorkersAwayTooltip"] = "Registered workers who are elsewhere or travelling here",
+                            ["BuildingWorkersUnknownTooltip"] = "Registered workers whose current presence could not be determined",
+
+                            ["BuildingNoWorkersStatus"] = "No registered workers",
+                            ["BuildingNoWorkersPresentStatus"] = "No workers on-site",
+
+                            // ============================================================
+                            // Enrolled student sections
+                            // ============================================================
+
+                            ["BuildingStudentsTitle"] = "Students",
+                            ["BuildingStudentsPresentTitle"] = "At school",
+                            ["BuildingStudentsAwayTitle"] = "Away from school",
+                            ["BuildingStudentsUnknownTitle"] = "Presence unavailable",
+
+                            ["BuildingStudentsTooltip"] = "Enrolled students",
+                            ["BuildingStudentsPresentTooltip"] = "Enrolled students currently present at this school",
+                            ["BuildingStudentsAwayTooltip"] = "Enrolled students who are elsewhere or travelling here",
+                            ["BuildingStudentsUnknownTooltip"] = "Enrolled students whose current presence could not be determined",
+
+                            ["BuildingNoStudentsStatus"] = "No enrolled students",
+                            ["BuildingNoStudentsPresentStatus"] = "No students on-site",
+
+                            // ============================================================
+                            // Ordinary visitor sections
+                            // ============================================================
+
+                            ["BuildingVisitorsTitle"] = "Visitors",
+                            ["BuildingVisitorsTooltip"] = "Visitors currently inside or travelling to this building",
+
+                            ["BuildingNoVisitorsStatus"] = "No visitors",
+                            ["BuildingNoVisitorsPresentStatus"] = "No visitors inside",
+
+                            // ============================================================
+                            // Registered hotel guest sections
+                            // Number is appended by the caller.
+                            // ============================================================
+
+                            ["BuildingHotelGuestsTitle"] = "Hotel guests",
+                            ["BuildingHotelRoomTitle"] = "Hotel room ",
+                            ["BuildingHotelGuestsTooltip"] = "Registered hotel guests",
+
+                            ["BuildingNoHotelGuestsStatus"] = "No registered hotel guests",
+                            ["BuildingNoHotelGuestsPresentStatus"] = "No hotel guests inside",
+
+                            // ============================================================
+                            // Building presence indicators
+                            // ============================================================
+
+                            ["BuildingPresencePresentTooltip"] = "Present at this building",
+                            ["BuildingPresenceHeadingHereTooltip"] = "Travelling to this building",
+                            ["BuildingPresenceAwayTooltip"] = "Away from this building",
+                            ["BuildingPresenceUnknownTooltip"] = "Presence could not be determined",
+
+                            ["BuildingResidentPresentTooltip"] = "At home",
+                            ["BuildingResidentHeadingHereTooltip"] = "Travelling home",
+                            ["BuildingResidentAwayTooltip"] = "Away from home",
+
+                            ["BuildingWorkerPresentTooltip"] = "At workplace",
+                            ["BuildingWorkerHeadingHereTooltip"] = "Travelling to work",
+                            ["BuildingWorkerAwayTooltip"] = "Away from workplace",
+
+                            ["BuildingStudentPresentTooltip"] = "At school",
+                            ["BuildingStudentHeadingHereTooltip"] = "Travelling to school",
+                            ["BuildingStudentAwayTooltip"] = "Away from school",
+
+                            ["BuildingHotelGuestPresentTooltip"] = "At hotel",
+                            ["BuildingHotelGuestHeadingHereTooltip"] = "Travelling to hotel",
+                            ["BuildingHotelGuestAwayTooltip"] = "Away from hotel",
+
+                            // ============================================================
+                            // Expand/collapse actions
+                            // ============================================================
+
+                            ["BuildingSectionExpandTooltip"] = "Expand this section",
+                            ["BuildingSectionCollapseTooltip"] = "Collapse this section",
+
+                            // ============================================================
+                            // Building-specific occupant sections
+                            // ============================================================
+
+                            ["BuildingSchoolStudentsTitle"] = "Students at school",
+                            ["BuildingUniversityStudentsTitle"] = "Students at university",
+                            ["BuildingPatientsTitle"] = "Patients",
+                            ["BuildingDetaineesTitle"] = "Detainees",
+
+                            ["BuildingNoDetaineesPresentStatus"] = "No detainees inside",
+                            ["BuildingNoPatientsPresentStatus"] = "No patients inside",
+
+                            // ============================================================
+                            // Building-specific panel titles
+                            // ============================================================
+
+                            ["BuildingPoliceOccupantsTitle"] = "Police staff and detainees",
+                            ["BuildingPrisonOccupantsTitle"] = "Prison staff and prisoners",
+
+                            ["BuildingSchoolOccupantsTitle"] = "School staff and students",
+                            ["BuildingUniversityOccupantsTitle"] = "University staff and students",
+
+                            ["BuildingMedicalOccupantsTitle"] = "Medical staff and patients",
+                            ["BuildingMedicalUniversityOccupantsTitle"] = "Medical staff, patients, and students",
+
+                            ["BuildingHelicopterOccupantsTitle"] = "Pilots and workers",
+                            ["BuildingFireStationOccupantsTitle"] = "Firefighters and workers",
+                            ["BuildingRescueOccupantsTitle"] = "Rescue workers",
+                            ["BuildingShelterOccupantsTitle"] = "Shelter occupants and workers",
+
+                            // ============================================================
+                            // Arrest and detention status
+                            // ============================================================
+
+                            ["CitizenArrestedStatus"] = "Citizen is under arrest",
+                            ["CitizenTransportedToPrisonStatus"] = "Being transported to prison",
+                            ["CitizenDetainedAtLabel"] = "Held at ",
+
+                            // ============================================================
+                            // Main window controls
+                            // ============================================================
+
+                            ["MainWindowResizeTooltip"] = "Drag to resize the window",
+                            ["MainWindowResetSizeText"] = "Reset size",
+                            ["MainWindowResetSizeTooltip"] = "Restore the default window size",
+
+                            // ============================================================
+                            // Building categories: residential
+                            // ============================================================
+
+                            ["BuildingTypeResidentialLowTitle"] = "Low-density residential",
+                            ["BuildingTypeResidentialHighTitle"] = "High-density residential",
+
+                            ["BuildingTypeResidentialLowEcoTitle"] = "Low-density eco residential",
+                            ["BuildingTypeResidentialHighEcoTitle"] = "High-density eco residential",
+
+                            ["BuildingTypeResidentialWallToWallTitle"] = "Wall-to-wall residential",
+
+                            // ============================================================
+                            // Building categories: commercial
+                            // ============================================================
+
+                            ["BuildingTypeCommercialLowTitle"] = "Low-density commercial",
+                            ["BuildingTypeCommercialHighTitle"] = "High-density commercial",
+
+                            ["BuildingTypeCommercialLeisureTitle"] = "Leisure commercial",
+                            ["BuildingTypeCommercialTourismTitle"] = "Tourism commercial",
+                            ["BuildingTypeCommercialEcoTitle"] = "Eco commercial",
+                            ["BuildingTypeCommercialWallToWallTitle"] = "Wall-to-wall commercial",
+
+                            // ============================================================
+                            // Building category tooltips
+                            // ============================================================
+
+                            ["BuildingTypeCommercialEcoTooltip"] = "Eco commercial building",
+                            ["BuildingTypeCommercialLeisureTooltip"] = "Leisure commercial building",
+                            ["BuildingTypeCommercialTourismTooltip"] = "Tourism commercial building",
+                            ["BuildingTypeCommercialWallToWallTooltip"] = "Wall-to-wall commercial building",
+
+                            // ============================================================
+                            // Building categories: other
+                            // ============================================================
+
+                            ["BuildingTypeIndustrialTitle"] = "Industrial",
+                            ["BuildingTypeOfficeTitle"] = "Office"
                         };
 						return rus[index];
 					}
 					en = new Dictionary<string, string>
                     {
-                        ["FavCimsButtonTooltip"] = "My Favorite Cims",
-                        ["FavCimsBCMenuButtonText"] = "Citizens",
-                        ["FavCimsBCMenuButtonTooltip"] = "Followed People",
-                        ["FavCimsBBMenuButtonText"] = "Buildings",
-                        ["FavCimsBBMenuButtonTooltip"] = "Favorite Buildings",
-                        ["FavCimsBSMenuButtonText"] = "Stats",
-                        ["FavCimsBSMenuButtonTooltip"] = "Info and Stats",
-                        ["FavStarButtonEnableTooltip"] = "Click here to add to Favorites!",
-                        ["FavStarButtonDisableTooltip"] = "Click here to remove from Favorites :(",
-                        ["FavCimsHappinesColText"] = "Status",
-                        ["FavCimsHappinesColTooltip"] = "Citizen Happiness",
-                        ["FavCimsNameColText"] = "Citizen Name",
-                        ["FavCimsNameColTooltip"] = "Citizen Name",
-                        ["FavCimsEduColText"] = "Education",
-                        ["FavCimsEduColTooltip"] = "Citizen Education Level",
-                        ["FavCimsWorkingPlaceColText"] = "Occupation",
-                        ["FavCimsWorkingPlaceColTooltip"] = "Place where the Citizen Works or Study",
-                        ["FavCimsAgePhaseColText"] = "Age Phase",
-                        ["FavCimsAgePhaseColTooltip"] = "Citizen life Age Phase",
-                        ["FavCimsAgeColText"] = "Age",
-                        ["FavCimsAgeColTooltip"] = "Citizen Age",
-                        ["FavCimsHomeColText"] = "Citizen Home",
-                        ["FavCimsHomeColTooltip"] = "Citizen Living in this House",
-                        ["FavCimsLastActColText"] = "Last Activity",
-                        ["FavCimsLastActColTooltip"] = "What the Citizen is doing at the moment",
-                        ["FavCimsCloseButtonColText"] = "Close",
-                        ["FavCimsCloseButtonColTooltip"] = "Click on close button for remove citizen from favorites :(",
-                        ["Male"] = "Male",
-                        ["Female"] = "Female",
-                        ["AgePhaseChildMale"] = "Child",
-                        ["AgePhaseTeenMale"] = "Boy",
-                        ["AgePhaseYoungMale"] = "Young Man",
-                        ["AgePhaseAdultMale"] = "Man",
-                        ["AgePhaseSeniorMale"] = "Old Man",
-                        ["EducationUneducatedMale"] = "Uneducated",
-                        ["EducationOneSchoolMale"] = "Educated",
-                        ["EducationTwoSchoolsMale"] = "Well Educated",
-                        ["EducationThreeSchoolsMale"] = "Highly Educated",
-                        ["AgePhaseChildFemale"] = "Child",
-                        ["AgePhaseTeenFemale"] = "Girl",
-                        ["AgePhaseYoungFemale"] = "Young Woman",
-                        ["AgePhaseAdultFemale"] = "Woman",
-                        ["AgePhaseSeniorFemale"] = "Old Woman",
-                        ["EducationUneducatedFemale"] = "Uneducated",
-                        ["EducationOneSchoolFemale"] = "Educated",
-                        ["EducationTwoSchoolsFemale"] = "Well Educated",
-                        ["EducationThreeSchoolsFemale"] = "Highly Educated",
-                        ["AgePhaseDeadMale"] = "Dead",
-                        ["AgePhaseDeadFemale"] = "Dead",
-                        ["PeopleLifeStatusAlive"] = "Citizen is alive",
-                        ["PeopleLifeStatusDead"] = "Citizen is dead",
-                        ["PeopleLifeStatusDeadDate"] = "on this date",
-                        ["PeopleLifeStatusDeadTime"] = "at time",
-                        ["NotificationIconVeryUnhappy"] = "Very Unhappy",
-                        ["NotificationIconUnhappy"] = "Unhappy",
-                        ["NotificationIconHappy"] = "Happy",
-                        ["NotificationIconVeryHappy"] = "Very Happy",
-                        ["NotificationIconExtremelyHappy"] = "Extremely Happy",
-                        ["TimeFormat"] = "mm-dd-yyyy",
-                        ["PeopleLifeStatusIsGone"] = "Citizen is gone away from the city",
-                        ["CitizenHomeLess"] = "Homeless",
-                        ["CitizenHomeLessTooltip"] = "Citizen has no home",
-                        ["HomeOutsideTheCity"] = "Far far away",
-                        ["HomeLocationDead"] = "At Cemetery",
-                        ["CitizenRetired"] = "Retired",
-                        ["CitizenRetiredTooltip"] = "Citizen retired from work",
-                        ["UnemployedTooltip"] = "Citizen has much free time at the moment...",
-                        ["GovernmentJob"] = "Government Building",
-                        ["ElectricityJob"] = "Electricity Plant",
-                        ["WaterJob"] = "Water Plant",
-                        ["GenericJobPlace"] = "Citizen Works in this building",
-                        ["OnFoot"] = "Citizen walking on foot",
-                        ["CitizenDetails"] = "Citizen Detail",
-                        ["CitizenDetailsFullTemplate"] = "Too many Family Windows opened, close one before open another",
-                        ["StatusStaticLabel"] = "Status : ",
-                        ["CitizenFamilyUnit"] = "Family",
-                        ["NowInThisDistrict"] = "In this moment is in District: ",
+                        // ============================================================
+                        // Main navigation
+                        // ============================================================
+
+                        ["MainViewListText"] = "View ",
+                        ["MainButtonTooltip"] = "Open Favorite Cims",
+
+                        ["MainCitizensTabText"] = "Citizens",
+                        ["MainCitizensTabTooltip"] = "View favorite citizens",
+
+                        ["MainBuildingsTabText"] = "Buildings",
+                        ["MainBuildingsTabTooltip"] = "View favorite buildings",
+
+                        ["MainStatisticsTabText"] = "Stats",
+                        ["MainStatisticsTabTooltip"] = "View information and statistics",
+
+                        // ============================================================
+                        // Favorite actions
+                        // ============================================================
+
+                        ["FavoriteAddTooltip"] = "Add to favorites",
+                        ["FavoriteRemoveTooltip"] = "Remove from favorites",
+
+                        // ============================================================
+                        // Citizen table columns
+                        // ============================================================
+
+                        ["CitizenStatusColumnTitle"] = "Status",
+                        ["CitizenStatusColumnTooltip"] = "Citizen happiness",
+
+                        ["CitizenNameColumnTitle"] = "Citizen name",
+                        ["CitizenNameColumnTooltip"] = "Citizen name",
+
+                        ["CitizenLifeStageColumnTitle"] = "Life stage",
+                        ["CitizenLifeStageColumnTooltip"] = "Citizen life stage",
+
+                        ["CitizenAgeColumnTitle"] = "Age",
+                        ["CitizenAgeColumnTooltip"] = "Citizen age",
+
+                        ["CitizenEducationColumnTitle"] = "Education",
+                        ["CitizenEducationColumnTooltip"] = "Citizen education level",
+
+                        ["CitizenHomeColumnTitle"] = "Home",
+                        ["CitizenHomeColumnTooltip"] = "Citizen home",
+
+                        ["CitizenOccupationColumnTitle"] = "Occupation",
+                        ["CitizenOccupationColumnTooltip"] = "Workplace, school, or occupation",
+
+                        ["CitizenActivityColumnTitle"] = "Activity",
+                        ["CitizenActivityColumnTooltip"] = "What the citizen is currently doing",
+
+                        ["CitizenRemoveColumnTitle"] = "Remove",
+                        ["CitizenRemoveColumnTooltip"] = "Remove this citizen from favorites",
+
+                        // ============================================================
+                        // Citizen gender
+                        // ============================================================
+
+                        ["CitizenGenderLabelMale"] = "Male",
+                        ["CitizenGenderLabelFemale"] = "Female",
+
+                        // ============================================================
+                        // Citizen life stages
+                        // Keep gender suffixes for languages that require them.
+                        // ============================================================
+
+                        ["CitizenLifeStageChildMale"] = "Child",
+                        ["CitizenLifeStageTeenMale"] = "Teen",
+                        ["CitizenLifeStageYoungAdultMale"] = "Young adult",
+                        ["CitizenLifeStageAdultMale"] = "Adult",
+                        ["CitizenLifeStageSeniorMale"] = "Senior",
+                        ["CitizenLifeStageDeceasedMale"] = "Deceased",
+
+                        ["CitizenLifeStageChildFemale"] = "Child",
+                        ["CitizenLifeStageTeenFemale"] = "Teen",
+                        ["CitizenLifeStageYoungAdultFemale"] = "Young adult",
+                        ["CitizenLifeStageAdultFemale"] = "Adult",
+                        ["CitizenLifeStageSeniorFemale"] = "Senior",
+                        ["CitizenLifeStageDeceasedFemale"] = "Deceased",
+
+                        // ============================================================
+                        // Citizen education
+                        // ============================================================
+
+                        ["CitizenEducationUneducatedMale"] = "Uneducated",
+                        ["CitizenEducationEducatedMale"] = "Educated",
+                        ["CitizenEducationWellEducatedMale"] = "Well educated",
+                        ["CitizenEducationHighlyEducatedMale"] = "Highly educated",
+
+                        ["CitizenEducationUneducatedFemale"] = "Uneducated",
+                        ["CitizenEducationEducatedFemale"] = "Educated",
+                        ["CitizenEducationWellEducatedFemale"] = "Well educated",
+                        ["CitizenEducationHighlyEducatedFemale"] = "Highly educated",
+
+                        // ============================================================
+                        // Citizen life status
+                        // ============================================================
+
+                        ["CitizenAliveStatus"] = "Citizen is alive",
+                        ["CitizenDeceasedStatus"] = "Citizen is deceased",
+                        ["CitizenLeftCityStatus"] = "Citizen has left the city",
+
+                        ["CitizenDeathDateLabel"] = "Date of death: ",
+                        ["CitizenDeathTimeLabel"] = "Time of death: ",
+
+                        // ============================================================
+                        // Date and time formats
+                        // Date order and clock format are independent settings.
+                        // Quoted separators preserve the displayed punctuation.
+                        // ============================================================
+
+                        ["DateMonthFirstFormat"] = "MM'/'dd'/'yyyy",
+                        ["DateDayFirstFormat"] = "dd'/'MM'/'yyyy",
+                        ["DateYearFirstFormat"] = "yyyy'-'MM'-'dd",
+
+                        ["Time12HourFormat"] = "hh':'mm tt",
+                        ["Time24HourFormat"] = "HH':'mm",
+
+                        ["DateFormatSettingLabel"] = "Date format",
+                        ["DateFormatSettingTooltip"] = "Choose the order of the month, day, and year",
+
+                        ["DateMonthFirstOptionText"] = "Month / Day / Year",
+                        ["DateDayFirstOptionText"] = "Day / Month / Year",
+                        ["DateYearFirstOptionText"] = "Year / Month / Day",
+
+                        ["TimeFormatSettingLabel"] = "Time format",
+                        ["TimeFormatSettingTooltip"] = "Choose a 12-hour or 24-hour clock",
+
+                        ["Time12HourOptionText"] = "12-hour clock",
+                        ["Time24HourOptionText"] = "24-hour clock",
+
+                        // ============================================================
+                        // Citizen happiness
+                        // ============================================================
+
+                        ["CitizenHappinessVeryUnhappyStatus"] = "Very unhappy",
+                        ["CitizenHappinessUnhappyStatus"] = "Unhappy",
+                        ["CitizenHappinessHappyStatus"] = "Happy",
+                        ["CitizenHappinessVeryHappyStatus"] = "Very happy",
+                        ["CitizenHappinessExtremelyHappyStatus"] = "Extremely happy",
+
+                        // ============================================================
+                        // Citizen home
+                        // ============================================================
+
+                        ["CitizenHomelessStatus"] = "Homeless",
+                        ["CitizenHomelessTooltip"] = "Citizen has no home",
+
+                        ["CitizenHomeOutsideCityStatus"] = "Outside the city",
+                        ["CitizenHomeOutsideCityTooltip"] = "Citizen lives outside the city",
+
+                        ["CitizenHomeCemeteryStatus"] = "Cemetery",
+
+                        // ============================================================
+                        // Citizen occupation
+                        // ============================================================
+
+                        ["CitizenRetiredStatus"] = "Retired",
+                        ["CitizenRetiredTooltip"] = "Citizen is retired",
+
+                        ["CitizenUnemployedStatus"] = "Unemployed",
+                        ["CitizenUnemployedTooltip"] = "Citizen is unemployed",
+
+                        ["CitizenGovernmentWorkplaceTooltip"] = "Government building",
+                        ["CitizenElectricityWorkplaceTooltip"] = "Electricity facility",
+                        ["CitizenWaterWorkplaceTooltip"] = "Water facility",
+                        ["CitizenGenericWorkplaceTooltip"] = "Citizen works here",
+
+                        ["CitizenWalkingTooltip"] = "Travelling on foot",
+                        ["CitizenTouristTooltip"] = "This citizen is visiting the city",
+
+                        // ============================================================
+                        // Citizen details and family
+                        // ============================================================
+
+                        ["CitizenDetailsTitle"] = "Citizen details",
+                        ["CitizenDetailsUnavailableTooltip"] = "No details window is available. Close an existing window and try again.",
+
+                        ["CitizenStatusLabel"] = "Status: ",
+                        ["CitizenHomeLabel"] = "Home: ",
+
+                        ["CitizenFamilyTitle"] = "Family",
+                        ["CitizenNoPartnerStatus"] = "No partner",
+                        ["CitizenNoChildrenStatus"] = "No children",
+                        ["CitizenNoHouseholdStatus"] = "No household details available",
+
+                        ["CitizenSwitchTooltip"] = "Right-click to view this citizen",
+
+                        // ============================================================
+                        // Districts
+                        // ============================================================
+
+                        ["CitizenCurrentDistrictLabel"] = "Current district: ",
+                        ["CitizenCurrentDistrictTooltip"] = "Citizen's current district",
+
                         ["DistrictLabel"] = "District: ",
-                        ["DistrictNameNoDistrict"] = "None",
-                        ["CitizenDetailsNoPartner"] = "No Partner",
-                        ["CitizenDetailsNoChilds"] = "No Childs",
-                        ["RightClickToSwitchTooltip"] = "Right Click to Switch Citizen",
-                        ["HomeBubblePanelLabel"] = "Home : ",
-                        ["LowWealthMale"] = "Poor",
-                        ["MidWealthMale"] = "Well-off",
-                        ["HighWealthMale"] = "Rich",
-                        ["LowWealthFemale"] = "Poor",
-                        ["MidWealthFemale"] = "Well-off",
-                        ["HighWealthFemale"] = "Rich",
-                        ["WellBeingLabel"] = "Wellbeing: ",
-                        ["HappinessLabel"] = "Happiness : ",
-                        ["WealthLabel"] = "Wealth",
-                        ["HealthLevelVerySickMale"] = "Very Sick",
-                        ["HealthLevelSickMale"] = "Sick",
-                        ["HealthLevelPoorHealthMale"] = "Poor Health",
-                        ["HealthLevelHealthyMale"] = "Healthy",
-                        ["HealthLevelVeryHealthyMale"] = "Very Healthy",
-                        ["HealthLevelExcellentHealthMale"] = "Excellent Health",
-                        ["HealthLevelVerySickFemale"] = "Very Sick",
-                        ["HealthLevelSickFemale"] = "Sick",
-                        ["HealthLevelPoorHealthFemale"] = "Poor Health",
-                        ["HealthLevelHealthyFemale"] = "Healthy",
-                        ["HealthLevelVeryHealthyFemale"] = "Very Healthy",
-                        ["HealthLevelExcellentHealthFemale"] = "Excellent Health",
-                        ["DistrictLabel"] = "District: ",
-                        ["DistrictLabelTooltip"] = "In this District at the moment",
-                        ["CitizenDetailsNoUnit"] = "Citizen is dead or homeless",
-                        ["CitizenWaitHearse"] = "Waiting for funeral car",
-                        ["CitizenOnHearse"] = "On funeral car",
-                        ["CitizenHisFuneral"] = "Funeral ceremony",
-                        ["CitizenBuried"] = "Six Feet Under",
-                        ["CitizenTouristTooltip"] = "This citizen is visiting our City",
-                        ["ViewPassengersList"] = "View passengers list",
-                        ["ViewNoPassengers"] = "No passengers",
-                        ["VehiclePassengers"] = "Passengers on board",
-                        ["VehicleDriverIconText"] = "Vehicle Driver",
-                        ["VehiclePassengerIconText"] = "Passengers",
-                        ["CitizensHouseHolds"] = "View Residents",
-                        ["CitizensHouseHoldsTitle"] = "Residents",
-                        ["CitizenOnBuilding"] = "Employees and Guests List",
-                        ["CitizenOnBuildingTitle"] = "Employees and Guests",
-                        ["CitizenOnHotelBuildingTitle"] = "Employees and Hotel Guests and Visitors",
-                        ["OnBuildingResidential"] = "Apartment ",
-                        ["OnBuildingHotelRooms"] = "Hotel Room ",
-                        ["ViewList"] = "View ",
-                        ["OnBuildingGuests"] = "Guests",
-                        ["OnBuildingWorkers"] = "Employees",
-                        ["OnBuildingWorkersPresent"] = "At work",
-                        ["OnBuildingWorkersAway"] = "Not at work",
-                        ["OnBuildingWorkersUnknown"] = "Presence unavailable",
-                        ["WorkersOnBuilding"] = "List of employees",
-                        ["OnBuildingNoWorkers"] = "Nobody at work",
-                        ["OnBuildingNoGuests"] = "No guests inside",
-                        ["OnBuildingNoHotelGuests"] = "No hotel guests inside",
-                        ["BuildingIsEmpty"] = "Nobody works or lives here",
-                        ["OnBuildingTotalWorkers"] = "Tot :",
-                        ["BuildingsTypeCommercialEco"] = "Ecologic Commercial Building",
-                        ["BuildingsTypeCommercialLeisure"] = "Leisure Commercial Building",
-                        ["BuildingsTypeCommercialTourist"] = "Tourism Commercial Building",
-                        ["BuildingsTypeCommercialWallToWall"] = "Wall-to-Wall Commercial Building",
-                        ["CitizenArrested"] = "This Citizen is in Jail!",
-                        ["TransportedToPrison"] = "Transported to Prison",
-                        ["JailedInto"] = "Jailed into ",
-                        ["CitizenAtSchool"] = "Pupils at school",
-                        ["CitizenAtUniversity"] = "Students at university",
-                        ["CitizenAtClinic"] = "Patients being treated",
-                        ["CitizenUnderArrest"] = "Citizens under arrest",
-                        ["OnBuildingNoArrested"] = "Nobody jailed here",
-                        ["OnPoliceBuildingService"] = "Officers and Prisoners",
-                        ["OnPrisonBuildingService"] = "Guards and Prisoners",
-                        ["OnEducationBuildingService"] = "Teachers and Pupils",
-                        ["OnHighEducationBuildingService"] = "Lecturers and Students",
-                        ["OnMedicalBuildingService"] = "Doctors and Patients",
-                        ["OnMedicalUniversityBuildingService"] = "Doctors and Patients and Students",
-                        ["OnBuildingNoStudents"] = "No Students inside",
-                        ["OnBuildingNoPatients"] = "No Patients inside",
-                        ["OnHelicopterBuildingService"] = "Pilots and Workers",
-                        ["OnFireBuildingService"] = "FireFighters and Workers",
-                        ["OnRescueBuildingService"] = "Pilots and RescueWorkers",
-                        ["OnShelterBuildingService"] = "Survivors and Workers",
-                        ["OnBuildingNoHotelGuests"] = "No Hotel guests inside",
-                        ["MainResizeHandleTooltip"] = "Drag to resize the window",
-                        ["MainResetSizeText"] = "Reset size",
-                        ["MainResetSizeTooltip"] = "Restore the default window size",
-                        ["ResidentialLow"] = "Residential Low",
-                        ["ResidentialHigh"] = "Residential High",
-                        ["ResidentialLowEco"] = "Residential Low Eco",
-                        ["ResidentialHighEco"] = "Residential High Eco",   
-                        ["ResidentialWallToWall"] = "Residential Wall-to-Wall",
-                        ["CommercialLow"] = "Commercial Low",
-                        ["CommercialHigh"] = "Commercial High",
-                        ["CommercialLeisure"] = "Commercial Leisure",
-                        ["CommercialTourist"] = "Commercial Tourist",                        
-                        ["CommercialEco"] = "Commercial Eco",
-                        ["CommercialWallToWall"] = "Commercial Wall-to-Wall",
-                        ["Industrial"] = "Industrial",
-                        ["Office"] = "Office"
+                        ["DistrictNoneText"] = "None",
+
+                        // ============================================================
+                        // Citizen wealth and wellbeing
+                        // ============================================================
+
+                        ["CitizenWealthLowStatusMale"] = "Poor",
+                        ["CitizenWealthMediumStatusMale"] = "Well-off",
+                        ["CitizenWealthHighStatusMale"] = "Rich",
+
+                        ["CitizenWealthLowStatusFemale"] = "Poor",
+                        ["CitizenWealthMediumStatusFemale"] = "Well-off",
+                        ["CitizenWealthHighStatusFemale"] = "Rich",
+
+                        ["CitizenWellbeingLabel"] = "Wellbeing: ",
+                        ["CitizenHappinessLabel"] = "Happiness: ",
+                        ["CitizenWealthLabel"] = "Wealth",
+
+                        // ============================================================
+                        // Citizen health
+                        // ============================================================
+
+                        ["CitizenHealthVerySickStatusMale"] = "Very sick",
+                        ["CitizenHealthSickStatusMale"] = "Sick",
+                        ["CitizenHealthPoorStatusMale"] = "Poor health",
+                        ["CitizenHealthHealthyStatusMale"] = "Healthy",
+                        ["CitizenHealthVeryHealthyStatusMale"] = "Very healthy",
+                        ["CitizenHealthExcellentStatusMale"] = "Excellent health",
+
+                        ["CitizenHealthVerySickStatusFemale"] = "Very sick",
+                        ["CitizenHealthSickStatusFemale"] = "Sick",
+                        ["CitizenHealthPoorStatusFemale"] = "Poor health",
+                        ["CitizenHealthHealthyStatusFemale"] = "Healthy",
+                        ["CitizenHealthVeryHealthyStatusFemale"] = "Very healthy",
+                        ["CitizenHealthExcellentStatusFemale"] = "Excellent health",
+
+                        // ============================================================
+                        // Death and funeral status
+                        // ============================================================
+
+                        ["CitizenWaitingForHearseStatus"] = "Waiting for a hearse",
+                        ["CitizenInHearseStatus"] = "Being transported by hearse",
+                        ["CitizenFuneralStatus"] = "Funeral service",
+                        ["CitizenBuriedStatus"] = "Buried",
+
+                        // ============================================================
+                        // Vehicles and passengers
+                        // ============================================================
+
+                        ["VehicleViewPassengersText"] = "View passengers",
+                        ["VehicleNoPassengersStatus"] = "No passengers",
+
+                        ["VehiclePassengersTitle"] = "Passengers on board",
+                        ["VehicleDriverTitle"] = "Driver",
+                        ["VehiclePassengerTooltip"] = "Passenger",
+                        ["VehiclePassengersButtonTooltip"] = "View passengers list",
+
+                        // ============================================================
+                        // Building occupant panel actions and titles
+                        // ============================================================
+
+                        ["BuildingViewResidentsText"] = "View residents",
+                        ["BuildingResidentsTitle"] = "Residents",
+
+                        ["BuildingViewOccupantsText"] = "View building occupants",
+                        ["BuildingOccupantsTitle"] = "Building occupants",
+
+                        ["BuildingHotelOccupantsTitle"] = "Workers, hotel guests, and visitors",
+
+                        ["BuildingNoOccupantsStatus"] = "No listed occupants",
+                        ["BuildingOccupantTotalLabel"] = "Total: ",
+
+                        // ============================================================
+                        // Registered resident sections
+                        // Number is appended by the caller.
+                        // ============================================================
+
+                        ["BuildingHouseholdTitle"] = "Household ",
+                        ["BuildingResidentsTooltip"] = "Registered residents",
+
+                        // ============================================================
+                        // Registered worker sections
+                        // Presence and roster membership have separate empty states.
+                        // ============================================================
+
+                        ["BuildingWorkersTitle"] = "Workers",
+                        ["BuildingWorkersPresentTitle"] = "At workplace",
+                        ["BuildingWorkersAwayTitle"] = "Away from workplace",
+                        ["BuildingWorkersUnknownTitle"] = "Presence unavailable",
+
+                        ["BuildingWorkersTooltip"] = "Registered workers",
+                        ["BuildingWorkersPresentTooltip"] = "Registered workers currently present at this building",
+                        ["BuildingWorkersAwayTooltip"] = "Registered workers who are elsewhere or travelling here",
+                        ["BuildingWorkersUnknownTooltip"] = "Registered workers whose current presence could not be determined",
+
+                        ["BuildingNoWorkersStatus"] = "No registered workers",
+                        ["BuildingNoWorkersPresentStatus"] = "No workers on-site",
+
+                        // ============================================================
+                        // Enrolled student sections
+                        // ============================================================
+
+                        ["BuildingStudentsTitle"] = "Students",
+                        ["BuildingStudentsPresentTitle"] = "At school",
+                        ["BuildingStudentsAwayTitle"] = "Away from school",
+                        ["BuildingStudentsUnknownTitle"] = "Presence unavailable",
+
+                        ["BuildingStudentsTooltip"] = "Enrolled students",
+                        ["BuildingStudentsPresentTooltip"] = "Enrolled students currently present at this school",
+                        ["BuildingStudentsAwayTooltip"] = "Enrolled students who are elsewhere or travelling here",
+                        ["BuildingStudentsUnknownTooltip"] = "Enrolled students whose current presence could not be determined",
+
+                        ["BuildingNoStudentsStatus"] = "No enrolled students",
+                        ["BuildingNoStudentsPresentStatus"] = "No students on-site",
+
+                        // ============================================================
+                        // Ordinary visitor sections
+                        // ============================================================
+
+                        ["BuildingVisitorsTitle"] = "Visitors",
+                        ["BuildingVisitorsTooltip"] = "Visitors currently inside or travelling to this building",
+
+                        ["BuildingNoVisitorsStatus"] = "No visitors",
+                        ["BuildingNoVisitorsPresentStatus"] = "No visitors inside",
+
+                        // ============================================================
+                        // Registered hotel guest sections
+                        // Number is appended by the caller.
+                        // ============================================================
+
+                        ["BuildingHotelGuestsTitle"] = "Hotel guests",
+                        ["BuildingHotelRoomTitle"] = "Hotel room ",
+                        ["BuildingHotelGuestsTooltip"] = "Registered hotel guests",
+
+                        ["BuildingNoHotelGuestsStatus"] = "No registered hotel guests",
+                        ["BuildingNoHotelGuestsPresentStatus"] = "No hotel guests inside",
+
+                        // ============================================================
+                        // Building presence indicators
+                        // ============================================================
+
+                        ["BuildingPresencePresentTooltip"] = "Present at this building",
+                        ["BuildingPresenceHeadingHereTooltip"] = "Travelling to this building",
+                        ["BuildingPresenceAwayTooltip"] = "Away from this building",
+                        ["BuildingPresenceUnknownTooltip"] = "Presence could not be determined",
+
+                        ["BuildingResidentPresentTooltip"] = "At home",
+                        ["BuildingResidentHeadingHereTooltip"] = "Travelling home",
+                        ["BuildingResidentAwayTooltip"] = "Away from home",
+
+                        ["BuildingWorkerPresentTooltip"] = "At workplace",
+                        ["BuildingWorkerHeadingHereTooltip"] = "Travelling to work",
+                        ["BuildingWorkerAwayTooltip"] = "Away from workplace",
+
+                        ["BuildingStudentPresentTooltip"] = "At school",
+                        ["BuildingStudentHeadingHereTooltip"] = "Travelling to school",
+                        ["BuildingStudentAwayTooltip"] = "Away from school",
+
+                        ["BuildingHotelGuestPresentTooltip"] = "At hotel",
+                        ["BuildingHotelGuestHeadingHereTooltip"] = "Travelling to hotel",
+                        ["BuildingHotelGuestAwayTooltip"] = "Away from hotel",
+
+                        // ============================================================
+                        // Expand/collapse actions
+                        // ============================================================
+
+                        ["BuildingSectionExpandTooltip"] = "Expand this section",
+                        ["BuildingSectionCollapseTooltip"] = "Collapse this section",
+
+                        // ============================================================
+                        // Building-specific occupant sections
+                        // ============================================================
+
+                        ["BuildingSchoolStudentsTitle"] = "Students at school",
+                        ["BuildingUniversityStudentsTitle"] = "Students at university",
+                        ["BuildingPatientsTitle"] = "Patients",
+                        ["BuildingDetaineesTitle"] = "Detainees",
+
+                        ["BuildingNoDetaineesPresentStatus"] = "No detainees inside",
+                        ["BuildingNoPatientsPresentStatus"] = "No patients inside",
+
+                        // ============================================================
+                        // Building-specific panel titles
+                        // ============================================================
+
+                        ["BuildingPoliceOccupantsTitle"] = "Police staff and detainees",
+                        ["BuildingPrisonOccupantsTitle"] = "Prison staff and prisoners",
+
+                        ["BuildingSchoolOccupantsTitle"] = "School staff and students",
+                        ["BuildingUniversityOccupantsTitle"] = "University staff and students",
+
+                        ["BuildingMedicalOccupantsTitle"] = "Medical staff and patients",
+                        ["BuildingMedicalUniversityOccupantsTitle"] = "Medical staff, patients, and students",
+
+                        ["BuildingHelicopterOccupantsTitle"] = "Pilots and workers",
+                        ["BuildingFireStationOccupantsTitle"] = "Firefighters and workers",
+                        ["BuildingRescueOccupantsTitle"] = "Rescue workers",
+                        ["BuildingShelterOccupantsTitle"] = "Shelter occupants and workers",
+
+                        // ============================================================
+                        // Arrest and detention status
+                        // ============================================================
+
+                        ["CitizenArrestedStatus"] = "Citizen is under arrest",
+                        ["CitizenTransportedToPrisonStatus"] = "Being transported to prison",
+                        ["CitizenDetainedAtLabel"] = "Held at ",
+
+                        // ============================================================
+                        // Main window controls
+                        // ============================================================
+
+                        ["MainWindowResizeTooltip"] = "Drag to resize the window",
+                        ["MainWindowResetSizeText"] = "Reset size",
+                        ["MainWindowResetSizeTooltip"] = "Restore the default window size",
+
+                        // ============================================================
+                        // Building categories: residential
+                        // ============================================================
+
+                        ["BuildingTypeResidentialLowTitle"] = "Low-density residential",
+                        ["BuildingTypeResidentialHighTitle"] = "High-density residential",
+
+                        ["BuildingTypeResidentialLowEcoTitle"] = "Low-density eco residential",
+                        ["BuildingTypeResidentialHighEcoTitle"] = "High-density eco residential",
+
+                        ["BuildingTypeResidentialWallToWallTitle"] = "Wall-to-wall residential",
+
+                        // ============================================================
+                        // Building categories: commercial
+                        // ============================================================
+
+                        ["BuildingTypeCommercialLowTitle"] = "Low-density commercial",
+                        ["BuildingTypeCommercialHighTitle"] = "High-density commercial",
+
+                        ["BuildingTypeCommercialLeisureTitle"] = "Leisure commercial",
+                        ["BuildingTypeCommercialTourismTitle"] = "Tourism commercial",
+                        ["BuildingTypeCommercialEcoTitle"] = "Eco commercial",
+                        ["BuildingTypeCommercialWallToWallTitle"] = "Wall-to-wall commercial",
+
+                        // ============================================================
+                        // Building category tooltips
+                        // ============================================================
+
+                        ["BuildingTypeCommercialEcoTooltip"] = "Eco commercial building",
+                        ["BuildingTypeCommercialLeisureTooltip"] = "Leisure commercial building",
+                        ["BuildingTypeCommercialTourismTooltip"] = "Tourism commercial building",
+                        ["BuildingTypeCommercialWallToWallTooltip"] = "Wall-to-wall commercial building",
+
+                        // ============================================================
+                        // Building categories: other
+                        // ============================================================
+
+                        ["BuildingTypeIndustrialTitle"] = "Industrial",
+                        ["BuildingTypeOfficeTitle"] = "Office"
                     };
 					return en[index];
 				}

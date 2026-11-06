@@ -104,7 +104,7 @@ namespace FavoriteCims.UI.PanelsRows
             ageButton.textColor = ageColor(value.RealAge);
             favoriteButton.isEnabled = true;
             favoriteButton.normalBgSprite = value.IsFavorite ? "IconFavSubscribed" : "IconFavUnsubscribed";
-            favoriteButton.tooltip = FavCimsLang.Text(value.IsFavorite ? "FavStarButtonDisableTooltip" : "FavStarButtonEnableTooltip");
+            favoriteButton.tooltip = FavCimsLang.Text(value.IsFavorite ? "FavoriteRemoveTooltip" : "FavoriteAddTooltip");
             renderActivity(value.Activity, vehicleButton, destinationButton);
             RefreshLayout();
             panel.Show();
