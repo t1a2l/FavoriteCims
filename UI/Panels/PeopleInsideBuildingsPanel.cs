@@ -14,7 +14,8 @@ namespace FavoriteCims.UI.Panels
         private const float RefreshInterval = 0.5f;
         private const int MaxHouseHolds = 40;
         private const int MaxWorkersUnits = 20;
-        private const int MaxGuestsUnits = 20;
+        private const int MaxStudentUnits = 20;
+        private const int MaxVisitorsUnits = 20;
         private const int MaxHotelRooms = 40;
         private const int CitizensPerUnit = 5;
 
@@ -35,7 +36,8 @@ namespace FavoriteCims.UI.Panels
         public Dictionary<uint, uint> CimsOnBuilding => rowContext.Citizens;
 
         public int WorkersCount;
-        public int GuestsCount;
+        public int StudentsCount;
+        public int VisitorsCount;
         public int HotelGuestsCount;
 
         private readonly BuildingManager buildingManager = Singleton<BuildingManager>.instance;
@@ -50,10 +52,15 @@ namespace FavoriteCims.UI.Panels
         private UIButton workersPanelText;
         private readonly WorkersBuildingPanelRow[] workerRows = new WorkersBuildingPanelRow[MaxWorkersUnits * CitizensPerUnit];
 
-        private UIPanel guestsPanel;
-        private UIButton guestsPanelIcon;
-        private UIButton guestsPanelText;
-        private readonly GuestsBuildingPanelRow[] guestRows = new GuestsBuildingPanelRow[MaxGuestsUnits * CitizensPerUnit];
+        private UIPanel studentsPanel;
+        private UIButton studentsPanelIcon;
+        private UIButton studentsPanelText;
+        private readonly StudentsBuildingPanelRow[] studentRows = new StudentsBuildingPanelRow[MaxStudentUnits * CitizensPerUnit];
+
+        private UIPanel visitorsPanel;
+        private UIButton visitorsPanelIcon;
+        private UIButton visitorsPanelText;
+        private readonly VisitorsBuildingPanelRow[] visitorRows = new VisitorsBuildingPanelRow[MaxVisitorsUnits * CitizensPerUnit];
 
         private readonly UIPanel[] hotelRoomPanels = new UIPanel[MaxHotelRooms];
         private readonly UIButton[] hotelRoomIcons = new UIButton[MaxHotelRooms];
@@ -83,11 +90,18 @@ namespace FavoriteCims.UI.Panels
 
         private readonly List<Action> collapseChangedHandlers = [];
 
-        private readonly List<EmployeeRowPlacement> employeePlacements = [];
+        private readonly List<RosterRowPlacement> workerPlacements = [];
 
-        private EmployeeSectionsLayout employeeSections;
+        private RosterSectionsLayout workerSections;
+
+        private readonly List<RosterRowPlacement> studentPlacements = [];
+
+        private RosterSectionsLayout studentSections;
+
         private readonly List<BuildingSectionCollapse> householdCollapses = [];
-        private BuildingSectionCollapse guestCollapse;
+
+        private BuildingSectionCollapse visitorCollapse;
+
         private readonly List<BuildingSectionCollapse> hotelRoomCollapses = [];
 
         public override void Awake()
@@ -106,16 +120,11 @@ namespace FavoriteCims.UI.Panels
                 CreateBody();
                 CreateResidentialSection();
                 CreateWorkerSection();
+                CreateStudentSection();
                 CreateGuestSection();
                 CreateHotelSection();
                 CreateScrollbar();
                 CreateFooter();
-
-                employeeSections = new EmployeeSectionsLayout(bodyRows, workersPanel, workersPanelText);
-
-                Action employeeHandler = () => MeasureVisibleBodyContentHeight();
-                collapseChangedHandlers.Add(employeeHandler);
-                employeeSections.SectionsChanged += employeeHandler;
 
                 for (int i = 0; i < residentialPanels.Length; i++)
                 {
@@ -128,11 +137,17 @@ namespace FavoriteCims.UI.Panels
                     householdCollapses.Add(collapse);
                 }
 
-                guestCollapse = new BuildingSectionCollapse(guestsPanel, "GuestsCollapse", guestsPanelText);
+                workerSections = new RosterSectionsLayout(bodyRows, workersPanel, workersPanelText);
 
-                Action guestHandler = () => MeasureVisibleBodyContentHeight();
-                collapseChangedHandlers.Add(guestHandler);
-                guestCollapse.StateChanged += guestHandler;
+                Action workerHandler = () => MeasureVisibleBodyContentHeight();
+                collapseChangedHandlers.Add(workerHandler);
+                workerSections.SectionsChanged += workerHandler;
+
+                visitorCollapse = new BuildingSectionCollapse(visitorsPanel, "VisitorCollapse", visitorsPanelText);
+
+                Action visitHandler = () => MeasureVisibleBodyContentHeight();
+                collapseChangedHandlers.Add(visitHandler);
+                visitorCollapse.StateChanged += visitHandler;
 
                 for (int i = 0; i < hotelRoomPanels.Length; i++)
                 {
@@ -144,6 +159,12 @@ namespace FavoriteCims.UI.Panels
                     collapse.StateChanged += hotelHandler;
                     hotelRoomCollapses.Add(collapse);
                 }
+
+                studentSections = new RosterSectionsLayout(bodyRows, studentsPanel, studentsPanelText);
+
+                Action studentHandler = () => MeasureVisibleBodyContentHeight();
+                collapseChangedHandlers.Add(studentHandler);
+                studentSections.SectionsChanged += studentHandler;
 
                 SubscribeEscHandler();
             }
@@ -219,7 +240,7 @@ namespace FavoriteCims.UI.Panels
 
             for (int unitIndex = 0; unitIndex < MaxHouseHolds; unitIndex++)
             {
-                var panel = CreateGroupHeader("Residential", unitIndex, "HomeIcon", FavCimsLang.Text("OnBuildingResidential") + " " + (unitIndex + 1));
+                var panel = CreateGroupHeader("Residential", unitIndex, "HomeIcon", FavCimsLang.Text("BuildingHouseholdTitle") + " " + (unitIndex + 1));
 
                 residentialPanels[unitIndex] = panel.Panel;
                 residentialPanelIcons[unitIndex] = panel.Icon;
@@ -242,7 +263,7 @@ namespace FavoriteCims.UI.Panels
 
         private void CreateWorkerSection()
         {
-            var header = CreateGroupHeader("Workers", 0, "WorkersIcon", FavCimsLang.Text("OnBuildingWorkers"));
+            var header = CreateGroupHeader("Workers", 0, "WorkersIcon", FavCimsLang.Text("BuildingWorkersTitle"));
 
             workersPanel = header.Panel;
             workersPanelIcon = header.Icon;
@@ -261,24 +282,49 @@ namespace FavoriteCims.UI.Panels
             }
         }
 
+        private void CreateStudentSection()
+        {
+            var header = CreateGroupHeader("Students", 0, "StudyIcon", FavCimsLang.Text("BuildingStudentsTitle"));
+
+            studentsPanel = header.Panel;
+            studentsPanelIcon = header.Icon;
+            studentsPanelText = header.Text;
+
+            studentsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
+            studentsPanelIcon.normalFgSprite = "IconPolicySchoolsOut";
+
+            for (int i = 0; i < studentRows.Length; i++)
+            {
+                var row = CreateOwnedRow<StudentsBuildingPanelRow>();
+
+                row.name = "RowStudents" + i;
+                row.OnBuilding = 0;
+                row.citizen = 0;
+                row.LocType = Citizen.Location.Work;
+                row.Hide();
+
+                studentRows[i] = row;
+            }
+        }
+
         private void CreateGuestSection()
         {
-            var header = CreateGroupHeader("Guests", 0, "GuestsIcon", FavCimsLang.Text("OnBuildingGuests"));
+            var header = CreateGroupHeader("Visitors", 0, "VisitorsIcon", FavCimsLang.Text("BuildingVisitorsTitle"));
 
-            guestsPanel = header.Panel;
-            guestsPanelIcon = header.Icon;
-            guestsPanelText = header.Text;
+            visitorsPanel = header.Panel;
+            visitorsPanelIcon = header.Icon;
+            visitorsPanelText = header.Text;
 
-            for (int i = 0; i < guestRows.Length; i++)
+            for (int i = 0; i < visitorRows.Length; i++)
             {
-                var row = CreateOwnedRow<GuestsBuildingPanelRow>();
-                row.name = "RowGuests" + i;
+                var row = CreateOwnedRow<VisitorsBuildingPanelRow>();
+                row.name = "RowVisitors" + i;
                 row.OnBuilding = 0;
                 row.citizen = 0;
                 row.LocType = Citizen.Location.Visit;
                 row.Hide();
 
-                guestRows[i] = row;
+                visitorRows[i] = row;
             }
         }
 
@@ -286,7 +332,7 @@ namespace FavoriteCims.UI.Panels
         {
             for (int roomIndex = 0; roomIndex < MaxHotelRooms; roomIndex++)
             {
-                var header = CreateGroupHeader("HotelGuests", roomIndex, "HomeIcon", FavCimsLang.Text("OnBuildingHotelRooms") + " " + (roomIndex + 1));
+                var header = CreateGroupHeader("HotelGuests", roomIndex, "HomeIcon", FavCimsLang.Text("BuildingHotelRoomTitle") + " " + (roomIndex + 1));
 
                 hotelRoomPanels[roomIndex] = header.Panel;
                 hotelRoomIcons[roomIndex] = header.Icon;
@@ -491,9 +537,11 @@ namespace FavoriteCims.UI.Panels
             {
                 RefreshFromSnapshot(snapshot);
 
-                // Apply grouping after all row binding, stale-row cleanup,
-                // and the snapshot renderer's original header assignments.
-                RefreshEmployeeSections();
+                RefreshWorkerSections();
+                RefreshStudentSections();
+
+                // Keep your existing global-order call here, if present.
+                // It must also include studentSections; see below.
             });
 
             // Measure the new headers and row arrangement immediately.
@@ -509,7 +557,7 @@ namespace FavoriteCims.UI.Panels
 
             if (string.IsNullOrEmpty(titleBuildingName.text))
             {
-                titleBuildingName.text = FavCimsLang.Text("OnBuildingWorkers");
+                titleBuildingName.text = FavCimsLang.Text("BuildingWorkersTitle");
             }
 
             absolutePosition = new Vector3(RefPanel.absolutePosition.x + RefPanel.width + 5f, RefPanel.absolutePosition.y);
@@ -549,51 +597,57 @@ namespace FavoriteCims.UI.Panels
         }
 
 
-        private void UpdateGuestHeader(BuildingOccupantsSnapshot snapshot)
+        private void UpdateVisitorHeader(BuildingOccupantsSnapshot snapshot)
         {
             var buildingInfo = buildingManager.m_buildings.m_buffer[BuildingID.Building].Info;
 
             if (buildingInfo == null || buildingInfo.m_class == null)
             {
-                guestsPanelIcon.normalFgSprite = "GuestsIcon";
-                guestsPanelText.text = FavCimsLang.Text("OnBuildingGuests");
+                visitorsPanelIcon.normalFgSprite = "GuestsIcon";
+                visitorsPanelText.text = FavCimsLang.Text("BuildingVisitorsTitle");
                 return;
             }
 
-            bool hasGuestRows = snapshot.HasVisitors || snapshot.HasStudents;
+            bool hasVisitorRows = snapshot.HasVisitors;
 
             switch (buildingInfo.m_class.m_service)
             {
                 case ItemClass.Service.PoliceDepartment when buildingInfo.m_class.m_subService != ItemClass.SubService.PoliceDepartmentBank:
-                    guestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-                    guestsPanelIcon.normalFgSprite = "CitizenArrestedIcon";
-                    guestsPanelText.text = hasGuestRows ? FavCimsLang.Text("CitizenUnderArrest") : FavCimsLang.Text("OnBuildingNoArrested");
-                    break;
-
-                case ItemClass.Service.Education:
-                    guestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
-                    guestsPanelIcon.normalFgSprite = "IconPolicySchoolsOut";
-                    guestsPanelText.text = hasGuestRows ? FavCimsLang.Text("CitizenAtSchool") : FavCimsLang.Text("OnBuildingNoStudents");
-                    break;
-
-                case ItemClass.Service.PlayerEducation when !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building):
-                    guestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
-                    guestsPanelIcon.normalFgSprite = "IconPolicySchoolsOut";
-                    guestsPanelText.text = hasGuestRows ? FavCimsLang.Text("CitizenAtUniversity") : FavCimsLang.Text("OnBuildingNoStudents");
+                    visitorsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+                    visitorsPanelIcon.normalFgSprite = "CitizenArrestedIcon";
+                    visitorsPanelText.text = hasVisitorRows ? FavCimsLang.Text("BuildingDetaineesTitle") : FavCimsLang.Text("BuildingNoDetaineesPresentStatus");
                     break;
 
                 case ItemClass.Service.HealthCare when !FavCimsCore.IsCimCareBuilding(BuildingID.Building):
-                    guestsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
-                    guestsPanelIcon.normalFgSprite = "SubBarHealthcareDefault";
-                    guestsPanelText.text = hasGuestRows ? FavCimsLang.Text("CitizenAtClinic") : FavCimsLang.Text("OnBuildingNoPatients");
+                    visitorsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
+                    visitorsPanelIcon.normalFgSprite = "SubBarHealthcareDefault";
+                    visitorsPanelText.text = hasVisitorRows ? FavCimsLang.Text("BuildingPatientsTitle") : FavCimsLang.Text("BuildingNoPatientsPresentStatus");
                     break;
 
                 default:
-                    guestsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
-                    guestsPanelIcon.normalFgSprite = "GuestsIcon";
-                    guestsPanelText.text = hasGuestRows ? FavCimsLang.Text("OnBuildingGuests") : FavCimsLang.Text("OnBuildingNoGuests");
+                    visitorsPanelIcon.atlas = MyAtlas.FavCimsAtlas;
+                    visitorsPanelIcon.normalFgSprite = "GuestsIcon";
+                    visitorsPanelText.text = hasVisitorRows ? FavCimsLang.Text("BuildingVisitorsTitle") : FavCimsLang.Text("BuildingNoVisitorsPresentStatus");
                     break;
             }
+        }
+
+        private void UpdateStudentHeader(BuildingOccupantsSnapshot snapshot)
+        {
+            studentsPanelIcon.atlas = UIView.GetAView().defaultAtlas;
+            studentsPanelIcon.normalFgSprite = "IconPolicySchoolsOut";
+
+            if (!snapshot.HasStudents)
+            {
+                studentsPanelText.text = FavCimsLang.Text("BuildingNoStudentsStatus");
+                return;
+            }
+
+            var buildingInfo = buildingManager.m_buildings.m_buffer[BuildingID.Building].Info;
+
+            bool isUniversity = buildingInfo?.m_class != null && buildingInfo.m_class.m_service == ItemClass.Service.PlayerEducation && !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building);
+
+            studentsPanelText.text = FavCimsLang.Text(isUniversity ? "BuildingUniversityStudentsTitle" : "BuildingSchoolStudentsTitle");
         }
 
         private void RemoveFormerOccupants(HashSet<uint> currentOccupants)
@@ -636,9 +690,19 @@ namespace FavoriteCims.UI.Panels
                 }
             }
 
-            for (int i = 0; i < guestRows.Length; i++)
+            for (int i = 0; i < studentRows.Length; i++)
             {
-                var row = guestRows[i];
+                var row = studentRows[i];
+
+                if (row != null && (row.citizen == 0 || !currentOccupants.Contains(row.citizen)))
+                {
+                    ResetBuildingRow(row);
+                }
+            }
+
+            for (int i = 0; i < visitorRows.Length; i++)
+            {
+                var row = visitorRows[i];
 
                 if (row != null && (row.citizen == 0 || !currentOccupants.Contains(row.citizen)))
                 {
@@ -670,7 +734,8 @@ namespace FavoriteCims.UI.Panels
             {
                 CimsOnBuilding.Clear();
                 WorkersCount = 0;
-                GuestsCount = 0;
+                StudentsCount = 0;
+                VisitorsCount = 0;
                 HotelGuestsCount = 0;
 
                 for (int i = 0; i < residentialRows.Length; i++)
@@ -689,11 +754,19 @@ namespace FavoriteCims.UI.Panels
                     }
                 }
 
-                for (int i = 0; i < guestRows.Length; i++)
+                for (int i = 0; i < studentRows.Length; i++)
                 {
-                    if (guestRows[i] != null)
+                    if (studentRows[i] != null)
                     {
-                        ResetBuildingRow(guestRows[i]);
+                        ResetBuildingRow(studentRows[i]);
+                    }
+                }
+
+                for (int i = 0; i < visitorRows.Length; i++)
+                {
+                    if (visitorRows[i] != null)
+                    {
+                        ResetBuildingRow(visitorRows[i]);
                     }
                 }
 
@@ -716,19 +789,23 @@ namespace FavoriteCims.UI.Panels
                 }
 
                 workersPanel?.Hide();
-                guestsPanel?.Hide();
+                studentsPanel?.Hide();
+                visitorsPanel?.Hide();
 
-                employeePlacements.Clear();
-                employeeSections?.Hide();
+                workerPlacements.Clear();
+                workerSections?.Hide();
+                workerSections?.ResetCollapseStates();
 
-                employeeSections?.ResetCollapseStates();
+                studentPlacements.Clear();
+                studentSections?.Hide();
+                studentSections?.ResetCollapseStates();
 
                 foreach (var collapse in householdCollapses)
                 {
                     collapse.Reset();
                 }
 
-                guestCollapse?.Reset();
+                visitorCollapse?.Reset();
 
                 foreach (var collapse in hotelRoomCollapses)
                 {
@@ -812,24 +889,24 @@ namespace FavoriteCims.UI.Panels
             }
         }
 
-        private void RefreshEmployeeSections()
+        private void RefreshWorkerSections()
         {
-            if (employeeSections == null)
+            if (workerSections == null)
             {
                 return;
             }
 
-            employeePlacements.Clear();
+            workerPlacements.Clear();
 
             ushort buildingId = BuildingID.Building;
 
             if (BuildingID.IsEmpty || BuildingID.Type != InstanceType.Building || buildingId == 0)
             {
-                employeeSections.Hide();
+                workerSections.Hide();
                 return;
             }
 
-            // Call only after normal employee-row binding and stale-row cleanup.
+            // Call only after normal worker-row binding and stale-row cleanup.
             foreach (var row in workerRows)
             {
                 if (row == null || row.citizen == 0 || row.OnBuilding != buildingId)
@@ -844,10 +921,47 @@ namespace FavoriteCims.UI.Panels
                     isPresent = presence == BuildingPresenceState.Present;
                 }
 
-                employeePlacements.Add(new EmployeeRowPlacement(row, isPresent));
+                workerPlacements.Add(new RosterRowPlacement(row, isPresent));
             }
 
-            employeeSections.Apply(employeePlacements, FavCimsLang.Text("OnBuildingWorkersPresent"), FavCimsLang.Text("OnBuildingWorkersAway"), FavCimsLang.Text("OnBuildingWorkersUnknown"));
+            workerSections.Apply(workerPlacements, FavCimsLang.Text("BuildingWorkersPresentTitle"), FavCimsLang.Text("BuildingWorkersAwayTitle"), FavCimsLang.Text("BuildingWorkersUnknownTitle"));
+        }
+
+        private void RefreshStudentSections()
+        {
+            if (studentSections == null)
+            {
+                return;
+            }
+
+            studentPlacements.Clear();
+
+            ushort buildingId = BuildingID.Building;
+
+            if (BuildingID.IsEmpty || BuildingID.Type != InstanceType.Building || buildingId == 0)
+            {
+                studentSections.Hide();
+                return;
+            }
+
+            foreach (var row in studentRows)
+            {
+                if (row == null || row.citizen == 0 || row.OnBuilding != buildingId)
+                {
+                    continue;
+                }
+
+                bool? isPresent = null;
+
+                if (BuildingPresenceService.TryRead(row.citizen, buildingId, out BuildingPresenceState presence))
+                {
+                    isPresent = presence == BuildingPresenceState.Present;
+                }
+
+                studentPlacements.Add(new RosterRowPlacement(row, isPresent));
+            }
+
+            studentSections.Apply(studentPlacements, FavCimsLang.Text("BuildingStudentsPresentTitle"), FavCimsLang.Text("BuildingStudentsAwayTitle"), FavCimsLang.Text("BuildingStudentsUnknownTitle"));
         }
 
         private float MeasureVisibleBodyContentHeight()
@@ -869,9 +983,9 @@ namespace FavoriteCims.UI.Panels
 
         private void UnsubscribeCollapseHandlers()
         {
-            if (employeeSections != null && collapseChangedHandlers.Count > 0)
+            if (workerSections != null && collapseChangedHandlers.Count > 0)
             {
-                employeeSections.SectionsChanged -= collapseChangedHandlers[0];
+                workerSections.SectionsChanged -= collapseChangedHandlers[0];
             }
 
             for (int i = 0; i < householdCollapses.Count; i++)
@@ -884,14 +998,14 @@ namespace FavoriteCims.UI.Panels
                 }
             }
 
-            int guestHandlerIndex = 1 + householdCollapses.Count;
+            int visitorHandlerIndex = 1 + householdCollapses.Count;
 
-            if (guestCollapse != null && guestHandlerIndex < collapseChangedHandlers.Count)
+            if (visitorCollapse != null && visitorHandlerIndex < collapseChangedHandlers.Count)
             {
-                guestCollapse.StateChanged -= collapseChangedHandlers[guestHandlerIndex];
+                visitorCollapse.StateChanged -= collapseChangedHandlers[visitorHandlerIndex];
             }
 
-            int hotelStartIndex = guestHandlerIndex + 1;
+            int hotelStartIndex = visitorHandlerIndex + 1;
 
             for (int i = 0; i < hotelRoomCollapses.Count; i++)
             {

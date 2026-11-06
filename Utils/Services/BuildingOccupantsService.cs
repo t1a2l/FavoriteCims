@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using ColossalFramework;
-using static FavoriteCims.FavCimsCore;
 
 namespace FavoriteCims.Utils.Services
 {
@@ -134,7 +133,7 @@ namespace FavoriteCims.Utils.Services
 
             if (!BuildingPresenceService.TryRead(citizenId, buildingId, out BuildingPresenceState presence))
             {
-                presence = BuildingPresenceState.Away;
+                presence = BuildingPresenceState.Unknown;
             }
 
             occupant.Presence = presence;
@@ -156,7 +155,19 @@ namespace FavoriteCims.Utils.Services
 
             occupant.Role = GetRole(buildingId, buildingInfo, snapshot, citizenId, ref citizen, occupant.UnitFlags);
 
-            return occupant.Role != BuildingOccupantRole.Unknown;
+            if (occupant.Role == BuildingOccupantRole.Unknown)
+            {
+                return false;
+            }
+
+            // Ordinary visitors are relevant while present or heading here.
+            // Keep unresolved presence rather than treating a failed read as departure.
+            if (occupant.Role == BuildingOccupantRole.Visitor && occupant.IsAway)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private static BuildingOccupantRole GetRole(ushort buildingId, BuildingInfo buildingInfo, BuildingOccupantsSnapshot snapshot, uint citizenId, ref Citizen citizen, CitizenUnit.Flags unitFlags)
@@ -168,7 +179,7 @@ namespace FavoriteCims.Utils.Services
                 return BuildingOccupantRole.Student;
             }
 
-            if ((unitFlags & CitizenUnit.Flags.Home) != 0 && (snapshot.IsResidential || snapshot.IsAreaResidential()) || ((unitFlags & (CitizenUnit.Flags)CimCareFlags.NursingHome) != 0 || (unitFlags & (CitizenUnit.Flags)CimCareFlags.Orphanage) != 0) && snapshot.IsCimCare)
+            if ((unitFlags & CitizenUnit.Flags.Home) != 0 && (snapshot.IsResidential || snapshot.IsAreaResidential()) || ((unitFlags & (CitizenUnit.Flags)FavCimsCore.CimCareFlags.NursingHome) != 0 || (unitFlags & (CitizenUnit.Flags)FavCimsCore.CimCareFlags.Orphanage) != 0) && snapshot.IsCimCare)
             {
                 return BuildingOccupantRole.Resident;
             }
@@ -185,7 +196,7 @@ namespace FavoriteCims.Utils.Services
 
             if (citizen.m_workBuilding == buildingId)
             {
-                return BuildingOccupantRole.Employee;
+                return BuildingOccupantRole.Worker;
             }
 
             return BuildingOccupantRole.Unknown;
@@ -199,8 +210,8 @@ namespace FavoriteCims.Utils.Services
                     AddResident(unitId, ref occupant, residentsByUnit, snapshot);
                     break;
 
-                case BuildingOccupantRole.Employee:
-                    snapshot.Employees.Add(occupant);
+                case BuildingOccupantRole.Worker:
+                    snapshot.Workers.Add(occupant);
                     break;
 
                 case BuildingOccupantRole.Visitor:
@@ -226,7 +237,7 @@ namespace FavoriteCims.Utils.Services
                 group = new BuildingOccupantGroup
                 {
                     UnitId = unitId,
-                    Title = FavCimsLang.Text("OnBuildingResidential") + (residentsByUnit.Count + 1)
+                    Title = FavCimsLang.Text("BuildingHouseholdTitle") + (residentsByUnit.Count + 1)
                 };
 
                 residentsByUnit.Add(unitId, group);
@@ -238,14 +249,24 @@ namespace FavoriteCims.Utils.Services
 
         private static void FinalizeCounts(BuildingOccupantsSnapshot snapshot)
         {
-            foreach (var employee in snapshot.Employees)
+            foreach (var worker in snapshot.Workers)
             {
-                if (employee.IsPresent)
+                if (worker.IsPresent)
                 {
-                    snapshot.PresentEmployeeCount++;
+                    snapshot.PresentWorkerCount++;
                 }
 
-                snapshot.AssignedEmployeeCount++;
+                snapshot.AssignedWorkerCount++;
+            }
+
+            foreach (var student in snapshot.Students)
+            {
+                if (student.IsPresent)
+                {
+                    snapshot.PresentStudentCount++;
+                }
+
+                snapshot.AssignedStudentCount++;
             }
 
             foreach (var visitor in snapshot.Visitors)
@@ -276,12 +297,12 @@ namespace FavoriteCims.Utils.Services
         {
             if (isResidential || isAreaResidential || isCimCare)
             {
-                return FavCimsLang.Text("CitizensHouseHoldsTitle");
+                return FavCimsLang.Text("BuildingResidentsTitle");
             }
 
             if (FavCimsCore.IsHotel(buildingId))
             {
-                return FavCimsLang.Text("CitizenOnHotelBuildingTitle");
+                return FavCimsLang.Text("BuildingHotelOccupantsTitle");
             }
 
             switch (buildingInfo.m_class.m_service)
@@ -289,41 +310,41 @@ namespace FavoriteCims.Utils.Services
                 case ItemClass.Service.PoliceDepartment when buildingInfo.m_class.m_level == ItemClass.Level.Level3:
                 case ItemClass.Service.HealthCare when buildingInfo.m_class.m_level == ItemClass.Level.Level3:
                 case ItemClass.Service.FireDepartment when buildingInfo.m_class.m_level == ItemClass.Level.Level3:
-                    return FavCimsLang.Text("OnHelicopterBuildingService");
+                    return FavCimsLang.Text("BuildingHelicopterOccupantsTitle");
 
                 case ItemClass.Service.PoliceDepartment when buildingInfo.m_class.m_level == ItemClass.Level.Level4:
-                    return FavCimsLang.Text("OnPrisonBuildingService");
+                    return FavCimsLang.Text("BuildingPrisonOccupantsTitle");
 
                 case ItemClass.Service.PoliceDepartment:
-                    return FavCimsLang.Text("OnPoliceBuildingService");
+                    return FavCimsLang.Text("BuildingPoliceOccupantsTitle");
 
                 case ItemClass.Service.FireDepartment:
-                    return FavCimsLang.Text("OnFireBuildingService");
+                    return FavCimsLang.Text("BuildingFireStationOccupantsTitle");
 
                 case ItemClass.Service.Disaster when buildingInfo.GetAI() is ShelterAI:
-                    return FavCimsLang.Text("OnRescueBuildingService");
+                    return FavCimsLang.Text("BuildingShelterOccupantsTitle");
 
                 case ItemClass.Service.Disaster:
-                    return FavCimsLang.Text("OnShelterBuildingService");
+                    return FavCimsLang.Text("BuildingRescueOccupantsTitle");
 
                 case ItemClass.Service.Education:
-                    return FavCimsLang.Text("OnEducationBuildingService");
+                    return FavCimsLang.Text("BuildingSchoolOccupantsTitle");
 
                 case ItemClass.Service.PlayerEducation when !isAreaResidential:
-                    return FavCimsLang.Text("OnHighEducationBuildingService");
+                    return FavCimsLang.Text("BuildingUniversityOccupantsTitle");
 
                 case ItemClass.Service.HealthCare:
-                    return FavCimsLang.Text("OnMedicalBuildingService");
+                    return FavCimsLang.Text("BuildingMedicalOccupantsTitle");
 
                 case ItemClass.Service.Beautification:
-                    return FavCimsLang.Text("OnBuildingGuests");
+                    return FavCimsLang.Text("BuildingVisitorsTitle");
 
                 case ItemClass.Service.Industrial:
                 case ItemClass.Service.PlayerIndustry:
-                    return FavCimsLang.Text("OnBuildingWorkers");
+                    return FavCimsLang.Text("BuildingWorkersTitle");
 
                 default:
-                    return FavCimsLang.Text("CitizenOnBuildingTitle");
+                    return FavCimsLang.Text("BuildingOccupantsTitle");
             }
         }
     }

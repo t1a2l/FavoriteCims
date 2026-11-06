@@ -6,15 +6,15 @@ using UnityEngine;
 
 namespace FavoriteCims.UI
 {
-    public struct EmployeeRowPlacement(UIComponent row, bool? isPresent)
+    public struct RosterRowPlacement(UIComponent row, bool? isPresent)
     {
         public UIComponent Row = row;
         public bool? IsPresent = isPresent;
     }
 
-    // All employee rows and headers remain direct children of the scroll panel.
+    // All roster rows and headers remain direct children of the scroll panel.
     // This class owns labels, ordering, and section collapse visibility only.
-    public sealed class EmployeeSectionsLayout
+    public sealed class RosterSectionsLayout
     {
         private readonly UIPanel presentHeader;
         private readonly UIButton presentText;
@@ -39,25 +39,25 @@ namespace FavoriteCims.UI
         public int UnknownCount => unknown.Count;
 
         /// <summary>
-        /// Raised once after a refresh changes employee-section visibility.
+        /// Raised once after a refresh changes roster-section visibility.
         /// The building panel should recalculate its visible body height.
         /// </summary>
         public event Action SectionsChanged;
 
-        public EmployeeSectionsLayout(UIScrollablePanel bodyRows, UIPanel existingEmployeeHeader, UIButton existingEmployeeText)
+        public RosterSectionsLayout(UIScrollablePanel bodyRows, UIPanel existingRosterHeader, UIButton existingRosterText)
         {
-            presentHeader = existingEmployeeHeader;
-            presentText = existingEmployeeText;
+            presentHeader = existingRosterHeader;
+            presentText = existingRosterText;
 
-            awayHeader = CreateHeader(bodyRows, "EmployeesAwayHeader", existingEmployeeHeader, existingEmployeeText, out awayText);
+            awayHeader = CreateHeader(bodyRows, "RosterAwayHeader", existingRosterHeader, existingRosterText, out awayText);
 
-            unknownHeader = CreateHeader(bodyRows, "EmployeesUnknownHeader", existingEmployeeHeader, existingEmployeeText, out unknownText);
+            unknownHeader = CreateHeader(bodyRows, "RosterUnknownHeader", existingRosterHeader, existingRosterText, out unknownText);
 
-            presentCollapse = new BuildingSectionCollapse(presentHeader, "EmployeesPresentCollapse", presentText);
+            presentCollapse = new BuildingSectionCollapse(presentHeader, "RosterPresentCollapse", presentText);
 
-            awayCollapse = new BuildingSectionCollapse(awayHeader, "EmployeesAwayCollapse", awayText);
+            awayCollapse = new BuildingSectionCollapse(awayHeader, "RosterAwayCollapse", awayText);
 
-            unknownCollapse = new BuildingSectionCollapse(unknownHeader, "EmployeesUnknownCollapse", unknownText);
+            unknownCollapse = new BuildingSectionCollapse(unknownHeader, "RosterUnknownCollapse", unknownText);
 
             presentCollapse.StateChanged += OnSectionChanged;
             awayCollapse.StateChanged += OnSectionChanged;
@@ -66,7 +66,7 @@ namespace FavoriteCims.UI
             Hide();
         }
 
-        public void Apply(IList<EmployeeRowPlacement> rows, string presentLabel, string awayLabel, string unknownLabel)
+        public void Apply(IList<RosterRowPlacement> rows, string presentLabel, string awayLabel, string unknownLabel)
         {
             present.Clear();
             away.Clear();
@@ -143,7 +143,7 @@ namespace FavoriteCims.UI
             seen.Clear();
         }
 
-        /// <summary>Expands every employee section, for example when the selected building changes.</summary>
+        /// <summary>Expands every worker section, for example when the selected building changes.</summary>
         public void ResetCollapseStates()
         {
             presentCollapse.Reset();

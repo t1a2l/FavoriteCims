@@ -24,7 +24,7 @@ namespace FavoriteCims.UI.Panels
 
                 residentialPanels[householdCount].Show();
                 residentialPanelIcons[householdCount].normalFgSprite = "HomeIcon";
-                residentialPanelTexts[householdCount].text = FavCimsLang.Text("OnBuildingResidential") + " " + (householdCount + 1);
+                residentialPanelTexts[householdCount].text = FavCimsLang.Text("BuildingHouseholdTitle") + " " + (householdCount + 1);
 
                 var householdRows = new List<UIComponent>();
 
@@ -47,13 +47,14 @@ namespace FavoriteCims.UI.Panels
 
             ResetBuildingRowsFrom(residentialRows, householdCount * CitizensPerUnit);
 
-            int workersUsed = BindBuildingSection(snapshot.Employees, workerRows, 0, Citizen.Location.Work, currentOccupants);
+            int workersUsed = BindBuildingSection(snapshot.Workers, workerRows, 0, Citizen.Location.Work, currentOccupants);
             ResetBuildingRowsFrom(workerRows, workersUsed);
 
-            int guestsUsed = BindBuildingSection(snapshot.Visitors, guestRows, 0, Citizen.Location.Visit, currentOccupants);
-            guestsUsed = BindBuildingSection(snapshot.Students, guestRows, guestsUsed, Citizen.Location.Work, currentOccupants);
-            ResetBuildingRowsFrom(guestRows, guestsUsed);
-            guestCollapse.SetRows(TakeRows(guestRows, guestsUsed));
+            int studentsUsed = BindBuildingSection(snapshot.Students, studentRows, 0, Citizen.Location.Work, currentOccupants);
+            ResetBuildingRowsFrom(studentRows, studentsUsed);
+
+            int visitorsUsed = BindBuildingSection(snapshot.Visitors, visitorRows, 0, Citizen.Location.Visit, currentOccupants);
+            ResetBuildingRowsFrom(visitorRows, visitorsUsed);
 
             int hotelUsed = BindBuildingSection(snapshot.HotelGuests, hotelRoomRows, 0, Citizen.Location.Hotel, currentOccupants);
             ResetBuildingRowsFrom(hotelRoomRows, hotelUsed);
@@ -68,13 +69,55 @@ namespace FavoriteCims.UI.Panels
             for (int i = 0; i < hotelUsed; i++)
             {
                 hotelRoomIcons[i].normalFgSprite = "HomeIcon";
-                hotelRoomTexts[i].text = FavCimsLang.Text("OnBuildingHotelRooms") + " " + (i + 1);
+                hotelRoomTexts[i].text = FavCimsLang.Text("BuildingHotelRoomTitle") + " " + (i + 1);
             }
 
             UpdateGroupVisibility(snapshot, householdCount, hotelUsed);
             RemoveFormerOccupants(currentOccupants);
-            WorkersCount = snapshot.PresentEmployeeCount;
-            GuestsCount = snapshot.PresentVisitorCount;
+
+            // Apply collapse visibility only after binding and cleanup.
+            for (int i = 0; i < householdCollapses.Count; i++)
+            {
+                if (i >= householdCount)
+                {
+                    householdCollapses[i].ClearRows(raiseEvent: false);
+                    continue;
+                }
+
+                var rows = new List<UIComponent>();
+
+                int baseRow = i * CitizensPerUnit;
+
+                for (int slot = 0; slot < CitizensPerUnit; slot++)
+                {
+                    var row = residentialRows[baseRow + slot];
+
+                    if (row != null && row.citizen != 0 && row.OnBuilding == BuildingID.Building)
+                    {
+                        rows.Add(row);
+                    }
+                }
+
+                householdCollapses[i].SetRows(rows, raiseEvent: false);
+            }
+
+            visitorCollapse.SetRows(TakeRows(visitorRows, visitorsUsed),  raiseEvent: false);
+
+            for (int i = 0; i < hotelRoomCollapses.Count; i++)
+            {
+                if (i < hotelUsed)
+                {
+                    hotelRoomCollapses[i].SetRows([hotelRoomRows[i]], raiseEvent: false);
+                }
+                else
+                {
+                    hotelRoomCollapses[i].ClearRows(raiseEvent: false);
+                }
+            }
+
+            WorkersCount = snapshot.PresentWorkerCount;
+            StudentsCount = snapshot.PresentStudentCount;
+            VisitorsCount = snapshot.PresentVisitorCount;
             HotelGuestsCount = snapshot.RegisteredHotelGuestCount;
         }
 
@@ -107,11 +150,17 @@ namespace FavoriteCims.UI.Panels
             { 
                 residentialPanels[i].isVisible = i < householdCount; 
             }
-            workersPanel.isVisible = snapshot.HasEmployees;
+
+            workersPanel.isVisible = snapshot.HasWorkers;
             workersPanelIcon.normalFgSprite = "WorkersIcon";
-            workersPanelText.text = FavCimsLang.Text(snapshot.HasEmployees ? "OnBuildingWorkers" : "OnBuildingNoWorkers");
-            guestsPanel.isVisible = snapshot.HasVisitors || snapshot.HasStudents;
-            UpdateGuestHeader(snapshot);
+            workersPanelText.text = FavCimsLang.Text(snapshot.HasWorkers ? "OnBuildingWorkers" : "OnBuildingNoWorkers");
+
+            studentsPanel.isVisible = snapshot.HasStudents;
+            UpdateStudentHeader(snapshot);
+
+            visitorsPanel.isVisible = snapshot.HasVisitors;
+            UpdateVisitorHeader(snapshot);
+
             for (int i = 0; i < MaxHotelRooms; i++)
             { 
                 hotelRoomPanels[i].isVisible = i < hotelRowCount; 

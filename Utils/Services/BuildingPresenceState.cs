@@ -4,6 +4,7 @@
     {
         Away = 0,
         Present = 1,
-        HeadingHere = 2
+        HeadingHere = 2,
+        Unknown = 3
     }
 }

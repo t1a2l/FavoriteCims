@@ -4,9 +4,13 @@ namespace FavoriteCims.Utils.Services
 {
     public static class BuildingPresenceService
     {
+        /// <summary>
+        /// Determines whether a citizen is present, heading to the selected
+        /// building, or elsewhere. Returns false when presence cannot be resolved.
+        /// </summary>
         public static bool TryRead(uint citizenId, ushort buildingId, out BuildingPresenceState presence)
         {
-            presence = BuildingPresenceState.Away;
+            presence = BuildingPresenceState.Unknown;
 
             if (citizenId == 0 || buildingId == 0)
             {
@@ -42,7 +46,10 @@ namespace FavoriteCims.Utils.Services
                 {
                     presence = BuildingPresenceState.Present;
                 }
-
+                else
+                {
+                    presence = BuildingPresenceState.Away;
+                }
                 return true;
             }
 
@@ -51,29 +58,42 @@ namespace FavoriteCims.Utils.Services
 
             if (instanceId == 0 || instanceId >= instances.Length)
             {
-                // The citizen is valid, but an incoming trip cannot
-                // currently be established.
-                return true;
+                // Moving, but there is no usable instance to establish
+                // the destination. Do not classify this as definitely away.
+                return false;
             }
 
             var instance = instances[instanceId];
 
             if (instance.m_citizen != citizenId)
             {
-                return true;
+                return false;
             }
 
             if (instance.m_targetBuilding == buildingId)
             {
                 presence = BuildingPresenceState.HeadingHere;
             }
+            else
+            {
+                presence = BuildingPresenceState.Away;
+            }
 
             return true;
         }
 
-        public static string GetArrowSprite(BuildingPresenceState presence)
+        /// <summary>
+        /// Shows an arrival arrow when heading here.
+        /// Persistent rosters can also request a red arrow when away.
+        /// </summary>
+        public static string GetArrowSprite(BuildingPresenceState presence, bool showAwayArrow = false)
         {
-            return presence == BuildingPresenceState.Present ? "GreenArrowIcon" : "RedArrowIcon";
+            return presence switch
+            {
+                BuildingPresenceState.HeadingHere => "GreenArrowIcon",
+                BuildingPresenceState.Away when showAwayArrow => "RedArrowIcon",
+                _ => string.Empty
+            };
         }
     }
 }

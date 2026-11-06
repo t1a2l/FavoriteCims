@@ -7,19 +7,24 @@ namespace FavoriteCims.UI.PanelsRows
         public ushort OnBuilding;
         public Citizen.Location LocType;
 
-        // Retained for compatibility; panel snapshots own all counts.
         public virtual void DecreaseWorkersCount() { }
+
         public virtual void DecreaseGuestsCount() { }
+
+        /// <summary>
+        /// Residents and workers and students and hotel guests remain listed while away.
+        /// Other row types can disable the away indicator.
+        /// </summary>
+        protected virtual bool ShowAwayArrow => true;
 
         protected override bool IsRowStillValid()
         {
-            uint buildingId;
-            return citizen != 0 && OnBuilding != 0 && GetCimsDict().TryGetValue(citizen, out buildingId) && buildingId == OnBuilding;
+            return citizen != 0 && OnBuilding != 0 && GetCimsDict().TryGetValue(citizen, out uint buildingId) && buildingId == OnBuilding;
         }
 
         protected override void ReleaseRow()
         {
-            // Away occupants remain roster members until the panel reconciles them.
+            /// Away occupants remain roster members until the panel reconciles them.
             Hide();
             citizen = 0;
             OnBuilding = 0;
@@ -29,7 +34,13 @@ namespace FavoriteCims.UI.PanelsRows
 
         protected override void UpdatePresenceArrow()
         {
-            Gender.normalFgSprite = BuildingPresenceService.TryRead(citizen, OnBuilding, out BuildingPresenceState presence) ? BuildingPresenceService.GetArrowSprite(presence) : string.Empty;
+            if (!BuildingPresenceService.TryRead(citizen, OnBuilding, out BuildingPresenceState presence))
+            {
+                Gender.normalFgSprite = string.Empty;
+                return;
+            }
+            
+            Gender.normalFgSprite = BuildingPresenceService.GetArrowSprite(presence, showAwayArrow: ShowAwayArrow);
         }
     }
 }

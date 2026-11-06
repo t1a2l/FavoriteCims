@@ -6,7 +6,7 @@ namespace FavoriteCims.Utils.Services
     {
         Unknown = 0,
         Resident = 1,
-        Employee = 2,
+        Worker = 2,
         Visitor = 3,
         HotelGuest = 4,
         Student = 5
@@ -44,6 +44,8 @@ namespace FavoriteCims.Utils.Services
         public readonly bool IsHeadingHere => Presence == BuildingPresenceState.HeadingHere;
 
         public readonly bool IsAway => Presence == BuildingPresenceState.Away;
+
+        public readonly bool IsPresenceUnknown => Presence == BuildingPresenceState.Unknown;
     }
 
     public sealed class BuildingOccupantGroup
@@ -72,13 +74,16 @@ namespace FavoriteCims.Utils.Services
 
         public readonly List<BuildingOccupantGroup> ResidentGroups = [];
 
-        public readonly List<BuildingOccupant> Employees = [];
+        public readonly List<BuildingOccupant> Workers = [];
         public readonly List<BuildingOccupant> Visitors = [];
         public readonly List<BuildingOccupant> HotelGuests = [];
         public readonly List<BuildingOccupant> Students = [];
 
-        public int PresentEmployeeCount;
-        public int AssignedEmployeeCount;
+        public int PresentWorkerCount;
+        public int AssignedWorkerCount;
+
+        public int PresentStudentCount;
+        public int AssignedStudentCount;
 
         public int PresentVisitorCount;
         public int IncomingVisitorCount;
@@ -88,10 +93,15 @@ namespace FavoriteCims.Utils.Services
 
         public int TotalOccupantCount;
 
-        public bool HasEmployees => Employees.Count > 0;
-        public bool HasVisitors => Visitors.Count > 0;
-        public bool HasHotelGuests => HotelGuests.Count > 0;
         public bool HasResidents => ResidentGroups.Count > 0;
+
+        public bool HasWorkers => Workers.Count > 0;
+
+        public bool HasVisitors => Visitors.Count > 0;
+
+        public bool HasHotelGuests => HotelGuests.Count > 0;
+
         public bool HasStudents => Students.Count > 0;
+
     }
 }
