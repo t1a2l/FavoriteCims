@@ -326,8 +326,10 @@ namespace FavoriteCims.Utils
                             // ============================================================
 
                             ["BuildingStudentsTitle"] = "Students",
-                            ["BuildingStudentsPresentTitle"] = "At school",
-                            ["BuildingStudentsAwayTitle"] = "Away from school",
+                            ["BuildingSchoolStudentsPresentTitle"] = "At school",
+                            ["BuildingSchoolStudentsAwayTitle"] = "Away from school",
+                            ["BuildingUniversityStudentsPresentTitle"] = "At university",
+                            ["BuildingUniversityStudentsAwayTitle"] = "Away from university",
                             ["BuildingStudentsUnknownTitle"] = "Presence unavailable",
 
                             ["BuildingStudentsTooltip"] = "Enrolled students",
@@ -783,8 +785,10 @@ namespace FavoriteCims.Utils
                             // ============================================================
 
                             ["BuildingStudentsTitle"] = "Students",
-                            ["BuildingStudentsPresentTitle"] = "At school",
-                            ["BuildingStudentsAwayTitle"] = "Away from school",
+                            ["BuildingSchoolStudentsPresentTitle"] = "At school",
+                            ["BuildingSchoolStudentsAwayTitle"] = "Away from school",
+                            ["BuildingUniversityStudentsPresentTitle"] = "At university",
+                            ["BuildingUniversityStudentsAwayTitle"] = "Away from university",
                             ["BuildingStudentsUnknownTitle"] = "Presence unavailable",
 
                             ["BuildingStudentsTooltip"] = "Enrolled students",
@@ -1240,8 +1244,10 @@ namespace FavoriteCims.Utils
                             // ============================================================
 
                             ["BuildingStudentsTitle"] = "Students",
-                            ["BuildingStudentsPresentTitle"] = "At school",
-                            ["BuildingStudentsAwayTitle"] = "Away from school",
+                            ["BuildingSchoolStudentsPresentTitle"] = "At school",
+                            ["BuildingSchoolStudentsAwayTitle"] = "Away from school",
+                            ["BuildingUniversityStudentsPresentTitle"] = "At university",
+                            ["BuildingUniversityStudentsAwayTitle"] = "Away from university",
                             ["BuildingStudentsUnknownTitle"] = "Presence unavailable",
 
                             ["BuildingStudentsTooltip"] = "Enrolled students",
@@ -1695,8 +1701,10 @@ namespace FavoriteCims.Utils
                         // ============================================================
 
                         ["BuildingStudentsTitle"] = "Students",
-                        ["BuildingStudentsPresentTitle"] = "At school",
-                        ["BuildingStudentsAwayTitle"] = "Away from school",
+                        ["BuildingSchoolStudentsPresentTitle"] = "At school",
+                        ["BuildingSchoolStudentsAwayTitle"] = "Away from school",
+                        ["BuildingUniversityStudentsPresentTitle"] = "At university",
+                        ["BuildingUniversityStudentsAwayTitle"] = "Away from university",
                         ["BuildingStudentsUnknownTitle"] = "Presence unavailable",
 
                         ["BuildingStudentsTooltip"] = "Enrolled students",

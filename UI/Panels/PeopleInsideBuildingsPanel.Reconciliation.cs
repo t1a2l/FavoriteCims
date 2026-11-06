@@ -153,7 +153,7 @@ namespace FavoriteCims.UI.Panels
 
             workersPanel.isVisible = snapshot.HasWorkers;
             workersPanelIcon.normalFgSprite = "WorkersIcon";
-            workersPanelText.text = FavCimsLang.Text(snapshot.HasWorkers ? "OnBuildingWorkers" : "OnBuildingNoWorkers");
+            workersPanelText.text = FavCimsLang.Text(snapshot.HasWorkers ? "BuildingWorkersTitle" : "BuildingNoWorkersStatus");
 
             studentsPanel.isVisible = snapshot.HasStudents;
             UpdateStudentHeader(snapshot);

@@ -12,7 +12,7 @@ namespace FavoriteCims.UI.Panels
         {
             if (!IsReady) return;
             FavCimsDistrictLabel.text = FavCimsLang.Text("DistrictLabel");
-            BubbleFamilyBarLabel.text = FavCimsLang.Text("CitizenFamilyUnit");
+            BubbleFamilyBarLabel.text = FavCimsLang.Text("CitizenFamilyTitle");
             RefreshHouseholdLabels();
         }
 

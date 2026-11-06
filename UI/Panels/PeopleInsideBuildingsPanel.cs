@@ -645,7 +645,7 @@ namespace FavoriteCims.UI.Panels
 
             var buildingInfo = buildingManager.m_buildings.m_buffer[BuildingID.Building].Info;
 
-            bool isUniversity = buildingInfo?.m_class != null && buildingInfo.m_class.m_service == ItemClass.Service.PlayerEducation && !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building);
+            bool isUniversity = buildingInfo?.m_class != null && ((buildingInfo.m_class.m_service == ItemClass.Service.PlayerEducation && !FavCimsCore.IsAreaResidentalBuilding(BuildingID.Building)) || buildingInfo.m_class.m_service == ItemClass.Service.Education && buildingInfo.m_class.m_level == ItemClass.Level.Level3);
 
             studentsPanelText.text = FavCimsLang.Text(isUniversity ? "BuildingUniversityStudentsTitle" : "BuildingSchoolStudentsTitle");
         }
@@ -944,6 +944,9 @@ namespace FavoriteCims.UI.Panels
                 return;
             }
 
+            var buildingInfo = buildingManager.m_buildings.m_buffer[buildingId].Info;
+            bool isUniversity = buildingInfo?.m_class != null && ((buildingInfo.m_class.m_service == ItemClass.Service.PlayerEducation && !FavCimsCore.IsAreaResidentalBuilding(buildingId)) || buildingInfo.m_class.m_service == ItemClass.Service.Education && buildingInfo.m_class.m_level == ItemClass.Level.Level3) ;
+
             foreach (var row in studentRows)
             {
                 if (row == null || row.citizen == 0 || row.OnBuilding != buildingId)
@@ -961,7 +964,10 @@ namespace FavoriteCims.UI.Panels
                 studentPlacements.Add(new RosterRowPlacement(row, isPresent));
             }
 
-            studentSections.Apply(studentPlacements, FavCimsLang.Text("BuildingStudentsPresentTitle"), FavCimsLang.Text("BuildingStudentsAwayTitle"), FavCimsLang.Text("BuildingStudentsUnknownTitle"));
+            string presentTitle = isUniversity ? FavCimsLang.Text("BuildingSchoolStudentsPresentTitle") : FavCimsLang.Text("BuildingUniversityStudentsPresentTitle");
+            string awayTitle = isUniversity ? FavCimsLang.Text("BuildingSchoolStudentsAwayTitle") : FavCimsLang.Text("BuildingUniversityStudentsAwayTitle");
+
+            studentSections.Apply(studentPlacements, presentTitle, awayTitle, FavCimsLang.Text("BuildingStudentsUnknownTitle"));
         }
 
         private float MeasureVisibleBodyContentHeight()

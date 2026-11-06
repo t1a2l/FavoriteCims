@@ -57,8 +57,8 @@ namespace FavoriteCims.UI.Panels
 
         private void RefreshHouseholdLabels()
         {
-            noPartnerLabel?.text = FavCimsLang.Text("CitizenNoPartnerLabel");
-            noChildrenLabel?.text = FavCimsLang.Text("CitizenNoChildrenLabel");
+            noPartnerLabel?.text = FavCimsLang.Text("CitizenNoPartnerStatus");
+            noChildrenLabel?.text = FavCimsLang.Text("CitizenNoChildrenStatus");
         }
 
         public void RenderHousehold(FamilyPanelData snapshot)
