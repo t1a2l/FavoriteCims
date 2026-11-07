@@ -1,5 +1,6 @@
 ﻿using System;
 using ColossalFramework;
+using ColossalFramework.UI;
 using UnityEngine;
 
 namespace FavoriteCims.Utils.Services
@@ -156,40 +157,115 @@ namespace FavoriteCims.Utils.Services
             data.ActivityTooltip = string.Empty;
             data.TargetInstanceId = InstanceID.Empty;
             data.TargetName = string.Empty;
+
             SetNoVehicle(ref data);
+
             var citizenInfo = citizen.GetCitizenInfo(citizenId);
-            if (citizenInfo == null || citizenInfo.m_citizenAI == null) return;
+
+            if (citizenInfo == null || citizenInfo.m_citizenAI == null)
+            { 
+                return; 
+            }
+
             data.Status = citizenInfo.m_citizenAI.GetLocalizedStatus(citizenId, ref citizen, out data.TargetInstanceId);
+
             if (!data.TargetInstanceId.IsEmpty && data.TargetInstanceId.Type == InstanceType.Building)
             { 
                 data.TargetName = buildingManager.GetBuildingName(data.TargetInstanceId.Building, citizenInstance); 
             }
+
             if (data.IsArrested && data.IsCriminal)
             {
                 data.ActivityText = FavCimsLang.Text("CitizenDetainedAtLabel") + " " + data.TargetName;
                 data.ActivityTooltip = data.ActivityText;
                 return;
             }
+
             data.ActivityText = data.Status + " " + data.TargetName;
             data.ActivityEnabled = !data.TargetInstanceId.IsEmpty;
             data.ActivityTooltip = data.ActivityText;
+
             if (data.Vehicle == 0)
             {
-                data.VehicleTooltip = FavCimsLang.Text("CitizenWalkingTooltip");
+                SetWalkingVehicle(ref data);
                 return;
             }
+
             var vehicles = vehicleManager.m_vehicles.m_buffer;
-            if (data.Vehicle >= vehicles.Length) return;
+            if (data.Vehicle >= vehicles.Length)
+            {
+                return;
+            }
+
             var vehicle = vehicles[data.Vehicle];
             var vehicleInfo = vehicle.Info;
-            if ((vehicle.m_flags & Vehicle.Flags.Created) == 0 || vehicleInfo == null || vehicleInfo.m_class == null) return;
+
+            if ((vehicle.m_flags & Vehicle.Flags.Created) == 0 || vehicleInfo == null || vehicleInfo.m_class == null)
+            {
+                return;
+            }
+
             data.VehicleInstanceId.Vehicle = data.Vehicle;
-            data.VehicleAtlas = MyAtlas.FavCimsAtlas;
-            data.VehicleIcon = "Car";
-            data.VehicleHoverIcon = "Car";
-            data.VehicleDisabledIcon = "CarDisabled";
+
+            string sprite = GetVehicleSprite(vehicleInfo.m_class.m_service, vehicleInfo.m_class.m_subService, vehicleManager.GetVehicleName(data.Vehicle), vehicleInfo.name);
+
+            bool usesModAtlas = sprite == "IconScooterVehicle";
+            bool usesTransportStates = sprite.StartsWith("SubBar", StringComparison.Ordinal);
+
+            data.VehicleAtlas = usesModAtlas ? MyAtlas.FavCimsAtlas : UIView.GetAView().defaultAtlas;
+
+            data.VehicleIcon = sprite;
+            data.VehicleHoverIcon = usesTransportStates ? sprite + "Hovered" : sprite;
+            data.VehicleDisabledIcon = "InfoIconPopulationDisabled";
             data.VehicleEnabled = true;
             data.VehicleTooltip = vehicleManager.GetVehicleName(data.Vehicle);
+        }
+
+        private static void SetWalkingVehicle(ref CitizenRowData data)
+        {
+            data.VehicleInstanceId = InstanceID.Empty;
+            data.VehicleAtlas = UIView.GetAView().defaultAtlas;
+            data.VehicleIcon = string.Empty;
+            data.VehicleHoverIcon = string.Empty;
+            data.VehicleDisabledIcon = "InfoIconPopulationDisabled";
+            data.VehicleEnabled = false;
+            data.VehicleTooltip = FavCimsLang.Text("CitizenWalkingTooltip");
+        }
+
+        private static string GetVehicleSprite(ItemClass.Service service, ItemClass.SubService subService, string vehicleName, string vehiclePrefabName)        
+        {
+            string names = vehicleName + " " + vehiclePrefabName;
+
+            if (service == ItemClass.Service.Residential && names.IndexOf("Bicycle", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return "IconTouristBicycleVehicle";
+            }
+
+            if (service == ItemClass.Service.Residential && names.IndexOf("Scooter", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return "ScooterIcon";
+            }
+
+            if (service != ItemClass.Service.PublicTransport)
+            {
+                return "IconCitizenVehicle";
+            }
+
+            return subService switch
+            {
+                ItemClass.SubService.PublicTransportBus => "SubBarPublicTransportBus",
+                ItemClass.SubService.PublicTransportMetro => "SubBarPublicTransportMetro",
+                ItemClass.SubService.PublicTransportTrain => "SubBarPublicTransportTrain",
+                ItemClass.SubService.PublicTransportShip => "SubBarPublicTransportShip",
+                ItemClass.SubService.PublicTransportPlane => names.IndexOf("Blimp", StringComparison.OrdinalIgnoreCase) >= 0 ? "IconPolicyEducationalBlimps" : "SubBarPublicTransportPlane",
+                ItemClass.SubService.PublicTransportTaxi => "SubBarPublicTransportTaxi",
+                ItemClass.SubService.PublicTransportTram => "SubBarPublicTransportTram",
+                ItemClass.SubService.PublicTransportMonorail => "SubBarPublicTransportMonorail",
+                ItemClass.SubService.PublicTransportCableCar => "SubBarPublicTransportCableCar",
+                ItemClass.SubService.PublicTransportTours => "SubBarPublicTransportTours",
+                ItemClass.SubService.PublicTransportTrolleybus => "SubBarPublicTransportTrolleybus",
+                _ => "IconCitizenVehicle",
+            };
         }
 
         /// <summary>Preserves the existing death-state display behavior.</summary>

@@ -308,16 +308,13 @@ namespace FavoriteCims.UI.PanelsRows
             var column = CitizenRowColumns.CreateColumn(rowPanel, "FavCimsLastActivityPanel", activityColumnWidth, columnX);
 
             activityButton = CitizenRowColumns.CreateTextButton(column, "FavCimsLastActivity", 0.85f);
-
             activityButton.width = column.width - 40f;
             activityButton.font.size = 14;
             activityButton.textPadding = new RectOffset(0, 5, 0, 0);
             activityButton.textColor = new Color32(21, 59, 96, 140);
             activityButton.maximumSize = new Vector2(column.width - 40f, 0f);
-
             activityButton.relativePosition = new Vector3(40f, 0f);
             activityButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
-
             activityButton.eventMouseUp += (component, param) => TargetClicked?.Invoke(component, param);
 
             activityVehicleButton = column.AddUIComponent<UIButton>();
@@ -326,7 +323,6 @@ namespace FavoriteCims.UI.PanelsRows
             activityVehicleButton.height = 26f;
             activityVehicleButton.relativePosition = new Vector3(5f, 7f);
             activityVehicleButton.tooltipBox = UIView.GetAView().defaultTooltipBox;
-
             activityVehicleButton.eventMouseUp += (component, param) => VehicleClicked?.Invoke(component, param);
 
             CitizenRowColumns.CreateSeparator(column);

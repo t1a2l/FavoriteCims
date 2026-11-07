@@ -55,7 +55,11 @@ namespace FavoriteCims.UI.Panels
             if (activity.HasVehicle)
             {
                 string sprite = GetActivityVehicleSprite(activity);
+                bool modAtlasSprite = sprite == "IconScooterVehicle";
                 bool transportSprite = sprite.StartsWith("SubBar", StringComparison.Ordinal);
+
+                vehicleButton.atlas = modAtlasSprite ? MyAtlas.FavCimsAtlas : UIView.GetAView().defaultAtlas;
+
                 vehicleButton.normalBgSprite = sprite;
                 vehicleButton.hoveredBgSprite = transportSprite ? sprite + "Hovered" : sprite;
                 vehicleButton.focusedBgSprite = transportSprite ? sprite + "Focused" : sprite;
@@ -66,6 +70,14 @@ namespace FavoriteCims.UI.Panels
             }
             else
             {
+                vehicleButton.atlas = UIView.GetAView().defaultAtlas;
+                vehicleButton.normalBgSprite = string.Empty;
+                vehicleButton.hoveredBgSprite = string.Empty;
+                vehicleButton.focusedBgSprite = string.Empty;
+                vehicleButton.pressedBgSprite = string.Empty;
+                vehicleButton.disabledBgSprite = "InfoIconPopulationDisabled";
+                vehicleButton.isEnabled = false;
+                vehicleButton.playAudioEvents = false;
                 vehicleButton.tooltip = FavCimsLang.Text("CitizenWalkingTooltip");
             }
 
@@ -96,6 +108,10 @@ namespace FavoriteCims.UI.Panels
             { 
                 return "IconTouristBicycleVehicle"; 
             }
+            if (activity.VehicleService == ItemClass.Service.Residential && names.IndexOf("Scooter", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return "ScooterIcon";
+            }
             if (activity.VehicleService != ItemClass.Service.PublicTransport)
             { 
                 return "IconCitizenVehicle"; 
@@ -111,6 +127,8 @@ namespace FavoriteCims.UI.Panels
                 ItemClass.SubService.PublicTransportTram => "SubBarPublicTransportTram",
                 ItemClass.SubService.PublicTransportMonorail => "SubBarPublicTransportMonorail",
                 ItemClass.SubService.PublicTransportCableCar => "SubBarPublicTransportCableCar",
+                ItemClass.SubService.PublicTransportTours => "SubBarPublicTransportTours",
+                ItemClass.SubService.PublicTransportTrolleybus => "SubBarPublicTransportTrolleybus",
                 _ => "IconCitizenVehicle",
             };
         }
