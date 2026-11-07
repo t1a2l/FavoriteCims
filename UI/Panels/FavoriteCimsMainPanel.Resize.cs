@@ -20,6 +20,16 @@ namespace FavoriteCims.UI.Panels
         private Vector2 resizeStartMouse;
         private Vector2 resizeStartSize;
         private Vector2 resizeLastContainerSize;
+        private UITextureAtlas resizeFrameAtlas;
+        private Material resizeFrameMaterial;
+        private UISlicedSprite resizeFrame;
+
+        private const string ResizeFrameSpriteName = "FavoriteCimsResizableFrame";
+
+        private const int MainFrameLeft = 5;
+        private const int MainFrameRight = 5;
+        private const int MainFrameTop = 58;
+        private const int MainFrameBottom = 14;
 
         private void InitializeMainWindowResize(UITextureSprite background, UITextureSprite menu, UITextureSprite index, UITextureSprite footer, UIButton close, UIComponent scrollHost, UIScrollbar bar)
         {
@@ -29,7 +39,10 @@ namespace FavoriteCims.UI.Panels
             footer.autoSize = false;
             FavCimsTitleSprite.autoSize = false;
             FavCimsBodySprite.autoSize = false;
+
             resizeBackground = background;
+            InitializeResizableMainBackground();
+
             resizeMenu = menu;
             resizeIndex = index;
             resizeFooter = footer;
@@ -63,6 +76,50 @@ namespace FavoriteCims.UI.Panels
             resetSizeButton.tooltip = FavCimsLang.Text("MainWindowResetSizeTooltip");
             resetSizeButton.eventClick += ResetMainSize;
             ApplyMainWindowSize(new Vector2(width, height));
+        }
+
+        private void InitializeResizableMainBackground()
+        {
+            var sourceTexture = resizeBackground.texture as Texture2D;
+            if (sourceTexture == null)
+            {
+                Utils.Debug.Error("Cannot initialize resizable main background: expected a Texture2D.");
+                return;
+            }
+
+            resizeFrameMaterial = new Material(UIView.GetAView().defaultAtlas.material)
+            {
+                name = "FavoriteCimsResizableFrameMaterial",
+                mainTexture = sourceTexture
+            };
+
+            resizeFrameAtlas = ScriptableObject.CreateInstance<UITextureAtlas>();
+            resizeFrameAtlas.name = "FavoriteCimsResizableFrameAtlas";
+            resizeFrameAtlas.material = resizeFrameMaterial;
+
+            var spriteInfo = new UITextureAtlas.SpriteInfo
+            {
+                name = ResizeFrameSpriteName,
+                texture = sourceTexture,
+                region = new Rect(0f, 0f, 1f, 1f),
+                border = new RectOffset(MainFrameLeft, MainFrameRight, MainFrameTop, MainFrameBottom)
+            };
+
+            resizeFrameAtlas.AddSprite(spriteInfo);
+
+            resizeFrame = resizeBackground.AddUIComponent<UISlicedSprite>();
+            resizeFrame.name = "FavoriteCimsResizableFrame";
+            resizeFrame.autoSize = false;
+            resizeFrame.atlas = resizeFrameAtlas;
+            resizeFrame.spriteName = ResizeFrameSpriteName;
+            resizeFrame.relativePosition = Vector3.zero;
+            resizeFrame.size = resizeBackground.size;
+            resizeFrame.isInteractive = false;
+            resizeFrame.SendToBack();
+
+            // Keep the original component as the existing parent and drag surface.
+            // Only its old, stretched texture is removed.
+            resizeBackground.texture = null;
         }
 
         private static Vector2 MainResizeMousePosition()
@@ -142,8 +199,20 @@ namespace FavoriteCims.UI.Panels
             absolutePosition = position;
 
             resizeBackground.size = target;
-            FavCimsTitleSprite.width = width;
-            FavCimsTitleSprite.relativePosition = Vector3.zero;
+
+            if (resizeFrame != null)
+            {
+                resizeFrame.relativePosition = Vector3.zero;
+                resizeFrame.size = target;
+            }
+
+            if (FavCimsTitleSprite.texture != null)
+            {
+                FavCimsTitleSprite.size = new Vector2(FavCimsTitleSprite.texture.width, FavCimsTitleSprite.texture.height);
+            }
+
+            FavCimsTitleSprite.relativePosition = new Vector3((width - FavCimsTitleSprite.width) * 0.5f, 0f);
+
             resizeMenu.width = Mathf.Max(1f, width - 10f);
             resizeMenu.relativePosition = new Vector3(5f, 58f);
             resizeClose.relativePosition = new Vector3(width - 48f, 13f);
@@ -173,10 +242,27 @@ namespace FavoriteCims.UI.Panels
             resizeFooter.width = rowWidth + 12f;
             resizeFooter.relativePosition = new Vector3(21f, 33f + viewportHeight);
 
-            float[] minimum = [60f, 110f, 90f, 40f, 100f, 120f, 120f, 140f, 50f];
-            float[] flexible = [0f, 0.20f, 0f, 0f, 0f, 0.25f, 0.25f, 0.30f, 0f];
-            float scale = Mathf.Min(1f, rowWidth / 830f);
-            float extra = Mathf.Max(0f, rowWidth - 830f);
+            float[] minimum =
+            [
+                60f, 110f, 90f, 40f, 120f, 120f, 120f, 140f, 65f
+            ];
+
+            float[] flexible =
+            [
+                0f, 0.20f, 0f, 0f, 0f, 0.25f, 0.25f, 0.30f, 0f
+            ];
+
+            float minimumTotal = 0f;
+            for (int i = 0; i < minimum.Length; i++)
+            {
+                minimumTotal += minimum[i];
+            }
+
+            float scale = Mathf.Min(1f, rowWidth / minimumTotal);
+            float extra = Mathf.Max(0f, rowWidth - minimumTotal);
+
+            FavCimsCloseButtonCol.textPadding = new RectOffset(0, 0, 0, 0);
+
             float x = 27f;
             for (int i = 0; i < resizeHeaders.Length; i++)
             {
@@ -185,6 +271,7 @@ namespace FavoriteCims.UI.Panels
                 resizeHeaders[i].relativePosition = new Vector3(x, 8f);
                 x += columnWidth;
             }
+
             resizeHandle.relativePosition = new Vector3(width - 25f, height - 24f);
             resetSizeButton.relativePosition = new Vector3(15f, height - 24f);
             resizeHandle.BringToFront();
@@ -194,8 +281,35 @@ namespace FavoriteCims.UI.Panels
         private void ReleaseMainWindowResize()
         {
             resizeDragging = false;
-            if (resizeHandle != null) resizeHandle.eventMouseDown -= BeginMainResize;
-            if (resetSizeButton != null) resetSizeButton.eventClick -= ResetMainSize;
+
+            if (resizeHandle != null)
+            {
+                resizeHandle.eventMouseDown -= BeginMainResize;
+            }
+
+            if (resetSizeButton != null)
+            {
+                resetSizeButton.eventClick -= ResetMainSize;
+            }
+
+            if (resizeFrame != null)
+            {
+                resizeFrame.atlas = null;
+                UnityEngine.Object.Destroy(resizeFrame.gameObject);
+                resizeFrame = null;
+            }
+
+            if (resizeFrameAtlas != null)
+            {
+                UnityEngine.Object.Destroy(resizeFrameAtlas);
+                resizeFrameAtlas = null;
+            }
+
+            if (resizeFrameMaterial != null)
+            {
+                UnityEngine.Object.Destroy(resizeFrameMaterial);
+                resizeFrameMaterial = null;
+            }
         }
     }
 }
