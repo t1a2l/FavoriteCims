@@ -66,6 +66,14 @@ namespace FavoriteCims.UI.PanelsRows
             "ExtremelyHappy"
         ];
 
+        private static readonly string[] EducationLevels =
+        [
+            "Uneducated",
+            "Educated",
+            "WellEducated",
+            "HighlyEducated"
+        ];
+
         public bool IsReady { get; private set; }
 
         public override void Start()
@@ -382,7 +390,7 @@ namespace FavoriteCims.UI.PanelsRows
         {
             string genderSuffix = gender == Citizen.Gender.Female ? "Female" : "Male";
 
-            educationButton.text = FavCimsLang.Text("CitizenEducation" + education + genderSuffix);
+            educationButton.text = FavCimsLang.Text("CitizenEducation" + EducationLevels[(int)education] + genderSuffix);
 
             switch (education)
             {
@@ -409,11 +417,9 @@ namespace FavoriteCims.UI.PanelsRows
 
         public void SetHappiness(Citizen.Happiness happiness)
         {
-            string sprite = GetHappinessSprite(happiness);
-
             happinessIcon.atlas = UIView.GetAView().defaultAtlas;
-            happinessIcon.normalBgSprite = sprite;
-            happinessIcon.tooltip = FavCimsLang.Text(sprite);
+            happinessIcon.normalBgSprite = GetHappinessSprite(happiness);
+            happinessIcon.tooltip = FavCimsLang.Text("CitizenHappiness" + HappinessLevels[(int)happiness] + "Status");
 
             happinessOverride.texture = null;
             happinessOverride.tooltip = null;
@@ -518,11 +524,8 @@ namespace FavoriteCims.UI.PanelsRows
         public void SetNormalHappiness(Citizen.Happiness happiness)
         {
             happinessIcon.atlas = UIView.GetAView().defaultAtlas;
-
-            string sprite = GetHappinessSprite(happiness);
-
-            happinessIcon.normalBgSprite = sprite;
-            happinessIcon.tooltip = FavCimsLang.Text(sprite);
+            happinessIcon.normalBgSprite = GetHappinessSprite(happiness);
+            happinessIcon.tooltip = FavCimsLang.Text("CitizenHappiness" + HappinessLevels[(int)happiness] + "Status");
 
             happinessOverride.texture = null;
             happinessOverride.tooltip = null;
