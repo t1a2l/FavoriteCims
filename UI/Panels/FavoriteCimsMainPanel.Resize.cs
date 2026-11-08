@@ -196,7 +196,9 @@ namespace FavoriteCims.UI.Panels
             resizeLastContainerSize = new Vector2(containerWidth, containerHeight);
             float maxWidth = Mathf.Max(1f, containerWidth - 16f);
             float maxHeight = Mathf.Max(1f, containerHeight - 16f);
-            Vector2 target = new(Mathf.Clamp(requested.x, Mathf.Min(960f, maxWidth), maxWidth), Mathf.Clamp(requested.y, Mathf.Min(350f, maxHeight), maxHeight));
+            float minimumWidth = GetMainWindowMinimumWidth();
+
+            Vector2 target = new(Mathf.Clamp(requested.x, Mathf.Min(minimumWidth, maxWidth), maxWidth), Mathf.Clamp(requested.y, Mathf.Min(350f, maxHeight), maxHeight));
             size = target;
 
             Vector3 position = absolutePosition;

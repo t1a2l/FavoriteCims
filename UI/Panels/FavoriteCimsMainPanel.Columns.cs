@@ -283,6 +283,33 @@ namespace FavoriteCims.UI.Panels
             }
         }
 
+        private float GetMainWindowMinimumWidth()
+        {
+            float[] minimum =
+            [
+                60f, 110f, 90f, 40f, 120f, 120f, 120f, 140f, 65f
+            ];
+
+            float visibleColumnsWidth = 0f;
+
+            for (int i = 0; i < minimum.Length; i++)
+            {
+                if (IsMainColumnVisible(i))
+                {
+                    visibleColumnsWidth += minimum[i];
+                }
+            }
+
+            // Match the existing layout: rowWidth = window width - 66.
+            const float horizontalChromeWidth = 66f;
+
+            // Chosen floor for the visible title and menu controls.
+            // Do not derive this from the full title texture width.
+            const float minimumChromeWidth = 460f;
+
+            return Mathf.Max(minimumChromeWidth, visibleColumnsWidth + horizontalChromeWidth);
+        }
+
         private void ReleaseMainColumnControls()
         {
             if (columnsButton != null)
