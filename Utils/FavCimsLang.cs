@@ -81,6 +81,9 @@ namespace FavoriteCims.Utils
                             ["CitizenRemoveColumnTitle"] = "Remove",
                             ["CitizenRemoveColumnTooltip"] = "Remove this citizen from favorites",
 
+                            ["MainColumnsButtonText"] = "Columns",
+                            ["MainColumnsButtonTooltip"] = "Show or hide citizen table columns",
+
                             // ============================================================
                             // Citizen gender
                             // ============================================================
@@ -90,36 +93,23 @@ namespace FavoriteCims.Utils
 
                             // ============================================================
                             // Citizen life stages
-                            // Keep gender suffixes for languages that require them.
                             // ============================================================
 
-                            ["CitizenLifeStageChildMale"] = "Child",
-                            ["CitizenLifeStageTeenMale"] = "Teen",
-                            ["CitizenLifeStageYoungAdultMale"] = "Young adult",
-                            ["CitizenLifeStageAdultMale"] = "Adult",
-                            ["CitizenLifeStageSeniorMale"] = "Senior",
-                            ["CitizenLifeStageDeceasedMale"] = "Deceased",
-
-                            ["CitizenLifeStageChildFemale"] = "Child",
-                            ["CitizenLifeStageTeenFemale"] = "Teen",
-                            ["CitizenLifeStageYoungAdultFemale"] = "Young adult",
-                            ["CitizenLifeStageAdultFemale"] = "Adult",
-                            ["CitizenLifeStageSeniorFemale"] = "Senior",
-                            ["CitizenLifeStageDeceasedFemale"] = "Deceased",
+                            ["CitizenLifeStageChildStatus"] = "Child",
+                            ["CitizenLifeStageTeenStatus"] = "Teen",
+                            ["CitizenLifeStageYoungStatus"] = "Young adult",
+                            ["CitizenLifeStageAdultStatus"] = "Adult",
+                            ["CitizenLifeStageSeniorStatus"] = "Senior",
+                            ["CitizenLifeStageDeceasedStatus"] = "Deceased",
 
                             // ============================================================
                             // Citizen education
                             // ============================================================
 
-                            ["CitizenEducationUneducatedMale"] = "Uneducated",
-                            ["CitizenEducationEducatedMale"] = "Educated",
-                            ["CitizenEducationWellEducatedMale"] = "Well educated",
-                            ["CitizenEducationHighlyEducatedMale"] = "Highly educated",
-
-                            ["CitizenEducationUneducatedFemale"] = "Uneducated",
-                            ["CitizenEducationEducatedFemale"] = "Educated",
-                            ["CitizenEducationWellEducatedFemale"] = "Well educated",
-                            ["CitizenEducationHighlyEducatedFemale"] = "Highly educated",
+                            ["CitizenEducationUneducatedStatus"] = "Uneducated",
+                            ["CitizenEducationEducatedStatus"] = "Educated",
+                            ["CitizenEducationWellEducatedStatus"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedStatus"] = "Highly educated",
 
                             // ============================================================
                             // Citizen life status
@@ -162,11 +152,13 @@ namespace FavoriteCims.Utils
                             // Citizen happiness
                             // ============================================================
 
-                            ["CitizenHappinessVeryUnhappyStatus"] = "Very unhappy",
-                            ["CitizenHappinessUnhappyStatus"] = "Unhappy",
-                            ["CitizenHappinessHappyStatus"] = "Happy",
-                            ["CitizenHappinessVeryHappyStatus"] = "Very happy",
-                            ["CitizenHappinessExtremelyHappyStatus"] = "Extremely happy",
+                            ["CitizenHappinessBadStatus"] = "Bad",
+                            ["CitizenHappinessPoorStatus"] = "Poor",
+                            ["CitizenHappinessGoodStatus"] = "Good",
+                            ["CitizenHappinessExcellentStatus"] = "Excellent",
+                            ["CitizenHappinessSuperbStatus"] = "Superb",
+
+                            ["CitizenHappinessLabel"] = "Happiness: ",
 
                             // ============================================================
                             // Citizen home
@@ -226,38 +218,37 @@ namespace FavoriteCims.Utils
                             ["DistrictNoneText"] = "None",
 
                             // ============================================================
-                            // Citizen wealth and wellbeing
+                            // Citizen wealth
                             // ============================================================
 
-                            ["CitizenWealthLowStatusMale"] = "Poor",
-                            ["CitizenWealthMediumStatusMale"] = "Well-off",
-                            ["CitizenWealthHighStatusMale"] = "Rich",
+                            ["CitizenWealthLowStatus"] = "Poor",
+                            ["CitizenWealthMediumStatus"] = "Well-off",
+                            ["CitizenWealthHighStatus"] = "Rich",
 
-                            ["CitizenWealthLowStatusFemale"] = "Poor",
-                            ["CitizenWealthMediumStatusFemale"] = "Well-off",
-                            ["CitizenWealthHighStatusFemale"] = "Rich",
+                            ["CitizenWealthLabel"] = "Wealth",
+
+                            // ============================================================
+                            // Citizen wellbeing
+                            // ============================================================
+
+                            ["CitizenWellbeingVeryUnhappyStatus"] = "Very unhappy",
+                            ["CitizenWellbeingUnhappyStatus"] = "Unhappy",
+                            ["CitizenWellbeingSatisfiedStatus"] = "Satisfied",
+                            ["CitizenWellbeingHappyStatus"] = "Happy",
+                            ["CitizenWellbeingVeryHappyStatus"] = "Very happy",
 
                             ["CitizenWellbeingLabel"] = "Wellbeing: ",
-                            ["CitizenHappinessLabel"] = "Happiness: ",
-                            ["CitizenWealthLabel"] = "Wealth",
 
                             // ============================================================
                             // Citizen health
                             // ============================================================
 
-                            ["CitizenHealthVerySickStatusMale"] = "Very sick",
-                            ["CitizenHealthSickStatusMale"] = "Sick",
-                            ["CitizenHealthPoorStatusMale"] = "Poor health",
-                            ["CitizenHealthHealthyStatusMale"] = "Healthy",
-                            ["CitizenHealthVeryHealthyStatusMale"] = "Very healthy",
-                            ["CitizenHealthExcellentStatusMale"] = "Excellent health",
-
-                            ["CitizenHealthVerySickStatusFemale"] = "Very sick",
-                            ["CitizenHealthSickStatusFemale"] = "Sick",
-                            ["CitizenHealthPoorStatusFemale"] = "Poor health",
-                            ["CitizenHealthHealthyStatusFemale"] = "Healthy",
-                            ["CitizenHealthVeryHealthyStatusFemale"] = "Very healthy",
-                            ["CitizenHealthExcellentStatusFemale"] = "Excellent health",
+                            ["CitizenHealthVerySickStatus"] = "Very sick",
+                            ["CitizenHealthSickStatus"] = "Sick",
+                            ["CitizenHealthPoorStatus"] = "Poor health",
+                            ["CitizenHealthHealthyStatus"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatus"] = "Very healthy",
+                            ["CitizenHealthExcellentStatus"] = "Excellent health",
 
                             // ============================================================
                             // Death and funeral status
@@ -540,6 +531,9 @@ namespace FavoriteCims.Utils
                             ["CitizenRemoveColumnTitle"] = "Remove",
                             ["CitizenRemoveColumnTooltip"] = "Remove this citizen from favorites",
 
+                            ["MainColumnsButtonText"] = "Columns",
+                            ["MainColumnsButtonTooltip"] = "Show or hide citizen table columns",
+
                             // ============================================================
                             // Citizen gender
                             // ============================================================
@@ -549,36 +543,23 @@ namespace FavoriteCims.Utils
 
                             // ============================================================
                             // Citizen life stages
-                            // Keep gender suffixes for languages that require them.
                             // ============================================================
 
-                            ["CitizenLifeStageChildMale"] = "Child",
-                            ["CitizenLifeStageTeenMale"] = "Teen",
-                            ["CitizenLifeStageYoungAdultMale"] = "Young adult",
-                            ["CitizenLifeStageAdultMale"] = "Adult",
-                            ["CitizenLifeStageSeniorMale"] = "Senior",
-                            ["CitizenLifeStageDeceasedMale"] = "Deceased",
-
-                            ["CitizenLifeStageChildFemale"] = "Child",
-                            ["CitizenLifeStageTeenFemale"] = "Teen",
-                            ["CitizenLifeStageYoungAdultFemale"] = "Young adult",
-                            ["CitizenLifeStageAdultFemale"] = "Adult",
-                            ["CitizenLifeStageSeniorFemale"] = "Senior",
-                            ["CitizenLifeStageDeceasedFemale"] = "Deceased",
+                            ["CitizenLifeStageChildStatus"] = "Child",
+                            ["CitizenLifeStageTeenStatus"] = "Teen",
+                            ["CitizenLifeStageYoungStatus"] = "Young adult",
+                            ["CitizenLifeStageAdultStatus"] = "Adult",
+                            ["CitizenLifeStageSeniorStatus"] = "Senior",
+                            ["CitizenLifeStageDeceasedStatus"] = "Deceased",
 
                             // ============================================================
                             // Citizen education
                             // ============================================================
 
-                            ["CitizenEducationUneducatedMale"] = "Uneducated",
-                            ["CitizenEducationEducatedMale"] = "Educated",
-                            ["CitizenEducationWellEducatedMale"] = "Well educated",
-                            ["CitizenEducationHighlyEducatedMale"] = "Highly educated",
-
-                            ["CitizenEducationUneducatedFemale"] = "Uneducated",
-                            ["CitizenEducationEducatedFemale"] = "Educated",
-                            ["CitizenEducationWellEducatedFemale"] = "Well educated",
-                            ["CitizenEducationHighlyEducatedFemale"] = "Highly educated",
+                            ["CitizenEducationUneducatedStatus"] = "Uneducated",
+                            ["CitizenEducationEducatedStatus"] = "Educated",
+                            ["CitizenEducationWellEducatedStatus"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedStatus"] = "Highly educated",
 
                             // ============================================================
                             // Citizen life status
@@ -621,11 +602,13 @@ namespace FavoriteCims.Utils
                             // Citizen happiness
                             // ============================================================
 
-                            ["CitizenHappinessVeryUnhappyStatus"] = "Very unhappy",
-                            ["CitizenHappinessUnhappyStatus"] = "Unhappy",
-                            ["CitizenHappinessHappyStatus"] = "Happy",
-                            ["CitizenHappinessVeryHappyStatus"] = "Very happy",
-                            ["CitizenHappinessExtremelyHappyStatus"] = "Extremely happy",
+                            ["CitizenHappinessBadStatus"] = "Bad",
+                            ["CitizenHappinessPoorStatus"] = "Poor",
+                            ["CitizenHappinessGoodStatus"] = "Good",
+                            ["CitizenHappinessExcellentStatus"] = "Excellent",
+                            ["CitizenHappinessSuperbStatus"] = "Superb",
+
+                            ["CitizenHappinessLabel"] = "Happiness: ",
 
                             // ============================================================
                             // Citizen home
@@ -685,38 +668,37 @@ namespace FavoriteCims.Utils
                             ["DistrictNoneText"] = "None",
 
                             // ============================================================
-                            // Citizen wealth and wellbeing
+                            // Citizen wealth
                             // ============================================================
 
-                            ["CitizenWealthLowStatusMale"] = "Poor",
-                            ["CitizenWealthMediumStatusMale"] = "Well-off",
-                            ["CitizenWealthHighStatusMale"] = "Rich",
+                            ["CitizenWealthLowStatus"] = "Poor",
+                            ["CitizenWealthMediumStatus"] = "Well-off",
+                            ["CitizenWealthHighStatus"] = "Rich",
 
-                            ["CitizenWealthLowStatusFemale"] = "Poor",
-                            ["CitizenWealthMediumStatusFemale"] = "Well-off",
-                            ["CitizenWealthHighStatusFemale"] = "Rich",
+                            ["CitizenWealthLabel"] = "Wealth",
+
+                            // ============================================================
+                            // Citizen wellbeing
+                            // ============================================================
+
+                            ["CitizenWellbeingVeryUnhappyStatus"] = "Very unhappy",
+                            ["CitizenWellbeingUnhappyStatus"] = "Unhappy",
+                            ["CitizenWellbeingSatisfiedStatus"] = "Satisfied",
+                            ["CitizenWellbeingHappyStatus"] = "Happy",
+                            ["CitizenWellbeingVeryHappyStatus"] = "Very happy",
 
                             ["CitizenWellbeingLabel"] = "Wellbeing: ",
-                            ["CitizenHappinessLabel"] = "Happiness: ",
-                            ["CitizenWealthLabel"] = "Wealth",
 
                             // ============================================================
                             // Citizen health
                             // ============================================================
 
-                            ["CitizenHealthVerySickStatusMale"] = "Very sick",
-                            ["CitizenHealthSickStatusMale"] = "Sick",
-                            ["CitizenHealthPoorStatusMale"] = "Poor health",
-                            ["CitizenHealthHealthyStatusMale"] = "Healthy",
-                            ["CitizenHealthVeryHealthyStatusMale"] = "Very healthy",
-                            ["CitizenHealthExcellentStatusMale"] = "Excellent health",
-
-                            ["CitizenHealthVerySickStatusFemale"] = "Very sick",
-                            ["CitizenHealthSickStatusFemale"] = "Sick",
-                            ["CitizenHealthPoorStatusFemale"] = "Poor health",
-                            ["CitizenHealthHealthyStatusFemale"] = "Healthy",
-                            ["CitizenHealthVeryHealthyStatusFemale"] = "Very healthy",
-                            ["CitizenHealthExcellentStatusFemale"] = "Excellent health",
+                            ["CitizenHealthVerySickStatus"] = "Very sick",
+                            ["CitizenHealthSickStatus"] = "Sick",
+                            ["CitizenHealthPoorStatus"] = "Poor health",
+                            ["CitizenHealthHealthyStatus"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatus"] = "Very healthy",
+                            ["CitizenHealthExcellentStatus"] = "Excellent health",
 
                             // ============================================================
                             // Death and funeral status
@@ -999,6 +981,9 @@ namespace FavoriteCims.Utils
                             ["CitizenRemoveColumnTitle"] = "Remove",
                             ["CitizenRemoveColumnTooltip"] = "Remove this citizen from favorites",
 
+                            ["MainColumnsButtonText"] = "Columns",
+                            ["MainColumnsButtonTooltip"] = "Show or hide citizen table columns",
+
                             // ============================================================
                             // Citizen gender
                             // ============================================================
@@ -1008,36 +993,23 @@ namespace FavoriteCims.Utils
 
                             // ============================================================
                             // Citizen life stages
-                            // Keep gender suffixes for languages that require them.
                             // ============================================================
 
-                            ["CitizenLifeStageChildMale"] = "Child",
-                            ["CitizenLifeStageTeenMale"] = "Teen",
-                            ["CitizenLifeStageYoungAdultMale"] = "Young adult",
-                            ["CitizenLifeStageAdultMale"] = "Adult",
-                            ["CitizenLifeStageSeniorMale"] = "Senior",
-                            ["CitizenLifeStageDeceasedMale"] = "Deceased",
-
-                            ["CitizenLifeStageChildFemale"] = "Child",
-                            ["CitizenLifeStageTeenFemale"] = "Teen",
-                            ["CitizenLifeStageYoungAdultFemale"] = "Young adult",
-                            ["CitizenLifeStageAdultFemale"] = "Adult",
-                            ["CitizenLifeStageSeniorFemale"] = "Senior",
-                            ["CitizenLifeStageDeceasedFemale"] = "Deceased",
+                            ["CitizenLifeStageChildStatus"] = "Child",
+                            ["CitizenLifeStageTeenStatus"] = "Teen",    
+                            ["CitizenLifeStageYoungStatus"] = "Young adult",
+                            ["CitizenLifeStageAdultStatus"] = "Adult",
+                            ["CitizenLifeStageSeniorStatus"] = "Senior",
+                            ["CitizenLifeStageDeceasedStatus"] = "Deceased",
 
                             // ============================================================
                             // Citizen education
                             // ============================================================
 
-                            ["CitizenEducationUneducatedMale"] = "Uneducated",
-                            ["CitizenEducationEducatedMale"] = "Educated",
-                            ["CitizenEducationWellEducatedMale"] = "Well educated",
-                            ["CitizenEducationHighlyEducatedMale"] = "Highly educated",
-
-                            ["CitizenEducationUneducatedFemale"] = "Uneducated",
-                            ["CitizenEducationEducatedFemale"] = "Educated",
-                            ["CitizenEducationWellEducatedFemale"] = "Well educated",
-                            ["CitizenEducationHighlyEducatedFemale"] = "Highly educated",
+                            ["CitizenEducationUneducatedStatus"] = "Uneducated",
+                            ["CitizenEducationEducatedStatus"] = "Educated",
+                            ["CitizenEducationWellEducatedStatus"] = "Well educated",
+                            ["CitizenEducationHighlyEducatedStatus"] = "Highly educated",
 
                             // ============================================================
                             // Citizen life status
@@ -1080,11 +1052,13 @@ namespace FavoriteCims.Utils
                             // Citizen happiness
                             // ============================================================
 
-                            ["CitizenHappinessVeryUnhappyStatus"] = "Very unhappy",
-                            ["CitizenHappinessUnhappyStatus"] = "Unhappy",
-                            ["CitizenHappinessHappyStatus"] = "Happy",
-                            ["CitizenHappinessVeryHappyStatus"] = "Very happy",
-                            ["CitizenHappinessExtremelyHappyStatus"] = "Extremely happy",
+                            ["CitizenHappinessBadStatus"] = "Bad",
+                            ["CitizenHappinessPoorStatus"] = "Poor",
+                            ["CitizenHappinessGoodStatus"] = "Good",
+                            ["CitizenHappinessExcellentStatus"] = "Excellent",
+                            ["CitizenHappinessSuperbStatus"] = "Superb",
+
+                            ["CitizenHappinessLabel"] = "Happiness: ",
 
                             // ============================================================
                             // Citizen home
@@ -1144,38 +1118,37 @@ namespace FavoriteCims.Utils
                             ["DistrictNoneText"] = "None",
 
                             // ============================================================
-                            // Citizen wealth and wellbeing
+                            // Citizen wealth
                             // ============================================================
 
-                            ["CitizenWealthLowStatusMale"] = "Poor",
-                            ["CitizenWealthMediumStatusMale"] = "Well-off",
-                            ["CitizenWealthHighStatusMale"] = "Rich",
+                            ["CitizenWealthLowStatus"] = "Poor",
+                            ["CitizenWealthMediumStatus"] = "Well-off",
+                            ["CitizenWealthHighStatus"] = "Rich",
 
-                            ["CitizenWealthLowStatusFemale"] = "Poor",
-                            ["CitizenWealthMediumStatusFemale"] = "Well-off",
-                            ["CitizenWealthHighStatusFemale"] = "Rich",
+                            ["CitizenWealthLabel"] = "Wealth",
+
+                            // ============================================================
+                            // Citizen wellbeing
+                            // ============================================================
+
+                            ["CitizenWellbeingVeryUnhappyStatus"] = "Very unhappy",
+                            ["CitizenWellbeingUnhappyStatus"] = "Unhappy",
+                            ["CitizenWellbeingSatisfiedStatus"] = "Satisfied",
+                            ["CitizenWellbeingHappyStatus"] = "Happy",
+                            ["CitizenWellbeingVeryHappyStatus"] = "Very happy",
 
                             ["CitizenWellbeingLabel"] = "Wellbeing: ",
-                            ["CitizenHappinessLabel"] = "Happiness: ",
-                            ["CitizenWealthLabel"] = "Wealth",
 
                             // ============================================================
                             // Citizen health
                             // ============================================================
 
-                            ["CitizenHealthVerySickStatusMale"] = "Very sick",
-                            ["CitizenHealthSickStatusMale"] = "Sick",
-                            ["CitizenHealthPoorStatusMale"] = "Poor health",
-                            ["CitizenHealthHealthyStatusMale"] = "Healthy",
-                            ["CitizenHealthVeryHealthyStatusMale"] = "Very healthy",
-                            ["CitizenHealthExcellentStatusMale"] = "Excellent health",
-
-                            ["CitizenHealthVerySickStatusFemale"] = "Very sick",
-                            ["CitizenHealthSickStatusFemale"] = "Sick",
-                            ["CitizenHealthPoorStatusFemale"] = "Poor health",
-                            ["CitizenHealthHealthyStatusFemale"] = "Healthy",
-                            ["CitizenHealthVeryHealthyStatusFemale"] = "Very healthy",
-                            ["CitizenHealthExcellentStatusFemale"] = "Excellent health",
+                            ["CitizenHealthVerySickStatus"] = "Very sick",
+                            ["CitizenHealthSickStatus"] = "Sick",
+                            ["CitizenHealthPoorStatus"] = "Poor health",
+                            ["CitizenHealthHealthyStatus"] = "Healthy",
+                            ["CitizenHealthVeryHealthyStatus"] = "Very healthy",
+                            ["CitizenHealthExcellentStatus"] = "Excellent health",
 
                             // ============================================================
                             // Death and funeral status
@@ -1456,6 +1429,9 @@ namespace FavoriteCims.Utils
                         ["CitizenRemoveColumnTitle"] = "Remove",
                         ["CitizenRemoveColumnTooltip"] = "Remove this citizen from favorites",
 
+                        [ "MainColumnsButtonText"] = "Columns",
+                        [ "MainColumnsButtonTooltip"] = "Show or hide citizen table columns",
+
                         // ============================================================
                         // Citizen gender
                         // ============================================================
@@ -1465,36 +1441,23 @@ namespace FavoriteCims.Utils
 
                         // ============================================================
                         // Citizen life stages
-                        // Keep gender suffixes for languages that require them.
                         // ============================================================
 
-                        ["CitizenLifeStageChildMale"] = "Child",
-                        ["CitizenLifeStageTeenMale"] = "Teen",
-                        ["CitizenLifeStageYoungAdultMale"] = "Young adult",
-                        ["CitizenLifeStageAdultMale"] = "Adult",
-                        ["CitizenLifeStageSeniorMale"] = "Senior",
-                        ["CitizenLifeStageDeceasedMale"] = "Deceased",
-
-                        ["CitizenLifeStageChildFemale"] = "Child",
-                        ["CitizenLifeStageTeenFemale"] = "Teen",
-                        ["CitizenLifeStageYoungAdultFemale"] = "Young adult",
-                        ["CitizenLifeStageAdultFemale"] = "Adult",
-                        ["CitizenLifeStageSeniorFemale"] = "Senior",
-                        ["CitizenLifeStageDeceasedFemale"] = "Deceased",
+                        ["CitizenLifeStageChildStatus"] = "Child",
+                        ["CitizenLifeStageTeenStatus"] = "Teen",
+                        ["CitizenLifeStageYoungStatus"] = "Young adult",
+                        ["CitizenLifeStageAdultStatus"] = "Adult",
+                        ["CitizenLifeStageSeniorStatus"] = "Senior",
+                        ["CitizenLifeStageDeceasedStatus"] = "Deceased",
 
                         // ============================================================
                         // Citizen education
                         // ============================================================
 
-                        ["CitizenEducationUneducatedMale"] = "Uneducated",
-                        ["CitizenEducationEducatedMale"] = "Educated",
-                        ["CitizenEducationWellEducatedMale"] = "Well educated",
-                        ["CitizenEducationHighlyEducatedMale"] = "Highly educated",
-
-                        ["CitizenEducationUneducatedFemale"] = "Uneducated",
-                        ["CitizenEducationEducatedFemale"] = "Educated",
-                        ["CitizenEducationWellEducatedFemale"] = "Well educated",
-                        ["CitizenEducationHighlyEducatedFemale"] = "Highly educated",
+                        ["CitizenEducationUneducatedStatus"] = "Uneducated",
+                        ["CitizenEducationEducatedStatus"] = "Educated",
+                        ["CitizenEducationWellEducatedStatus"] = "Well educated",
+                        ["CitizenEducationHighlyEducatedStatus"] = "Highly educated",
 
                         // ============================================================
                         // Citizen life status
@@ -1537,11 +1500,13 @@ namespace FavoriteCims.Utils
                         // Citizen happiness
                         // ============================================================
 
-                        ["CitizenHappinessVeryUnhappyStatus"] = "Very unhappy",
-                        ["CitizenHappinessUnhappyStatus"] = "Unhappy",
-                        ["CitizenHappinessHappyStatus"] = "Happy",
-                        ["CitizenHappinessVeryHappyStatus"] = "Very happy",
-                        ["CitizenHappinessExtremelyHappyStatus"] = "Extremely happy",
+                        ["CitizenHappinessBadStatus"] = "Bad",
+                        ["CitizenHappinessPoorStatus"] = "Poor",
+                        ["CitizenHappinessGoodStatus"] = "Good",
+                        ["CitizenHappinessExcellentStatus"] = "Excellent",
+                        ["CitizenHappinessSuperbStatus"] = "Superb",
+
+                        ["CitizenHappinessLabel"] = "Happiness: ",
 
                         // ============================================================
                         // Citizen home
@@ -1601,38 +1566,37 @@ namespace FavoriteCims.Utils
                         ["DistrictNoneText"] = "None",
 
                         // ============================================================
-                        // Citizen wealth and wellbeing
+                        // Citizen wealth
                         // ============================================================
 
-                        ["CitizenWealthLowStatusMale"] = "Poor",
-                        ["CitizenWealthMediumStatusMale"] = "Well-off",
-                        ["CitizenWealthHighStatusMale"] = "Rich",
+                        ["CitizenWealthLowStatus"] = "Poor",
+                        ["CitizenWealthMediumStatus"] = "Well-off",
+                        ["CitizenWealthHighStatus"] = "Rich",
 
-                        ["CitizenWealthLowStatusFemale"] = "Poor",
-                        ["CitizenWealthMediumStatusFemale"] = "Well-off",
-                        ["CitizenWealthHighStatusFemale"] = "Rich",
+                        ["CitizenWealthLabel"] = "Wealth",
+
+                        // ============================================================
+                        // Citizen wellbeing
+                        // ============================================================
+
+                        ["CitizenWellbeingVeryUnhappyStatus"] = "Very unhappy",
+                        ["CitizenWellbeingUnhappyStatus"] = "Unhappy",
+                        ["CitizenWellbeingSatisfiedStatus"] = "Satisfied",
+                        ["CitizenWellbeingHappyStatus"] = "Happy",
+                        ["CitizenWellbeingVeryHappyStatus"] = "Very happy",
 
                         ["CitizenWellbeingLabel"] = "Wellbeing: ",
-                        ["CitizenHappinessLabel"] = "Happiness: ",
-                        ["CitizenWealthLabel"] = "Wealth",
 
                         // ============================================================
                         // Citizen health
                         // ============================================================
 
-                        ["CitizenHealthVerySickStatusMale"] = "Very sick",
-                        ["CitizenHealthSickStatusMale"] = "Sick",
-                        ["CitizenHealthPoorStatusMale"] = "Poor health",
-                        ["CitizenHealthHealthyStatusMale"] = "Healthy",
-                        ["CitizenHealthVeryHealthyStatusMale"] = "Very healthy",
-                        ["CitizenHealthExcellentStatusMale"] = "Excellent health",
-
-                        ["CitizenHealthVerySickStatusFemale"] = "Very sick",
-                        ["CitizenHealthSickStatusFemale"] = "Sick",
-                        ["CitizenHealthPoorStatusFemale"] = "Poor health",
-                        ["CitizenHealthHealthyStatusFemale"] = "Healthy",
-                        ["CitizenHealthVeryHealthyStatusFemale"] = "Very healthy",
-                        ["CitizenHealthExcellentStatusFemale"] = "Excellent health",
+                        ["CitizenHealthVerySickStatus"] = "Very sick",
+                        ["CitizenHealthSickStatus"] = "Sick",
+                        ["CitizenHealthPoorStatus"] = "Poor health",
+                        ["CitizenHealthHealthyStatus"] = "Healthy",
+                        ["CitizenHealthVeryHealthyStatus"] = "Very healthy",
+                        ["CitizenHealthExcellentStatus"] = "Excellent health",
 
                         // ============================================================
                         // Death and funeral status
