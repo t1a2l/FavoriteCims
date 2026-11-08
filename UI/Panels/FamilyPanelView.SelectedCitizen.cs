@@ -8,21 +8,52 @@ namespace FavoriteCims.UI.Panels
 {
     public sealed partial class FamilyPanelView
     {
+        private static readonly string[] DetailAgeGroupNames =
+        [
+            "Child", "Teen", "Young", "Adult", "Senior"
+        ];
+
+        /// Localization-key suffixes, ordered by Citizen.Wellbeing.
+        private static readonly string[] DetailWellbeingNames =
+        [
+            "VeryUnhappy", "Unhappy", "Satisfied", "Happy", "VeryHappy"
+        ];
+
+        /// Localization-key suffixes, ordered by Citizen.Happiness.
+        /// The game's Suberb member maps to our correctly spelled Superb key.
         private static readonly string[] DetailHappinessNames =
+        [
+            "Bad", "Poor", "Good", "Excellent", "Superb"
+        ];
+
+        /// Atlas sprite suffixes, independent of localization-key names.
+        /// Preserves the existing five-icon progression.
+        private static readonly string[] DetailMoodSpriteNames =
         [
             "VeryUnhappy", "Unhappy", "Happy", "VeryHappy", "ExtremelyHappy"
         ];
 
+        /// Localization-key suffixes for the health labels.
         private static readonly string[] DetailHealthNames =
         [
+            "VerySick", "Sick", "Poor", "Healthy", "VeryHealthy", "Excellent"
+        ];
+
+        /// Preserve the existing atlas sprite suffixes.
+        private static readonly string[] DetailHealthSpriteNames =
+        [
             "VerySick", "Sick", "PoorHealth", "Healthy", "VeryHealthy", "ExcellentHealth"
+        ];
+
+        private static readonly string[] DetailEducationNames =
+        [
+            "Uneducated", "Educated", "WellEducated", "HighlyEducated"
         ];
 
         public void RenderSelectedCitizen(FamilyCitizenData citizen)
         {
             if (!IsReady || citizen == null) return;
 
-            string gender = citizen.Gender.ToString();
             BubbleCitizenAge.text = FavCimsLang.Text("CitizenAgeColumnTitle");
             BubbleCitizenAgePhase.text = FavCimsLang.Text("CitizenLifeStageColumnTitle");
             BubbleCitizenEducation.text = FavCimsLang.Text("CitizenEducationColumnTitle");
@@ -38,47 +69,60 @@ namespace FavoriteCims.UI.Panels
             BubbleHeaderCitizenName.focusedTextColor = nameColor;
 
             BubbleCitizenAgeVal.text = citizen.RealAge.ToString();
-            BubbleCitizenAgePhaseVal.text = FavCimsLang.Text("CitizenLifeStage" + Citizen.GetAgeGroup(citizen.GameAge) + gender);
+
+            var ageGroup = Citizen.GetAgeGroup(citizen.GameAge);
+            string citizenLifeStage = "CitizenLifeStage" + DetailAgeGroupNames[(int)ageGroup] + "Status";
+            BubbleCitizenAgePhaseVal.text = FavCimsLang.Text(citizenLifeStage);
+
             Color32 ageColor = GetFamilyMemberAgeColor(citizen.RealAge);
             BubbleCitizenAgeVal.textColor = ageColor;
             BubbleCitizenAgePhaseVal.textColor = ageColor;
 
-            BubbleRow1EducationTooltipArea.tooltip = FavCimsLang.Text("CitizenEducation" + citizen.Education + gender);
+            string citizenEducation = "CitizenEducation" + DetailEducationNames[(int)citizen.Education] + "Status";
+            BubbleRow1EducationTooltipArea.tooltip = FavCimsLang.Text(citizenEducation);
             BubbleEduLevel1.isEnabled = citizen.Education == Citizen.Education.OneSchool || citizen.Education == Citizen.Education.TwoSchools || citizen.Education == Citizen.Education.ThreeSchools;
             BubbleEduLevel2.isEnabled = citizen.Education == Citizen.Education.TwoSchools || citizen.Education == Citizen.Education.ThreeSchools;
             BubbleEduLevel3.isEnabled = citizen.Education == Citizen.Education.ThreeSchools;
 
             int healthIndex = Mathf.Clamp((int)Citizen.GetHealthLevel(citizen.Health), 0, DetailHealthNames.Length - 1);
-            string healthName = DetailHealthNames[healthIndex];
-            BubbleHealthSprite.normalBgSprite = "NotificationIcon" + healthName;
+            BubbleHealthSprite.normalBgSprite = "NotificationIcon" + DetailHealthSpriteNames[healthIndex];
             BubbleHealthSprite.tooltip = Locale.Get("INFO_HEALTH_TITLE");
-            BubbleHealthValue.text = FavCimsLang.Text("CitizenHealth" + healthName + gender);
+
+            string citizenHealth = "CitizenHealth" + DetailHealthNames[healthIndex] + "Status";
+
+            BubbleHealthValue.text = FavCimsLang.Text(citizenHealth);
             BubbleHealthValue.textColor = GetDetailHealthColor(healthIndex);
 
-            string wellbeingSprite = GetDetailHappinessSprite(citizen.Wellbeing);
-            BubbleRow2WellbeingIcon.normalBgSprite = wellbeingSprite;
-            BubbleRow2WellbeingIcon.tooltip = FavCimsLang.Text("CitizenWellbeingLabel") + " " + FavCimsLang.Text(wellbeingSprite);
+            BubbleRow2WellbeingIcon.normalBgSprite = GetDetailWellbeingSprite(citizen.Education, citizen.Wellbeing);
 
-            BubbleRow2WealthValueVal.tooltip = FavCimsLang.Text("CitizenWealthLabel");
-            string wealthKey;
+            int wellbeingIndex = Mathf.Clamp((int)Citizen.GetWellbeingLevel(citizen.Education, citizen.Wellbeing), 0, DetailWellbeingNames.Length - 1);
+
+            string citizenWellbeing = "CitizenWellbeing" + DetailWellbeingNames[wellbeingIndex] + "Status";
+
+            BubbleRow2WellbeingIcon.tooltip = FavCimsLang.Text("CitizenWellbeingLabel") + FavCimsLang.Text(citizenWellbeing);
+
+            string wealth;
             Color32 wealthColor;
             if (citizen.Wealth == 0)
             {
-                wealthKey = "LowWealth";
+                wealth = "Low";
                 wealthColor = new Color32(153, 0, 0, 255);
             }
             else if (citizen.Wealth == Citizen.Wealth.Medium)
             {
-                wealthKey = "MidWealth";
+                wealth = "Medium";
                 wealthColor = new Color32(140, 110, 0, 255);
             }
             else
             {
-                wealthKey = "HighWealth";
+                wealth = "High";
                 wealthColor = new Color32(83, 166, 0, 255);
             }
-            BubbleRow2WealthValueVal.text = FavCimsLang.Text(wealthKey + gender);
+
+            string citizenWealth = "CitizenWealth" + wealth + "Status";
+            BubbleRow2WealthValueVal.text = FavCimsLang.Text(citizenWealth);
             BubbleRow2WealthValueVal.textColor = wealthColor;
+            BubbleRow2WealthValueVal.tooltip = FavCimsLang.Text("CitizenWealthLabel");
 
             if (citizen.IsArrested && citizen.IsCriminal)
             {
@@ -88,17 +132,27 @@ namespace FavoriteCims.UI.Panels
             }
             else
             {
-                string happinessSprite = GetDetailHappinessSprite(citizen.Happiness);
                 BubbleRow1HappyIcon.atlas = UIView.GetAView().defaultAtlas;
-                BubbleRow1HappyIcon.normalBgSprite = happinessSprite;
-                BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("CitizenHappinessLabel") + " " + FavCimsLang.Text(happinessSprite);
+                BubbleRow1HappyIcon.normalBgSprite = GetDetailHappinessSprite(citizen.Happiness);
+
+                int happinessIndex = Mathf.Clamp((int)Citizen.GetHappinessLevel(citizen.Happiness), 0, DetailHappinessNames.Length - 1);
+
+                string citizenHappiness = "CitizenHappiness" + DetailHappinessNames[happinessIndex] + "Status";
+
+                BubbleRow1HappyIcon.tooltip = FavCimsLang.Text("CitizenHappinessLabel") + FavCimsLang.Text(citizenHappiness);
             }
+        }
+
+        private static string GetDetailWellbeingSprite(Citizen.Education education, int value)
+        {
+            int index = Mathf.Clamp((int)Citizen.GetWellbeingLevel(education, value), 0, DetailWellbeingNames.Length - 1);
+            return "NotificationIcon" + DetailMoodSpriteNames[index];
         }
 
         private static string GetDetailHappinessSprite(int value)
         {
             int index = Mathf.Clamp((int)Citizen.GetHappinessLevel(value), 0, DetailHappinessNames.Length - 1);
-            return "NotificationIcon" + DetailHappinessNames[index];
+            return "NotificationIcon" + DetailMoodSpriteNames[index];
         }
 
         private static Color32 GetDetailHealthColor(int index)

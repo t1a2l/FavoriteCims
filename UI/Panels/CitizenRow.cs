@@ -215,9 +215,9 @@ namespace FavoriteCims.UI.Panels
                 view.SetName(data.Name);
                 view.SetCitizenType(data.IsTourist);
                 view.SetGender(data.Gender);
-                view.SetEducation(data.Education, data.Gender);
+                view.SetEducation(data.Education);
                 view.SetHappiness(data.HappinessLevel);
-                view.SetAge(data.GameAge, data.RealAge, data.Gender);
+                view.SetAge(data.GameAge, data.RealAge);
                 view.SetCurrentDistrict(GetDistrictName(data.Home.DistrictId));
 
                 RefreshHome();
@@ -296,8 +296,6 @@ namespace FavoriteCims.UI.Panels
                 view.SetArrested(data);
                 return;
             }
-
-            view.SetNormalHappiness(data.HappinessLevel);
         }
 
         private void RefreshFamilyButton()

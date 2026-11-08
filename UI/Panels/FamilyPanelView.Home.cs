@@ -30,7 +30,7 @@ namespace FavoriteCims.UI.Panels
             {
                 if (citizen.HomeBuilding == 0)
                 {
-                    BubbleHomeName.text = FavCimsLang.Text("CitizenHomeLess");
+                    BubbleHomeName.text = FavCimsLang.Text("CitizenHomelessStatus");
                     BubbleHomeName.tooltip = FavCimsLang.Text("CitizenHomeLessTooltip");
                     BubbleHomeIcon.texture = TextureDB.FavCimsCitizenHomeTextureHomeless;
                     BubbleHomeIcon.tooltip = FavCimsLang.Text("DistrictNameNoDistrict");

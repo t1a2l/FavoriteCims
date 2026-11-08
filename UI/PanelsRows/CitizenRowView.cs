@@ -57,21 +57,24 @@ namespace FavoriteCims.UI.PanelsRows
         private float activityColumnWidth;
         private float closeColumnWidth;
 
-        private static readonly string[] HappinessLevels =
+        private static readonly string[] DetailAgeGroupNames =
         [
-            "VeryUnhappy",
-            "Unhappy",
-            "Happy",
-            "VeryHappy",
-            "ExtremelyHappy"
+            "Child", "Teen", "Young", "Adult", "Senior"
         ];
 
-        private static readonly string[] EducationLevels =
+        private static readonly string[] DetailHappinessSpriteNames =
         [
-            "Uneducated",
-            "Educated",
-            "WellEducated",
-            "HighlyEducated"
+            "VeryUnhappy", "Unhappy", "Happy", "VeryHappy", "ExtremelyHappy"
+        ];
+
+        private static readonly string[] DetailHappinessNames =
+        [
+            "Bad", "Poor", "Good", "Excellent", "Superb"
+        ];
+
+        private static readonly string[] DetailEducationNames =
+        [
+            "Uneducated", "Educated", "WellEducated", "HighlyEducated"
         ];
 
         public bool IsReady { get; private set; }
@@ -382,11 +385,9 @@ namespace FavoriteCims.UI.PanelsRows
             nameButton.tooltip = FavCimsLang.Text("CitizenCurrentDistrictLabel") + districtName;
         }
 
-        public void SetEducation(Citizen.Education education, Citizen.Gender gender)
+        public void SetEducation(Citizen.Education education)
         {
-            string genderSuffix = gender == Citizen.Gender.Female ? "Female" : "Male";
-
-            educationButton.text = FavCimsLang.Text("CitizenEducation" + EducationLevels[(int)education] + genderSuffix);
+            educationButton.text = FavCimsLang.Text("CitizenEducation" + DetailEducationNames[(int)education] + "Status");
 
             switch (education)
             {
@@ -415,19 +416,17 @@ namespace FavoriteCims.UI.PanelsRows
         {
             happinessIcon.atlas = UIView.GetAView().defaultAtlas;
             happinessIcon.normalBgSprite = GetHappinessSprite(happiness);
-            happinessIcon.tooltip = FavCimsLang.Text("CitizenHappiness" + HappinessLevels[(int)happiness] + "Status");
+            happinessIcon.tooltip = FavCimsLang.Text("CitizenHappiness" + DetailHappinessNames[(int)happiness] + "Status");
 
             happinessOverride.texture = null;
             happinessOverride.tooltip = null;
         }
 
-        public void SetAge(int gameAge, int realAge, Citizen.Gender gender)
+        public void SetAge(int gameAge, int realAge)
         {
-            string genderSuffix = gender == Citizen.Gender.Female ? "Female" : "Male";
+            var ageGroup = Citizen.GetAgeGroup(gameAge);
 
-            string ageGroup = Citizen.GetAgeGroup(gameAge).ToString();
-
-            agePhaseButton.text = FavCimsLang.Text("CitizenLifeStage" + ageGroup + genderSuffix);
+            agePhaseButton.text = FavCimsLang.Text("CitizenLifeStage" + DetailAgeGroupNames[(int)ageGroup] + "Status");
 
             realAgeButton.text = realAge.ToString();
 
@@ -517,16 +516,6 @@ namespace FavoriteCims.UI.PanelsRows
             activityVehicleButton.tooltip = data.VehicleTooltip;
         }
 
-        public void SetNormalHappiness(Citizen.Happiness happiness)
-        {
-            happinessIcon.atlas = UIView.GetAView().defaultAtlas;
-            happinessIcon.normalBgSprite = GetHappinessSprite(happiness);
-            happinessIcon.tooltip = FavCimsLang.Text("CitizenHappiness" + HappinessLevels[(int)happiness] + "Status");
-
-            happinessOverride.texture = null;
-            happinessOverride.tooltip = null;
-        }
-
         public void SetArrested(CitizenRowData data)
         {
             happinessIcon.atlas = MyAtlas.FavCimsAtlas;
@@ -554,7 +543,7 @@ namespace FavoriteCims.UI.PanelsRows
             nameButton.text = data.Name;
             nameButton.tooltip = data.NameTooltip;
 
-            agePhaseButton.text = FavCimsLang.Text("CitizenLifeStageDeceased" + (data.Gender == Citizen.Gender.Female ? "Female" : "Male"));
+            agePhaseButton.text = FavCimsLang.Text("CitizenLifeStageDeceasedStatus");
 
             homeCell.ShowState(FavCimsLang.Text("CitizenHomeCemeteryStatus"), null, BuildingIconData.FromSprite(MyAtlas.FavCimsAtlas, "GraveIcon"));
             workplaceCell.DisableNavigationAndDetails();
@@ -606,7 +595,7 @@ namespace FavoriteCims.UI.PanelsRows
 
         private static string GetHappinessSprite(Citizen.Happiness happiness)
         {
-            return "NotificationIcon" + HappinessLevels[(int)happiness];
+            return "NotificationIcon" + DetailHappinessSpriteNames[(int)happiness];
         }
 
         public override void OnDestroy()
