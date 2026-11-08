@@ -49,12 +49,14 @@ namespace FavoriteCims.UI.Panels
             resizeClose = close;
             resizeScrollHost = scrollHost;
             resizeScrollbar = bar;
+
             resizeHeaders =
             [
                 FavCimsHappinesColText, FavCimsNameColText, FavCimsAgePhaseColText,
                 FavCimsAgeColText, FavCimsEduColText, FavCimsHomeColText,
                 FavCimsWorkingPlaceColText, FavCimsLastActColText, FavCimsCloseButtonCol
             ];
+            InitializeMainColumnControls();
 
             resizeHandle = AddUIComponent<UIButton>();
             resizeHandle.name = "FavoriteCimsResizeHandle";
@@ -242,35 +244,8 @@ namespace FavoriteCims.UI.Panels
             resizeFooter.width = rowWidth + 12f;
             resizeFooter.relativePosition = new Vector3(21f, 33f + viewportHeight);
 
-            float[] minimum =
-            [
-                60f, 110f, 90f, 40f, 120f, 120f, 120f, 140f, 65f
-            ];
-
-            float[] flexible =
-            [
-                0f, 0.20f, 0f, 0f, 0f, 0.25f, 0.25f, 0.30f, 0f
-            ];
-
-            float minimumTotal = 0f;
-            for (int i = 0; i < minimum.Length; i++)
-            {
-                minimumTotal += minimum[i];
-            }
-
-            float scale = Mathf.Min(1f, rowWidth / minimumTotal);
-            float extra = Mathf.Max(0f, rowWidth - minimumTotal);
-
-            FavCimsCloseButtonCol.textPadding = new RectOffset(0, 0, 0, 0);
-
-            float x = 27f;
-            for (int i = 0; i < resizeHeaders.Length; i++)
-            {
-                float columnWidth = minimum[i] * scale + extra * flexible[i];
-                resizeHeaders[i].width = columnWidth;
-                resizeHeaders[i].relativePosition = new Vector3(x, 8f);
-                x += columnWidth;
-            }
+            ApplyMainColumnLayout(rowWidth);
+            PositionMainColumnControls();
 
             resizeHandle.relativePosition = new Vector3(width - 25f, height - 24f);
             resetSizeButton.relativePosition = new Vector3(15f, height - 24f);
@@ -280,6 +255,8 @@ namespace FavoriteCims.UI.Panels
 
         private void ReleaseMainWindowResize()
         {
+            ReleaseMainColumnControls();
+
             resizeDragging = false;
 
             if (resizeHandle != null)

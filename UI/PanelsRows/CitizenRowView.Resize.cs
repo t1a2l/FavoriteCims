@@ -9,6 +9,7 @@ namespace FavoriteCims.UI.PanelsRows
         private UIButton[] resizeRowHeaders;
         private UIComponent[] resizeRowColumns;
         private float[] previousColumnWidths;
+        private bool[] previousColumnVisibility;
 
         /// <summary>Uses header widths for every row column, including shared building cells.</summary>
         private void ApplyCurrentColumnWidths()
@@ -35,22 +36,48 @@ namespace FavoriteCims.UI.PanelsRows
                     workplaceCell.Column, activityButton.parent, closeButton.parent
                 ];
                 previousColumnWidths = new float[resizeRowHeaders.Length];
+                previousColumnVisibility = new bool[resizeRowHeaders.Length];
             }
             bool changed = false;
+
             for (int i = 0; i < resizeRowHeaders.Length; i++)
             {
-                if (!Mathf.Approximately(previousColumnWidths[i], resizeRowHeaders[i].width)) changed = true;
+                bool visible = FavoriteCimsMainPanel.IsMainColumnVisible(i);
+
+                if (previousColumnVisibility[i] != visible || !Mathf.Approximately(previousColumnWidths[i], resizeRowHeaders[i].width))
+                {
+                    changed = true;
+                }
             }
-            if (!changed) return;
+
+            if (!changed)
+            {
+                return;
+            }
+
             float x = 0f;
+
             for (int i = 0; i < resizeRowColumns.Length; i++)
             {
+                bool visible = FavoriteCimsMainPanel.IsMainColumnVisible(i);
                 float columnWidth = resizeRowHeaders[i].width;
+
+                previousColumnVisibility[i] = visible;
                 previousColumnWidths[i] = columnWidth;
+
+                resizeRowColumns[i].isVisible = visible;
+
+                if (!visible)
+                {
+                    continue;
+                }
+
                 resizeRowColumns[i].width = columnWidth;
                 resizeRowColumns[i].relativePosition = new Vector3(x, 0f);
+
                 x += columnWidth;
             }
+
             width = x;
             rowPanel.width = x;
             rowBackground.width = x;

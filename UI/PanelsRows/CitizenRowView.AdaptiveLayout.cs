@@ -86,15 +86,32 @@ namespace FavoriteCims.UI.PanelsRows
         {
             float required = RowHeight;
             float nameHeight = 0f;
+
             for (int i = 0; i < adaptiveButtons.Length; i++)
             {
                 var button = adaptiveButtons[i];
+
+                if (!button.parent.isVisible)
+                {
+                    continue;
+                }
+
                 var padding = button.textPadding;
+
                 float measured = adaptiveMetrics[i].Read(button.text, button.font, button.textScale, Mathf.Max(1f, button.width - padding.left - padding.right));
+
                 measured += padding.top + padding.bottom;
-                if (i == 0) nameHeight = measured;
-                else required = Mathf.Max(required, measured + ContentPadding * 2f);
+
+                if (i == 0)
+                { 
+                    nameHeight = measured; 
+                }
+                else 
+                { 
+                    required = Mathf.Max(required, measured + ContentPadding * 2f); 
+                }
             }
+
             float typeHeight = typeMetric.Read(citizenTypeLabel.text, citizenTypeLabel.font, citizenTypeLabel.textScale, Mathf.Max(1f, citizenTypeLabel.width));
             float gap = typeHeight > 0f ? NameTypeGap : 0f;
             required = Mathf.Ceil(Mathf.Max(required, nameHeight + gap + typeHeight + ContentPadding * 2f));

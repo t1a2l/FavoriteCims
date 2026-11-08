@@ -93,6 +93,10 @@ namespace FavoriteCims.UI.Panels
 
             FavCimsCloseButtonCol.text = FavCimsLang.Text("CitizenRemoveColumnTitle");
             FavCimsCloseButtonCol.tooltip = FavCimsLang.Text("CitizenRemoveColumnTooltip");
+
+            RefreshMainColumnControlText();
+
+            columnsPopup?.Hide();
         }
 
         public override void Start()

@@ -649,5 +649,16 @@ namespace FavoriteCims.UI.PanelsRows
             citizenTypeLabel.opacity = 1f;
             citizenTypeLabel.useDropShadow = false;
         }
+
+        public void RefreshColumnLayout()
+        {
+            if (!IsReady || adaptiveLayoutFailed)
+            {
+                return;
+            }
+
+            ApplyCurrentColumnWidths();
+            UpdateAdaptiveHeight();
+        }
     }
 }
