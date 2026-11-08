@@ -49,9 +49,7 @@ namespace FavoriteCims
             {
                 var instanceManager = Singleton<InstanceManager>.instance;
 
-                return instanceNamesField.GetValue(instanceManager) is not Dictionary<InstanceID, string> names
-                    ? []
-                    : new Dictionary<InstanceID, string>(names);
+                return instanceNamesField.GetValue(instanceManager) is not Dictionary<InstanceID, string> names ? [] : new Dictionary<InstanceID, string>(names);
             }
             catch (Exception ex)
             {
