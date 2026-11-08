@@ -20,6 +20,8 @@ namespace FavoriteCims.UI.Panels
         private UIPanel columnsPopup;
         private UIButton[] columnToggleButtons;
 
+        private static volatile bool mainColumnLayoutPending;
+
         public static bool IsMainColumnVisible(int index)
         {
             if (index < 0 || index >= mainColumnVisibility.Length)
@@ -29,6 +31,57 @@ namespace FavoriteCims.UI.Panels
 
             // Name and Remove are always visible.
             return index == 1 || index == 8 || mainColumnVisibility[index];
+        }
+
+        public static void ResetMainColumnVisibility()
+        {
+            for (int i = 0; i < mainColumnVisibility.Length; i++)
+            {
+                mainColumnVisibility[i] = true;
+            }
+
+            mainColumnLayoutPending = true;
+        }
+
+        public static void RestoreMainColumnVisibility(bool[] visibility)
+        {
+            if (visibility == null || visibility.Length != mainColumnVisibility.Length)
+            {
+                throw new System.ArgumentException("Expected nine main-panel column visibility values.", nameof(visibility));
+            }
+
+            for (int i = 0; i < mainColumnVisibility.Length; i++)
+            {
+                mainColumnVisibility[i] = i == 1 || i == 8 || visibility[i];
+            }
+
+            mainColumnLayoutPending = true;
+        }
+
+        private void ApplyPendingMainColumnVisibility()
+        {
+            if (!mainColumnLayoutPending || resizeHeaders == null
+                || FavCimsCitizenRowsPanel == null)
+            {
+                return;
+            }
+
+            mainColumnLayoutPending = false;
+
+            Vector2 previousScroll = FavCimsCitizenRowsPanel.scrollPosition;
+
+            ApplyMainColumnLayout(FavCimsCitizenRowsPanel.width);
+
+            var rows = FavCimsCitizenRowsPanel.GetComponentsInChildren<FavoriteCims.UI.PanelsRows.CitizenRowView>();
+
+            foreach (var row in rows)
+            {
+                row.RefreshColumnLayout();
+            }
+
+            FavCimsCitizenRowsPanel.scrollPosition = previousScroll;
+
+            RefreshMainColumnControlText();
         }
 
         private void InitializeMainColumnControls()

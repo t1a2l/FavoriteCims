@@ -168,11 +168,17 @@ namespace FavoriteCims.UI.Panels
                 resizeDragging = false;
                 return;
             }
+            ApplyPendingMainColumnVisibility();
             var container = FavCimsMainClass.FullScreenContainer;
             Vector2 containerSize = container != null ? new Vector2(container.width, container.height) : new Vector2(Screen.width, Screen.height);
             if (containerSize != resizeLastContainerSize)
-                ApplyMainWindowSize(new Vector2(width, height));
-            if (!resizeDragging) return;
+            { 
+                ApplyMainWindowSize(new Vector2(width, height)); 
+            }
+            if (!resizeDragging) 
+            { 
+                return; 
+            }
             StopMainWindowMovement();
             if (!Input.GetMouseButton(0))
             {
